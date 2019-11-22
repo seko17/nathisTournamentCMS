@@ -16,7 +16,11 @@ const routes: Routes = [
   {
     path: 'create-profile',
     loadChildren: () => import('./pages/create-profile/create-profile.module').then( m => m.CreateProfilePageModule)
+  },  {
+    path: 'setfixtures',
+    loadChildren: () => import('./pages/setfixtures/setfixtures.module').then( m => m.SetfixturesPageModule)
   },
+
 ];
 
 @NgModule({

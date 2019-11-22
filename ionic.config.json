@@ -1,5 +1,7 @@
 {
   "name": "nathisTournamentCMS",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

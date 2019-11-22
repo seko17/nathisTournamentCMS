@@ -15,5 +15,14 @@ export class HomePage {
     this.authService.logoutUser().then(() => {
       this.router.navigateByUrl('login');
     });
+    this.router.navigate(['setfixtures']);
   }
+
+
+
+  setfix()
+  {
+    this.router.navigate(['setfixtures'])
+  }
+
 }
