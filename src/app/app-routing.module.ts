@@ -20,6 +20,10 @@ const routes: Routes = [
     path: 'setfixtures',
     loadChildren: () => import('./pages/setfixtures/setfixtures.module').then( m => m.SetfixturesPageModule)
   },
+  {
+    path: 'fixtures',
+    loadChildren: () => import('./pages/fixtures/fixtures.module').then( m => m.FixturesPageModule)
+  },
 
 ];
 

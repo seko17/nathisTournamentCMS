@@ -9,6 +9,16 @@
 <ion-content>
   <div class="ion-padding">
     <!-- <ion-button (click)="log()">logout</ion-button> -->
-    <ion-button (click) ="setfix()">Setfix</ion-button>
+    <ion-label>Manager</ion-label>
+    <ion-input type ="text" [(ngModel)] ="team.Manager"></ion-input>
+    <ion-label>TeamName</ion-label>
+    <ion-input type ="text" [(ngModel)] ="team.TeamName"></ion-input>
+    <ion-label>Tournament</ion-label>
+    <ion-input type ="text" [(ngModel)] ="team.Tournament"></ion-input>
+    <ion-label>Random</ion-label>
+    <ion-input type ="text" [(ngModel)] ="team.randomnum"></ion-input>
+    <ion-label>Where</ion-label>
+    <ion-input type ="text" [(ngModel)] ="team.whr"></ion-input>
+    <ion-button (click) ="setfix(team)">Setfix</ion-button>
   </div>
 </ion-content>

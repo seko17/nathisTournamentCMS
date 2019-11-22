@@ -1,29 +1,34 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>setfixtures</ion-title>
+    <ion-title>fixtures</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content forceOverscroll="false">
+<ion-content>
   <ion-grid>
  
-   
+ 
+ 
+    
  
     <ion-row no-padding class="matrix">
-      <ion-col size="6" class="q1">
+      <ion-col size="5" class="q1">
         <div class="q-header">HOME</div>
-        <ion-list dragula="bag" [(dragulaModel)]="q1" lines="none">
+        <ion-list  >
           <ion-item *ngFor="let item of q1" [color]="item.color" expand="block" text-wrap>
             {{ item.TeamName }}
+            <ion-datetime displayFormat="MM/DD/YYYY" min="2019-11-22" max="2020-12-31"   [(ngModel)] =item.tdate></ion-datetime>
           </ion-item>
         </ion-list>
       </ion-col>
- 
-      <ion-col size="6" class="q2">
+ <ion-col><p>VS</p></ion-col>
+      <ion-col size="5" class="q2">
         <div class="q-header">AWAY</div>
-        <ion-list dragula="bag" [(dragulaModel)]="q2" lines="none">
+        <ion-list  >
           <ion-item *ngFor="let item of q2" [color]="item.color" expand="block" text-wrap>
             {{ item.TeamName }}
+            <ion-datetime displayFormat="MM/DD/YYYY" min="2019-11-22" max="2020-12-31"   [(ngModel)] =item.tdate></ion-datetime>
+          
           </ion-item>
         </ion-list>
       </ion-col>
@@ -35,7 +40,6 @@
   </ion-grid>
  
   <ion-row class="delete-area" align-items-center justify-content-center>
-    <ion-button (click) ="savefixture()"><ion-icon name="checkmark" color="medium"></ion-icon>PUBLISH</ion-button>
+    <ion-button (click) ="savefixture(q1,q2)"><ion-icon name="checkmark" color="medium"></ion-icon>DONE</ion-button>
   </ion-row>
- 
 </ion-content>
