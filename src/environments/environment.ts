@@ -3,8 +3,22 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false ,
+  
+
 };
+export const a = {
+
+    apiKey: "AIzaSyCqgZTC37DgUXU7MWeIaNXP7TSTP0SkI2o",
+    authDomain: "nathistournamentdb.firebaseapp.com",
+    databaseURL: "https://nathistournamentdb.firebaseio.com",
+    projectId: "nathistournamentdb",
+    storageBucket: "nathistournamentdb.appspot.com",
+    messagingSenderId: "743242408134",
+    appId: "1:743242408134:web:2703a7893797b61390f7c7",
+    measurementId: "G-CZTDVW6TRX"
+  
+}
 
 /*
  * For easier debugging in development mode, you can import the following file
