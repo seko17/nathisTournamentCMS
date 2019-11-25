@@ -8,30 +8,24 @@
   <ion-grid>
  
  
- 
+ <ion-row>
+  <ion-button (click) ="ManualFix()">Set Fixtures manually?</ion-button>
+
+ </ion-row>
     
  
     <ion-row no-padding class="matrix">
-      <ion-col size="5" class="q1">
-        <div class="q-header">HOME</div>
+      <ion-col  class="q1">
+        <div align = "center">Fixtures</div>
         <ion-list  >
-          <ion-item *ngFor="let item of q1" [color]="item.color" expand="block" text-wrap>
-            {{ item.TeamName }}
-            <ion-datetime displayFormat="MM/DD/YYYY" min="2019-11-22" max="2020-12-31"   [(ngModel)] =item.tdate></ion-datetime>
+          <ion-item *ngFor="let item of fixture" [color]="item.color">
+            {{ item.TeamName }} vs {{item.aTeamName}}
+            <ion-datetime displayFormat="MM/DD/YYYY hh:mm" min="2019-11-22" max="2020-12-31"   [(ngModel)] =item.matchdate></ion-datetime>
           </ion-item>
         </ion-list>
       </ion-col>
- <ion-col><p>VS</p></ion-col>
-      <ion-col size="5" class="q2">
-        <div class="q-header">AWAY</div>
-        <ion-list  >
-          <ion-item *ngFor="let item of q2" [color]="item.color" expand="block" text-wrap>
-            {{ item.TeamName }}
-            <ion-datetime displayFormat="MM/DD/YYYY" min="2019-11-22" max="2020-12-31"   [(ngModel)] =item.tdate></ion-datetime>
-          
-          </ion-item>
-        </ion-list>
-      </ion-col>
+
+    
  
      
  
@@ -40,6 +34,6 @@
   </ion-grid>
  
   <ion-row class="delete-area" align-items-center justify-content-center>
-    <ion-button (click) ="savefixture(q1,q2)"><ion-icon name="checkmark" color="medium"></ion-icon>DONE</ion-button>
+    <ion-button (click) ="savefixture(fixture)"><ion-icon name="checkmark" color="medium"></ion-icon>DONE</ion-button>
   </ion-row>
 </ion-content>
