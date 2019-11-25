@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class AllserveService {
 q1:any =[];
 q2:any =[];
+currentmatch:any ={};
 fixture:any =[];
   constructor() { }
 

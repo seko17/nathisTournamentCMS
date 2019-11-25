@@ -10,7 +10,7 @@
  
  <ion-row>
   <ion-button (click) ="ManualFix()">Set Fixtures manually?</ion-button>
-
+  
  </ion-row>
     
  
@@ -20,7 +20,7 @@
         <ion-list  >
           <ion-item *ngFor="let item of fixture" [color]="item.color">
             {{ item.TeamName }} vs {{item.aTeamName}}
-            <ion-datetime displayFormat="MM/DD/YYYY hh:mm" min="2019-11-22" max="2020-12-31"   [(ngModel)] =item.matchdate></ion-datetime>
+            <ion-datetime displayFormat="MM/DD/YYYY HH:mm" min="2019-11-22" max="2020-12-31"   [(ngModel)] =item.matchdate></ion-datetime>
           </ion-item>
         </ion-list>
       </ion-col>

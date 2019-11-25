@@ -73,10 +73,14 @@ q2 =[];
     console.log(x)
 
     
-    this.router.navigate(['fixtures'])
-
-
-  
+  this.router.navigate(['fixtures']);
   }
+
+  currtourn()
+  {
+this.router.navigate(['currtourn']);
+
+  }
+
 
 }

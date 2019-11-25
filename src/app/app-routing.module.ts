@@ -24,6 +24,14 @@ const routes: Routes = [
     path: 'fixtures',
     loadChildren: () => import('./pages/fixtures/fixtures.module').then( m => m.FixturesPageModule)
   },
+  {
+    path: 'currtourn',
+    loadChildren: () => import('./pages/currtourn/currtourn.module').then( m => m.CurrtournPageModule)
+  },
+  {
+    path: 'currentmatch',
+    loadChildren: () => import('./pages/currentmatch/currentmatch.module').then( m => m.CurrentmatchPageModule)
+  },
 
 ];
 

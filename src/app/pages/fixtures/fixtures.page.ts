@@ -33,7 +33,7 @@ export class FixturesPage implements OnInit {
       for(let r =0;r<q1.length;r++)
       {
 let z:any ={};
-z ={...q1[r],random1:Math.floor((Math.random() * r) *2),random2:Math.floor((Math.random() * r) +3),matchtime:"00:00"};
+z ={timer:0,ascore:0,score:0,...q1[r],random1:Math.floor((Math.random() * r) *2),random2:Math.floor((Math.random() * r) +3),matchtime:"00:00"};
 
 
        console.log("Tdate =",z);

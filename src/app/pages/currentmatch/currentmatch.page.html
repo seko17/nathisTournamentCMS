@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>currentmatch</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <ion-grid *ngFor = "let x of currentmatch">
+      <ion-row>
+          <ion-col>
+    HOME
+          </ion-col>
+          <ion-col>
+           AWAY
+          </ion-col>
+      </ion-row>
+    <ion-row>
+      <ion-col>
+{{x.TeamName}}
+      </ion-col>
+      <ion-col>
+        {{x.aTeamName}}
+      </ion-col>
+   
+    </ion-row>
+    <ion-row>
+      <ion-col>
+{{x.score}}
+      </ion-col>
+      <ion-col>
+        {{x.ascore}}
+      </ion-col>
+   
+    </ion-row>
+    <ion-row>
+      Timer: {{x.timer}}
+    </ion-row>
+</ion-grid>
+</ion-content>
