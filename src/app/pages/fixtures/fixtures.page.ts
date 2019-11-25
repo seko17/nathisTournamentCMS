@@ -17,8 +17,9 @@ export class FixturesPage implements OnInit {
   fixture =[];
   ngOnInit() {
     
-    this.presentLoading();
-    this.fixture =this.serve.fixture;
+   
+ 
+    
   }
 
  
@@ -62,6 +63,7 @@ z ={...q1[r],random1:Math.floor((Math.random() * r) *2),random2:Math.floor((Math
     this.router.navigate(['home']);
     }
  
+    
       }
 
       
@@ -74,31 +76,21 @@ z ={...q1[r],random1:Math.floor((Math.random() * r) *2),random2:Math.floor((Math
 
 
 async presentLoading() {
+
+  
+
   const loading = await this.loadingController.create({
     message: 'Setting Fixtures',
-    duration: 2000
+    duration: 4000
   });
   await loading.present();
 
     await loading.onDidDismiss().then(val=>{
     
-    console.log(this.q1.length)
-    for(let v = 0;v<this.q1.length;v++)
-    {
-      console.log(v)
- 
+    
+      this.fixture =this.serve.fixture;
 
-  let away:any ={
-aManager:this.q2[v].Manager,
-aTeamName:this.q2[v].TeamName,
-Tournament:this.q2[v].Tournament,
-awhr:this.q2[v].whr
-  }
-
-  console.log("away object = ",away)
-  console.log({...this.q1[v],...away})
-  this.fixture.push({...this.q1[v],...away});
-    }
+      console.log("Serve Array = ",this.fixture)
   
   })
 
@@ -108,28 +100,10 @@ awhr:this.q2[v].whr
 
   ionViewWillEnter()
   {
-    this. q1 =[];
-    this.q2 =[];
-
-    firebase.firestore().collection('prefixtures').where("quadrant","==",'q2').get().then(val=>{
-      val.forEach(res=>{
-      
-        // console.log({... {id:res.id} ,...res.data()})
-        this.q1.push({... {id:res.id} ,...res.data(),...{color: 'primary'}});
-        console.log(this.q1)
-      })
-    })
+ 
+    this.presentLoading();
     
-    
-    firebase.firestore().collection('prefixtures').where("quadrant","==","q1").get().then(val=>{
-      val.forEach(res=>{
-      
-        // console.log({... {id:res.id} ,...res.data()})
-        this.q2.push({... {id:res.id} ,...res.data(),...{color: 'secondary'}});
-        console.log(this.q2)
-      })
-    }) 
-    this.serve.randomfixture(this.q1,this.q2);
+   
   }
 
 

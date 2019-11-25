@@ -103,36 +103,23 @@ firebase.firestore().collection('participants').where("whr","==",'away').get().t
     console.log("Q1 = ",this.q1);
     console.log("Q2 =",this.q2);
 //if fixtures are not equal in assignment
-
+this.serve.fixture =[];
 
 this.serve.randomfixture(this.q1,this.q2);
-//     if(this.q1.length != this.q2.length)
-//     {
-// console.log("Fixtures not correct")
-// const alert = await this.alertController.create({
-//   header: 'Alert',
-//   subHeader: 'Subtitle',
-//   message: 'This is an alert message.',
-//   buttons: ['OK']
-// });
-//     }
-//     else
-//     {
-//       for(let r =0;r<this.q1.length;r++)
-//       {
-// let z:any ={};
-// z ={...this.q2[r],quadrant:"q2"};
+    if(this.q1.length != this.q2.length)
+    {
+console.log("Fixtures not correct")
+const alert = await this.alertController.create({
+  header: 'Alert',
+  subHeader: 'Subtitle',
+  message: 'This is an alert message.',
+  buttons: ['OK']
+});
+    }
 
-// let y:any ={};
-// y ={...this.q1[r],quadrant:"q1"};
-//         // console.log("Q2 =",z);
-
-//     // firebase.firestore().collection('prefixtures').add(z);
-//     // firebase.firestore().collection('prefixtures').add(y);
-//       }
 
       this.router.navigate(['fixtures']);
-    // }
+   
 
   }
 ionViewWillLeave()

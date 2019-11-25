@@ -27,7 +27,7 @@ team:any ={};
     await loading.present();
 
     await loading.onDidDismiss().then(role=>{
-      this.serve.randomfixture(this.q1,this.q2)
+      this.serve.randomfixture(this.q1,this.q2);
     });
 
     console.log('Loading dismissed!');
