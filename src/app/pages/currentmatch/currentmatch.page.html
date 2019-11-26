@@ -35,7 +35,13 @@
    
     </ion-row>
     <ion-row>
-      Timer: {{x.timer}}
+      Timer: {{mins}}:{{timer}}
     </ion-row>
 </ion-grid>
+<ion-row>
+<ion-col><ion-button (click) ="firsthalf()" [hidden] ="btn1">{{btntxt1}}</ion-button></ion-col>
+<ion-col><ion-button (click) ="stop()">Stop</ion-button></ion-col>
+<ion-col><ion-button (click) ="secondhalf()" [hidden] ="btn2">{{btntxt2}}</ion-button></ion-col>
+
+</ion-row>
 </ion-content>
