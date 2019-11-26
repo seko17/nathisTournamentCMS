@@ -21,9 +21,15 @@ btn1 =false;
 btn2 =true;
   constructor(public alertController: AlertController,public plt:Platform,public serve:AllserveService,public router:Router) {
 
+
+
+
+
     firebase.firestore().collection('MatchFixtures').doc(this.serve.currentmatch.id).get().then(val=>{
 
-    
+    this.score =val.data().score;
+    this.ascore =val.data().ascore;
+    this.tourname =val.data().Tournament;
       if(val.data().mins>0&&val.data().mins<=46)
       {
        this.btntxt1 ="Resume First Half";
@@ -81,7 +87,7 @@ this.mins=this.mins+1;
         }
 
 
-        firebase.firestore().collection('MatchFixtures').doc(this.serve.currentmatch.id).update({timer:this.timer+1,mins:this.mins});
+ firebase.firestore().collection('MatchFixtures').doc(this.serve.currentmatch.id).update({timer:this.timer+1,mins:this.mins});
       })
   
   
@@ -179,7 +185,62 @@ secondhalf()
 
 
 
+async ionViewWillLeave()
+{
+  const alert = await this.alertController.create({
+    header: 'Alert',
+    subHeader: 'Warning!',
+    message: 'Leaving this page during a match will pause any ongoing matches!',
+    buttons: ['OK']
+  });
+
+  await alert.present();
+  this.sub.unsubscribe();
+}
+
+score;
+ascore;
+tourname;
+id;
+goal1()
+{
+console.log("click",this.tourname);
+  firebase.firestore().collection('Top4').where("Tournament","==",this.tourname).get().then(val=>{
+    
+    val.forEach(res=>{
+      this.score =res.data().score;
+      console.log(res.data())
+      this.id =res.id;
+      console.log( this.id)
+      firebase.firestore().collection('Top4').doc(this.id).update({score:this.score+1,scoretime:this.mins.toString()+this.timer.toString()});
+
+    })
+    
+})
+firebase.firestore().collection('MatchFixtures').doc(this.serve.currentmatch.id).update({score:this.score+1});
+
+           
+    
+
+      
+}
 
 
+goal2()
+{
+  console.log("click",this.tourname);
+  firebase.firestore().collection('Top4').where("Tournament","==",this.tourname).get().then(val=>{
+    
+    val.forEach(res=>{
+      this.ascore =res.data().ascore;
+      console.log(res.data())
+      this.id =res.id;
+      console.log( this.id)
+      firebase.firestore().collection('Top4').doc(this.id).update({ascore:this.ascore+1,scoretime:this.mins.toString()+this.timer.toString()});
 
+    })
+    
+            })
+            firebase.firestore().collection('MatchFixtures').doc(this.serve.currentmatch.id).update({ascore:this.ascore+1});
+}
 }
