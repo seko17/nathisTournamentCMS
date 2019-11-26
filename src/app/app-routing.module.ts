@@ -16,7 +16,8 @@ const routes: Routes = [
   {
     path: 'create-profile',
     loadChildren: () => import('./pages/create-profile/create-profile.module').then( m => m.CreateProfilePageModule)
-  },  {
+  },
+  {
     path: 'setfixtures',
     loadChildren: () => import('./pages/setfixtures/setfixtures.module').then( m => m.SetfixturesPageModule)
   },
@@ -25,6 +26,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/fixtures/fixtures.module').then( m => m.FixturesPageModule)
   },
   {
+    // Current Tournament Page
     path: 'currtourn',
     loadChildren: () => import('./pages/currtourn/currtourn.module').then( m => m.CurrtournPageModule)
   },
