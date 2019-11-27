@@ -3,6 +3,7 @@ import { AuthFormComponent } from 'src/app/components/auth-form/auth-form.compon
 import { AuthService } from 'src/app/services/user/auth.service';
 import { Router } from '@angular/router';
 import { UserCredential } from 'src/app/model/user';
+import { NavController } from '@ionic/angular';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -10,7 +11,7 @@ import { UserCredential } from 'src/app/model/user';
 })
 export class LoginPage implements OnInit {
   @ViewChild(AuthFormComponent, { static: false }) loginForm: AuthFormComponent;
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, public navCtrl: NavController) {}
 
   ngOnInit() {}
 
@@ -22,7 +23,7 @@ export class LoginPage implements OnInit {
       );
       this.authService.userId = userCredential.user.uid;
       await this.loginForm.hideLoading();
-      this.router.navigateByUrl('home');
+      this.navCtrl.navigateRoot('home')
     } catch (error) {
       await this.loginForm.hideLoading();
       this.loginForm.handleError(error);

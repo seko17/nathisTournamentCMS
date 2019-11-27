@@ -1,12 +1,42 @@
-form {
+ion-button {
+  --background: white;
+  --color: black;
+  --border-radius: 200px !important;
+  --width: 50%;
+  margin: auto;
+}
+.container {
+
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 18, 66, 0.432)),url(../../../assets/35060wide.jpg);
+  display: grid;
+  align-content: center;
+  background-size: cover;
+
+  form {
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    box-shadow: 0px 3px 3px #171717;
+    margin: auto;
+    display: flex;
+    // flex-direction: column;
+    align-items: center;
+    align-content: center;
+    width: 500px;
+    height: 500px;
     padding: 12px;
     margin-bottom: 32px;
+    .align {
+      text-align: center;
+      width: 90%;
+      margin: auto;
+      
+    }
     ion-button {
       margin-top: 30px;
     }
-  }
-  
-  p {
+     p {
     font-size: 0.8em;
     color: #d2d2d2;
   }
@@ -34,3 +64,5 @@ form {
       border-bottom: 0;
     }
   }
+  }
+}

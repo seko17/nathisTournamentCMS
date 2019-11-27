@@ -1,29 +1,234 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <div class="ion-padding">
-    <!-- <ion-button (click)="log()">logout</ion-button> -->
-    <!-- <ion-label>Manager</ion-label>
-    <ion-input type ="text" [(ngModel)] ="team.Manager"></ion-input>
-    <ion-label>TeamName</ion-label>
-    <ion-input type ="text" [(ngModel)] ="team.TeamName"></ion-input>
-    <ion-label>Tournament</ion-label>
-    <ion-input type ="text" [(ngModel)] ="team.Tournament"></ion-input>
-    <ion-label>Random</ion-label>
-    <ion-input type ="text" [(ngModel)] ="team.randomnum"></ion-input>
-    <ion-label>Where</ion-label>
-    <ion-input type ="text" [(ngModel)] ="team.whr"></ion-input> -->
-    <ion-button (click) ="setfix(team)">Setfix</ion-button>
-    <pre>
+  <!-- (click)="toggleTournamentForm('close')" -->
+  <div class="newTournamentForm animated" [ngClass]="{'flipInX': creatingTournament,'flipOutX': !creatingTournament}">
+    <div class="form">
+      <form (ngSubmit)="newTournament(newTournForm.value)" [formGroup]="newTournForm">
+        <div class="header">
+        <ion-item>
+          <ion-label position="floating">Tournament Name</ion-label>
+          <ion-input type="text" formControlName="tournamentName"></ion-input>
+        </ion-item>
+      </div>
+      <div class="inputs">
+        <ion-item>
+          <ion-label position="floating">Tournament Type</ion-label>
+          <ion-select formControlName="type">
+              <ion-select-option value="8">Top 8</ion-select-option>
+              <ion-select-option value="16">Top 16</ion-select-option>
+              <ion-select-option value="32">Top 32</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Location</ion-label>
+          <ion-input type="text" formControlName="location"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Tournament Starts</ion-label>
+          <ion-datetime displayFormat="DDDD MMMM YYYY" formControlName="startDate"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Tournament Ends</ion-label>
+          <ion-datetime displayFormat="DDDD MMMM YYYY" formControlName="endDate"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Joining Fee</ion-label>
+          <ion-input type="number" formControlName="joiningFee"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Application Closing Date</ion-label>
+          <ion-datetime displayFormat="MMMM DDDD YYYY" formControlName="applicationClosing"></ion-datetime>
+        </ion-item>
+      </div>
+      <div class="sButton">
+        <!--  -->
+        <ion-button type="submit" *ngIf="newTournForm.valid" shape="round">
+            Submit Tournament
+          </ion-button>
+          <ion-button *ngIf="!newTournForm.valid" shape="round" disabled=true>
+              Submit Tournament
+            </ion-button>
+      </div>
+      </form>
+      
+      <div class="sponsors">
 
+      </div>
+    </div>
+  </div>
+  <div class="sidebar">
+    <div class="logo">
+      <div class="letter">
+        <p>N</p>
+      </div>
+    </div>
+    <div class="links">
+      <ion-button fill="clear" (click)="changeView('main')">
+        <ion-icon slot="icon-only" name="home"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" (click)="changeView('tournaments')">
+        <ion-icon slot="icon-only" name="share"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" (click)="changeView('members')">
+        <ion-icon slot="icon-only" name="people"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+  <div class="container">
+    <div class="cmshead">
+      <div class="title">
+        <p>Nathi's Tournaments</p>
+      </div>
+      <div class="profile">
+        <div class="user">
+          <div class="details">
+            <p>Keketso</p>
+          </div>
+          <div class="pImage">
+            <img
+              src="https://images.unsplash.com/photo-1504710515126-acde274564d1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
+              alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cmsContentMain animated" [ngClass]="{'bounceInUp': screen.main,'bounceOutUp faster': !screen.main}">
+      <div class="tournaments">
+        <div class="links">
+          <button>
+            All
+          </button>
+          <button>
+            InPlay
+          </button>
+          <button>
+            Upcoming
+          </button>
+        </div>
+        <div class="tournamentList">
+          <div class="card" *ngFor="let item of tempCardGen">
+            <div class="color">
 
-    </pre>
-    <ion-button (click) ="currtourn()">Currtourn</ion-button>
+            </div>
+            <div class="details">
+              <p id="title"><b>Finest Cup Tournament</b></p>
+              <p>27 Jul, 2019 to 01 Oct, 2019</p>
+              <p>FNB Stadium</p>
+            </div>
+            <div class="more">
+              <div>
+                <p>8Teams</p>
+                <p>Playing</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tournamentDetails">
+        <div class="details">
+          <h4>Finest Cup Tournament</h4>
+          <p>Top 8</p>
+          <hr>
+          <p>8 Participants</p>
+          <p>From 25 Jul, to 26 Jul 2019</p>
+          <hr>
+          <p>Application Closing Date <br> 30Jul, 2019</p>
+        </div>
+        <div class="matchList">
+
+        </div>
+      </div>
+    </div>
+    <div class="cmsContentTourns animated"
+      [ngClass]="{'bounceInUp': screen.tournaments,'bounceOutUp faster': !screen.tournaments}">
+      <div class="tournaments">
+        <div class="links">
+          <button (click)="toggleTournamentForm('open')">
+            Create Tournament
+          </button>
+        </div>
+        <div class="tournamentList">
+          <div class="approvedTournaments">
+            <div class="title">
+              <h4>Approved Tournaments</h4>
+            </div>
+            <div class="approvedList">
+              <div class="card">
+
+              </div>
+            </div>
+          </div>
+          <div class="unaprovedTournaments">
+            <div class="title">
+              <h4>Created Tournaments</h4>
+            </div>
+            <div class="unapprovedList">
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tournamentDetails">
+        <div class="details">
+          <h4>Finest Cup Tournament</h4>
+          <p>Top 8</p>
+          <hr>
+          <p>8 Participants</p>
+          <p>From 25 Jul, to 26 Jul 2019</p>
+          <hr>
+          <p>Application Closing Date <br> 30Jul, 2019</p>
+        </div>
+        <div class="matchList">
+
+        </div>
+      </div>
+    </div>
+    <div class="cmsContentMembers animated"
+      [ngClass]="{'bounceInUp': screen.members,'bounceOutUp faster': !screen.members}">
+      <div class="tournaments">
+        <div class="links">
+          <button>
+            All
+          </button>
+          <button>
+            InPlay
+          </button>
+          <button>
+            Upcoming
+          </button>
+        </div>
+        <div class="tournamentList">
+          <div class="card" *ngFor="let item of tempCardGen">
+            <div class="color">
+
+            </div>
+            <div class="details">
+              <p id="title"><b>Finest Cup Tournament</b></p>
+              <p>27 Jul, 2019 to 01 Oct, 2019</p>
+              <p>FNB Stadium</p>
+            </div>
+            <div class="more">
+              <div>
+                <p>8Teams</p>
+                <p>Playing</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tournamentDetails">
+        <div class="details">
+          <h4>Finest Cup Tournament</h4>
+          <p>Top 8</p>
+          <hr>
+          <p>8 Participants</p>
+          <p>From 25 Jul, to 26 Jul 2019</p>
+          <hr>
+          <p>Application Closing Date <br> 30Jul, 2019</p>
+        </div>
+        <div class="matchList">
+
+        </div>
+      </div>
+    </div>
   </div>
 </ion-content>

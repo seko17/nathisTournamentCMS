@@ -1,0 +1,39 @@
+ion-item {
+  --background: rgba(255, 255, 255, 0.158) !important;
+  --background-activated: rgba(255, 255, 255, 0.74);
+  --background-focused: rgb(255, 255, 255);
+  --color: white;
+  border-radius: 200px;;
+  margin: 5px 0px;
+  font-weight: normal;
+}
+ion-button {
+  // --background: white;
+  --color: rgb(255, 255, 255);
+}
+.cmsTitle {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 300;color: white;
+  p {
+    margin: 0;
+    padding: 0;
+    letter-spacing: 20px;
+    font-weight: normal;
+  }
+  span {
+    font-weight: bolder;
+  }
+  p, span {
+    font-size: 50px;
+  }
+}
+.forgot {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
