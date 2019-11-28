@@ -144,13 +144,26 @@
            
             </ion-row>
 
+            
+
            <ion-col> <ion-button (click) ="homestats(x)">Home Stats</ion-button></ion-col>
            <ion-col> <ion-button (click) ="awaystats(x)">Away Stats</ion-button></ion-col>
 
   
 </ion-grid>
 
-
+<ion-col *ngFor = "let v of goals">
+    <ion-row><ion-col>Home Goal Scorers</ion-col> </ion-row>
+   <ion-row> {{v.goalscorer}}&nbsp; {{v.scoretime}}</ion-row>
+ 
+    
+     </ion-col>
+     <ion-col *ngFor = "let v of agoals">
+        <ion-row><ion-col>Home Goal Scorers</ion-col> </ion-row>
+       <ion-row> {{v.goalscorer}}&nbsp; {{v.scoretime}}</ion-row>
+     
+        
+         </ion-col>
 
 
 </ion-content>

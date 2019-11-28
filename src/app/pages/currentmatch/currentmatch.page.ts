@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import { Subscription, Observable, observable,timer } from 'rxjs';
 import { LoadingController, IonicModule, Platform, AlertController } from '@ionic/angular';
 import { AllserveService } from 'src/app/services/allserve.service';
+import { getOverlays } from '@ionic/core/dist/types/utils/overlays';
 @Component({
   selector: 'app-currentmatch',
   templateUrl: './currentmatch.page.html',
@@ -28,15 +29,21 @@ btn2 =true;
 
     firebase.firestore().collection('MatchFixtures').doc(this.serve.currentmatch.id).get().then(val=>{
 
+
+      console.log(this.currentmatch)
     this.score =val.data().score;
     this.ascore =val.data().ascore;
     this.tourname =val.data().Tournament;
       if(val.data().mins>0&&val.data().mins<=46)
       {
        this.btntxt1 ="Resume First Half";
+       this.btn1 =false;
+       this.btn2 =true;
       }
-      else  if(val.data().mins>0&&val.data().mins<=90)
+      else  if(val.data().mins>45&&val.data().mins<=90)
       {
+        this.btn1 =true;
+        this.btn2 =false;
         this.btntxt2 ="Resume Second Half";
       }
 
@@ -63,11 +70,35 @@ btn2 =true;
   ngOnInit() {
 
   }
-
+  input={data:[]};
+  ainput={data:[]};
 ionViewWillEnter()
 {
+  this.input={data:[]};
   this.currentmatch.push(this.serve.currentmatch);
   console.log("currentmatch = ",this.currentmatch);
+
+  firebase.firestore().collection('Players').where("TeamName","==", this.currentmatch[0].TeamName).get().then(val=>{
+    
+    val.forEach(res=>{
+      console.log( res.data())
+      this.input.data.push({name:"radio",type: 'radio',label:res.data().name,value:res.data().name})
+  
+    })
+    
+  })
+
+
+
+  firebase.firestore().collection('Players').where("TeamName","==", this.currentmatch[0].aTeamName).get().then(val=>{
+    
+    val.forEach(res=>{
+      console.log( res.data())
+      this.ainput.data.push({name:"radio",type: 'radio',label:res.data().name,value:res.data().name})
+  
+    })
+    
+  })
 }
 
 
@@ -214,29 +245,77 @@ ascore;
 tourname;
 id;
 matchstats =[];
-goal1()
+goals =[];
+ async goal1()
 {
   this.currentmatch =[];
 console.log("click",this.tourname);
-  firebase.firestore().collection('Top4').where("Tournament","==",this.tourname).get().then(val=>{
-    
-    val.forEach(res=>{
-      console.log( res.data())
-      let obj = res.data();
-      obj.score =parseFloat(obj.score)+1;
-      this.score =obj.score;
 
-      console.log(obj )
-      console.log(obj.score)
-      this.currentmatch.push(obj);
-      this.id =res.id;
+this.goals =[];
+
+   
+
+const alert = await this.alertController.create({
+  header: 'Home',
+  subHeader:'Pick Goal scorer',
+  inputs: this.input.data,
+  buttons: [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      cssClass: 'secondary',
+      handler: () => {
+        console.log('Confirm Cancel');
+      }
+    }, {
+      text: 'Ok',
+      handler: (data) => {
+        console.log(data);
+
+
+
+        firebase.firestore().collection('Top4').where("Tournament","==",this.tourname).get().then(val=>{
+    
+          val.forEach(res=>{
+            console.log( res.data())
+            let obj = res.data();
+            obj.score =parseFloat(obj.score)+1;
+            this.score =obj.score;
       
-      firebase.firestore().collection('Top4').doc(this.id).update({score:obj.score,scoretime:this.mins.toString()+this.timer.toString()});
+            console.log(obj.goal)
+            console.log(obj.score)
 
-    })
+            this.goals =obj.goal;
+            console.log(this.goals)
+            this.currentmatch.push(obj);
+            this.id =res.id;
+            
+           
+
+            firebase.firestore().collection('MatchFixtures').doc(this.serve.currentmatch.id).update({score:this.score+1});    
+
+
+firebase.firestore().collection('Top4').doc(this.id).update({goal: firebase.firestore.FieldValue.arrayUnion({scoretime:this.mins.toString()+
+":"+this.timer.toString(),goalscorer:data })})
+// ({goal:[{scoretime:this.mins.toString()+this.timer.toString(),goalscorer:data }]}, { merge: true });
+      
+          })
+          
+      })
     
-})
-firebase.firestore().collection('MatchFixtures').doc(this.serve.currentmatch.id).update({score:this.score+1});
+
+      }
+    }
+  ]
+});
+await alert.present();
+
+
+
+
+
+
+  
 
            
     
@@ -244,26 +323,75 @@ firebase.firestore().collection('MatchFixtures').doc(this.serve.currentmatch.id)
       
 }
 
-
-goal2()
+agoals;
+async goal2()
 {
-  console.log("click",this.tourname);
   this.currentmatch =[];
-  firebase.firestore().collection('Top4').where("Tournament","==",this.tourname).get().then(val=>{
-    
-    val.forEach(res=>{
-      let obj = res.data();
-      obj.ascore =obj.ascore+1;
-      this.ascore = obj.ascore ;
-      this.currentmatch.push(obj);
-      this.id =res.id;
-      console.log( obj)
-      firebase.firestore().collection('Top4').doc(this.id).update({ascore:obj.ascore,scoretime:this.mins.toString()+this.timer.toString()});
+console.log("click",this.tourname);
 
-    })
+this.agoals =[];
+
+   
+
+const alert = await this.alertController.create({
+  header: 'Away',
+  subHeader:'Pick Goal scorer',
+  inputs: this.ainput.data,
+  buttons: [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      cssClass: 'secondary',
+      handler: () => {
+        console.log('Confirm Cancel');
+      }
+    }, {
+      text: 'Ok',
+      handler: (data) => {
+        console.log(data);
+
+
+
+        firebase.firestore().collection('Top4').where("Tournament","==",this.tourname).get().then(val=>{
     
-            })
-            firebase.firestore().collection('MatchFixtures').doc(this.serve.currentmatch.id).update({ascore:this.ascore+1});
+          val.forEach(res=>{
+            console.log( res.data())
+            let obj = res.data();
+            obj.ascore =parseFloat(obj.ascore)+1;
+            this.ascore =obj.ascore;
+      
+            console.log(obj.agoal)
+            console.log(obj.ascore)
+
+            this.agoals =obj.agoal;
+            console.log(this.agoals)
+            this.currentmatch.push(obj);
+            this.id =res.id;
+            
+           
+
+            firebase.firestore().collection('MatchFixtures').doc(this.serve.currentmatch.id).update({ascore:this.ascore+1});    
+
+
+firebase.firestore().collection('Top4').doc(this.id).update({agoal: firebase.firestore.FieldValue.arrayUnion({scoretime:this.mins.toString()+
+":"+this.timer.toString(),goalscorer:data })})
+// ({goal:[{scoretime:this.mins.toString()+this.timer.toString(),goalscorer:data }]}, { merge: true });
+      
+          })
+          
+      })
+    
+
+      }
+    }
+  ]
+});
+await alert.present();
+
+
+
+
+
 }
 
 
