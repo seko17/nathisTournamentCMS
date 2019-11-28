@@ -12,7 +12,7 @@
     <ion-row no-padding class="matrix">
       <ion-col size="6" class="q1">
         <div class="q-header">HOME</div>
-        <ion-list dragula="bag" [(dragulaModel)]="q1" lines="none">
+        <ion-list dragula="bag"  lines="none">
           <ion-item *ngFor="let item of q1" [color]="item.color" expand="block" text-wrap>
             {{ item.TeamName }}
           </ion-item>
@@ -21,7 +21,7 @@
  
       <ion-col size="6" class="q2">
         <div class="q-header">AWAY</div>
-        <ion-list dragula="bag" [(dragulaModel)]="q2" lines="none">
+        <ion-list dragula="bag"  lines="none">
           <ion-item *ngFor="let item of q2" [color]="item.color" expand="block" text-wrap>
             {{ item.TeamName }}
           </ion-item>
