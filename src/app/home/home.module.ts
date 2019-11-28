@@ -1,7 +1,9 @@
+import { SetfixturesPage } from './../pages/setfixtures/setfixtures.page';
+import { LandingPagePageModule } from './../pages/landing-page/landing-page.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
@@ -11,13 +13,15 @@ import { HomePage } from './home.page';
     CommonModule,
     FormsModule,
     IonicModule,
+    ReactiveFormsModule,
     RouterModule.forChild([
       {
         path: '',
         component: HomePage
       }
-    ])
+    ]),
+    LandingPagePageModule
   ],
-  declarations: [HomePage]
+  declarations: [HomePage, SetfixturesPage]
 })
 export class HomePageModule {}

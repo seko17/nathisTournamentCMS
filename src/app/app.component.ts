@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import * as firebase from 'firebase'
@@ -19,6 +19,7 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private notificationsService: FcmService
+    public navCtrl: NavController
   ) {
     // this.initializeApp();
     // firebase.initializeApp(config);
@@ -33,7 +34,21 @@ ngAfterViewInit() {
   });
 }
   initializeApp() {
-
+   setTimeout(() => {
+     firebase.auth().onAuthStateChanged(user => {
+       if (user) {
+        //  {skipLocationChange: true,}
+        this.navCtrl.navigateRoot('home');
+        console.log('signed in');
+        
+       } else {
+        this.navCtrl.navigateRoot('login');
+        console.log('signed out');
+       }
+      
+     })
+   }, 0);
+ 
   }
 
 }

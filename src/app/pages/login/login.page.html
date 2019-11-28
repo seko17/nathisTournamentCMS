@@ -1,14 +1,13 @@
-  
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <div class="cmsTitle">
+    <p>Nathi's</p>
+    <span>Tournament</span>
+  </div>
   <app-auth-form #loginForm (formSubmitted)="loginUser($event)" [actionButtonText]="'Login'"></app-auth-form>
-
+<div class="forgot">
+  
   <ion-button expand="block" fill="clear" routerLink="/reset-password">
-    I forgot my password :(
+    I forgot my password
   </ion-button>
+</div>
 </ion-content>

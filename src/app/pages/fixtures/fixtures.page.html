@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>fixtures</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+ 
+ 
+ <ion-row>
+  <ion-button (click) ="ManualFix()">Set Fixtures manually?</ion-button>
+  
+ </ion-row>
+    
+ 
+    <ion-row no-padding class="matrix">
+      <ion-col  class="q1">
+        <div align = "center">Fixtures</div>
+        <ion-list  >
+          <ion-item *ngFor="let item of fixture" [color]="item.color">
+            {{ item.TeamName }} vs {{item.aTeamName}}
+            <ion-datetime displayFormat="MM/DD/YYYY HH:mm" min="2019-11-22" max="2020-12-31"   [(ngModel)] =item.matchdate></ion-datetime>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+
+    
+ 
+     
+ 
+     
+    </ion-row>
+  </ion-grid>
+ 
+  <ion-row class="delete-area" align-items-center justify-content-center>
+    <ion-button (click) ="savefixture(fixture)"><ion-icon name="checkmark" color="medium"></ion-icon>DONE</ion-button>
+  </ion-row>
+</ion-content>

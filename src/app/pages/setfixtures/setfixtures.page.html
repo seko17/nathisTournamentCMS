@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>setfixtures</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content forceOverscroll="false">
+  <ion-grid>
+ 
+   
+ 
+    <ion-row no-padding class="matrix">
+      <ion-col size="6" class="q1">
+        <div class="q-header">HOME</div>
+        <ion-list dragula="bag" [(dragulaModel)]="q1" lines="none">
+          <ion-item *ngFor="let item of q1" [color]="item.color" expand="block" text-wrap>
+            {{ item.TeamName }}
+          </ion-item>
+        </ion-list>
+      </ion-col>
+ 
+      <ion-col size="6" class="q2">
+        <div class="q-header">AWAY</div>
+        <ion-list dragula="bag" [(dragulaModel)]="q2" lines="none">
+          <ion-item *ngFor="let item of q2" [color]="item.color" expand="block" text-wrap>
+            {{ item.TeamName }}
+          </ion-item>
+        </ion-list>
+      </ion-col>
+ 
+     
+ 
+     
+    </ion-row>
+  </ion-grid>
+ 
+  <ion-row class="delete-area" align-items-center justify-content-center>
+    <ion-button (click) ="savefixture()"><ion-icon name="checkmark" color="medium"></ion-icon>PUBLISH</ion-button>
+  </ion-row>
+ 
+</ion-content>
