@@ -1,3 +1,4 @@
+import { LandingPagePage } from './../pages/landing-page/landing-page.page';
 import { SetfixturesPage } from './../pages/setfixtures/setfixtures.page';
 import { LandingPagePageModule } from './../pages/landing-page/landing-page.module';
 import { NgModule } from '@angular/core';
@@ -20,8 +21,8 @@ import { HomePage } from './home.page';
         component: HomePage
       }
     ]),
-    LandingPagePageModule
+    
   ],
-  declarations: [HomePage, SetfixturesPage]
+  declarations: [HomePage, SetfixturesPage, LandingPagePage]
 })
 export class HomePageModule {}

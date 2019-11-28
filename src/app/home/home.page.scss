@@ -245,7 +245,43 @@
         }
         .tournamentDetails {
             width: 50%;
-            background: rgba(177, 95, 95, 0.452);
+            height: 100%;
+            background: rgb(238, 238, 238);
+            border-radius: 20px 0px 0px 20px;
+            overflow: hidden;
+            .details {
+              width: 100%;
+              height: 30%;
+              background: blue;
+            }
+            .matchList {
+              width: 100%;
+              height: 70%;
+              background: red;
+              overflow-y: auto;
+              .card {
+                width: 90%;
+                margin: 5px auto;
+                background: white;
+                overflow: hidden;
+                border-radius: 20px;
+                .date {
+                  width: 100%;
+                  background: #387336;
+                  border-radius: 100px;
+                  padding: 5px;
+                  color: white;
+                  p {
+                    margin: 0;
+                    padding: 0;
+                  }
+                }
+                .aVb {
+                  display: flex;
+                  justify-content: space-evenly;
+                }
+              }
+            }
         }
     }
     // second Link

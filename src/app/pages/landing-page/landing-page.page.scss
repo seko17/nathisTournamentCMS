@@ -1,0 +1,72 @@
+.cmsContentMain{
+    position: absolute;
+    bottom: 0;
+    top: 65px;
+    right: 0;
+    left: 60px;
+    // background: rgba(255, 255, 255, 0.041);
+    z-index: 300;
+    display: flex;
+    .tournaments {
+        width: 50%;
+        .links {
+            display: flex;
+            // height: 10px;
+            justify-content: center;
+            button {
+                outline: none !important;
+                width: 30%;
+                padding: 10px;
+                border-radius: 200px;
+                background: none;
+                border: solid 1px white;
+                margin: 5px;
+                color: white;
+            }
+        }
+        .tournamentList {
+            position: absolute;
+            bottom: 0;
+            left: 2vw;
+            right: 50vw;
+            top: 50px;
+            overflow-y: auto;
+            border-radius: 20px 20px 0px 0px;
+            padding: 10px 0px;
+            .card {
+                cursor: pointer;
+                display: flex;
+                position: relative;
+                width: 100%;
+                // max-height: 60px;
+                background: white;
+                margin: 5px 0px;
+                border-radius: 10px;
+                .color {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 99%;
+                    border-radius: 200px;
+                    background: greenyellow;
+                }
+                .details {
+                    padding-left: 1.5%;
+                    flex-basis: 90%;
+                    #title {
+                        font-size:1.5rem;
+                    }
+                }
+                .more {
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+    }
+    .tournamentDetails {
+        width: 50%;
+        background: rgba(177, 95, 95, 0.452);
+    }
+}
