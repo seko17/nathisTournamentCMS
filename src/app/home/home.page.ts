@@ -11,26 +11,58 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  // CSS Classes __________________
+  // CSS Classes & properties__________________
+  // changes the view when clickign the side panel navigation
 screen = {
     main: true,
     tournaments: false,
     members: false
   }
+  // form for creating new tournament
  newTournFormCont = document.getElementsByClassName('newTournamentForm');
+//  state of the above form
  creatingTournament = false;
-  // ______________________________
 
+//  show screen for acceptiong or declining applications
+ setUpApplicationsScreen = document.getElementsByClassName('setUpApplications');
+//  state for this screen
+ setUpApplications = false;
+//  capture applications to accept or decline
+ tournamentApplications = []
+  // ______________________________
+  // reference to firestore
   db = firebase.firestore()
-  newTournForm:FormGroup
+
+  // reference to storage
+  storage = firebase.storage().ref()
+
+// form for new tournament
+  newTournForm:FormGroup;
+
+// contains data for the new tournament
+tournamentObj = {
+  formInfo: null,
+  approved: false,
+  approvedVendors: [],
+  dateCreated: null,
+  sponsors: [],
+  state: 'newTournament',
+
+}
+
+  // contains tournament information for Viewing
+  viewTournament = {}
+
   team: any = {};
+
   // q1
   home = [];
   // q2
   away = [];
 
+  // dummy array to test css overflow-x or -y
   tempCardGen = []
-
+// like it says
   validationMessages = {
     valid: [
         { type: 'required', message: 'Field required.' },
@@ -38,7 +70,15 @@ screen = {
         { type: 'maxlength', message: 'Field cannot be more than 25 characters long.' },
       ]
     }
+    // array for the green cards
+    approvedTournaments = []
 
+    // array for the red cards
+    unapprovedTournaments = []
+
+    // 
+    tournaments = []
+    tournamentsToDisplay = []
   constructor(public loadingController: LoadingController, public serve: AllserveService, private authService: AuthService, private router: Router, public navCtrl: NavController, public renderer: Renderer2, public formBuilder: FormBuilder, public alertCtrl: AlertController) { }
 
   async presentLoading() {
@@ -56,6 +96,7 @@ screen = {
   }
 
   ngOnInit() {
+    // add dummy teams
     this.newTournForm = this.formBuilder.group({
       tournamentName: ['', [Validators.required, Validators.minLength((4))]],
       type: ['',Validators.required],
@@ -89,8 +130,11 @@ screen = {
         console.log(this.away)
       })
     })
-
-
+    this.db.collection('newTournaments').onSnapshot(res => {
+      this.getApprovedTournaments()
+      this.getUnapprovedTournaments()
+    })
+    
   }
   signout() {
     firebase.auth().signOut().then(res => {
@@ -100,8 +144,10 @@ screen = {
     })
   }
   changeView(state) {
+    this.setUpApplications = false;
     switch (state) {
       case 'main':
+          
         this.screen = {
           main: true,
           tournaments: false,
@@ -150,16 +196,15 @@ screen = {
       loader.present()
     let date = new Date();
 
-    let tournamentObj = {
+    this.tournamentObj = {
       formInfo: formData,
       approved: false,
-      approvedVendors: [],
+      approvedVendors: this.tournamentObj.approvedVendors,
       dateCreated: date.toDateString(),
-      sponsors: [],
+      sponsors: this.tournamentObj.sponsors,
       state: 'newTournament',
-
     }
-    this.db.collection('newTournaments').add(tournamentObj).then( async res => {
+    this.db.collection('newTournaments').add(this.tournamentObj).then( async res => {
       loader.dismiss()
       let alerter = await this.alertCtrl.create({
         header: 'Success',
@@ -195,26 +240,149 @@ screen = {
     })
     
   }
+  getApprovedTournaments() {
+    let tourn = {
+      docid: null,
+      doc: null,
+      hasApplications: false
+    }
+    this.db.collection('newTournaments').where('approved', '==', true).get().then(res => {
+      this.approvedTournaments = []
+      res.forEach(doc => {
+        this.db.collection('newTournaments').doc(doc.id).collection('teamApplications').get().then(res => {
+          if (res.empty) {
+            tourn = {
+              docid: doc.id,
+              doc: doc.data(),
+              hasApplications: false
+            }
+            this.approvedTournaments.push(tourn);
+            tourn = {
+              docid: null,
+              doc: null,
+              hasApplications: false
+            }
+          } else {
+            tourn = {
+              docid: doc.id,
+              doc: doc.data(),
+              hasApplications: true
+            }
+            this.approvedTournaments.push(tourn);
+            tourn = {
+              docid: null,
+              doc: null,
+              hasApplications: false
+            }
+          }
+        
+        })
+      })
+      console.log('approvedTournaments ', this.approvedTournaments);
+      
+    })
+  }
+  getUnapprovedTournaments() {
+    this.db.collection('newTournaments').where('approved', '==', false).get().then(res => {
+      this.unapprovedTournaments = []
+      res.forEach(doc => {
+        let tourn = {
+          docid: doc.id,
+          doc: doc.data()
+        }
+        this.unapprovedTournaments.push(tourn);
+        tourn = {
+          docid: null,
+          doc: null
+        }
+      })
+      console.log(this.unapprovedTournaments);
+      
+    })
+  }
+  finnishSetup(tournament) {
+    let team = {
+      docid: null,
+      doc: null
+    }
+    this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
+    this.setUpApplications = true;
+    this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').get().then(res => {
+      this.tournamentApplications = []
+      res.forEach(doc => {
+        team = {
+          docid: doc.id,
+          doc: doc.data()
+        }
+        this.tournamentApplications.unshift(team)
+        team = {
+          docid: null,
+          doc: null
+        }
+      })
+      console.log(this.tournamentApplications);
+       
+    })
+
+  }
+  // selects sponsor Image
+  async selectimage(image){
+    let imagetosend = image.item(0);
+    console.log(imagetosend);
+    
+    if (!imagetosend) {
+      const imgalert = await this.alertCtrl.create({
+        message: 'Select image to upload',
+        buttons: [{
+          text: 'Okay',
+          role: 'cancel'
+        }]
+      });
+      imgalert.present();
+    } else {
+      if (imagetosend.type.split('/')[0] !== 'image') {
+        const imgalert = await this.alertCtrl.create({
+          message: 'Unsupported file type.',
+          buttons: [{
+            text: 'Okay',
+            role: 'cancel'
+          }]
+        });
+        imgalert.present();
+        imagetosend = '';
+        return;
+       } else {
+        const upload = this.storage.child(image.item(0).name).put(imagetosend);
+        upload.on('state_changed', snapshot => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(progress);
+          
+        }, error => {
+        }, () => {
+          upload.snapshot.ref.getDownloadURL().then(downUrl => {
+            let newSponsor = {
+              image: downUrl,
+              name: image.item(0).name
+            }
+            this.tournamentObj.sponsors.push(newSponsor)
+            console.log(this.tournamentObj.sponsors);
+            
+          });
+        });
+       }
+    }
+  }
   log(): void {
     this.authService.logoutUser().then(() => {
       this.router.navigateByUrl('login');
     });
     this.router.navigate(['setfixtures']);
   }
-
-
-
   setfix(x) {
     console.log(x)
-
-
     this.router.navigate(['fixtures']);
   }
-
   currtourn() {
     this.router.navigate(['currtourn']);
-
   }
-
-
 }

@@ -1,5 +1,6 @@
 <ion-content>
   <!-- (click)="toggleTournamentForm('close')" -->
+
   <div class="newTournamentForm animated" [ngClass]="{'flipInX': creatingTournament,'flipOutX': !creatingTournament}">
     <div class="form">
       <form (ngSubmit)="newTournament(newTournForm.value)" [formGroup]="newTournForm">
@@ -48,10 +49,24 @@
               Submit Tournament
             </ion-button>
       </div>
+      <div class="closeButton">
+            <ion-button shape="round" color="danger" (click)="toggleTournamentForm('close')">
+                Close
+              </ion-button>
+        </div>
       </form>
       
       <div class="sponsors">
-
+        <div class="buttons">
+          <ion-item>
+            <ion-label>Sponsor Logo</ion-label>
+            <ion-input type="file" accept="image/*" multiple="false" (change)="selectimage($event.target.files)"></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label>Sponsor Logo</ion-label>
+              <ion-input ></ion-input>
+            </ion-item>
+        </div>
       </div>
     </div>
   </div>
@@ -74,6 +89,49 @@
     </div>
   </div>
   <div class="container">
+      <div class="setUpApplications animated" [ngClass]="{'fadeInUp':setUpApplications,'fadeOutDown faster':!setUpApplications}" >
+        <div class="applications">
+          <div class="head">
+            <p>Applications</p>
+            <ion-button shape="round" color="light">
+              Vendors
+            </ion-button>
+          </div>
+          <div class="applicationList">
+            <div class="card" *ngFor="let team of tournamentApplications" >
+              <div class="teamInfo">
+                <p><b>{{team.doc.TeamObject.teamName}}</b></p>
+                <p>Manager: Manager Name</p>
+              </div>
+              <div class="buttons">
+                  <ion-button shape="round" size="small" color="success">
+                      Accept
+                    </ion-button>
+                    <ion-button shape="round" size="small" color="danger">
+                        Decline
+                      </ion-button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="management">
+          <div class="tournamentData">
+
+          </div>
+          <div class="verificationScreen">
+            <div class="acceptedApplications">
+              <div class="head">
+                <ion-input type="text" placeholder="Search Reference Number"></ion-input>
+              </div>
+            </div>
+            <div class="participatingTeams">
+              <div class="head">
+
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
     <div class="cmshead">
       <div class="title">
         <p>Nathi's Tournaments</p>
@@ -92,7 +150,8 @@
       </div>
     </div>
     <div class="cmsContentMain animated" [ngClass]="{'bounceInUp': screen.main,'bounceOutUp faster': !screen.main}">
-      <div class="tournaments">
+      <app-setfixtures></app-setfixtures>
+      <!-- <div class="tournaments">
         <div class="links">
           <button>
             All
@@ -136,7 +195,7 @@
         <div class="matchList">
 
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="cmsContentTourns animated"
       [ngClass]="{'bounceInUp': screen.tournaments,'bounceOutUp faster': !screen.tournaments}">
@@ -152,8 +211,31 @@
               <h4>Approved Tournaments</h4>
             </div>
             <div class="approvedList">
-              <div class="card">
-
+              <div class="card" *ngFor="let t of approvedTournaments" >
+                  <div class="tTitle">
+                      <h5>{{t.doc.formInfo.tournamentName}}</h5>
+                    </div>
+                    <div class="tDetails">
+                      <div>
+                          <p>Participants {{t.doc.formInfo.type}}</p>
+                          <p>{{t.doc.formInfo.location}}</p>
+                          <hr>
+                          <p>{{t.doc.formInfo.startDate | date}} to {{t.doc.formInfo.endDate | date}}</p>
+                          <p>R {{t.doc.formInfo.joiningFee}}.00 fee</p>
+                          <p>Top {{t.doc.formInfo.type}}</p>
+                          <p>Application open until - {{t.doc.formInfo.applicationClosing | date}}</p>
+                          <!-- <p>{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p> -->
+                      </div>
+                      
+                    </div>
+               <div class="setup">
+                        <ion-button size="small" color="light" *ngIf="t.hasApplications" (click)="finnishSetup(t)" >
+                          Finnsh Setup
+                        </ion-button>
+                        <ion-button size="small" disabled="true" color="light" *ngIf="!t.hasApplications"  >
+                           No Applications
+                          </ion-button>
+                      </div>
               </div>
             </div>
           </div>
@@ -162,7 +244,23 @@
               <h4>Created Tournaments</h4>
             </div>
             <div class="unapprovedList">
-
+                <div class="card" *ngFor="let u of unapprovedTournaments" >
+                    <div class="tTitle">
+                        <h5>{{u.doc.formInfo.tournamentName}}</h5>
+                      </div>
+                      <div class="tDetails">
+                        <div>
+                            <p>Participants {{u.doc.formInfo.type}}</p>
+                            <p>{{u.doc.formInfo.location}}</p>
+                            <hr>
+                            <p>{{u.doc.formInfo.startDate | date}} to {{u.doc.formInfo.endDate | date}}</p>
+                            <p>R {{u.doc.formInfo.joiningFee}}.00 fee</p>
+                            <p>Top {{u.doc.formInfo.type}}</p>
+                            <p>Application open until - {{u.doc.formInfo.applicationClosing | date}}</p>
+                            <!-- <p>{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p> -->
+                        </div>
+                      </div>
+                </div>
             </div>
           </div>
         </div>

@@ -1,3 +1,5 @@
+import { SetfixturesPage } from './../pages/setfixtures/setfixtures.page';
+import { LandingPagePageModule } from './../pages/landing-page/landing-page.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
@@ -17,8 +19,9 @@ import { HomePage } from './home.page';
         path: '',
         component: HomePage
       }
-    ])
+    ]),
+    LandingPagePageModule
   ],
-  declarations: [HomePage]
+  declarations: [HomePage, SetfixturesPage]
 })
 export class HomePageModule {}
