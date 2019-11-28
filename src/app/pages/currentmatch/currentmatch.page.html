@@ -27,10 +27,10 @@
     </ion-row>
     <ion-row>
       <ion-col>
-{{x.score}}
+{{score}}
       </ion-col>
       <ion-col>
-        {{x.ascore}}
+        {{ascore}}
       </ion-col>
    
     </ion-row>
@@ -38,10 +38,119 @@
       Timer: {{mins}}:{{timer}}
     </ion-row>
 </ion-grid>
-<ion-row>
-<ion-col><ion-button (click) ="firsthalf()" [hidden] ="btn1">{{btntxt1}}</ion-button></ion-col>
-<ion-col><ion-button (click) ="stop()">Stop</ion-button></ion-col>
-<ion-col><ion-button (click) ="secondhalf()" [hidden] ="btn2">{{btntxt2}}</ion-button></ion-col>
 
-</ion-row>
+
+<ion-row>
+    <ion-col><ion-button (click) ="firsthalf()" [hidden] ="btn1">{{btntxt1}}</ion-button></ion-col>
+    <ion-col><ion-button (click) ="stop()">Stop</ion-button></ion-col>
+    <ion-col><ion-button (click) ="secondhalf()" [hidden] ="btn2">{{btntxt2}}</ion-button></ion-col>
+    
+    </ion-row>
+    
+    <ion-row>
+        <ion-col><ion-button (click) ="goal1()" >Goal</ion-button></ion-col>
+        
+        <ion-col><ion-button (click) ="goal2()" >Goal</ion-button></ion-col>
+        
+        </ion-row>
+
+
+
+
+
+
+
+
+
+
+<ion-grid *ngFor = "let x of matchstats">
+ 
+  <ion-row>
+     <ion-col> Shots </ion-col>
+    <ion-col>
+   {{x.shots}}
+    </ion-col>
+    <ion-col>
+   {{x.ashots}}
+    </ion-col>
+ 
+  </ion-row>
+  <ion-row>
+   <ion-col> Shots on Target</ion-col>
+    <ion-col>
+{{x.ontarget}}
+    </ion-col>
+    <ion-col>
+      {{x.ontarget}}
+    </ion-col>
+ 
+  </ion-row>
+  <ion-row>
+    <ion-col>Fouls</ion-col>
+      <ion-col>
+  {{x.fouls}}
+      </ion-col>
+      <ion-col>
+        {{x.afouls}}
+      </ion-col>
+   
+
+
+    </ion-row>
+
+    <ion-row>
+     <ion-col> Yellow Cards</ion-col>
+        <ion-col>
+    {{x.yellow}}
+        </ion-col>
+        <ion-col>
+          {{x.ayellow}}
+        </ion-col>
+     
+      </ion-row>
+
+      <ion-row>
+       <ion-col> Red Cards</ion-col>
+          <ion-col>
+      {{x.red}}
+          </ion-col>
+          <ion-col>
+            {{x.ared}}
+          </ion-col>
+       
+        </ion-row>
+
+
+        <ion-row>
+         <ion-col> OffSides</ion-col>
+            <ion-col>
+        {{x.off}}
+            </ion-col>
+            <ion-col>
+              {{x.aoff}}
+            </ion-col>
+         
+          </ion-row>
+
+
+          <ion-row>
+           <ion-col>Corners</ion-col> 
+              <ion-col>
+          {{x.corner}}
+              </ion-col>
+              <ion-col>
+                {{x.acorner}}
+              </ion-col>
+           
+            </ion-row>
+
+           <ion-col> <ion-button (click) ="homestats(x)">Home Stats</ion-button></ion-col>
+           <ion-col> <ion-button (click) ="awaystats(x)">Away Stats</ion-button></ion-col>
+
+  
+</ion-grid>
+
+
+
+
 </ion-content>
