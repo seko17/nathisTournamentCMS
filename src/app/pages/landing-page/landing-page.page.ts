@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./landing-page.page.scss'],
 })
 export class LandingPagePage implements OnInit {
-
+  tempCardGen = []
   constructor() { }
 
   ngOnInit() {

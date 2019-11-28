@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "nathistournamentdb",
+  "private_key_id": "fd912cc273168dab6470e109ad7317782fbfc4bc",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDmIKCaRu5ymkK0\nfVf3lhz0vFReSvbjLbTnDOL92c3kxleeyVCqLTaffypdSskgrjTLSff1kmTsTexa\ntp/yoW9qBmFeLFPFjugX5Kx7nbYgQX2XXd2rIlOSgmr8DarTtInPpST5bHGTK1rM\nkM9KJu0XxMUCVkdDpN6aKgDGDRF9lTCXD2lYRSJiIqXKBzc0s128m8sR3BMmsYYt\nQxTm8PvWoHKKC3pwkYN/XgZTPF50tt3F7rdVdwebhEGLf4VJD2WltAfX5PZjKyGQ\nCur5HxBOHo/NhjnVSF6cs1q3o9W6C+3Sj76/DzqOvaF4kcmC6WyG/MYBBz5h22bK\nvHrk1p61AgMBAAECggEAEPOLUQHzk46IZlorTioJFQAAaPe1qvNVdYWN/Ov7ziPM\nFX63yelNsj8ARGH7YcRjUCwxLy4q7/snc2ErdAhvOAyjRHgYbZ+CuivWhr6NyV95\nnFpGN1JufIbN0aZCFJkiY6DDEfpqfVA+vn3WPxyR72PHrU3krvdojEuWxf/1b14X\nsIEro5+e2j8taryiblIhFT5z/oF0JyEj2mezmv4XNff69/NxVogkb/YvPgH2g9Cs\ntP6EKbI1I2RF3v+KLGzW9uE+4Cva6JtzUtxnAsV1i7LbcJ9tK97ZqTpFBf3zts2Z\n8x3rJTwlWBcsXEV+CyHqGllEwNAAQvDxWxcZ3MMsuwKBgQD67oVQWp5iexZequZ2\nYCf3s0x7JZKcOJkp3ibCyZMY9bov7pp2f680ljFAZ1QFkgjDIEvDCWSHTOvT7jC5\nq7rpsBu4bOqrH2/lQByxm8FdTmXR4aDdfsyp/mBS0WJwe5xqVZJ/n8LhWmhqITS3\nEfGzhgGslPThFQUac3HFzWTo2wKBgQDqxoj58/WvcaOWv/2BmEy/0nLorTzVy6MP\nafDPOkHnAvy/fs9rS/1hprjyI1AEytwbJE/toXToAD+/t2BkXjKaraY3iFE7TgAE\nv06crgaHRIhYWDB2HvXN6M7XaqUbR9uuMSMzqOT2lWA/uQ0+8/PrJ+KDxMAIPm3C\n4wAY7UijrwKBgEruQtz10mnx+4IVYnBi0kyDPAlh9N+1fvcjoUt1SfmgFxMNGw7b\nngQD/X0P3eUz8G3kDPuWqHBGpf1JGT+4aj4yGnT+AS1MW+uHM4pNynYEXR9JUvIR\nVShGD5lrcQvJvbF7EB4QJO+KQbe/ZrBsKVLEZ2eTq3QzBK0bYBQC+2kVAoGATPzr\n4CN7FpxKS94LkJrT2Dd3zQs6HtXXU++msx3kjI+zOEyqUgIqRgJ5NZYU4G1xfkkL\nGN7QSmACh6jnqCInsAdvsVg3Yx4x7Vyat9BtfaAgoe/RfHqsmmhUo9lp6SdIR7f/\nVip1YtMbK+pQCKvQ+fUrV5CGdG2casMrvgDZyCsCgYBgTbIqsarsmFnAG0ycJmur\ndGdN/AKDEB7L+j8Y9kjfmsAejhQMUBT/soihA1tVx5rEI3G2oK8i/UpNCZMC+a+M\n1CmUHwyyiC9gxuejl6sm9AGXrh7imBxOQqucfpinJ0GTNaunQwD+cYwmIG18/FiO\nU9g8ZFrHrR/ynJCc4hmYBw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-2ggdt@nathistournamentdb.iam.gserviceaccount.com",
+  "client_id": "107434579679545976915",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-2ggdt%40nathistournamentdb.iam.gserviceaccount.com"
+}
