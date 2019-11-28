@@ -7,5 +7,6 @@ export const config = {
   storageBucket: "nathistournamentdb.appspot.com",
   messagingSenderId: "743242408134",
   appId: "1:743242408134:web:47eaf5dabebe24dc90f7c7",
-  measurementId: "G-3VQ90REKVP"
+  measurementId: "G-3VQ90REKVP",
+  vapidKey: 'BJuMAYXXBZqEfi8y4tICooSjxLRjvq_k-1P48HqF8tYQWQMl5mMj1aGbde07ow7qOiKvIB4gINKzR6HoPwjoLdE'
 }

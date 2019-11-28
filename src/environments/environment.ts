@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false ,
-  
+  vapidKey: 'BJuMAYXXBZqEfi8y4tICooSjxLRjvq_k-1P48HqF8tYQWQMl5mMj1aGbde07ow7qOiKvIB4gINKzR6HoPwjoLdE'
 
 };
 export const a = {
