@@ -1,3 +1,5 @@
+import { SetupMatchesPage } from './../pages/setup-matches/setup-matches.page';
+import { ManageTournamentsPage } from './../pages/manage-tournaments/manage-tournaments.page';
 import { LandingPagePage } from './../pages/landing-page/landing-page.page';
 import { SetfixturesPage } from './../pages/setfixtures/setfixtures.page';
 import { LandingPagePageModule } from './../pages/landing-page/landing-page.module';
@@ -23,6 +25,6 @@ import { HomePage } from './home.page';
     ]),
     
   ],
-  declarations: [HomePage, SetfixturesPage, LandingPagePage]
+  declarations: [HomePage, SetfixturesPage, LandingPagePage, ManageTournamentsPage, SetupMatchesPage]
 })
 export class HomePageModule {}

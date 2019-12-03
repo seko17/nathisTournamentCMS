@@ -34,7 +34,15 @@ const routes: Routes = [
   {
     path: 'currentmatch',
     loadChildren: () => import('./pages/currentmatch/currentmatch.module').then( m => m.CurrentmatchPageModule)
+  },  {
+    path: 'manage-tournaments',
+    loadChildren: () => import('./pages/manage-tournaments/manage-tournaments.module').then( m => m.ManageTournamentsPageModule)
   },
+  {
+    path: 'setup-matches',
+    loadChildren: () => import('./pages/setup-matches/setup-matches.module').then( m => m.SetupMatchesPageModule)
+  },
+
 
 ];
 

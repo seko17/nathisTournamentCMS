@@ -15,6 +15,15 @@ button[ion-fab] {
     }
     contain: layout;
 }
+.container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: red;
+  z-index: 700;
+}
 .viewMatch {
     .close {
         position: absolute;
@@ -86,6 +95,7 @@ button[ion-fab] {
                     right: -30px;
                     z-index: 4000;
                     background: rgba(255, 255, 255, 0.932);
+                    display: none;
                   }
 
                 }
@@ -97,6 +107,7 @@ button[ion-fab] {
                     left: -30px;
                     z-index: 4000;
                     background: rgba(255, 255, 255, 0.932);
+                    display: none;
                   }
 
                 }
@@ -420,6 +431,7 @@ button[ion-fab] {
         }
     }
 }
+
 .cmsContentMain{
     position: absolute;
     bottom: 0;

@@ -28,7 +28,7 @@ export class LandingPagePage implements OnInit {
   // div carrying playing match action buttons
   matchActionState = {
     away: false,
-    home: true,
+    home: false,
   }
   awayPlayerActions = document.getElementsByClassName('awayButton');
   homePlayerActions = document.getElementsByClassName('homeButton');
@@ -157,8 +157,10 @@ export class LandingPagePage implements OnInit {
   }
   // actions for the playing match
   matchAction(state, side) {
+    // check the state of the action, are we opening or closing the panel
     switch (state) {
       case 'open':
+        // check for which side the action is done
       if (side=='home') {
         this.matchActionState.home = true
         this.renderer.setStyle(this.homePlayerActions[0], 'display', 'block')
