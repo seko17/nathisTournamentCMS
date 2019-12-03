@@ -18,7 +18,7 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private notificationsService: FcmService,
+    private notificationsService: FcmService, 
     public navCtrl: NavController
   ) {
     // this.initializeApp();
