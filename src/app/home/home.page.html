@@ -133,12 +133,12 @@
                 </div>
 
 
-                <div *ngFor ="let g of participants">
+                <div *ngFor ="let oo of participants">
                   <h1>Participating Team</h1>
-                    Coach Name <p>{{g.TeamObject.coachName}}</p>
-                 Team Name:  <p>{{g.TeamObject.teamName}}</p>
-                 Tournament:  <p>{{g.tournamentName}}</p>
-                
+                    Coach Name <p>{{oo.TeamObject.coachName}}</p>
+                 Team Name:  <p>{{oo.TeamObject.teamName}}</p>
+                 Tournament:  <p>{{oo.tournamentName}}</p>
+                <ion-button (click) ="fix()">Fixtures</ion-button>
  
                  </div>
               </div>

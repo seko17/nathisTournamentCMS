@@ -306,7 +306,9 @@ tournamentObj = {
   }
   tourney;
   participants =[];
+  aparticipants =[];
   finnishSetup(tournament) {
+    let num =0;
     let form ={};
     this.tourney =tournament;
     let team = {
@@ -339,7 +341,29 @@ tournamentObj = {
         firebase.firestore().collection('participants').where("tournamentName","==",val.data().formInfo.tournamentName).get().then(res=>{
           res.forEach(val=>{
             console.log("participants = ",val.data())
-            this.participants.push(val.data())
+num =num+1;
+
+let obb = {};
+obb =val.data();
+
+            if(num%2 == 0)
+            {
+              this.participants.push({...val.data(),...{whr:"home"}})
+            }
+            else
+            {
+              this.aparticipants.push({...val.data(),...{awhr:"away"}})
+            }
+
+
+            if(this.participants.length==this.aparticipants.length)
+            {
+              this.serve.randomfixture( this.participants,this.aparticipants);  
+            }
+            
+
+            console.log("number = ",num)
+            console.log("parts  = ",this.participants)
           })
         })
       })
@@ -409,7 +433,7 @@ tournamentObj = {
     this.authService.logoutUser().then(() => {
       this.router.navigateByUrl('login');
     });
-    this.router.navigate(['setfixtures']);
+   
   }
   setfix(x) {
     console.log(x)
@@ -491,5 +515,13 @@ this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications
 })
 
 
+}
+
+
+
+
+fix()
+{
+  this.router.navigate(['setfixtures']);
 }
 }
