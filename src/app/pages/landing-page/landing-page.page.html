@@ -1,38 +1,361 @@
 <ion-content>
-  <div class="cmsContentMain">
-     <div class="tournaments">
-        <div class="links">
-          <button>
-            All
-          </button>
-          <button>
-            InPlay
-          </button>
-          <button>
-            Upcoming
-          </button>
+  <div class="viewMatch animated" [ngClass]="{'zoomIn faster':viewingMatch,'zoomOut faster':!viewingMatch}">
+    <div class="close" (click)="viewmatch('close', null)">
+      <ion-icon name="close"></ion-icon>
+    </div>
+    <div class="matchDiv">
+      <div class="playerHome animated"
+        [ngClass]="{'slideInRight':viewingPlayer.home,'slideOutRight faster':!viewingPlayer.home}">
+        <div class="image">
+          <div class="playerClose">
+            <ion-fab-button size="small" (click)="viewPlayer('close', 'home', object)">
+              <ion-icon name="close"></ion-icon>
+            </ion-fab-button>
+          </div>
+          <img
+            src="https://the18.com/sites/default/files/styles/photo_story_list_items_1016px_wide/public/photo-story-images/2017-2-22-the18-facesmash.jpg?itok=-1TVm3PY"
+            alt="">
+          <div class="name">
+            <p>Alan Bakes</p>
+          </div>
         </div>
-        <div class="tournamentList">
-          <div class="card" *ngFor="let item of tempCardGen">
-            <div class="color">
+        <div class="details">
+          <p>Defender</p>
+          <span>3.5 m tall</span>
+          <br>
+          <p>Previous Team(s)</p>
+          <span>Bara Team <br> Yarn Team</span>
+          <br>
+          <hr>
+          <p>Acievements</p>
+          <span>Best Defender</span> <br>
+          <span>Best face maker</span>
+        </div>
+      </div>
+      <div class="teamHome animated"
+        [ngClass]="{'slideInRight':viewingTeam.home,'slideOutRight faster':!viewingTeam.home}">
+        <div class="title">
+          <h1>The Academy</h1>
+        </div>
 
+        <div class="image">
+          <img src="https://image.shutterstock.com/image-vector/soccer-logos-american-logo-sports-600w-411479431.jpg"
+            alt="">
+        </div>
+        <div class="details">
+          <p>Coach</p>
+          <h4>Mosia Mosia</h4>
+          <p>Region</p>
+          <h4>Mosia Mosia</h4>
+          <p>Phone</p>
+          <h4>0124578963</h4>
+        </div>
+        <div class="teamClose">
+          <ion-button (click)="viewTeam('close', 'home')">
+            Close
+          </ion-button>
+        </div>
+      </div>
+
+
+      <div class="matchDetails">
+        <div class="topLine">
+
+        </div>
+        <div class="topData">
+          <div class="homeImage" (click)="viewTeam('open', 'home', 'object')">
+            <div class="image">
+              <img
+                src="https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/kxm6rmrs69f9txyidrjk/zenit-saint-petersburg-2019-20-stadium-home-football-shirt-k1WvdX.jpg"
+                alt="">
+                <div class="homeButton">
+                  <ion-button size="small" shape="round" color="light">
+                    Goal
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="danger">
+                    Red Card
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="warning">
+                    Yellow Card
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="light">
+                    Free Kick
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="light">
+                    Corner Kick
+                  </ion-button>
+                </div>
             </div>
-            <div class="details">
-              <p id="title"><b>Finest Cup Tournament</b></p>
-              <p>27 Jul, 2019 to 01 Oct, 2019</p>
-              <p>FNB Stadium</p>
-            </div>
-            <div class="more">
-              <div>
-                <p>8Teams</p>
-                <p>Playing</p>
+          </div>
+          <div class="match">
+            <div class="scores">
+              <div class="homeScore">
+                <p>The Academy </p>
+                <!-- <div class="buttns">
+                  <ion-button color="light" size="small" shape="round">
+                    Goal
+                  </ion-button>
+                  <ion-button color="danger" size="small" shape="round">
+                    Red Card
+                  </ion-button>
+                  <ion-button color="secondary" size="small" shape="round">
+                    Yellow Card
+                  </ion-button>
+                  <ion-button color="light" size="small" shape="round">
+                    Free Kick
+                  </ion-button>
+                  <ion-button color="light" size="small" shape="round">
+                    Corner Kick
+                  </ion-button>
+                </div> -->
               </div>
+              <div class="points">
+                <ion-button size="small" shape="round">
+                  Start Match
+                </ion-button>
+                <p>0 : 0</p>
+              </div>
+              <div class="awayScore">
+                <p>Fox Soccer</p>
+                <!-- <div class="buttns">
+                  <ion-button color="light" size="small" shape="round">
+                    Goal
+                  </ion-button>
+                  <ion-button color="danger" size="small" shape="round">
+                    Red Card
+                  </ion-button>
+                  <ion-button color="secondary" size="small" shape="round">
+                    Yellow Card
+                  </ion-button>
+                  <ion-button color="light" size="small" shape="round">
+                    Free Kick
+                  </ion-button>
+                  <ion-button color="light" size="small" shape="round">
+                    Corner Kick
+                  </ion-button>
+                </div> -->
+              </div>
+            </div>
+            <div class="upComingData">
+              <h5>19:00</h5>
+              <p>Satrs 06 Dec 2019</p>
+              <p>Food and Beverage Sold</p>
+            </div>
+          </div>
+          <div class="awayImage" (click)="viewTeam('open', 'away', 'object')">
+            <div class="image">
+              <img
+                src="https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/kxm6rmrs69f9txyidrjk/zenit-saint-petersburg-2019-20-stadium-home-football-shirt-k1WvdX.jpg"
+                alt="">
+                <div class="awayButton animated" [ngClass]="{'slideInRight':matchActionState.away,'slideOutRight':!matchActionState.away}" >
+                  <ion-button size="small" shape="round" color="light">
+                    Goal
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="danger">
+                    Red Card
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="warning">
+                    Yellow Card
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="light">
+                    Free Kick
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="light">
+                    Corner Kick
+                  </ion-button>
+                </div>
+            </div>
+          </div>
+        </div>
+        <ion-segment [(ngModel)]="matchView" (ionChange)="segmentChanged($event)">
+          <ion-segment-button value="lineup">
+            <ion-label>LineUps</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="summary">
+            <ion-label>Summary</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+        <div class="list-cont">
+          <div class="dummydiv">
+            <div class="lineUps animated"
+              [ngClass]="{'slideInLeft':matchView=='lineup','slideOutLeft':matchView=='summary'}">
+              <div class="away">
+                <div class="card" *ngFor="let a of tempCardGen" (click)="viewPlayer('open', 'home', 'object')">
+                  <div class="number">
+                    <p>30'</p>
+                  </div>
+                  <div class="name">
+                    <p>Alan Bakes</p>
+                  </div>
+                  <div class="position">
+                    <p>Defender</p>
+                  </div>
+                </div>
+              </div>
+              <div class="home">
+                <div class="card" *ngFor="let a of tempCardGen" (click)="viewPlayer('open', 'away', 'object')">
+                  <div class="number">
+                    <p>30'</p>
+                  </div>
+                  <div class="name">
+                    <p>Alan Bakes</p>
+                  </div>
+                  <div class="position">
+                    <p>Defender</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="summary animated"
+              [ngClass]="{'slideInRight':matchView=='summary','slideOutRight':matchView=='lineup'}">
+              <div class="stats">
+                <div class="homeSummary">
+                  <p>0</p>
+                  <p>0</p>
+                  <p>0</p>
+                  <p>0</p>
+                  <p>0</p>
+                  <p>0</p>
+                </div>
+                <div class="labels">
+                  <p>Attacks</p>
+                  <p>Corners</p>
+                  <p>Off Target</p>
+                  <p>Red Cards</p>
+                  <p>Yellow Cards</p>
+                  <p>Penalties</p>
+                </div>
+                <div class="awaySummary">
+                  <p>0</p>
+                  <p>0</p>
+                  <p>0</p>
+                  <p>0</p>
+                  <p>0</p>
+                  <p>0</p>
+                </div>
+              </div>
+              <div class="playerCards">
+                <div class="homePlayerCards">
+                  <div class="card" *ngFor="let item of tempCardGen">
+                    <div class="redCard">
+
+                    </div>
+                    <div class="yellowCard">
+
+                    </div>
+                    <div class="details">
+                      <p>Semonye - 3:45</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="awayPlayerCards">
+                  <div class="card" *ngFor="let item of tempCardGen">
+                    <!-- an ngif is required to show if the player got a red or a yellow card for punnishment -->
+                    <div class="redCard">
+
+                    </div>
+                    <div class="yellowCard">
+
+                    </div>
+                    <div class="details">
+                      <p>Semonye - 3:45</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="playerAway animated"
+        [ngClass]="{'slideInLeft faster':viewingPlayer.away,'slideOutLeft faster':!viewingPlayer.away}">
+        <div class="image">
+          <div class="playerClose">
+            <ion-fab-button size="small" (click)="viewPlayer('close', 'away', object)">
+              <ion-icon name="close"></ion-icon>
+            </ion-fab-button>
+          </div>
+          <img src="https://i.imgflip.com/109szw.jpg" alt="">
+          <div class="name">
+            <p>Alan Bakes</p>
+          </div>
+        </div>
+        <div class="details">
+          <p>Defender</p>
+          <span>3.5 m tall</span>
+          <br>
+          <p>Previous Team(s)</p>
+          <span>Bara Team <br> Yarn Team</span>
+          <br>
+          <hr>
+          <p>Acievements</p>
+          <span>Best Defender</span> <br>
+          <span>Best face maker</span>
+        </div>
+      </div>
+      <div class="teamAway animated"
+        [ngClass]="{'slideInLeft':viewingTeam.away,'slideOutLeft faster':!viewingTeam.away}">
+        <div class="title">
+          <h1>The Academy</h1>
+        </div>
+        <div class="image">
+          <img src="http://www.logocontest.net/48hourslogo_data/2017/02/11/58207_1486782866.jpg" alt="">
+        </div>
+        <div class="details">
+          <p>Coach</p>
+          <h4>Mosia Mosia</h4>
+          <p>Region</p>
+          <h4>Mosia Mosia</h4>
+          <p>Phone</p>
+          <h4>0124578963</h4>
+        </div>
+        <div class="teamClose">
+          <ion-button (click)="viewTeam('close', 'away')">
+            Close
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cmsContentMain">
+    <div class="tournaments">
+      <div class="links">
+        <button>
+          All
+        </button>
+        <button>
+          InPlay
+        </button>
+        <button>
+          Upcoming
+        </button>
+      </div>
+      <div class="tournamentList">
+        <div class="card" *ngFor="let item of tempCardGen">
+          <div class="color">
+
+          </div>
+          <div class="details">
+            <p id="title"><b>Finest Cup Tournament</b></p>
+            <hr>
+            <p id="date">27 Jul, 2019 to 01 Oct, 2019</p>
+            <p id="location">FNB Stadium</p>
+          </div>
+          <div class="more">
+            <div>
+              <p>8Teams</p>
+              <p>Playing</p>
             </div>
           </div>
         </div>
       </div>
-      <div class="tournamentDetails">
-        <div class="details">
+    </div>
+    <div class="tournamentDetails">
+      <div class="details">
+        <div>
           <h4>Finest Cup Tournament</h4>
           <p>Top 8</p>
           <hr>
@@ -41,10 +364,33 @@
           <hr>
           <p>Application Closing Date <br> 30Jul, 2019</p>
         </div>
-        <div class="matchList">
 
+      </div>
+      <div class="matchList">
+        <div class="card" *ngFor="let item of tempCardGen" (click)="viewmatch('open', item)">
+          <div class="date">
+            <p>27 Jul, 2019</p>
+          </div>
+          <div class="aVb">
+            <div class="home">
+              <p>Team Name</p>
+            </div>
+            <div class="versus">
+              <p>v</p>
+            </div>
+            <div class="away">
+              <p>Team Name</p>
+            </div>
+          </div>
+          <div class="teamHome">
+            <p>Home</p>
+          </div>
+          <div class="teamAway">
+            <p>Away</p>
+          </div>
         </div>
       </div>
+    </div>
   </div>
 
 </ion-content>

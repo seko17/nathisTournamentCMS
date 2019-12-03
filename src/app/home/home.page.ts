@@ -84,7 +84,7 @@ tournamentObj = {
   async presentLoading() {
     const loading = await this.loadingController.create({
       message: 'please wait...',
-      duration: 2000
+      duration: 100
     });
     await loading.present();
 

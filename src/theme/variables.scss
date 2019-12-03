@@ -11,7 +11,7 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #0D2606;
+  background: rgba(13, 38, 6, 0.13);
   border-radius: 200px;
 }
 
@@ -24,6 +24,17 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(192, 255, 201);
+}
+p {
+  
+  font-family: 'Didact Gothic', sans-serif;
+}
+h1,h2,h3,h4,h5 {
+  font-family: 'Staatliches', cursive;
+
+}
+a,span {
+  font-family: 'Reem Kufi', sans-serif;
 }
 :root {
   /** primary **/
