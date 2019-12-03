@@ -102,10 +102,10 @@
                 <p>Manager: Manager Name</p>
               </div>
               <div class="buttons">
-                  <ion-button shape="round" size="small" color="success">
+                  <ion-button shape="round" size="small" color="success" (click) ="accept()">
                       Accept
                     </ion-button>
-                    <ion-button shape="round" size="small" color="danger">
+                    <ion-button shape="round" size="small" color="danger"   (click) ="decline()">
                         Decline
                       </ion-button>
               </div>
@@ -120,6 +120,27 @@
             <div class="acceptedApplications">
               <div class="head">
                 <ion-input type="text" placeholder="Search Reference Number"></ion-input>
+
+                <div *ngFor ="let g of accepted">
+                    <h1>Pending Teams</h1>
+                   Coach Name <p>{{g.TeamObject.coachName}}</p>
+                Team Name:  <p>{{g.TeamObject.teamName}}</p>
+                Tournament:  <p>{{g.tournamentName}}</p>
+                 
+               <ion-button (click) = "paid(g)">PAID</ion-button>
+                 
+
+                </div>
+
+
+                <div *ngFor ="let g of participants">
+                  <h1>Participating Team</h1>
+                    Coach Name <p>{{g.TeamObject.coachName}}</p>
+                 Team Name:  <p>{{g.TeamObject.teamName}}</p>
+                 Tournament:  <p>{{g.tournamentName}}</p>
+                
+ 
+                 </div>
               </div>
             </div>
             <div class="participatingTeams">

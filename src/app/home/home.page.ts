@@ -79,7 +79,11 @@ tournamentObj = {
     // 
     tournaments = []
     tournamentsToDisplay = []
-  constructor(public loadingController: LoadingController, public serve: AllserveService, private authService: AuthService, private router: Router, public navCtrl: NavController, public renderer: Renderer2, public formBuilder: FormBuilder, public alertCtrl: AlertController) { }
+  constructor(public loadingController: LoadingController, public serve: AllserveService, private authService: AuthService, private router: Router, public navCtrl: NavController, public renderer: Renderer2, public formBuilder: FormBuilder, public alertCtrl: AlertController) { 
+
+
+
+  }
 
   async presentLoading() {
     const loading = await this.loadingController.create({
@@ -300,7 +304,11 @@ tournamentObj = {
       
     })
   }
+  tourney;
+  participants =[];
   finnishSetup(tournament) {
+    let form ={};
+    this.tourney =tournament;
     let team = {
       docid: null,
       doc: null
@@ -321,6 +329,31 @@ tournamentObj = {
         }
       })
       console.log(this.tournamentApplications);
+      console.log(tournament.docid);
+
+      this.db.collection('newTournaments').doc(tournament.docid).get().then(val=>{
+        console.log(val.data().formInfo)
+        
+        form =val.data().formInfo;
+
+        firebase.firestore().collection('participants').where("tournamentName","==",val.data().formInfo.tournamentName).get().then(res=>{
+          res.forEach(val=>{
+            console.log("participants = ",val.data())
+            this.participants.push(val.data())
+          })
+        })
+      })
+
+
+
+
+      this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where("status","==","accepted").get().then(val=>{
+        val.forEach(res=>{
+          
+          this.accepted.push({...form,...{tournid:tournament.docid},...{id:res.id},...res.data()});
+          console.log("data = ",this.accepted)
+        })
+      })
        
     })
 
@@ -408,4 +441,55 @@ tournamentObj = {
 //     }
 // })
 // }
+
+
+
+
+accepted =[];
+declined =[];
+accept()
+{
+console.log("Accept")
+let obj ={};
+obj =this.tournamentApplications[0];
+
+
+console.log("_____________________________________");
+console.log(this.tourney.docid);
+console.log(this.tournamentApplications[0].docid);
+this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(this.tournamentApplications[0].docid).update({status:"accepted"});
+}
+
+
+decline()
+{
+console.log("Decline")
+
+let obj ={};
+obj =this.tournamentApplications[0];
+
+
+console.log("____________________________________");
+console.log(this.tourney.docid);
+console.log(this.tournamentApplications[0].docid);
+this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(this.tournamentApplications[0].docid).update({status:"declined"});
+}
+
+
+
+paid(c)
+{
+console.log(c)
+this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({bank:"paid"}).then(res=>{
+
+  this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress=>{
+    this.db.collection('participants').add(c);
+
+  })
+
+  
+})
+
+
+}
 }
