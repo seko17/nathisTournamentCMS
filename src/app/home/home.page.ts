@@ -348,18 +348,20 @@ obb =val.data();
 
             if(num%2 == 0)
             {
-              this.participants.push({...val.data(),...{whr:"home"}})
+              firebase.firestore().collection('participants').doc(val.id).update({...val.data(),...{whr:"home"}})
+              // this.participants.push({...val.data(),...{whr:"home"}})
             }
             else
             {
-              this.aparticipants.push({...val.data(),...{awhr:"away"}})
+              // this.aparticipants.push({...val.data(),...{awhr:"away"}})
+              firebase.firestore().collection('participants').doc(val.id).update({...val.data(),...{whr:"away"}})
             }
 
 
-            if(this.participants.length==this.aparticipants.length)
-            {
-              this.serve.randomfixture( this.participants,this.aparticipants);  
-            }
+            // if(this.participants.length==this.aparticipants.length)
+            // {
+            //   this.serve.randomfixture( this.participants,this.aparticipants);  
+            // }
             
 
             console.log("number = ",num)

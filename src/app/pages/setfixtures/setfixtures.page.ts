@@ -25,13 +25,12 @@ firebase.firestore().collection('participants').where("whr","==",'home').get().t
   })
 })
 
-
 firebase.firestore().collection('participants').where("whr","==",'away').get().then(val=>{
   val.forEach(res=>{
   
     // console.log({... {id:res.id} ,...res.data()})
-    this.q2.push({... {id:res.id} ,...res.data(),...{color: 'secondary'}});
-    console.log(this.q1)
+    this.q2.push({... {id:res.id} ,...res.data(),...{color: 'primary'}});
+    console.log(this.q2)
   })
 })
   }
