@@ -76,13 +76,28 @@ export class ManageTournamentsPage implements OnInit {
       this.tempCardGen.push({ hasApplications: true })
     }
   }
-  finnishSetup(tournament) {
+  finnishSetup(tournament, state) {
     let team = {
       docid: null,
       doc: null
     }
-    this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
-    this.setUpApplications = true;
+    switch (state) {
+      case 'open':
+        this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
+        this.setUpApplications = true;
+        break;
+        case 'close':
+        this.setUpApplications = false;
+        console.log('will closeeeeee');
+        
+        setTimeout(() => {
+          this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'none');
+        }, 500);
+          break;
+      default:
+        break;
+    }
+   
   }
   toggleTournamentForm(state) {
     switch (state) {
@@ -261,6 +276,7 @@ export class ManageTournamentsPage implements OnInit {
 
     })
   }
+
   setUpTimeLine(state) {
     // timeLineSetup prop
     // setUpTimelineDiv div

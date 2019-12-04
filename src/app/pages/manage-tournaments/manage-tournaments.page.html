@@ -1,6 +1,11 @@
 <ion-content>
   <!-- shows to ask if you manually want to create fixtures or automatically make them -->
   <div class="chooseFixtureConfig animated" [ngClass]="{'zoomIn faster':chooseConfigOption,'zoomOut fast':!chooseConfigOption}">
+      <div class="closebutton">
+          <ion-fab-button size="small" color="success" (click)="promptFixtureConfig('close')">
+            <ion-icon name="close"></ion-icon>
+          </ion-fab-button>
+        </div>
     <div class="middlediv">
       <h1>Fixtures</h1>
       <p>Do you want to manually create fixtures, or can we generate it for you?</p>
@@ -23,6 +28,11 @@
 
 <!-- shows when you have to construct a match from the list of teams -->
   <div class="setUpTimeline animated" [ngClass]="{'fadeInUp':timeLineSetup,'fadeOutDown fast':!timeLineSetup}">
+      <div class="closebutton">
+          <ion-fab-button size="small" color="success" (click)="setUpTimeLine('close')">
+            <ion-icon name="close"></ion-icon>
+          </ion-fab-button>
+        </div>
     <div class="container">
         <div class="teams">
           <div class="header">
@@ -82,6 +92,11 @@
 
   <!-- shows when you have to select the date, time of the matches -->
   <div class="setupFixtures animated" [ngClass]="{'fadeInUp':setUpFixtures,'fadeOutDown fast':!setUpFixtures}">
+      <div class="closebutton">
+          <ion-fab-button size="small" color="success" (click)="fixtureSetUp('close')">
+            <ion-icon name="close"></ion-icon>
+          </ion-fab-button>
+        </div>
     <div class="matches">
       <div class="header">
         <div class="title">
@@ -123,7 +138,7 @@
         </div>
       </div>
       <div class="fixtureList">
-          <div class="card" *ngFor="let item of tempCardGen" (click)="viewmatch('open', item)">
+          <div class="card" *ngFor="let item of tempCardGen">
               <div class="date">
                 <p>27 Jul, 2019 Location Stadium</p>
               </div>
@@ -162,7 +177,12 @@
 
   <!-- shows when you have to accept or decline applications, search for references and conform team payment -->
     <div class="setUpApplications animated" [ngClass]="{'fadeInUp':setUpApplications,'fadeOutDown fast':!setUpApplications}" >
-        <div class="applications">
+        <div class="closebutton">
+            <ion-fab-button size="small" color="success" (click)="finnishSetup(null, 'close')">
+              <ion-icon name="close"></ion-icon>
+            </ion-fab-button>
+          </div>  
+      <div class="applications">
           <div class="head">
             <p>Applications</p>
             <ion-button shape="round" color="light">
@@ -346,7 +366,7 @@
                   </div>
                 </div>
            <div class="setup">
-                    <ion-button size="small" color="light" *ngIf="t.hasApplications" (click)="finnishSetup(t)" >
+                    <ion-button size="small" color="light" *ngIf="t.hasApplications" (click)="finnishSetup(t, 'open')" >
                       Finnsh Setup
                     </ion-button>
                     <ion-button size="small" disabled="true" color="light" *ngIf="!t.hasApplications"  >
