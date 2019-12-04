@@ -42,11 +42,15 @@
       <app-landing-page></app-landing-page>
     
     </div>
+
+
     <!-- main page for managing created tournaments (SECOND LINK) -->
     <div class="cmsContentTourns animated"
       [ngClass]="{'bounceInUp': screen.tournaments,'bounceOutDown fast': !screen.tournaments}">
     <app-manage-tournaments></app-manage-tournaments>
     </div>
+
+    
     <!-- main page for managing applying members (THIRD LINK) -->
     <div class="cmsContentMembers animated"
       [ngClass]="{'bounceInUp': screen.members,'bounceOutDown fast': !screen.members}">
