@@ -7,10 +7,249 @@
   z-index: 701;
   background: rgb(255, 255, 255);
   display: none;
+  .container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    .teams {
+        flex-basis: 30%;
+        height: 100%;
+        background: rgb(224, 224, 224);
+        border-radius: 10px 10px 0px 0px;
+        .header {
+            width: 100%;
+            padding: 10px;
+            p {
+                margin: 0;
+
+            }
+        }
+        .teamList {
+            width: 100%;
+            height: 90%;
+            overflow-y: auto;
+            
+            .card {
+                width: 90%;
+                margin: 3px auto;
+                border-radius: 10px;
+                background: white;
+                padding: 10px;
+                h5, p {
+                    margin: 0;
+                }
+            }
+        }
+    }
+    .fixture {
+        flex-basis: 70%;
+        height: 100%;
+        .head {
+            position: relative;
+            text-align: center;
+            padding: 10px;
+            h1 {
+                margin: 0;
+            }
+            .step {
+                position: absolute;
+                right: 10px;
+                top: 0;
+                bottom: 0;
+                display: flex;
+                align-items: center;
+            }
+        }
+        .hVSa {
+          width: 100%;
+          height: 92%;
+          background: #142F40;
+          border-radius: 20px 20px 0px 0px;
+          color: white;
+          .headers {
+            display: flex;
+            justify-content: space-evenly;
+          }
+          .lists {
+              width: 100%;
+              height: 92%;
+              display: flex;
+              .homeList, .awayList {
+                  height: 100%;
+                  flex-basis: 50%;
+                  overflow-x: visible;
+                  overflow-y: auto;
+                  position: relative;
+                .card {
+                    width: 90%;
+                    margin: 3px auto;
+                    border-radius: 10px;
+                    background: white;
+                    color: black;
+                    padding: 10px;
+                    h5, p {
+                        margin: 0;
+                    }
+                }
+              }
+              .awayList {
+                  .doneButton {
+                      position: fixed;
+                      bottom: 10px;
+                      right: 10px;
+                      z-index: 700;
+                  }
+              }
+          }
+        }
+    }
+}
   .close {
     position: absolute;
     top: 0;
     left: 0;
+  }
+}
+.setupFixtures {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 701;
+  background: linear-gradient(rgb(255, 255, 255));
+  background-size: 100% auto;
+  display: none;
+  .matches {
+    flex-basis: 50%;
+    height: 100%;
+    position: relative;
+    .header {
+      
+      padding: 10px;
+      display: flex;
+      .title {
+        flex-basis: 90%;
+        h1 {
+          margin: 0;
+        }
+        p {
+          margin: 0;
+        }
+      }
+    }
+    .teamList {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 85px;
+      border-radius: 20px 20px 0px 0px;
+      overflow-y: auto;
+      .card {
+        width: 90%;
+        margin: 3px auto;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        background: #387336;color: white;
+        box-shadow: 0px 3px 3px #0000005b;
+        padding: 10px;
+        .details {
+          flex-basis: 100%;
+          h1 {
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+  .fixtures {
+    flex-basis: 50%;
+    height: 100%;
+    position: relative;
+    .header {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      .title {
+        flex-basis: 90%;
+        h1 {
+            margin: 0;
+          
+        }
+        
+      }
+      .div {
+        p {
+          margin: 0;
+        }
+      }
+    }
+    .fixtureList {
+      position: absolute;
+      background: #142F40;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 85px;
+      border-radius: 20px 20px 0px 0px;
+      overflow-y: auto;
+      .card {
+        width: 90%;
+        margin: 5px auto;
+        background: linear-gradient(rgb(255, 255, 255)),url(../../../assets/footbal_deco.svg);
+        overflow: hidden;
+        border-radius:10px;
+        position: relative;
+        box-shadow: 0px 3px 3px #1717172c;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        
+        .date {
+          width: 100%;
+          background: #387336;
+          border-radius:10px;
+          padding: 5px;
+          color: white;
+          p {
+            margin: 0;
+            padding: 0;
+          }
+        }
+        .aVb {
+          display: flex;
+          justify-content: space-evenly;
+          height: 70px;
+        }
+        .teamAway {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          background: #387336;
+          padding: 4px;
+          border-radius: 0px 10px 0px 10px;
+          color: white;
+          p {
+            margin: 0;
+            padding: 0;
+          }
+        }
+        .teamHome {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          background: #387336;
+          padding: 4px;
+          border-radius: 10px 0px 10px 0px;
+          color: white;
+          p {
+            margin: 0;
+            padding: 0;
+          }
+        }
+      }
+    }
   }
 }
 .chooseFixtureConfig {

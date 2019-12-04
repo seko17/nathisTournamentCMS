@@ -18,16 +18,136 @@
     </div>
   </div>
   <div class="setUpTimeline animated" [ngClass]="{'fadeInUp':timeLineSetup,'fadeOutDown fast':!timeLineSetup}">
-    <div class="close">
-      <ion-fab-button size="small" color="light">
-        <ion-icon name="close"></ion-icon>
-      </ion-fab-button>
+    <div class="container">
+        <div class="teams">
+          <div class="header">
+            <p>Teams rednerd</p>
+            <p><sub>Drag and drop a team to a side</sub></p>
+          </div>
+          <div class="teamList">
+            <div class="card" *ngFor="let item of tempCardGen"  >
+              <h5>Kasi Team</h5>
+              <p>Manager <b>Name Surname</b></p>
+            </div>
+          </div>
+          </div>
+          <div class="fixture">
+            <div class="head">
+              <h1>Fixture</h1>
+              <div class="step"> <sub>Step 1 / 2</sub></div>
+            </div>
+            <div class="hVSa">
+              <div class="headers">
+                <div class="hometitle">
+                  <h4>Home</h4>
+                </div>
+                <div class="v">
+                  <h4>vs</h4>
+                </div>  
+                <div class="awayTitle">
+                  <h4>Away</h4>
+                </div>
+              </div>
+            <div class="lists">
+                <div class="homeList">
+    
+                    <div class="card" *ngFor="let item of tempCardGen"  >
+                        <h5>Kasi Team</h5>
+                        <p>Manager <b>Name Surname</b></p>
+                      </div>
+                  </div>
+                  <div class="awayList">
+                    <div class="doneButton">
+                      <ion-button (click)="fixtureSetUp('open')" >
+                        Done
+                      </ion-button>
+                    </div>
+                      <div class="card" *ngFor="let item of tempCardGen"  >
+                          <h5>Kasi Team</h5>
+                          <p>Manager <b>Name Surname</b></p>
+                        </div>
+                  </div>
+            </div>
+            </div>
+          </div>
     </div>
-    <app-setup-matches></app-setup-matches>
   </div>
-  <div class="setupFixtures">
-
+  <div class="setupFixtures animated" [ngClass]="{'fadeInUp':setUpFixtures,'fadeOutDown fast':!setUpFixtures}">
+    <div class="matches">
+      <div class="header">
+        <div class="title">
+          <h1>Matches</h1>
+          <p><sub>Select Time, Date, Location for each match</sub></p>
+        </div>
+        <div class="button">
+          <ion-button shape="round" color="success" size="small" >
+            Create Timeline
+          </ion-button>
+        </div>
+        
+      </div>
+     <div class="teamList">
+       <div class="card" *ngFor="let item of tempCardGen" >
+         <div class="details">
+          <h4>TeamA vs TeamB</h4>
+         </div>
+         <div class="inputs">
+           <!--    [(ngModel)] =item.matchdate -->
+          <ion-datetime displayFormat="D MMM, YY - HH:mm a" min="2019-11-22" max="2020-12-31" placeholder="Date, Time"></ion-datetime>
+         </div>
+       </div>
+     </div>
+    </div>
+    <div class="fixtures">
+      <div class="header">
+        <div class="title">
+          <h1>Fixture</h1>
+          <ion-button shape="round" color="success" size="small" >
+            Make Changes
+          </ion-button>
+          <ion-button shape="round" color="success" size="small" (click)="fixtureSetUp('close')">
+            Create Fixture
+          </ion-button>
+        </div>
+        <div class="div">
+          <p><sub>Step-2/2</sub></p>
+        </div>
+      </div>
+      <div class="fixtureList">
+          <div class="card" *ngFor="let item of tempCardGen" (click)="viewmatch('open', item)">
+              <div class="date">
+                <p>27 Jul, 2019 Location Stadium</p>
+              </div>
+              <div class="aVb">
+                <div class="home">
+                  <p>Team Name</p>
+                </div>
+                <div class="versus">
+                  <p>v</p>
+                </div>
+                <div class="away">
+                  <p>Team Name</p>
+                </div>
+              </div>
+              <div class="teamHome">
+                <p>Home</p>
+              </div>
+              <div class="teamAway">
+                <p>Away</p>
+              </div>
+            </div>
+      </div>
+    </div>
   </div>
+  <!-- <div class="doneFixtures">
+    <div class="prompter">
+      <h1>Well Done</h1>
+      <p>Checkout your new tournament on the home screen.</p>
+      <ion-button color="success" >
+        Okay
+      </ion-button>
+    </div>
+  </div> -->
     <div class="setUpApplications animated" [ngClass]="{'fadeInUp':setUpApplications,'fadeOutDown fast':!setUpApplications}" >
         <div class="applications">
           <div class="head">

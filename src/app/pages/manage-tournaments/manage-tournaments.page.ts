@@ -27,6 +27,12 @@ export class ManageTournamentsPage implements OnInit {
 
   timeLineSetup = false;
   setUpTimelineDiv = document.getElementsByClassName('setUpTimeline');
+
+
+  setUpFixtures = false;
+  setUpFixturesDiv = document.getElementsByClassName('setupFixtures');
+
+  
   // BEGIN  BACKEND HERE ______________________________
   db = firebase.firestore()
   storage = firebase.storage().ref()
@@ -97,7 +103,6 @@ export class ManageTournamentsPage implements OnInit {
         break;
     }
   }
-
   // selects sponsor Image
   async selectimage(image) {
     let imagetosend = image.item(0);
@@ -261,42 +266,73 @@ export class ManageTournamentsPage implements OnInit {
     // setUpTimelineDiv div
     switch (state) {
       case 'open':
-          this.promptFixtureConfig('close')
-          this.timeLineSetup = true;
-          this.renderer.setStyle(this.setUpTimelineDiv[0],'display', 'block')
+        this.promptFixtureConfig('close')
+        this.timeLineSetup = true;
+        this.renderer.setStyle(this.setUpTimelineDiv[0], 'display', 'block');
+        setTimeout(() => {
+          this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'none');
+        }, 500);
+        this.setUpApplications = false;
         break;
-        case 'close':
-            this.timeLineSetup = false;
-          setTimeout(() => {
-            this.renderer.setStyle(this.setUpTimelineDiv[0],'display', 'none')
-          }, 500);
-            break;
+      case 'close':
+        console.log('will close');
+
+        this.timeLineSetup = false;
+        // this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
+        // this.setUpApplications = true;
+        setTimeout(() => {
+          this.renderer.setStyle(this.setUpTimelineDiv[0], 'display', 'none')
+        }, 500);
+        break;
       default:
         break;
     }
   }
   promptFixtureConfig(state) {
     console.log('called');
-    
+
     switch (state) {
       case 'open':
         this.chooseConfigOption = true;
-        this.renderer.setStyle(this.configOptionDiv[0],'display','flex');
+        this.renderer.setStyle(this.configOptionDiv[0], 'display', 'flex');
         console.log('will open');
-        
+
         break;
       case 'close':
-          this.chooseConfigOption = false;
-          setTimeout(() => {
-            this.renderer.setStyle(this.configOptionDiv[0],'display','none');
-          }, 500);
-          console.log('will close');
-          
+        this.chooseConfigOption = false;
+        setTimeout(() => {
+          this.renderer.setStyle(this.configOptionDiv[0], 'display', 'none');
+        }, 500);
+        console.log('will close');
+
         break;
 
       default:
         break;
     }
   }
+  fixtureSetUp(state) {
+    // setUpFixtures
+    // setUpFixturesDiv
+    console.log('called ', state);
+    
+    switch (state) {
+      case 'open':
+        console.log('fixtureSetUp open');
+        
+          this.setUpTimeLine('close')
+        this.setUpFixtures = true;
+      this.renderer.setStyle(this.setUpFixturesDiv[0],'display','flex')
+        break;
+      case 'close':
+          this.setUpFixtures = false;
+         setTimeout(() => {
+          this.renderer.setStyle(this.setUpFixturesDiv[0],'display','none')
+         }, 500);
+        break;
 
+      default:
+        break;
+    }
+  }
 }
