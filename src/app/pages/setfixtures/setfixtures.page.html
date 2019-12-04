@@ -14,7 +14,7 @@
         <div class="q-header">HOME</div>
         <ion-list dragula="bag"  lines="none">
           <ion-item *ngFor="let item of q1" [color]="item.color" expand="block" text-wrap>
-            {{ item.TeamName }}
+            {{ item.TeamObject.teamName }}
           </ion-item>
         </ion-list>
       </ion-col>
@@ -23,7 +23,7 @@
         <div class="q-header">AWAY</div>
         <ion-list dragula="bag"  lines="none">
           <ion-item *ngFor="let item of q2" [color]="item.color" expand="block" text-wrap>
-            {{ item.TeamName }}
+            {{item.TeamObject.teamName }}
           </ion-item>
         </ion-list>
       </ion-col>

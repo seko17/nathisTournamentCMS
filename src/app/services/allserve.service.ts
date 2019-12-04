@@ -24,9 +24,7 @@ for(let v = 0;v<q1.length;v++)
 
 
 let away:any ={
-aManager:q2[v].Manager,
-aTeamName:q2[v].TeamName,
-Tournament:q2[v].Tournament,
+aTeamObject:q2[v].TeamObject,
 awhr:q2[v].whr
 }
 

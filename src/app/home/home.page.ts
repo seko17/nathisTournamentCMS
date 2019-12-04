@@ -74,7 +74,11 @@ tournamentObj = {
     // 
     tournaments = []
     tournamentsToDisplay = []
-  constructor(public loadingController: LoadingController, public serve: AllserveService, private authService: AuthService, private router: Router, public navCtrl: NavController, public renderer: Renderer2, public formBuilder: FormBuilder, public alertCtrl: AlertController) { }
+  constructor(public loadingController: LoadingController, public serve: AllserveService, private authService: AuthService, private router: Router, public navCtrl: NavController, public renderer: Renderer2, public formBuilder: FormBuilder, public alertCtrl: AlertController) { 
+
+
+
+  }
 
   async presentLoading() {
     const loading = await this.loadingController.create({
@@ -160,7 +164,7 @@ tournamentObj = {
     this.authService.logoutUser().then(() => {
       this.router.navigateByUrl('login');
     });
-    this.router.navigate(['setfixtures']);
+   
   }
   setfix(x) {
     console.log(x)
@@ -169,5 +173,4 @@ tournamentObj = {
   currtourn() {
     this.router.navigate(['currtourn']);
   }
-
 }
