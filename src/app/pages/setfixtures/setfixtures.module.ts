@@ -16,6 +16,7 @@ import { SetfixturesPage } from './setfixtures.page';
     IonicModule,
     SetfixturesPageRoutingModule
   ],
-  declarations: [SetfixturesPage]
+  // SetfixturesPage
+  declarations: []
 })
 export class SetfixturesPageModule {}

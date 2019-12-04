@@ -16,6 +16,7 @@ import { ManageTournamentsPage } from './manage-tournaments.page';
     IonicModule,
     ManageTournamentsPageRoutingModule
   ],
-  declarations: [ManageTournamentsPage, SetupMatchesPage]
+  //ManageTournamentsPage , SetupMatchesPage
+  declarations: []
 })
 export class ManageTournamentsPageModule {}

@@ -17,8 +17,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     FormsModule,
     IonicModule,
-    ReactiveFormsModule,
-    NgControlStatus
+    ReactiveFormsModule
   ],
   exports: [RouterModule],
   declarations:[]

@@ -15,6 +15,7 @@ import { SetupMatchesPage } from './setup-matches.page';
     IonicModule,
     SetupMatchesPageRoutingModule
   ],
-  declarations: [SetupMatchesPage]
+  // /SetupMatchesPage
+  declarations: []
 })
 export class SetupMatchesPageModule {}

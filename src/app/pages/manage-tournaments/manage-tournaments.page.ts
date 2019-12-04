@@ -289,8 +289,6 @@ export class ManageTournamentsPage implements OnInit {
     }
   }
   promptFixtureConfig(state) {
-    console.log('called');
-
     switch (state) {
       case 'open':
         this.chooseConfigOption = true;

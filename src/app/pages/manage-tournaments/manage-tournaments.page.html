@@ -1,4 +1,5 @@
 <ion-content>
+  <!-- shows to ask if you manually want to create fixtures or automatically make them -->
   <div class="chooseFixtureConfig animated" [ngClass]="{'zoomIn faster':chooseConfigOption,'zoomOut fast':!chooseConfigOption}">
     <div class="middlediv">
       <h1>Fixtures</h1>
@@ -17,11 +18,15 @@
       </ion-button>
     </div>
   </div>
+
+
+
+<!-- shows when you have to construct a match from the list of teams -->
   <div class="setUpTimeline animated" [ngClass]="{'fadeInUp':timeLineSetup,'fadeOutDown fast':!timeLineSetup}">
     <div class="container">
         <div class="teams">
           <div class="header">
-            <p>Teams rednerd</p>
+            <p>Teams</p>
             <p><sub>Drag and drop a team to a side</sub></p>
           </div>
           <div class="teamList">
@@ -72,6 +77,10 @@
           </div>
     </div>
   </div>
+
+
+
+  <!-- shows when you have to select the date, time of the matches -->
   <div class="setupFixtures animated" [ngClass]="{'fadeInUp':setUpFixtures,'fadeOutDown fast':!setUpFixtures}">
     <div class="matches">
       <div class="header">
@@ -139,6 +148,7 @@
       </div>
     </div>
   </div>
+
   <!-- <div class="doneFixtures">
     <div class="prompter">
       <h1>Well Done</h1>
@@ -148,6 +158,9 @@
       </ion-button>
     </div>
   </div> -->
+
+
+  <!-- shows when you have to accept or decline applications, search for references and conform team payment -->
     <div class="setUpApplications animated" [ngClass]="{'fadeInUp':setUpApplications,'fadeOutDown fast':!setUpApplications}" >
         <div class="applications">
           <div class="head">
@@ -230,6 +243,9 @@
           </div>
         </div>
         </div>
+
+
+        <!-- shows when you click create tournament button -->
     <div class="newTournamentForm animated" [ngClass]="{'flipInX': creatingTournament,'flipOutX': !creatingTournament}">
         <div class="form">
           <form (ngSubmit)="newTournament(newTournForm.value)" [formGroup]="newTournForm">
@@ -299,7 +315,7 @@
           </div>
         </div>
       </div>
-
+      <!-- main screen for displaying all information -->
   <div class="cmsContentTourns">
   <div class="tournaments">
     <div class="links">
