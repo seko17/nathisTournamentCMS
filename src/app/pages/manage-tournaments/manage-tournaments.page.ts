@@ -28,11 +28,13 @@ export class ManageTournamentsPage implements OnInit {
   timeLineSetup = false;
   setUpTimelineDiv = document.getElementsByClassName('setUpTimeline');
 
-
   setUpFixtures = false;
   setUpFixturesDiv = document.getElementsByClassName('setupFixtures');
 
-  
+  vedorApplications = false;
+
+
+
   // BEGIN  BACKEND HERE ______________________________
   db = firebase.firestore()
   storage = firebase.storage().ref()
@@ -86,18 +88,18 @@ export class ManageTournamentsPage implements OnInit {
         this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
         this.setUpApplications = true;
         break;
-        case 'close':
+      case 'close':
         this.setUpApplications = false;
         console.log('will closeeeeee');
-        
+
         setTimeout(() => {
           this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'none');
         }, 500);
-          break;
+        break;
       default:
         break;
     }
-   
+
   }
   toggleTournamentForm(state) {
     switch (state) {
@@ -276,7 +278,16 @@ export class ManageTournamentsPage implements OnInit {
 
     })
   }
-
+  vendorApplications(state) {
+    switch (state) {
+      case 'open':  
+      this.vedorApplications = true;
+        break;
+      case 'close':
+        this.vedorApplications = false;
+        break;
+    }
+  }
   setUpTimeLine(state) {
     // timeLineSetup prop
     // setUpTimelineDiv div
@@ -329,20 +340,20 @@ export class ManageTournamentsPage implements OnInit {
     // setUpFixtures
     // setUpFixturesDiv
     console.log('called ', state);
-    
+
     switch (state) {
       case 'open':
         console.log('fixtureSetUp open');
-        
-          this.setUpTimeLine('close')
+
+        this.setUpTimeLine('close')
         this.setUpFixtures = true;
-      this.renderer.setStyle(this.setUpFixturesDiv[0],'display','flex')
+        this.renderer.setStyle(this.setUpFixturesDiv[0], 'display', 'flex')
         break;
       case 'close':
-          this.setUpFixtures = false;
-         setTimeout(() => {
-          this.renderer.setStyle(this.setUpFixturesDiv[0],'display','none')
-         }, 500);
+        this.setUpFixtures = false;
+        setTimeout(() => {
+          this.renderer.setStyle(this.setUpFixturesDiv[0], 'display', 'none')
+        }, 500);
         break;
 
       default:

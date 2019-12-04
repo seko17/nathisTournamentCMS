@@ -1,3 +1,4 @@
+import { ManageMembersPage } from './../pages/manage-members/manage-members.page';
 import { SetupMatchesPage } from './../pages/setup-matches/setup-matches.page';
 import { ManageTournamentsPage } from './../pages/manage-tournaments/manage-tournaments.page';
 import { LandingPagePage } from './../pages/landing-page/landing-page.page';
@@ -26,7 +27,7 @@ import { HomePage } from './home.page';
     
   ],
   // , 
-  declarations: [HomePage,SetfixturesPage, LandingPagePage, ManageTournamentsPage, SetupMatchesPage],
+  declarations: [HomePage,SetfixturesPage, LandingPagePage, ManageTournamentsPage, SetupMatchesPage, ManageMembersPage],
   schemas : []
 })
 export class HomePageModule {}
