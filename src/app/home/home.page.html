@@ -37,6 +37,8 @@
         </div>
       </div>
     </div>
+
+
     <!-- main page  for seeing tournaments (FIRST LINK) -->
     <div class="cmsContentMain animated" [ngClass]="{'bounceInUp': screen.main,'bounceOutDown fast': !screen.main}">
       <app-landing-page></app-landing-page>
@@ -48,8 +50,7 @@
     <app-manage-tournaments></app-manage-tournaments>
     </div>
     <!-- main page for managing applying members (THIRD LINK) -->
-    <div class="cmsContentMembers animated"
-      [ngClass]="{'bounceInUp': screen.members,'bounceOutDown fast': !screen.members}">
+    <div class="cmsContentMembers animated" [ngClass]="{'bounceInUp': screen.members,'bounceOutDown fast': !screen.members}">
       <div class="tournaments">
           <div class="approvedTournaments">
               <div class="title">

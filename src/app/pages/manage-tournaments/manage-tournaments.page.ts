@@ -54,7 +54,19 @@ export class ManageTournamentsPage implements OnInit {
   // array for the red cards
   unapprovedTournaments = []
   tournamentApplications = []
-  constructor(public renderer: Renderer2, public alertCtrl: AlertController, public formBuilder: FormBuilder, public loadingController: LoadingController) { }
+  cparticipants=[];
+  constructor(public renderer: Renderer2, public alertCtrl: AlertController, public formBuilder: FormBuilder, public loadingController: LoadingController) {
+this.cparticipants=[];
+    firebase.firestore().collection('participants').get().then(val=>{
+      val.forEach(res=>{
+
+        this.cparticipants.push({...{id:res.id},...res.data()})
+        console.log("current Participants = "  ,this.cparticipants)
+      })
+    })
+
+
+   }
 
   ngOnInit() {
     this.newTournForm = this.formBuilder.group({
@@ -81,8 +93,88 @@ export class ManageTournamentsPage implements OnInit {
       docid: null,
       doc: null
     }
+let num =0;
+    console.log(tournament)
     this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
     this.setUpApplications = true;
+
+
+    let form ={};
+    this.tourney =tournament;
+ 
+    this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
+    this.setUpApplications = true;
+    this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').get().then(res => {
+      this.tournamentApplications = []
+      res.forEach(doc => {
+        team = {
+          docid: doc.id,
+          doc: doc.data()
+        }
+        this.tournamentApplications.unshift(team)
+        team = {
+          docid: null,
+          doc: null
+        }
+      })
+      console.log(this.tournamentApplications);
+      console.log(tournament.docid);
+​
+      this.db.collection('newTournaments').doc(tournament.docid).get().then(val=>{
+        console.log(val.data().formInfo)
+        
+        form =val.data().formInfo;
+​
+        firebase.firestore().collection('participants').where("tournamentName","==",val.data().formInfo.tournamentName).get().then(res=>{
+          res.forEach(val=>{
+            console.log("participants = ",val.data())
+ num = num+1;
+​
+let obb = {};
+obb =val.data();
+​
+            if(num%2 == 0)
+            {
+              firebase.firestore().collection('participants').doc(val.id).update({...val.data(),...{whr:"home"}})
+              // this.participants.push({...val.data(),...{whr:"home"}})
+            }
+            else
+            {
+              // this.aparticipants.push({...val.data(),...{awhr:"away"}})
+              firebase.firestore().collection('participants').doc(val.id).update({...val.data(),...{whr:"away"}})
+            }
+​
+​
+            // if(this.participants.length==this.aparticipants.length)
+            // {
+            //   this.serve.randomfixture( this.participants,this.aparticipants);  
+            // }
+            
+​
+            console.log("number = ",num)
+            console.log("parts  = ",this.participants)
+          })
+        })
+      })
+​
+​
+​
+​
+      this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where("status","==","accepted").get().then(val=>{
+        val.forEach(res=>{
+          
+          this.accepted.push({...form,...{tournid:tournament.docid},...{id:res.id},...res.data()});
+          console.log("data = ",this.accepted)
+        })
+      })
+       
+    })
+
+
+
+
+
+
   }
   toggleTournamentForm(state) {
     switch (state) {
@@ -261,9 +353,11 @@ export class ManageTournamentsPage implements OnInit {
 
     })
   }
-  setUpTimeLine(state) {
+  setUpTimeLine(state,x) {
     // timeLineSetup prop
     // setUpTimelineDiv div
+
+    console.log("participants = ",this.cparticipants)
     switch (state) {
       case 'open':
         this.promptFixtureConfig('close')
@@ -318,7 +412,7 @@ export class ManageTournamentsPage implements OnInit {
       case 'open':
         console.log('fixtureSetUp open');
         
-          this.setUpTimeLine('close')
+          this.setUpTimeLine('close',this.cparticipants);
         this.setUpFixtures = true;
       this.renderer.setStyle(this.setUpFixturesDiv[0],'display','flex')
         break;
@@ -333,4 +427,61 @@ export class ManageTournamentsPage implements OnInit {
         break;
     }
   }
+
+
+  tourney;
+  participants =[];
+  aparticipants =[];
+  accepted =[];
+  declined =[];
+  accept()
+  {
+  console.log("Accept")
+  let obj ={};
+  obj =this.tournamentApplications[0];
+  ​
+  ​
+  console.log("_____________________________________");
+  console.log(this.tourney.docid);
+  console.log(this.tournamentApplications[0].docid);
+  this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(this.tournamentApplications[0].docid).update({status:"accepted"});
+  }
+  ​
+  ​
+  decline()
+  {
+  console.log("Decline")
+  ​
+  let obj ={};
+  obj =this.tournamentApplications[0];
+  ​
+  ​
+  console.log("____________________________________");
+  console.log(this.tourney.docid);
+  console.log(this.tournamentApplications[0].docid);
+  this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(this.tournamentApplications[0].docid).update({status:"declined"});
+  }
+  ​
+  ​
+  ​
+  paid(c)
+  {
+  console.log(c)
+  this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({bank:"paid"}).then(res=>{
+  ​
+    this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress=>{
+      this.db.collection('participants').add(c);
+  ​
+    })
+  ​
+    
+  })
+  ​
+  ​
+  }
+  ​
+
+
+
+
 }
