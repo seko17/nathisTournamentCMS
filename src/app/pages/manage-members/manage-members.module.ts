@@ -15,6 +15,6 @@ import { ManageMembersPage } from './manage-members.page';
     IonicModule,
     ManageMembersPageRoutingModule
   ],
-  declarations: [ManageMembersPage]
+  declarations: []
 })
 export class ManageMembersPageModule {}

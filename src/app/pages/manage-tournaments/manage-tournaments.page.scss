@@ -614,7 +614,7 @@
   left: 0px;
   right: 0;
   top: 0px;
-  background: rgb(121, 52, 52);
+  background: rgb(255, 255, 255);
   z-index: 600;
   border-radius: 20px 20px 0px 0px;
   display: none;
@@ -634,6 +634,69 @@
       height: 60px;
       display: flex;
       align-items: center;
+      position: relative;
+      .vendorApplications {
+        transition: 0.4s;
+        position: absolute;
+        top: 0;
+        right: -306px;
+        width: 300px;
+        height: 50vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background: white;
+        box-shadow: 0px 3px 3px #17171728;
+        border-radius: 5px;
+        z-index: 300;
+        .card {
+          display: flex;
+          min-width: 96%;
+          max-width: 96%;
+          background: #142F40;
+          border-radius: 5px;
+          align-items: center;
+          margin: 5px auto;
+          color: #C7FFC5;
+          .teamInfo {
+            flex-basis: 100%;
+            padding: 10px;
+            p {
+              margin: 0;
+            }
+          }
+        }
+      }
+      .vendorApplications-close {
+        transition: 0.4s;
+        position: absolute;
+        top: 0;
+        right: 0px;
+        width: 0px;
+        height: 50vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background: white;
+        box-shadow: 0px 3px 3px #17171728;
+        border-radius: 5px;
+        z-index: 300;
+        .card {
+          display: flex;
+          min-width: 96%;
+          max-width: 96%;
+          background: #142F40;
+          border-radius: 5px;
+          align-items: center;
+          margin: 5px auto;
+          color: #C7FFC5;
+          .teamInfo {
+            flex-basis: 100%;
+            padding: 10px;
+            p {
+              margin: 0;
+            }
+          }
+        }
+      }
       p {
         flex-basis: 90%;
         padding: 0px 10px
@@ -671,8 +734,21 @@
       }
       .splitter {
         display: flex;
-        .one {
+        height: 87%;
+        .one, .two {
           flex-basis: 50%;
+          p {
+            margin: 0;
+          }
+          hr {
+            background: rgb(233, 233, 233);
+          }
+          img {
+            width: 50px;
+            border-radius: 5px;
+            box-shadow: 0px 3px 3px #1717171c;
+            margin: 4px;
+          }
         }
       }
     }

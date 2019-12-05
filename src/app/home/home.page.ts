@@ -27,8 +27,11 @@ screen = {
 
 
 //  capture applications to accept or decline
+openProfile = false;
+ profileDiv = document.getElementsByClassName('profile-more')
+  // BEGIN BACKEND HERE______________________________
 
-  // ______________________________
+
   // reference to firestore
   db = firebase.firestore()
 
@@ -130,6 +133,22 @@ tournamentObj = {
     }).catch(err => {
 
     })
+  }
+  profile(state) {
+    switch (state) {
+      case 'open':
+        console.log('profile open',this.profileDiv[0]);
+        
+        this.openProfile = true;
+        this.renderer.setStyle(this.profileDiv[0],'display', 'block')
+        break;
+        case 'close':
+          this.openProfile = false;
+          setTimeout(() => {
+            this.renderer.setStyle(this.profileDiv[0],'display', 'none')
+          }, 500);
+        break;
+    }
   }
   changeView(state) {
     switch (state) {

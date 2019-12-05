@@ -1,0 +1,334 @@
+.cmsContentMembers {
+    position: absolute;
+    bottom: 0;
+    top: 0px;
+    right: 0;
+    left: 0px;
+    z-index: 100;
+    display: flex;
+    border-radius: 20px 0px 0px 0px;
+    overflow: hidden;
+    background: url(../../../assets/markus-spiske-KWQ2kQtxiKE-unsplash.jpg), linear-gradient(white);
+    background-size: cover;
+
+    .managers {
+        width: 50%;
+        height: 100%;
+
+        .approvedManagers {
+            width: 100%;
+            height: 50%;
+
+            // background: red;
+            // display: flex;
+            .title {
+                width: 100%;
+                height: 50px;
+                display: flex;
+                align-items: center;
+                color: rgb(37, 37, 37);
+                padding: 0px 20px;
+            }
+
+            .approvedList {
+                width: 100%;
+                height: 80%;
+                display: flex;
+                overflow-x: auto;
+
+                .card {
+                    position: relative;
+                    backdrop-filter: blur(5px);
+                    background: linear-gradient(rgba(109, 71, 0, 0.363));
+                    background-size: cover;
+                    min-width: 400px;
+                    margin: 5px 5px 25px 5px;
+                    border-radius: 10px;
+                    box-shadow: 0px 3px 3px #17171717;
+                    display: flex;
+                    color: rgb(255, 255, 255);
+                    overflow: hidden;
+                    position: relative;
+
+                    .image {
+                        flex-basis: 40%;
+                        height: 100%;
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    }
+
+                    .details {
+                        width: 60%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        padding: 0px 5px;
+                    }
+                }
+            }
+
+        }
+
+        .unaprovedManagers {
+            width: 100%;
+            height: 50%;
+
+            // background: red;
+            // display: flex;
+            .title {
+                width: 100%;
+                height: 50px;
+                display: flex;
+                align-items: center;
+                color: rgb(34, 34, 34);
+                padding: 0px 20px;
+            }
+
+            .unapprovedList {
+                width: 100%;
+                height: 50%;
+                display: flex;
+                overflow-x: auto;
+                overflow-y: hidden;
+
+                .card {
+                    position: relative;
+                    background: linear-gradient(rgba(109, 71, 0, 0.363));
+                    background-size: cover;
+                    min-width: 400px;
+                    margin: 5px 5px 25px 5px;
+                    border-radius: 10px;
+                    box-shadow: 0px 3px 3px #17171717;
+                    display: flex;
+                    color: rgb(255, 255, 255);
+                    overflow: hidden;
+                    position: relative;
+
+                    .approve {
+                        position: absolute;
+                        top: 0;
+                        right: -0px;
+                    }
+
+                    .decline {
+                        position: absolute;
+                        bottom: 0;
+                        right: -0px;
+                    }
+
+                    .image {
+                        flex-basis: 40%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+
+                        .img {
+                            width: 90px;
+                            height: 90px;
+                            margin: auto;
+                            border-radius: 200px;
+                            overflow: hidden;
+
+                            img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                            }
+                        }
+                    }
+
+                    .details {
+                        width: 60%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        padding: 0px 5px;
+
+                        p {
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .vendors {
+        width: 50%;
+        height: 100%;
+
+        .approvedVendors {
+            width: 100%;
+            height: 50%;
+
+            // background: red;
+            // display: flex;
+            .title {
+                width: 100%;
+                height: 50px;
+                display: flex;
+                align-items: center;
+                color: white;
+                padding: 0px 20px;
+            }
+
+            .approvedList {
+                width: 100%;
+                height: 80%;
+                display: flex;
+                overflow-x: auto;
+
+                .card {
+                    position: relative;
+                    background: linear-gradient(rgba(0, 109, 18, 0.363));
+                    background-size: cover;
+                    min-width: 400px;
+                    margin: 5px 5px 25px 5px;
+                    border-radius: 10px;
+                    box-shadow: 0px 3px 3px #17171717;
+                    display: flex;
+                    color: rgb(255, 255, 255);
+                    overflow: hidden;
+                    position: relative;
+
+                    .tTitle {
+                        text-align: center;
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        left: 0;
+                        padding: 5px;
+                        backdrop-filter: blur(10px);
+                        border-radius: 10px;
+
+                        h5 {
+                            margin: 0;
+                            padding: 0;
+                        }
+                    }
+
+                    .tDetails {
+                        height: 100%;
+                        align-items: center;
+                        padding: 5px;
+                        flex-basis: 90%;
+                        padding-top: 40px;
+                        display: flex;
+                        align-items: center;
+                        position: relative;
+                        width: 100%;
+
+                        p {
+                            margin: 0;
+                            padding: 0;
+                        }
+                    }
+
+                    .sponsors {
+                        display: flex;
+                        flex-direction: column;
+                        padding-top: 40px;
+
+                        img {
+                            width: 45px;
+                        }
+                    }
+
+                    .setup {
+                        position: absolute;
+                        bottom: 0;
+                        right: 0;
+                    }
+                }
+            }
+
+        }
+
+        .unaprovedVendors {
+            width: 100%;
+            height: 50%;
+
+            // background: red;
+            // display: flex;
+            .title {
+                width: 100%;
+                height: 50px;
+                display: flex;
+                align-items: center;
+                color: white;
+                padding: 0px 20px;
+            }
+
+            .unapprovedList {
+                width: 100%;
+                height: 50%;
+                display: flex;
+                overflow-x: auto;
+                overflow-y: hidden;
+
+                .card {
+                    position: relative;
+                    background: linear-gradient(rgba(109, 71, 0, 0.363));
+                    background-size: cover;
+                    min-width: 400px;
+                    margin: 5px 5px 25px 5px;
+                    border-radius: 10px;
+                    box-shadow: 0px 3px 3px #17171717;
+                    display: flex;
+                    color: rgb(255, 255, 255);
+                    overflow: hidden;
+                    position: relative;
+
+                    .approve {
+                        position: absolute;
+                        top: 0;
+                        right: -0px;
+                    }
+
+                    .decline {
+                        position: absolute;
+                        bottom: 0;
+                        right: -0px;
+                    }
+
+                    .image {
+                        flex-basis: 40%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+
+                        .img {
+                            width: 90px;
+                            height: 90px;
+                            margin: auto;
+                            border-radius: 200px;
+                            overflow: hidden;
+
+                            img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                            }
+                        }
+                    }
+
+                    .details {
+                        width: 60%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        padding: 0px 5px;
+
+                        p {
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
