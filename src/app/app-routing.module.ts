@@ -42,6 +42,10 @@ const routes: Routes = [
     path: 'setup-matches',
     loadChildren: () => import('./pages/setup-matches/setup-matches.module').then( m => m.SetupMatchesPageModule)
   },
+  {
+    path: 'manage-members',
+    loadChildren: () => import('./pages/manage-members/manage-members.module').then( m => m.ManageMembersPageModule)
+  },
 
 
 ];

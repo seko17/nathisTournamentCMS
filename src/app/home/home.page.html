@@ -19,7 +19,6 @@
     </div>
   </div>
   <div class="container">
-
     <div class="cmshead">
       <div class="title">
         <p>Nathi's Tournaments</p>
@@ -40,16 +39,18 @@
     <!-- main page  for seeing tournaments (FIRST LINK) -->
     <div class="cmsContentMain animated" [ngClass]="{'bounceInUp': screen.main,'bounceOutDown fast': !screen.main}">
       <app-landing-page></app-landing-page>
-    
     </div>
+
+
     <!-- main page for managing created tournaments (SECOND LINK) -->
     <div class="cmsContentTourns animated"
       [ngClass]="{'bounceInUp': screen.tournaments,'bounceOutDown fast': !screen.tournaments}">
     <app-manage-tournaments></app-manage-tournaments>
     </div>
+
+    
     <!-- main page for managing applying members (THIRD LINK) -->
-    <div class="cmsContentMembers animated"
-      [ngClass]="{'bounceInUp': screen.members,'bounceOutDown fast': !screen.members}">
+    <div class="cmsContentMembers animated" [ngClass]="{'bounceInUp': screen.members,'bounceOutDown fast': !screen.members}">
       <div class="tournaments">
           <div class="approvedTournaments">
               <div class="title">
