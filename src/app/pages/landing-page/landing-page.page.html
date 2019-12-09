@@ -69,24 +69,23 @@
               <img
                 src="https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/kxm6rmrs69f9txyidrjk/zenit-saint-petersburg-2019-20-stadium-home-football-shirt-k1WvdX.jpg"
                 alt="">
-              <div class="homeButton animated"
-                [ngClass]="{'bounceInLeft':matchActionState.home,'bounceOutLeft':!matchActionState.home}">
-                <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'home')">
-                  Goal
-                </ion-button>
-                <ion-button size="small" shape="round" color="danger">
-                  Red Card
-                </ion-button>
-                <ion-button size="small" shape="round" color="warning">
-                  Yellow Card
-                </ion-button>
-                <ion-button size="small" shape="round" color="light">
-                  Free Kick
-                </ion-button>
-                <ion-button size="small" shape="round" color="light">
-                  Corner Kick
-                </ion-button>
-              </div>
+                <div class="homeButton animated" [ngClass]="{'bounceInLeft':matchActionState.home,'bounceOutLeft':!matchActionState.home}">
+                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'home')" (click)="goal1()">
+                    Goal
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="danger" (click)="homestats('red')">
+                    Red Card
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="warning" (click)="homestats('yellow')">
+                    Yellow Card
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="light" (click)="homestats('offside')">
+                    Off Side
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="light" (click)="homestats('corner')">
+                    Corner Kick
+                  </ion-button>
+                </div>
             </div>
           </div>
           <div class="match" *ngFor="let item of currmatch">
@@ -161,24 +160,23 @@
               <img
                 src="https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/kxm6rmrs69f9txyidrjk/zenit-saint-petersburg-2019-20-stadium-home-football-shirt-k1WvdX.jpg"
                 alt="">
-              <div class="awayButton animated"
-                [ngClass]="{'bounceInRight':matchActionState.away,'bounceOutRight':!matchActionState.away}">
-                <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'away')">
-                  Goal
-                </ion-button>
-                <ion-button size="small" shape="round" color="danger">
-                  Red Card
-                </ion-button>
-                <ion-button size="small" shape="round" color="warning">
-                  Yellow Card
-                </ion-button>
-                <ion-button size="small" shape="round" color="light">
-                  Free Kick
-                </ion-button>
-                <ion-button size="small" shape="round" color="light">
-                  Corner Kick
-                </ion-button>
-              </div>
+                <div class="awayButton animated" [ngClass]="{'bounceInRight':matchActionState.away,'bounceOutRight':!matchActionState.away}" >
+                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'away')">
+                    Goal
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="danger" (click)="ahomestats('red')">
+                    Red Card
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="warning" (click)="ahomestats('yellow')">
+                    Yellow Card
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="light"  (click)="ahomestats('offside')">
+                    Free Kick
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="light" (click)="ahomestats('corner')">
+                    Corner Kick
+                  </ion-button>
+                </div>
             </div>
           </div>
         </div>
@@ -195,28 +193,28 @@
             <div class="lineUps animated"
               [ngClass]="{'slideInLeft':matchView=='lineup','slideOutLeft':matchView=='summary'}">
               <div class="away">
-                <div class="card" *ngFor="let a of tempCardGen" (click)="viewPlayer('open', 'home', 'object')">
+                <div class="card" *ngFor="let a of team1" (click)="viewPlayer('open', 'home', 'object')">
                   <div class="number">
                     <p>30'</p>
                   </div>
                   <div class="name">
-                    <p>Alan Bakes</p>
+                    <p>{{a.fullName}}</p>
                   </div>
                   <div class="position">
-                    <p>Defender</p>
+                    <p>{{a.playerPosition}}</p>
                   </div>
                 </div>
               </div>
               <div class="home">
-                <div class="card" *ngFor="let a of tempCardGen" (click)="viewPlayer('open', 'away', 'object')">
+                <div class="card" *ngFor="let a of team2" (click)="viewPlayer('open', 'away', 'object')">
                   <div class="number">
                     <p>30'</p>
                   </div>
                   <div class="name">
-                    <p>Alan Bakes</p>
+                    <p>{{a.fullName}}</p>
                   </div>
                   <div class="position">
-                    <p>Defender</p>
+                    <p>{{a.playerPosition}}</p>
                   </div>
                 </div>
               </div>
@@ -225,7 +223,7 @@
               [ngClass]="{'slideInRight':matchView=='summary','slideOutRight':matchView=='lineup'}">
               <div class="stats">
                 <div class="homeSummary">
-                  <p>0</p>
+                
                   <p>0</p>
                   <p>0</p>
                   <p>0</p>
@@ -233,7 +231,7 @@
                   <p>0</p>
                 </div>
                 <div class="labels">
-                  <p>Attacks</p>
+                
                   <p>Corners</p>
                   <p>Off Target</p>
                   <p>Red Cards</p>
@@ -241,7 +239,7 @@
                   <p>Penalties</p>
                 </div>
                 <div class="awaySummary">
-                  <p>0</p>
+               
                   <p>0</p>
                   <p>0</p>
                   <p>0</p>

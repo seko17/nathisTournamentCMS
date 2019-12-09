@@ -197,7 +197,7 @@ export class LandingPagePage implements OnInit {
 
           this.viewingTeam.home = true;
           this.renderer.setStyle(this.homeTeamDiv[0], 'display', 'block');
-          console.log('home team open'); this.goal1()
+          console.log('home team open');
           this.viewPlayer('close', 'home', null);
         } else {
           this.viewPlayer('close', 'away', null);
@@ -260,172 +260,169 @@ export class LandingPagePage implements OnInit {
   }
 
 
-clicked =[];
+  clicked = [];
 
-fixture=[];
-  viewdetails(x)
-  {
-    this.clicked=[];
-    this.fixture =[];
-console.log(x)
-this.clicked.push(x);
-
-
-this.db.collection('MatchFixtures').where('tournid', '==', x.docid).get().then(val=>{
-  val.forEach(res=>{
-    
-
-    this.fixture.push({...{fixtureid:res.id},...res.data()});
-    console.log(this.fixture)
+  fixture = [];
+  viewdetails(x) {
+    this.clicked = [];
+    this.fixture = [];
+    console.log(x)
+    this.clicked.push(x);
 
 
+    this.db.collection('MatchFixtures').where('tournid', '==', x.docid).get().then(val => {
+      val.forEach(res => {
 
 
-    firebase.firestore().collection('MatchFixtures').doc(res.id).get().then(val=>{
-
-
-      console.log(this.currentmatch)
-    this.score =val.data().score;
-    this.ascore =val.data().ascore;
-    this.tourname =val.data().Tournament;
-      if(val.data().mins>0&&val.data().mins<=46)
-      {
-       this.btntxt1 ="Resume First Half";
-       this.btn1 =false;
-       this.btn2 =true;
-       this.btn3 =true;
-      }
-      else  if(val.data().mins>45&&val.data().mins<=90)
-      {
-        this.btn1 =true;
-        this.btn2 =false;
-        this.btn3 =true;
-        this.btntxt2 ="Resume Second Half";
-      }
-
-
-      // firebase.firestore().collection('Top4').where("Tournament","==",this.tourname).get().then(val=>{
-      
-      //   val.forEach(res=>{
-       
-      //    this.id =res.id;
-      //     this.matchstats.push(res.data());
-     
-    
-      //   })
-        
-                // })
-              
-              
-         })
-  })
-})
-
-  }
+        this.fixture.push({ ...{ fixtureid: res.id }, ...res.data() });
+        console.log(this.fixture)
 
 
 
 
+        firebase.firestore().collection('MatchFixtures').doc(res.id).get().then(val => {
 
 
-
-
-
-
-
-
-
-
-  firsthalf()
-  {
-    this.btn1 =true;
-    this.btn2 =true;
-    this.btn3 =false;
-
-   
-    console.log('docid = ',this.currmatch[0].fixtureid)
-      this.sub = timer(0,1000).subscribe(result =>{
-       
-  
-        
-  
-  
-        firebase.firestore().collection('MatchFixtures').doc(this.currmatch[0].fixtureid).get().then(val=>{
-  
-      
-  this.secs =val.data().secs;
-          console.log("Team = ",val.data())
-
-
-
-          this.mins=val.data().mins;   
-          if(this.secs==59)
-          {
-  this.secs =0;
-  this.mins=this.mins+1;
-  
+          console.log(this.currentmatch)
+          this.score = val.data().score;
+          this.ascore = val.data().ascore;
+          this.tourname = val.data().Tournament;
+          if (val.data().mins > 0 && val.data().mins <= 46) {
+            this.btntxt1 = "Resume First Half";
+            this.btn1 = false;
+            this.btn2 = true;
+            this.btn3 = true;
           }
-  
-  
-   firebase.firestore().collection('MatchFixtures').doc(this.currmatch[0].fixtureid).update({mins:this.mins,secs:this.secs+1});
-        })
-    
-    
-    
-      })
-  
-  
-console.log("comp = ",this.currmatch[0].TeamObject.userUID)
+          else if (val.data().mins > 45 && val.data().mins <= 90) {
+            this.btn1 = true;
+            this.btn2 = false;
+            this.btn3 = true;
+            this.btntxt2 = "Resume Second Half";
+          }
 
-      firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.userUID).collection('Players').get().then(val=>{
-      
-        val.forEach(res=>{
-          // console.log( "players = ",res.data().fullName)
-   
-          this.input.data.push({name:"radio",type: 'radio',label:res.data().fullName,value:res.data().fullName})
+
+          // firebase.firestore().collection('Top4').where("Tournament","==",this.tourname).get().then(val=>{
+
+          //   val.forEach(res=>{
+
+          //    this.id =res.id;
+          //     this.matchstats.push(res.data());
+
+
+          //   })
+
+          // })
+
+
         })
-        
+      })
     })
-  
 
-    firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.userUID).collection('Players').get().then(val=>{
-      
-      val.forEach(res=>{
-        console.log( "players = ",res.data().fullName)
- 
-        this.ainput.data.push({name:"radio",type: 'radio',label:res.data().fullName,value:res.data().fullName})
-      })
-      
-
-
-      console.log( "players = ",this.ainput.data)
-  })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
   }
-  btn3=true;
-  async stop()
-  {
-  
-// this.btn1 =false;
-this.btn2 =false;
-this.btn3 =true;
+
+
+
+
+
+
+  team1 = [];
+  team2 = [];
+
+
+
+
+
+
+
+  firsthalf() {
+    this.btn1 = true;
+    this.btn2 = true;
+    this.btn3 = false;
+
+
+    console.log('docid = ', this.currmatch[0].fixtureid)
+    this.sub = timer(0, 1000).subscribe(result => {
+
+
+
+
+
+      firebase.firestore().collection('MatchFixtures').doc(this.currmatch[0].fixtureid).get().then(val => {
+
+
+        this.secs = val.data().secs;
+        console.log("Team = ", val.data())
+
+
+
+        this.mins = val.data().mins;
+        if (this.secs == 59) {
+          this.secs = 0;
+          this.mins = this.mins + 1;
+
+        }
+
+
+        firebase.firestore().collection('MatchFixtures').doc(this.currmatch[0].fixtureid).update({ mins: this.mins, secs: this.secs + 1 });
+      })
+
+
+
+    })
+
+
+    console.log("comp = ", this.currmatch[0].TeamObject.userUID)
+
+    firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.userUID).collection('Players').get().then(val => {
+
+      val.forEach(res => {
+        // console.log( "players = ",res.data().fullName)
+
+        this.team1.push(res.data())
+        console.log("385 = ", this.team1)
+        this.input.data.push({ name: "radio", type: 'radio', label: res.data().fullName, value: res.data().fullName })
+      })
+
+    })
+
+
+    firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.userUID).collection('Players').get().then(val => {
+
+      val.forEach(res => {
+        console.log("players = ", res.data().fullName)
+        this.team2.push(res.data())
+        this.ainput.data.push({ name: "radio", type: 'radio', label: res.data().fullName, value: res.data().fullName })
+      })
+
+
+
+      console.log("players = ", this.ainput.data)
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  }
+  btn3 = true;
+  async stop() {
+
+    // this.btn1 =false;
+    this.btn2 = false;
+    this.btn3 = true;
 
     const alert = await this.alertController.create({
       header: 'Confirm!',
@@ -441,8 +438,8 @@ this.btn3 =true;
         }, {
           text: 'YES',
           handler: () => {
-            this.btn1 =true;
-            this.btn2 =false;
+            this.btn1 = true;
+            this.btn2 = false;
             this.sub.unsubscribe();
             console.log(this.sub.unsubscribe())
           }
@@ -557,7 +554,7 @@ this.btn3 =true;
         }, {
           text: 'Ok',
           handler: (data) => {
-            
+
             firebase.firestore().collection('MatchFixtures').doc(this.currmatch[0].fixtureid).get().then(res => {
 
               console.log(res.data())
@@ -591,22 +588,30 @@ this.btn3 =true;
     await alert.present();
   }
 
-  async homestats(x) {
-    
-    let input = { data: [] };
 
-    input.data.push({ name: "radio", type: 'radio', label: "Shots", value: "shots" })
-    input.data.push({ name: "radio", type: 'radio', label: "On Target", value: "ontarget" })
-    input.data.push({ name: "radio", type: 'radio', label: "Foul", value: "fouls" })
-    input.data.push({ name: "radio", type: 'radio', label: "Yellow Card", value: "yellow" })
-    input.data.push({ name: "radio", type: 'radio', label: "Red Card", value: "red" })
-    input.data.push({ name: "radio", type: 'radio', label: "Off Side", value: "offsides" })
-    input.data.push({ name: "radio", type: 'radio', label: "Corner", value: "corners" })
+
+  async homestats(x) {
+    console.log(x)
+
+
+    console.log(this.input)
+    let input = this.input;
+
+    // input.data.push({name:"radio",type: 'radio',label:"Shots",value:"shots"})
+    // input.data.push({name:"radio",type: 'radio',label:"On Target",value:"ontarget"})
+    // input.data.push({name:"radio",type: 'radio',label:"Foul",value:"fouls"})
+    // input.data.push({name:"radio",type: 'radio',label:"Yellow Card",value:"yellow"})
+    // input.data.push({name:"radio",type: 'radio',label:"Red Card",value:"red"})
+    // input.data.push({name:"radio",type: 'radio',label:"Off Side",value:"offsides"})
+    // input.data.push({name:"radio",type: 'radio',label:"Corner",value:"corners"})
+
+
+
 
     console.log(input);
     const alert = await this.alertController.create({
-      header: 'Home',
-      subHeader: 'Pick event',
+      header: 'Home: ' + x,
+      subHeader: 'Pick Player',
       inputs: input.data,
       buttons: [
         {
@@ -620,316 +625,257 @@ this.btn3 =true;
           text: 'Ok',
           handler: (data) => {
             console.log(data);
-            if (data == "shots") {
+
+
+
+
+
+
+            if (x == "yellow") {
               this.matchstats = [];
-              firebase.firestore().collection('Top4').where("Tournament", "==", this.tourname).get().then(val => {
-
-                val.forEach(res => {
-                  let val = res.data().shots;
-                  let obj = res.data();
-                  obj.shots = obj.shots + 1;
-
-                  this.matchstats.push(obj);
-                  this.id = res.id;
-                  console.log(this.id)
-                  firebase.firestore().collection('Top4').doc(this.id).update({ shots: val + 1 });
-
+              firebase.firestore().collection('MatchFixtures').doc(this.currmatch[0].fixtureid).update({
+                stats: firebase.firestore.FieldValue.arrayUnion({
+                  yellow: this.mins.toString() +
+                    ":" + this.secs.toString(), playerName: data
                 })
-
               })
+              console.log("foul commited = ", this.currmatch[0].fixtureid)
+
+              // firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.userUID).collection('Players').doc(this.id).update({yellow:1});
+
+
+
+
+
             }
 
             else
-
-              if (data == "ontarget") {
+              if (x == "red") {
                 this.matchstats = [];
-                firebase.firestore().collection('Top4').where("Tournament", "==", this.tourname).get().then(val => {
-
-                  val.forEach(res => {
-                    let val = res.data().ontarget;
-                    let obj = res.data();
-                    obj.ontarget = obj.ontarget + 1;
-
-                    this.matchstats.push(obj);
-                    this.id = res.id;
-                    console.log(this.id)
-                    firebase.firestore().collection('Top4').doc(this.id).update({ ontarget: val + 1 });
-
+                firebase.firestore().collection('MatchFixtures').doc(this.currmatch[0].fixtureid).update({
+                  stats: firebase.firestore.FieldValue.arrayUnion({
+                    red: this.mins.toString() +
+                      ":" + this.secs.toString(), playerName: data
                   })
-
                 })
-
               }
+
               else
-                if (data == "fouls") {
+                if (x == "offsides") {
+
                   this.matchstats = [];
-                  firebase.firestore().collection('Top4').where("Tournament", "==", this.tourname).get().then(val => {
-
-                    val.forEach(res => {
-                      let val = res.data().fouls;
-                      let obj = res.data();
-                      obj.fouls = obj.fouls + 1;
-
-                      this.matchstats.push(obj);
-                      this.id = res.id;
-                      console.log(this.id)
-                      firebase.firestore().collection('Top4').doc(this.id).update({ fouls: val + 1 });
-
+                  firebase.firestore().collection('MatchFixtures').doc(this.currmatch[0].fixtureid).update({
+                    stats: firebase.firestore.FieldValue.arrayUnion({
+                      offsides: this.mins.toString() +
+                        ":" + this.secs.toString(), playerName: data
                     })
-
                   })
-
                 }
+
+
                 else
-                  if (data == "yellow") {
+                  if (x == "corners") {
                     this.matchstats = [];
-                    firebase.firestore().collection('Top4').where("Tournament", "==", this.tourname).get().then(val => {
-
-                      val.forEach(res => {
-                        let val = res.data().yellow;
-                        let obj = res.data();
-                        obj.yellow = obj.yellow + 1;
-
-                        this.matchstats.push(obj);
-                        this.id = res.id;
-                        console.log(this.id)
-                        firebase.firestore().collection('Top4').doc(this.id).update({ yellow: val + 1 });
-
+                    firebase.firestore().collection('MatchFixtures').doc(this.currmatch[0].fixtureid).update({
+                      stats: firebase.firestore.FieldValue.arrayUnion({
+                        corners: this.mins.toString() +
+                          ":" + this.secs.toString(), playerName: data
                       })
-
                     })
 
                   }
 
-                  else
-                    if (data == "red") {
-                      this.matchstats = [];
-                      firebase.firestore().collection('Top4').where("Tournament", "==", this.tourname).get().then(val => {
 
-                        val.forEach(res => {
-                          let val = res.data().red;
-                          let obj = res.data();
-                          obj.red = obj.red + 1;
 
-                          this.matchstats.push(obj);
-                          this.id = res.id;
-                          console.log(this.id)
-                          firebase.firestore().collection('Top4').doc(this.id).update({ red: val + 1 });
 
-                        })
 
-                      })
-                    }
 
-                    else
-                      if (data == "offsides") {
-                        this.matchstats = [];
-                        firebase.firestore().collection('Top4').where("Tournament", "==", this.tourname).get().then(val => {
 
-                          val.forEach(res => {
-                            let val = res.data().off;
-                            let obj = res.data();
-                            obj.off = obj.off + 1;
-
-                            this.matchstats.push(obj);
-                            this.id = res.id;
-                            console.log(obj.shots)
-                            firebase.firestore().collection('Top4').doc(this.id).update({ off: val + 1 });
-
-                          })
-
-                        })
-                      }
-                      else
-                        if (data == "corners") {
-                          this.matchstats = [];
-                          firebase.firestore().collection('Top4').where("Tournament", "==", this.tourname).get().then(val => {
-
-                            val.forEach(res => {
-                              let val = res.data().corner;
-                              let obj = res.data();
-                              obj.corner = obj.corner + 1;
-
-                              this.matchstats.push(obj);
-                              this.id = res.id;
-                              console.log(this.id)
-                              firebase.firestore().collection('Top4').doc(this.id).update({ corner: val + 1 });
-
-                            })
-
-                          })
-
-                        }
 
           }
         }
       ]
-    });
+  });
     await alert.present();
   }
 
-  async awaystats(x) {
-    let input = { data: [] };
-
-    input.data.push({ name: "radio", type: 'radio', label: "Shots", value: "ashots" })
-    input.data.push({ name: "radio", type: 'radio', label: "On Target", value: "aontarget" })
-    input.data.push({ name: "radio", type: 'radio', label: "Foul", value: "afouls" })
-    input.data.push({ name: "radio", type: 'radio', label: "Yellow Card", value: "ayellow" })
-    input.data.push({ name: "radio", type: 'radio', label: "Red Card", value: "ared" })
-    input.data.push({ name: "radio", type: 'radio', label: "Off Side", value: "aoffsides" })
-    input.data.push({ name: "radio", type: 'radio', label: "Corner", value: "acorners" })
 
 
 
 
-    console.log(input);
-    const alert = await this.alertController.create({
-      header: 'Away',
-      subHeader: 'Pick event',
-      inputs: input.data,
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        }, {
-          text: 'Ok',
-          handler: (data) => {
-            console.log(data);
-            if (data == "ashots") {
-              this.matchstats = [];
-              firebase.firestore().collection('Top4').where("Tournament", "==", this.tourname).get().then(val => {
-                val.forEach(res => {
-                  let val = res.data().ashots;
-                  let obj = res.data();
-                  obj.ashots = obj.ashots + 1;
 
-                  this.matchstats.push(obj);
-                  this.id = res.id;
-                  console.log(this.id)
-                  firebase.firestore().collection('Top4').doc(this.id).update({ ashots: val + 1 });
-                })
+
+async awaystats(x)
+{
+  console.log(x)
+
+
+
+  let input = this.ainput;
+
+  // input.data.push({name:"radio",type: 'radio',label:"Shots",value:"ashots"})
+  // input.data.push({name:"radio",type: 'radio',label:"On Target",value:"aontarget"})
+  // input.data.push({name:"radio",type: 'radio',label:"Foul",value:"afouls"})
+  // input.data.push({name:"radio",type: 'radio',label:"Yellow Card",value:"ayellow"})
+  // input.data.push({name:"radio",type: 'radio',label:"Red Card",value:"ared"})
+  // input.data.push({name:"radio",type: 'radio',label:"Off Side",value:"aoffsides"})
+  // input.data.push({name:"radio",type: 'radio',label:"Corner",value:"acorners"})
+
+
+
+
+  console.log(input);
+  const alert = await this.alertController.create({
+    header: 'Away',
+    subHeader: 'Pick event',
+    inputs: input.data,
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: () => {
+          console.log('Confirm Cancel');
+        }
+      }, {
+        text: 'Ok',
+        handler: (data) => {
+          console.log(data);
+
+
+
+          if (data == "ashots") {
+            this.matchstats = [];
+            firebase.firestore().collection('Top4').where("Tournament", "==", this.tourname).get().then(val => {
+
+              val.forEach(res => {
+                let val = res.data().ashots;
+                let obj = res.data();
+                obj.ashots = obj.ashots + 1;
+
+                this.matchstats.push(obj);
+                this.id = res.id;
+                console.log(this.id)
+                firebase.firestore().collection('Top4').doc(this.id).update({ ashots: val + 1 });
               })
-            }
-            else if (data == "aontarget") {
-                this.matchstats = [];
-                firebase.firestore().collection('Top4').where("Tournament", "==", this.tourname).get().then(val => {
+            })
+          }
+          else if (data == "aontarget") {
+            this.matchstats = [];
+            firebase.firestore().collection('Top4').where("Tournament", "==", this.tourname).get().then(val => {
 
-                  val.forEach(res => {
-                    let val = res.data().aontarget;
-                    let obj = res.data();
-                    obj.aontarget = obj.aontarget + 1;
+              val.forEach(res => {
+                let val = res.data().aontarget;
+                let obj = res.data();
+                obj.aontarget = obj.aontarget + 1;
 
-                    this.matchstats.push(obj);
-                    this.id = res.id;
-                    console.log(this.id)
-                    firebase.firestore().collection('Top4').doc(this.id).update({ aontarget: val + 1 });
-                  })
-                })
-              }
-              else if (data == "afouls") {
-                  this.matchstats = [];
-                  firebase.firestore().collection('Top4').where("Tournament", "==", this.tourname).get().then(val => {
+                this.matchstats.push(obj);
+                this.id = res.id;
+                console.log(this.id)
+                firebase.firestore().collection('Top4').doc(this.id).update({ aontarget: val + 1 });
+              })
+            })
+          }
+          else if (data == "afouls") {
+            this.matchstats = [];
+            firebase.firestore().collection('Top4').where("Tournament", "==", this.tourname).get().then(val => {
 
-                    val.forEach(res => {
-                      let val = res.data().afouls;
-                      let obj = res.data();
-                      obj.afouls = obj.afouls + 1;
+              val.forEach(res => {
+                let val = res.data().afouls;
+                let obj = res.data();
+                obj.afouls = obj.afouls + 1;
 
-                      this.matchstats.push(obj);
-                      this.id = res.id;
-                      console.log(this.id)
-                      firebase.firestore().collection('Top4').doc(this.id).update({ afouls: val + 1 });
-                    })
-                  })
-                }
-                else if (data == "ayellow") {
-                    this.matchstats = [];
-                    firebase.firestore().collection('Top4').where("Tournament", "==", this.tourname).get().then(val => {
+                this.matchstats.push(obj);
+                this.id = res.id;
+                console.log(this.id)
+                firebase.firestore().collection('Top4').doc(this.id).update({ afouls: val + 1 });
+              })
+            })
+          }
+          else if (data == "ayellow") {
+            this.matchstats = [];
+            firebase.firestore().collection('Top4').where("Tournament", "==", this.tourname).get().then(val => {
 
-                      val.forEach(res => {
-                        let val = res.data().ayellow;
-                        let obj = res.data();
-                        obj.ayellow = obj.ayellow + 1;
+              val.forEach(res => {
+                let val = res.data().ayellow;
+                let obj = res.data();
+                obj.ayellow = obj.ayellow + 1;
 
-                        this.matchstats.push(obj);
-                        this.id = res.id;
-                        console.log(this.id)
-                        firebase.firestore().collection('Top4').doc(this.id).update({ ayellow: val + 1 });
+                this.matchstats.push(obj);
+                this.id = res.id;
+                console.log(this.id)
+                firebase.firestore().collection('Top4').doc(this.id).update({ ayellow: val + 1 });
 
-                      })
+              })
 
-                    })
+            })
 
-                  } else if (data == "ared") {
-                      this.matchstats = [];
-                      firebase.firestore().collection('Top4').where("Tournament", "==", this.tourname).get().then(val => {
+          } else if (data == "ared") {
+            this.matchstats = [];
+            firebase.firestore().collection('Top4').where("Tournament", "==", this.tourname).get().then(val => {
 
-                        val.forEach(res => {
-                          let val = res.data().ared;
-                          let obj = res.data();
-                          obj.ared = obj.ared + 1;
+              val.forEach(res => {
+                let val = res.data().ared;
+                let obj = res.data();
+                obj.ared = obj.ared + 1;
 
-                          this.matchstats.push(obj);
-                          this.id = res.id;
-                          console.log(this.id)
-                          firebase.firestore().collection('Top4').doc(this.id).update({ ared: val + 1 });
+                this.matchstats.push(obj);
+                this.id = res.id;
+                console.log(this.id)
+                firebase.firestore().collection('Top4').doc(this.id).update({ ared: val + 1 });
 
-                        })
+              })
 
-                      })
-                    } else if (data == "aoffsides") {
-                        this.matchstats = [];
-                        firebase.firestore().collection('Top4').where("Tournament", "==", this.tourname).get().then(val => {
+            })
+          } else if (data == "aoffsides") {
+            this.matchstats = [];
+            firebase.firestore().collection('Top4').where("Tournament", "==", this.tourname).get().then(val => {
 
-                          val.forEach(res => {
-                            let val = res.data().aoff;
-                            let obj = res.data();
-                            obj.aoff = obj.aoff + 1;
+              val.forEach(res => {
+                let val = res.data().aoff;
+                let obj = res.data();
+                obj.aoff = obj.aoff + 1;
 
-                            this.matchstats.push(obj);
-                            this.id = res.id;
-                            console.log(obj.shots)
-                            firebase.firestore().collection('Top4').doc(this.id).update({ aoff: val + 1 });
+                this.matchstats.push(obj);
+                this.id = res.id;
+                console.log(obj.shots)
+                firebase.firestore().collection('Top4').doc(this.id).update({ aoff: val + 1 });
 
-                          })
+              })
 
-                        })
-                      } else if (data == "acorners") {
-                          this.matchstats = [];
-                          firebase.firestore().collection('Top4').where("Tournament", "==", this.tourname).get().then(val => {
+            })
+          } else if (data == "acorners") {
+            this.matchstats = [];
+            firebase.firestore().collection('Top4').where("Tournament", "==", this.tourname).get().then(val => {
 
-                            val.forEach(res => {
-                              let val = res.data().acorner;
-                              let obj = res.data();
-                              obj.acorner = obj.acorner + 1;
+              val.forEach(res => {
+                let val = res.data().acorner;
+                let obj = res.data();
+                obj.acorner = obj.acorner + 1;
 
-                              this.matchstats.push(obj);
-                              this.id = res.id;
-                              console.log(this.id)
-                              firebase.firestore().collection('Top4').doc(this.id).update({ acorner: val + 1 });
-                            })
-                          })
-                        }
+                this.matchstats.push(obj);
+                this.id = res.id;
+                console.log(this.id)
+                firebase.firestore().collection('Top4').doc(this.id).update({ acorner: val + 1 });
+              })
+            })
           }
         }
-      ]
-    });
-    await alert.present();
-  }
+      }
+    ]
+  });
+  await alert.present();
+}
 
 
-  async ionViewWillLeave() {
-    const alert = await this.alertController.create({
-      header: 'Alert',
-      subHeader: 'Warning!',
-      message: 'Leaving this page during a match will pause any ongoing matches!',
-      buttons: ['OK']
-    });
-    await alert.present();
-    this.sub.unsubscribe();
-  }
+async ionViewWillLeave() {
+  const alert = await this.alertController.create({
+    header: 'Alert',
+    subHeader: 'Warning!',
+    message: 'Leaving this page during a match will pause any ongoing matches!',
+    buttons: ['OK']
+  });
+  await alert.present();
+  this.sub.unsubscribe();
+}
 }
