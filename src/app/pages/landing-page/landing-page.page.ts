@@ -698,13 +698,6 @@ export class LandingPagePage implements OnInit {
   });
     await alert.present();
   }
-
-
-
-
-
-
-
 async awaystats(x)
 {
   console.log(x)
@@ -867,7 +860,31 @@ async awaystats(x)
   await alert.present();
 }
 
-
+filterMatches (state) {
+  switch (state) {
+    case 'all':
+      this.activeFilter = {
+        all: true,
+        inplay: false,
+        upcoming: false
+      }
+      break;
+      case 'inplay':
+        this.activeFilter = {
+          all: false,
+          inplay: true,
+          upcoming: false
+        }
+      break;
+      case 'upcoming':
+        this.activeFilter = {
+          all: false,
+          inplay: false,
+          upcoming: true
+        }
+        break;
+  }
+}
 async ionViewWillLeave() {
   const alert = await this.alertController.create({
     header: 'Alert',
