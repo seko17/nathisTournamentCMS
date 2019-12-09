@@ -8,7 +8,7 @@ import { SetfixturesPage } from '../setfixtures/setfixtures.page';
 import { FixturesPage } from '../fixtures/fixtures.page';
 import { SetfixturePage } from 'src/app/setfixture/setfixture.page';
 import { AllserveService } from 'src/app/services/allserve.service';
-import { Subscription, Observable, observable, timer } from 'rxjs';
+import { Subscription, Observable, observable,timer } from 'rxjs';
 
 @Component({
   selector: 'app-manage-tournaments',
@@ -16,28 +16,82 @@ import { Subscription, Observable, observable, timer } from 'rxjs';
   styleUrls: ['./manage-tournaments.page.scss'],
 })
 export class ManageTournamentsPage implements OnInit {
-
-  input = { data: [] };
-  ainput = { data: [] };
-
+  
+  
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  input={data:[]};
+  ainput={data:[]};
+  
   modal
   async presentModal() {
-    this.setUpTimeLine('close',null)
     this.modal = await this.modalController.create({
       component: SetfixturesPage,
-      backdropDismiss: false,
-      showBackdrop: true
+      backdropDismiss:false,
+      showBackdrop:true
     });
-    this.modal.onWillDismiss().then(res => {
+    this.modal.onWillDismiss().then(res=>{
 
       this.fixtureSetUp('open')
       this.presentLoading();
-    });
-    this.promptFixtureConfig('close',null)
+     })
     return await this.modal.present();
 
-  }
+    
 
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   // CSS PROPERTIES ___________________________________
   newTournFormCont = document.getElementsByClassName('newTournamentForm');
   setUpApplicationsScreen = document.getElementsByClassName('setUpApplications');
@@ -62,6 +116,8 @@ export class ManageTournamentsPage implements OnInit {
 
   vedorApplications = false;
 
+
+
   // BEGIN  BACKEND HERE ______________________________
   db = firebase.firestore()
   storage = firebase.storage().ref()
@@ -83,51 +139,113 @@ export class ManageTournamentsPage implements OnInit {
   // array for the red cards
   unapprovedTournaments = []
   tournamentApplications = []
-  hparticipants = [];
-  aparticipants = [];
-  cparticipants = [];
-  parti = [];
+  hparticipants=[];
+aparticipants =[];
+cparticipants =[];
+parti =[];
 
 
-  currentmatch = [];
-  timer;
-  docid;
-  mins: number = 0;
-  sub: Subscription;
-  btntxt1 = "First Half";
-  btntxt2 = "Second Half";
-  btn1 = false;
-  btn2 = true;
-  constructor(public alertController: AlertController, public serve: AllserveService, public loadingController: LoadingController, public toastController: ToastController, public modalController: ModalController, public dragulaService: DragulaService, public renderer: Renderer2, public alertCtrl: AlertController, public formBuilder: FormBuilder) {
+currentmatch =[];
+timer;
+docid;
+mins:number =0;
+sub :Subscription;
+btntxt1 ="First Half";
+btntxt2 ="Second Half";
+btn1 =false;
+btn2 =true;
+  constructor(public alertController: AlertController,public serve: AllserveService, public loadingController: LoadingController, public toastController: ToastController,public modalController:ModalController,public dragulaService: DragulaService,public renderer: Renderer2, public alertCtrl: AlertController, public formBuilder: FormBuilder) {
 
-    let num = 0;
 
-    this.hparticipants = [];
-    this.aparticipants = [];
-    firebase.firestore().collection('participants').where("whr", "==", "home").get().then(val => {
-      val.forEach(res => {
+    
 
-        this.hparticipants.push({ ...{ id: res.id }, ...res.data() })
-        console.log("current Participants = ", this.hparticipants)
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+let num =0;
+
+
+
+
+
+
+
+
+
+
+    this.hparticipants=[];
+this.aparticipants=[];
+    firebase.firestore().collection('participants').where("whr","==","home").get().then(val=>{
+      val.forEach(res=>{
+
+        this.hparticipants.push({...{id:res.id},...res.data()})
+        console.log("current Participants = "  ,this.hparticipants)
       })
     })
-    firebase.firestore().collection('participants').where("whr", "==", "away").get().then(val => {
-      val.forEach(res => {
 
-        this.aparticipants.push({ ...{ id: res.id }, ...res.data() })
-        console.log("current Participants = ", this.aparticipants)
+
+
+    firebase.firestore().collection('participants').where("whr","==","away").get().then(val=>{
+      val.forEach(res=>{
+
+        this.aparticipants.push({...{id:res.id},...res.data()})
+        console.log("current Participants = "  ,this.aparticipants)
       })
     })
 
 
-    firebase.firestore().collection('participants').get().then(val => {
-      val.forEach(res => {
+    firebase.firestore().collection('participants').get().then(val=>{
+      val.forEach(res=>{
 
-        this.cparticipants.push({ ...{ id: res.id }, ...res.data() })
-        console.log("current Participants = ", this.cparticipants)
+        this.cparticipants.push({...{id:res.id},...res.data()})
+        console.log("current Participants = "  ,this.cparticipants)
       })
     })
-  }
+
+   
+
+
+
+
+
+
+
+
+
+   }
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   ngOnInit() {
     this.newTournForm = this.formBuilder.group({
@@ -157,15 +275,15 @@ export class ManageTournamentsPage implements OnInit {
 
 
     this.generatefixtures(tournament);
-    let num = 0;
+let num =0;
     console.log(tournament)
     this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
     this.setUpApplications = true;
 
 
-    let form = {};
-    this.tourney = tournament;
-
+    let form ={};
+    this.tourney =tournament;
+ 
     this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
     this.setUpApplications = true;
     this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').get().then(res => {
@@ -246,6 +364,8 @@ obb =val.data();
         break;
       case 'close':
         this.setUpApplications = false;
+        console.log('will closeeeeee');
+
         setTimeout(() => {
           this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'none');
         }, 500);
@@ -444,8 +564,8 @@ this.serve.tournaments =this.approvedTournaments;
 
   vendorApplications(state) {
     switch (state) {
-      case 'open':
-        this.vedorApplications = true;
+      case 'open':  
+      this.vedorApplications = true;
         break;
       case 'close':
         this.vedorApplications = false;
@@ -463,19 +583,19 @@ this.serve.tournaments =this.approvedTournaments;
     
     switch (state) {
       case 'open':
-        this.presentModal();
-        console.log("participants = ")
-        console.log("participants = ", this.hparticipants)
+          this.presentModal();
+          console.log("participants = ")
+          console.log("participants = ",this.hparticipants)
         // this.promptFixtureConfig('close',this.hparticipants)
-        // this.timeLineSetup = true;
-        // this.renderer.setStyle(this.setUpTimelineDiv[0], 'display', 'block');
+        this.timeLineSetup = true;
+        this.renderer.setStyle(this.setUpTimelineDiv[0], 'display', 'block');
         setTimeout(() => {
           this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'none');
         }, 500);
         this.setUpApplications = false;
         break;
       case 'close':
-        console.log("participants = ", this.hparticipants)
+        console.log("participants = ",this.hparticipants)
         console.log('will close');
 
         this.timeLineSetup = false;
@@ -490,10 +610,13 @@ this.serve.tournaments =this.approvedTournaments;
     }
   }
 
-
-  promptFixtureConfig(state, x) {
+  
+  promptFixtureConfig(state,x) {
     console.log(state)
+
     // this.presentModal();
+
+
     switch (state) {
       case 'open':
         this.chooseConfigOption = true;
@@ -503,16 +626,18 @@ this.serve.tournaments =this.approvedTournaments;
         break;
       case 'close':
         this.chooseConfigOption = false;
-        // this.fixtureSetUp('open');
+        this.fixtureSetUp('open');
         // setTimeout(() => {
         //   this.renderer.setStyle(this.setUpFixturesDiv[0],'display','flex');
-        // this.renderer.setStyle(this.configOptionDiv[0], 'display', 'none');
+          // this.renderer.setStyle(this.configOptionDiv[0], 'display', 'none');
         // }, 500);
         //  this.presentModal();
+
+      
         // console.log('will close');
         this.fixture = this.serve.fixture;
 
-        console.log("fixture here", this.fixture)
+        console.log("fixture here",this.fixture)
         break;
 
       default:
@@ -521,6 +646,7 @@ this.serve.tournaments =this.approvedTournaments;
   }
 
 
+  
   fixtureSetUp(state) {
     // setUpFixtures
     // setUpFixturesDiv
@@ -529,8 +655,8 @@ this.serve.tournaments =this.approvedTournaments;
     switch (state) {
       case 'open':
         console.log('fixtureSetUp open');
-
-        this.setUpTimeLine('close', this.hparticipants);
+        
+          this.setUpTimeLine('close',this.hparticipants);
         this.setUpFixtures = true;
         this.renderer.setStyle(this.setUpFixturesDiv[0], 'display', 'flex')
         break;
@@ -548,64 +674,67 @@ this.serve.tournaments =this.approvedTournaments;
 
 
   tourney;
-  participants = [];
-  accepted = [];
-  declined = [];
-  accept() {
-    console.log("Accept")
-    let obj = {};
-    obj = this.tournamentApplications[0];
-
-
-    console.log("_____________________________________");
-    console.log(this.tourney.docid);
-    console.log(this.tournamentApplications[0].docid);
-    this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(this.tournamentApplications[0].docid).update({ status: "accepted" });
+  participants =[];
+  accepted =[];
+  declined =[];
+  accept()
+  {
+  console.log("Accept")
+  let obj ={};
+  obj =this.tournamentApplications[0];
+  ​
+  ​
+  console.log("_____________________________________");
+  console.log(this.tourney.docid);
+  console.log(this.tournamentApplications[0].docid);
+  this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(this.tournamentApplications[0].docid).update({status:"accepted"});
   }
-
-
-  decline() {
-    console.log("Decline")
-
-    let obj = {};
-    obj = this.tournamentApplications[0];
-
-
-    console.log("____________________________________");
-    console.log(this.tourney.docid);
-    console.log(this.tournamentApplications[0].docid);
-    this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(this.tournamentApplications[0].docid).update({ status: "declined" });
+  ​
+  ​
+  decline()
+  {
+  console.log("Decline")
+  ​
+  let obj ={};
+  obj =this.tournamentApplications[0];
+  ​
+  ​
+  console.log("____________________________________");
+  console.log(this.tourney.docid);
+  console.log(this.tournamentApplications[0].docid);
+  this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(this.tournamentApplications[0].docid).update({status:"declined"});
   }
-
-
-
-  paid(c) {
-    console.log(c)
-    this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ bank: "paid" }).then(res => {
-
-      this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress => {
-        this.db.collection('participants').add(c);
-
-      })
-
-
+  ​
+  ​
+  ​
+  paid(c)
+  {
+  console.log(c)
+  this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({bank:"paid"}).then(res=>{
+  ​
+    this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress=>{
+      this.db.collection('participants').add(c);
+  ​
     })
-
-
+  ​
+    
+  })
+  ​
+  ​
   }
-  q1 = [];
+  ​ q1 = [];
   q2 = [];
   fixture = [];
 
   async savefixture() {
-    let q1 = this.fixture;
-
+let q1 =this.fixture;
+    
     console.log(this.fixture)
     for (let r = 0; r < q1.length; r++) {
       let z: any = {};
-      z = { matchdate: new Date(q1[r].matchdate).toDateString(), secs: 0, mins: 0, ascore: 0, score: 0, ...q1[r], random1: Math.floor((Math.random() * r) * 2), random2: Math.floor((Math.random() * r) + 3) };
+      z = {matchdate:new Date(q1[r].matchdate).toDateString(),secs:0, mins: 0, ascore: 0, score: 0, ...q1[r], random1: Math.floor((Math.random() * r) * 2), random2: Math.floor((Math.random() * r) + 3) };
       console.log("Tdate =", z);
-      if (z.matchdate == undefined || z.matchdate == "Invalid Date") {
+      if (z.matchdate == undefined ||z.matchdate =="Invalid Date") {
         const toast = await this.toastController.create({
           message: 'Enter the time and date for all the matches.',
           duration: 2000
@@ -618,17 +747,19 @@ this.serve.tournaments =this.approvedTournaments;
         // })
         console.log(this.fixture)
 
-        this.fixtures = this.fixture;
-        this.fixture = [];
+        this.fixtures =this.fixture;
+        this.fixture=[];
         const toast = await this.toastController.create({
           message: 'Fixture saved successfully.',
           duration: 2000
         });
         toast.present();
-
+     
       }
     }
 
+
+   
   }
   async presentLoading() {
     const loading = await this.loadingController.create({
@@ -645,56 +776,20 @@ this.serve.tournaments =this.approvedTournaments;
   ionViewWillEnter() {
     this.presentLoading();
   }
-
-  async createfixture() {
-    let q1 = this.fixtures;
-
-    console.log(this.fixtures)
-    for (let r = 0; r < q1.length; r++) {
-      let z: any = {};
-      z = { matchdate: new Date(q1[r].matchdate).toDateString(), secs: 0, mins: 0, ascore: 0, score: 0, ...q1[r], random1: Math.floor((Math.random() * r) * 2), random2: Math.floor((Math.random() * r) + 3) };
-      console.log("Tdate =", z);
-      if (z.matchdate == undefined || z.matchdate == "Invalid Date") {
-        const toast = await this.toastController.create({
-          message: 'Enter the time and date for all the matches.',
-          duration: 2000
-        });
-        toast.present();
-      }
-      else {
-        firebase.firestore().collection('MatchFixtures').add(z).then(val => {
-          console.log(val)
-        })
-        console.log(this.fixtures)
-        const toast = await this.toastController.create({
-          message: 'Fixture created successfully.',
-          duration: 2000
-        });
-        toast.present();
-
-      }
-    }
-
-  }
-
-  generatefixtures(tournament) {
-    let temp = [];
-    let temp2 = [];
-    console.log("Tourney", tournament)
-    let num = 0;
-    firebase.firestore().collection('participants').get().then(res => {
-      res.forEach(val => {
+ 
 
 
-        // console.log("participants = ",val.data())
 
 
-        let data = val.data();
 
-        num = num + 1;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
+
+
+
+
+
   async createfixture() {
     let q1 =this.fixtures;
         
@@ -728,46 +823,71 @@ this.serve.tournaments =this.approvedTournaments;
     
     
     
-=======
->>>>>>> 4580437f3def07bedde2c65ea46a5ae5a8edff22
-=======
->>>>>>> 4580437f3def07bedde2c65ea46a5ae5a8edff22
-
-        console.log(num)
-        if (num % 2 == 0) {
 
 
+      generatefixtures(tournament)
+      {
+        let temp =[];
+        let temp2 =[];
+        console.log("Tourney",tournament)
+        let num =0;
+        firebase.firestore().collection('participants').get().then(res=>{
+          res.forEach(val=>{
+    
+            
+            // console.log("participants = ",val.data())
+   
+    
+    let data =val.data();
+    
+            num =num+1;
+        
 
-          temp2.push({ ...val.data(), ...{ matchdate: null, goal: 0 } });
-
-
-          this.serve.randomfixture(temp, temp2)
-          this.fixture = this.serve.fixture;
-
-          temp = []; temp2 = [];
-        }
-
-        else if (num % 2 == 1) {
-
-          temp.push({ ...val.data(), ...{ matchdate: null, goal: 0 } });
-        }
-        console.log(this.serve.fixture)
-
-
-      })
-    })
-  }
-
-  fixtures;
-  editfixture() {
-    console.log("This is where you edit fixtures");
-
-    this.fixture = this.fixtures;
-    this.fixtures = [];
+            console.log(num)
+            if(num%2==0)
+            {
+        
+         
+        
+            temp2.push({...val.data(),...{matchdate:null,goal:0}});
 
 
+            this.serve.randomfixture(temp,temp2)
+            this.fixture=this.serve.fixture;
+
+            temp=[];temp2=[];
+          }
+        
+          else  if(num%2==1)
+          {
+            
+            temp.push({...val.data(),...{matchdate:null,goal:0}});
+          }
+           console.log(this.serve.fixture)
+           
+    
+          })})
+      }
 
 
-  }
+
+
+fixtures;
+      editfixture()
+      {
+console.log("This is where you edit fixtures");
+       
+this.fixture =this.fixtures;
+this.fixtures=[];
+        
+
+
+
+      }
+
+
+
+
+    
 }
 
