@@ -7,6 +7,10 @@ const routes: Routes = [
   // , canActivate: [AuthGuard]
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
   {
+    path: 'setfixtures',
+    loadChildren: () => import('./pages/setfixtures/setfixtures.module').then( m => m.SetfixturesPageModule)
+  },
+  {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
@@ -18,10 +22,7 @@ const routes: Routes = [
     path: 'create-profile',
     loadChildren: () => import('./pages/create-profile/create-profile.module').then( m => m.CreateProfilePageModule)
   },
-  {
-    path: 'setfixtures',
-    loadChildren: () => import('./pages/setfixtures/setfixtures.module').then( m => m.SetfixturesPageModule)
-  },
+ 
   {
     path: 'fixtures',
     loadChildren: () => import('./pages/fixtures/fixtures.module').then( m => m.FixturesPageModule)
@@ -34,20 +35,26 @@ const routes: Routes = [
   {
     path: 'currentmatch',
     loadChildren: () => import('./pages/currentmatch/currentmatch.module').then( m => m.CurrentmatchPageModule)
-  },  {
+  },
+  {
     path: 'manage-tournaments',
     loadChildren: () => import('./pages/manage-tournaments/manage-tournaments.module').then( m => m.ManageTournamentsPageModule)
   },
   {
     path: 'setup-matches',
     loadChildren: () => import('./pages/setup-matches/setup-matches.module').then( m => m.SetupMatchesPageModule)
+  },  {
+    path: 'setfixture',
+    loadChildren: () => import('./setfixture/setfixture.module').then( m => m.SetfixturePageModule)
   },
+
 
 
 ];
 
 @NgModule({
   imports: [
+    // RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
   ],
   exports: [RouterModule]

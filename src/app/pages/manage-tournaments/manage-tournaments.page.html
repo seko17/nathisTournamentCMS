@@ -56,7 +56,7 @@
             <div class="lists">
                 <div class="homeList">
     
-                    <div class="card" *ngFor="let item of tempCardGen"  >
+                    <div class="card" *ngFor="let item of hparticipants" >
                         <h5>Kasi Team</h5>
                         <p>Manager <b>Name Surname</b></p>
                       </div>
@@ -67,7 +67,7 @@
                         Done
                       </ion-button>
                     </div>
-                      <div class="card" *ngFor="let item of tempCardGen"  >
+                      <div class="card" *ngFor="let item of aparticipants"  >
                           <h5>Kasi Team</h5>
                           <p>Manager <b>Name Surname</b></p>
                         </div>
@@ -89,20 +89,24 @@
           <p><sub>Select Time, Date, Location for each match</sub></p>
         </div>
         <div class="button">
-          <ion-button shape="round" color="success" size="small" >
+          <ion-button shape="round" color="success" size="small" (click) ="savefixture()">
             Create Timeline
           </ion-button>
         </div>
         
       </div>
      <div class="teamList">
-       <div class="card" *ngFor="let item of tempCardGen" >
+       <div class="card"  *ngFor="let item of fixture" >
+         
+                  
+
+
          <div class="details">
-          <h4>TeamA vs TeamB</h4>
+          <h4>{{ item.TeamObject.teamName }}  vs  {{ item.aTeamObject.teamName }}</h4>
          </div>
          <div class="inputs">
            <!--    [(ngModel)] =item.matchdate -->
-          <ion-datetime displayFormat="D MMM, YY - HH:mm a" min="2019-11-22" max="2020-12-31" placeholder="Date, Time"></ion-datetime>
+          <ion-datetime displayFormat="D MMM, YY - HH:mm a" min="2019-11-22" max="2020-12-31" placeholder="Date, Time" [(ngModel)] =item.matchdate></ion-datetime>
          </div>
        </div>
      </div>
@@ -111,10 +115,10 @@
       <div class="header">
         <div class="title">
           <h1>Fixture</h1>
-          <ion-button shape="round" color="success" size="small" >
+          <ion-button shape="round" color="success" size="small" (click)= "editfixture()">
             Make Changes
           </ion-button>
-          <ion-button shape="round" color="success" size="small" (click)="fixtureSetUp('close')">
+          <ion-button shape="round" color="success" size="small" (click)="fixtureSetUp('close')"  (click) ="createfixture()">
             Create Fixture
           </ion-button>
         </div>
@@ -123,24 +127,25 @@
         </div>
       </div>
       <div class="fixtureList">
-          <div class="card" *ngFor="let item of tempCardGen" (click)="viewmatch('open', item)">
+          <div class="card" *ngFor="let item of fixtures" (click)="viewmatch('open', item)">
               <div class="date">
-                <p>27 Jul, 2019 Location Stadium</p>
+                <p>{{item.matchdate}}, Location {{item.location}}</p>
               </div>
               <div class="aVb">
                 <div class="home">
-                  <p>Team Name</p>
+                  <p>{{ item.TeamObject.teamName }}</p>
                 </div>
                 <div class="versus">
                   <p>v</p>
                 </div>
                 <div class="away">
-                  <p>Team Name</p>
+                  <p>{{ item.aTeamObject.teamName }}</p>
                 </div>
               </div>
               <div class="teamHome">
                 <p>Home</p>
               </div>
+             
               <div class="teamAway">
                 <p>Away</p>
               </div>
@@ -186,14 +191,7 @@
             </div>
 
 
-            <div *ngFor ="let oo of participants">
-                <h1>Participating Team</h1>
-                  Coach Name <p>{{oo.TeamObject.coachName}}</p>
-               Team Name:  <p>{{oo.TeamObject.teamName}}</p>
-               Tournament:  <p>{{oo.tournamentName}}</p>
-              <ion-button (click) ="fix()">Fixtures</ion-button>
-
-               </div>
+          
 
           </div>
         </div>

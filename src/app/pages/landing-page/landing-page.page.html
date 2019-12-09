@@ -87,10 +87,10 @@
                 </div>
             </div>
           </div>
-          <div class="match">
+          <div class="match"  *ngFor ="let item of currmatch">
             <div class="scores">
               <div class="homeScore" >
-                <p>The Academy  <br>
+                <p>{{item.aTeamObject.teamName}} <br>
                 <sub (click)="matchAction('open', 'home')" style="background: white; color: black; padding: 3px 5px; border-radius: 3px 10px;"><i>Action</i></sub></p>
                 <!-- <div class="buttns">
                   <ion-button color="light" size="small" shape="round">
@@ -111,13 +111,21 @@
                 </div> -->
               </div>
               <div class="points">
-                <ion-button size="small" shape="round">
-                  Start Match
+                <ion-button size="small" shape="round" (click)="firsthalf()" [hidden]="btn1">
+                    {{btntxt1}}
                 </ion-button>
-                <p>0 : 0</p>
+                <ion-button size="small" shape="round" (click)="secondhalf()" [hidden]="btn2">
+                    {{btntxt2}}
+                  </ion-button>
+
+
+                  <ion-button size="small" shape="round" (click)="stop()" [hidden]="btn3">
+                     STOP
+                    </ion-button>
+                <p>{{score}} : {{ascore}}</p>
               </div>
               <div class="awayScore">
-                <p>Fox Soccer  <br>
+                <p>{{item.aTeamObject.teamName}} <br>
                   <sub (click)="matchAction('open', 'away')" style="background: white; color: black; padding: 3px 5px; border-radius: 10px 3px;"><i>Action</i></sub></p>
                 <!-- <div class="buttns">
                   <ion-button color="light" size="small" shape="round">
@@ -139,8 +147,8 @@
               </div>
             </div>
             <div class="upComingData">
-              <h5>19:00</h5>
-              <p>Satrs 06 Dec 2019</p>
+              <h5>{{mins}}:{{secs}}</h5>
+              <p>Starts {{item.startDate}}</p>
               <p>Food and Beverage Sold</p>
             </div>
           </div>
@@ -336,52 +344,52 @@
         </button>
       </div>
       <div class="tournamentList">
-        <div class="card" *ngFor="let item of tempCardGen">
+        <div class="card" *ngFor="let item of tournament" (click) ='viewdetails(item)'>
           <div class="color">
 
           </div>
           <div class="details">
-            <p id="title"><b>Finest Cup Tournament</b></p>
+            <p id="title"><b>{{item.doc.formInfo.tournamentName}}</b></p>
             <hr>
-            <p id="date">27 Jul, 2019 to 01 Oct, 2019</p>
-            <p id="location">FNB Stadium</p>
+            <p id="date">{{item.doc.formInfo.startDate}} to {{item.doc.formInfo.endDate}}</p>
+            <p id="location">{{item.doc.formInfo.location}}</p>
           </div>
           <div class="more">
             <div>
-              <p>8Teams</p>
-              <p>Playing</p>
+              <p>{{item.doc.formInfo.type}} Teams</p>
+              <!-- <p>Playing</p> -->
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="tournamentDetails">
+    <div class="tournamentDetails" *ngFor="let item of clicked">
       <div class="details">
         <div>
-          <h4>Finest Cup Tournament</h4>
-          <p>Top 8</p>
+          <h4>{{item.doc.formInfo.tournamentName}}</h4>
+          <p>Top {{item.doc.formInfo.type}}</p>
           <hr>
-          <p>8 Participants</p>
-          <p>From 25 Jul, to 26 Jul 2019</p>
+          <p>{{item.doc.formInfo.type}} Participants</p>
+          <p>{{item.doc.formInfo.startDate}} to {{item.doc.formInfo.endDate}}</p>
           <hr>
-          <p>Application Closing Date <br> 30Jul, 2019</p>
+          <p>Application Closing Date <br> {{item.doc.formInfo.applicationClosing}}</p>
         </div>
 
       </div>
       <div class="matchList">
-        <div class="card" *ngFor="let item of tempCardGen" (click)="viewmatch('open', item)">
+        <div class="card" *ngFor="let item of fixture" (click)="viewmatch('open', item)">
           <div class="date">
-            <p>27 Jul, 2019</p>
+            <p>{{item.matchdate}}</p>
           </div>
           <div class="aVb">
             <div class="home">
-              <p>Team Name</p>
+              <p>{{ item.TeamObject.teamName }}</p>
             </div>
             <div class="versus">
               <p>v</p>
             </div>
             <div class="away">
-              <p>Team Name</p>
+              <p>{{ item.aTeamObject.teamName }}</p>
             </div>
           </div>
           <div class="teamHome">
