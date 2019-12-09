@@ -11,10 +11,12 @@ import { DragulaModule } from 'ng2-dragula';
 import { AppComponent } from './app.component';
 
 import { AppRoutingModule } from './app-routing.module';
+import { SetfixturesPage } from './pages/setfixtures/setfixtures.page';
+import { SetfixturePage } from './setfixture/setfixture.page';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent,SetfixturesPage],
+  entryComponents: [SetfixturesPage],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
     DragulaModule.forRoot()],
   providers: [
@@ -22,6 +24,10 @@ import { AppRoutingModule } from './app-routing.module';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [
+    SetfixturesPage
+  ]
+  
 })
 export class AppModule {}

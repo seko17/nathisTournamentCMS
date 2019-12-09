@@ -1,20 +1,22 @@
 button[ion-fab] {
-    overflow: visible;
-    position: relative;
+  overflow: visible;
+  position: relative;
 
-    ion-label {
-        position: absolute;
-        top: -8px;
-        right: 40px;
+  ion-label {
+    position: absolute;
+    top: -8px;
+    right: 40px;
 
-        color: white;
-        background-color: rgba(0,0,0,0.7);
-        line-height: 24px;
-        padding: 4px 8px;
-        border-radius: 4px;
-    }
-    contain: layout;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    line-height: 24px;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+
+  contain: layout;
 }
+
 .container {
   position: absolute;
   top: 0;
@@ -24,590 +26,761 @@ button[ion-fab] {
   background: red;
   z-index: 700;
 }
+
 .viewMatch {
-    .close {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        width: 40px;
-        height: 40px;
-        background: white;
-        border-radius: 100px;
-        display: flex;
-        align-items: center;
-        text-align: center;
-        ion-icon {
-            margin: auto;
-        }
-    }
+  .close {
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.616);
-    z-index: 900;
-    display: none;
-    align-content: center;
-    overflow: hidden;
-    .matchDiv {
-        width: 90%;
-        height: 90%;
-        margin: auto;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    ion-icon {
+      margin: auto;
+    }
+  }
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.616);
+  z-index: 900;
+  display: none;
+  align-content: center;
+  overflow: hidden;
+
+  .matchDiv {
+    width: 90%;
+    height: 90%;
+    margin: auto;
+    display: flex;
+    position: relative;
+
+    .matchDetails {
+      max-width: 60%;
+      min-width: 50%;
+      border-radius: 10px;
+      overflow: hidden;
+      backdrop-filter: blur(5px);
+      background: rgb(218, 218, 218);
+      height: 80vh;
+      margin: auto;
+      z-index: 100;
+
+      .topLine {
+        width: 100%;
+        height: 20px;
+        background: #142F40;
+      }
+
+      .topData {
         display: flex;
-        position: relative;
-        .matchDetails {
-            max-width: 60%;
-            min-width: 50%;
-            border-radius: 10px;
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-            background: rgb(218, 218, 218);
-            height: 80vh;
-            margin: auto;
-            z-index: 100;
-            .topLine {
-                width: 100%;
-                height: 20px;
-                background: #142F40;
-            }
-            .topData {
-                display: flex;
-                justify-items: center;
-                justify-content: space-between;
-                .homeImage, .awayImage, .image {
-                    width: 70px;
-                    height: 70px;
-                    margin: auto;
-                    border-radius: 200px;
-                    position: relative;
-                    // overflow: hidden;
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                    }
-                }
-                .homeImage {
-                  .homeButton {
-                    position: absolute;
-                    top: -50px;
-                    right: -30px;
-                    z-index: 4000;
-                    background: rgba(255, 255, 255, 0.932);
-                    display: none;
-                  }
+        justify-items: center;
+        justify-content: space-between;
 
-                }
-                .awayImage {
-                  .awayButton {
-                    text-align: right;
-                    position: absolute;
-                    top: -50px;
-                    left: -30px;
-                    z-index: 4000;
-                    background: rgba(255, 255, 255, 0.932);
-                    display: none;
-                  }
+        .homeImage,
+        .awayImage,
+        .image {
+          width: 70px;
+          height: 70px;
+          margin: auto;
+          border-radius: 200px;
+          position: relative;
 
-                }
-                .match {
-                    width: 70%;
-                background: #142F40;
-                padding: 5px;
-                color: white;
-                border-radius: 0px 0px 10px 10px;
-                position: relative;
-                    .scores {
-                        align-content: center;
-                        display: flex;
-                        text-align: center;
-                        width: auto;
-                        margin: auto;
+          // overflow: hidden;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 200px;
+          }
+        }
 
-                        .points {
-                            width: 90%;
-                            padding: 6px;
-                            p {
-                                margin: 0;
-                                padding: 0;
-                                font-size: 1.5rem;
-                            }
-                        }
-                        .homeScore, .awayScore {
-                            padding: 6px;
-                            display: flex;
-                            align-items: baseline;
-                            
-                             p {
-                                 margin-top: 10px;
-                                 padding:  0;
-                             }
-                             .buttns {
-                                 position: absolute;
-                                    background: red;
-                             }
-
-                        }
-                        .homeScore {
-                            .buttns {
-                                left: 0;
-                                bottom: 0;
-                            }
-                        }
-                        .awayScore {
-                            .buttns {
-                                left: 0;
-                                bottom: 0;
-                            }
-                        }
-                    }
-                    .upComingData {
-                        text-align: center;
-                        p {
-                            margin: 0;
-                            padding: 0;
-                        }
-                    }
-                }
-            }
-            .list-cont {
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                left: 0;
-                top: 250px;
-                display: flex;
-                .dummydiv {
-                    position: relative;
-                    width: 100%;
-                    height: 100%;
-                    .lineUps {
-                        display: flex;
-                        width: 100%;
-                        height: 100%;
-                        background: white;
-                        position: absolute;
-                        .away, .home {
-                            height: 100%;
-                            overflow-y: auto;
-                            width: 50%;
-                            .card {
-                                display: flex;
-                                padding: 10px 5px;
-                                border-bottom: solid 2px rgba(0, 0, 0, 0.103);
-                                position: relative;
-                                margin: 15px 0px 10px 60px;
-                                background: rgba(39, 44, 66, 0.021);
-                                .number {
-                                    position: absolute;
-                                    width: 40px;
-                                    height: 40px;
-                                    top: -15px;
-                                    background: linear-gradient(45deg,green,greenyellow);
-                                    border-radius: 10px 10px 0px 10px;
-                                    left: -50px;
-                                    color: white;
-                                    display: flex;
-                                    align-items: baseline;
-                                    padding: 10px;
-                                    box-shadow: 0px 3px 3px #1717172d;
-                                    p {
-                                        margin: 0;
-                                        padding: 0;
-                                        text-shadow: 0px 3px 3px #17171734;
-                                    }
-                                }
-                                .number::after {
-                                    position: absolute;
-                                    width: 10px;
-                                    height: 10px;
-                                    content: '';
-                                    background: red;
-                                    right: -10px;
-                                    bottom: 0;
-                                    clip-path: polygon(0% 100%, 50% 50%, 100% 100%, 0% 0%);
-                                    background: inherit;
-                                }
-                                .name {
-                                    flex-basis: 90%;
-                                    p {
-                                        margin: 0;
-                                        padding: 0;
-                                    }
-                                }
-                                .position {
-                                    display: flex;
-                                    align-items: center;
-                                    p {
-                                        margin: 0;
-                                        padding: 0;
-                                        font-size: .6rem;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    .summary {
-                        background: white;
-                        width: 100%;
-                        height: 100%;
-                        .stats {
-                            display: flex;
-                            // justify-content: center;
-                            .labels {
-                                width: 80%;
-                                text-align: center;
-                            }
-                            .homeSummary, .awaySummary {
-                                width: 10%;
-                                text-align: center;
-                            }
-                        }
-                        .playerCards {
-                            width: 100%;
-                            height: 100%;
-                            display: flex;
-                            border-top: solid 1px rgb(223, 223, 223);
-                            .homePlayerCards, .awayPlayerCards {
-                                width: 50%;
-                                height: 50%;
-                                border-left: solid 1px rgb(223, 223, 223);
-                                display: flex;
-                                flex-wrap: wrap;
-                                overflow-y: auto;
-                                .card {
-                                    margin: 5px auto;
-                                    border-radius: 10px;
-                                    box-shadow: 0px 3px 3px #1717173d;
-                                    padding: 10px;
-                                    display: flex;
-                                    align-content: center;
-                                    align-items: center;
-                                    justify-content: center;
-                                    .redCard {
-                                        width: 20px;
-                                        height: 30px;
-                                        background: red;
-                                        border-radius: 5px;
-                                    }
-                                    .yellowCard {
-                                        width: 20px;
-                                        height: 30px;
-                                        background: yellow;
-                                        border-radius: 5px;
-                                    }
-                                    .details {
-                                        padding: 5px;
-                                        p {
-                                            font-size: .8rem;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                
-            }
-        }
-        .teamHome {
-            border-radius: 10px 0px 0px 10px;
-            left: 3%;
-            .details {
-                text-align: right;
-            }
-        }
-        .teamAway {
-            border-radius: 0px 10px 10px 0px;
-            right: 3%;
-            
-        }
-        .teamHome, .teamAway {
-           background: white;
-           margin: 50px 0px 50px 0px;
-           border-radius: 10px;
-           overflow: hidden;
-           width: 20%;
-           position: absolute;
-           top: 20px;
-           bottom: 20px;
-           display: none;
-           z-index: 1;
-           .teamClose {
-               background: red;
-           }
-           .title {
-               text-align: center;
-           }
-           .image {
-               width: 100%;
-               height: 30%;
-               overflow: hidden;
-               border-radius: 10px;
-            //    border: solid 1px black;
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-           }
-           .details {
-               padding: 10px;
-               p {
-                   opacity: 0.6;
-               }
-           }
-        }
-        .playerHome, .playerAway {
-            background: white;
-            margin: 50px 0px 50px 0px;
-            overflow: hidden;
-            width: 20%;
+        .homeImage {
+          .homeButton {
             position: absolute;
-            top: 20px;
-            bottom: 20px;
+            top: -50px;
+            right: -30px;
+            z-index: 4000;
+            background: rgba(255, 255, 255, 0.932);
             display: none;
             border-radius: 10px;
-            .title {
-                text-align: center;
-            }
-            .image {
-                width: 100%;
-                height: 40%;
-                overflow: hidden;
-                border-radius: 10px;
-                position: relative;
-                .playerClose {
-                    position: absolute;
-                    right: 0;
-                    bottom: 10px;
-                    z-index: 6;
-                    p {
-                        margin: 0;
-                        padding: 0;
-                    }
-                }
-                .name {
-                    position: absolute;
-                    right: 0;
-                    left: 0;
-                    bottom: 0;
-                    padding: 10px;
-                    background: rgba(255, 255, 255, 0.897);
-                    z-index: 5;
-                    p {
-                        margin: 0;
-                        padding: 0;
-                    }
-                }
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
-             //    border: solid 1px black;
-             
-            }
-            .details {
-                padding: 10px;
-                position: relative;
-                p {
-                    opacity: 0.6;
-                }
-            }
-         }
-         .playerHome {
-            border-radius: 10px 0px 0px 10px;
-            left: 3%;
-            .details {
-                text-align: right;
-            }
-        }
-        .playerAway {
-            
-            right: 3%;
-            
-        }
-    }
-}
-
-.cmsContentMain{
-    position: absolute;
-    bottom: 0;
-    top: 0px;
-    right: 0;
-    left: 0px;
-    z-index: 300;
-    display: flex;
-    background: url(../../../assets/markus-spiske-KWQ2kQtxiKE-unsplash.jpg);
-    background-size: cover;
-    background-attachment: fixed;
-    .tournaments {
-        width: 50%;
-        .links {
-            display: flex;
-            // height: 10px;
-            justify-content: center;
-            button {
-                outline: none !important;
-                width: 30%;
-                padding: 10px;
-                border-radius: 200px;
-                background: none;
-                border: solid 1px rgb(26, 26, 26);
-                margin: 5px;
-                color: white;
-            }
-        }
-        .tournamentList {
-            position: absolute;
-            bottom: 0;
-            left: 2vw;
-            right: 50vw;
-            top: 50px;
-            overflow-y: auto;
-            border-radius: 20px 20px 0px 0px;
-            padding: 10px 0px;
-            .card {
-                cursor: pointer;
-                display: flex;
-                position: relative;
-                width: 90%;
-                // max-height: 60px;
-                background: white;
-                margin: 8px auto;
-                border-radius: 10px;
-                padding: 5px;
-                box-shadow: 0px 3px 3px #1717172c;
-                #date {
-                    font-size: .9rem;
-                    margin:0px 4px;
-                }
-                #location {
-                    margin: 4px;
-                    font-size: .8rem;
-                }
-                hr {
-                    background: rgb(209, 209, 209);
-                    width: 90%;
-                    margin: 9px auto;
-
-                }
-                p {
-                    padding: 0;
-                    margin: 0;
-                }
-                .color {
-                    position: absolute;
-                    top: 0;
-                    bottom: 0;
-                    left: 0;
-                    right: 99%;
-                    border-radius: 200px;
-                    background: greenyellow;
-                }
-                .details {
-                    padding-left: 1.5%;
-                    flex-basis: 90%;
-                    #title {
-                        font-size:1.5rem;
-                    }
-                }
-                .more {
-                    display: flex;
-                    align-items: center;
-                    p {
-                        font-size: .9rem;
-                    }
-                }
-            }
-        }
-    }
-    .tournamentDetails {
-        width: 50%;
-        background: rgba(238, 238, 238, 0.199);
-        backdrop-filter: blur(5px);
-        border-radius: 20px 0px 0px 20px;
-        overflow: hidden;
-        .details {
-          width: 100%;
-          height: 30%;
-          padding: 15px;
-          display: flex;
-          align-items: center;
-          background: white;
-          h4 {
-            margin: 0;
-            padding: 0;
+            box-shadow: 0px 3px 3px #17171717;
           }
+
+        }
+
+        .awayImage {
+          .awayButton {
+            text-align: right;
+            position: absolute;
+            top: -50px;
+            left: -30px;
+            z-index: 4000;
+            background: rgba(255, 255, 255, 0.932);
+            display: none;
+            border-radius: 10px;
+            box-shadow: 0px 3px 3px #17171717;
+          }
+
+        }
+
+        .match {
+          width: 70%;
+          background: #142F40;
+          padding: 5px;
+          color: white;
+          border-radius: 0px 0px 10px 10px;
+          position: relative;
+
+          .scores {
+            align-content: center;
+            display: flex;
+            text-align: center;
+            width: auto;
+            margin: auto;
+
+            .points {
+              width: 90%;
+              padding: 6px;
+
+              p {
+                margin: 0;
+                padding: 0;
+                font-size: 1.5rem;
+              }
+            }
+
+            .homeScore,
+            .awayScore {
+              padding: 6px;
+              display: flex;
+              align-items: baseline;
+
+              p {
+                margin-top: 10px;
+                padding: 0;
+              }
+
+              .buttns {
+                position: absolute;
+                background: red;
+              }
+
+            }
+
+            .homeScore {
+              .buttns {
+                left: 0;
+                bottom: 0;
+              }
+            }
+
+            .awayScore {
+              .buttns {
+                left: 0;
+                bottom: 0;
+              }
+            }
+          }
+
+          .upComingData {
+            text-align: center;
+
+            p {
+              margin: 0;
+              padding: 0;
+            }
+          }
+        }
+      }
+
+      .list-cont {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        top: 250px;
+        display: flex;
+
+        .dummydiv {
+          position: relative;
+          width: 100%;
+          height: 100%;
+
+          .lineUps {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            background: white;
+            position: absolute;
+
+            .away,
+            .home {
+              height: 100%;
+              overflow-y: auto;
+              width: 50%;
+
+              .card {
+                display: flex;
+                padding: 10px 5px;
+                border-bottom: solid 2px rgba(0, 0, 0, 0.103);
+                position: relative;
+                margin: 15px 0px 10px 60px;
+                background: rgba(39, 44, 66, 0.021);
+
+                .number {
+                  position: absolute;
+                  width: 40px;
+                  height: 40px;
+                  top: -15px;
+                  background: linear-gradient(45deg, green, greenyellow);
+                  border-radius: 10px 10px 0px 10px;
+                  left: -50px;
+                  color: white;
+                  display: flex;
+                  align-items: baseline;
+                  padding: 10px;
+                  box-shadow: 0px 3px 3px #1717172d;
+
+                  p {
+                    margin: 0;
+                    padding: 0;
+                    text-shadow: 0px 3px 3px #17171734;
+                  }
+                }
+
+                .number::after {
+                  position: absolute;
+                  width: 10px;
+                  height: 10px;
+                  content: '';
+                  background: red;
+                  right: -10px;
+                  bottom: 0;
+                  clip-path: polygon(0% 100%, 50% 50%, 100% 100%, 0% 0%);
+                  background: inherit;
+                }
+
+                .name {
+                  flex-basis: 90%;
+
+                  p {
+                    margin: 0;
+                    padding: 0;
+                  }
+                }
+
+                .position {
+                  display: flex;
+                  align-items: center;
+
+                  p {
+                    margin: 0;
+                    padding: 0;
+                    font-size: .6rem;
+                  }
+                }
+              }
+            }
+          }
+
+          .summary {
+            background: white;
+            width: 100%;
+            height: 100%;
+
+            .stats {
+              display: flex;
+
+              // justify-content: center;
+              .labels {
+                width: 80%;
+                text-align: center;
+              }
+
+              .homeSummary,
+              .awaySummary {
+                width: 10%;
+                text-align: center;
+              }
+            }
+
+            .playerCards {
+              width: 100%;
+              height: 100%;
+              display: flex;
+              border-top: solid 1px rgb(223, 223, 223);
+
+              .homePlayerCards,
+              .awayPlayerCards {
+                width: 50%;
+                height: 50%;
+                border-left: solid 1px rgb(223, 223, 223);
+                display: flex;
+                flex-wrap: wrap;
+                overflow-y: auto;
+
+                .card {
+                  margin: 5px auto;
+                  border-radius: 10px;
+                  box-shadow: 0px 3px 3px #1717173d;
+                  padding: 10px;
+                  display: flex;
+                  align-content: center;
+                  align-items: center;
+                  justify-content: center;
+
+                  .redCard {
+                    width: 20px;
+                    height: 30px;
+                    background: red;
+                    border-radius: 5px;
+                  }
+
+                  .yellowCard {
+                    width: 20px;
+                    height: 30px;
+                    background: yellow;
+                    border-radius: 5px;
+                  }
+
+                  .details {
+                    padding: 5px;
+
+                    p {
+                      font-size: .8rem;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+      }
+    }
+
+    .teamHome {
+      border-radius: 10px 0px 0px 10px;
+      left: 3%;
+
+      .details {
+        text-align: right;
+      }
+    }
+
+    .teamAway {
+      border-radius: 0px 10px 10px 0px;
+      right: 3%;
+
+    }
+
+    .teamHome,
+    .teamAway {
+      background: white;
+      margin: 50px 0px 50px 0px;
+      border-radius: 10px;
+      overflow: hidden;
+      width: 20%;
+      position: absolute;
+      top: 20px;
+      bottom: 20px;
+      display: none;
+      z-index: 1;
+
+      .teamClose {}
+
+      .title {
+        text-align: center;
+      }
+
+      .image {
+        width: 100%;
+        height: 30%;
+        overflow: hidden;
+        border-radius: 10px;
+        overflow: hidden;
+
+        //    border: solid 1px black;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .details {
+        padding: 10px;
+        overflow-y: auto;
+        height: 60%;
+
+        p {
+          opacity: 0.6;
+          font-size: 12px;
+        }
+      }
+    }
+
+    .playerHome,
+    .playerAway {
+      background: white;
+      margin: 50px 0px 50px 0px;
+      overflow: hidden;
+      width: 20%;
+      position: absolute;
+      top: 20px;
+      bottom: 20px;
+      display: none;
+      border-radius: 10px;
+
+      .title {
+        text-align: center;
+      }
+
+      .image {
+        width: 100%;
+        height: 40%;
+        overflow: hidden;
+        border-radius: 10px;
+        position: relative;
+
+        .playerClose {
+          position: absolute;
+          right: 0;
+          bottom: 10px;
+          z-index: 6;
+
           p {
             margin: 0;
             padding: 0;
           }
         }
-        .matchList {
+
+        .name {
+          position: absolute;
+          right: 0;
+          left: 0;
+          bottom: 0;
+          padding: 10px;
+          background: rgba(255, 255, 255, 0.897);
+          z-index: 5;
+
+          p {
+            margin: 0;
+            padding: 0;
+          }
+        }
+
+        img {
           width: 100%;
-          max-height: 70%;
-          overflow-y: auto;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        //    border: solid 1px black;
+
+      }
+
+      .details {
+        padding: 10px;
+        position: relative;
+
+        p {
+          opacity: 0.6;
+        }
+      }
+    }
+
+    .playerHome {
+      border-radius: 10px 0px 0px 10px;
+      left: 3%;
+
+      .details {
+        text-align: right;
+        overflow-y: auto;
+        height: 59%;
+      }
+    }
+
+    .playerAway {
+      border-radius: 10px 0px 0px 10px;
+      right: 3%;
+
+      .details {
+        overflow-y: auto;
+        height: 59%;
+      }
+    }
+  }
+}
+
+.cmsContentMain {
+  position: absolute;
+  bottom: 0;
+  top: 0px;
+  right: 0;
+  left: 0px;
+  z-index: 300;
+  display: flex;
+  background: url(../../../assets/markus-spiske-KWQ2kQtxiKE-unsplash.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+
+  .tournaments {
+    width: 50%;
+
+    .links {
+      display: flex;
+      // height: 10px;
+      justify-content: center;
+
+      button {
+        outline: none !important;
+        width: 30%;
+        padding: 10px;
+        border-radius: 200px;
+        background: none;
+        border: solid 1px rgb(26, 26, 26);
+        margin: 5px;
+        color: rgb(41, 41, 41);
+        box-shadow: 0px 3px 3px #17171717;
+        transition: 0.4s;
+      }
+
+      .activeFilter {
+        transition: 0.4s;
+        border: solid 1px green;
+        background: green;
+        color: white;
+      }
+    }
+
+    .tournamentList {
+      position: absolute;
+      bottom: 0;
+      left: 2vw;
+      right: 50vw;
+      top: 50px;
+      overflow-y: auto;
+      border-radius: 20px 20px 0px 0px;
+      padding: 10px 0px;
+
+      .card {
+        cursor: pointer;
+        display: flex;
+        position: relative;
+        width: 90%;
+        // max-height: 60px;
+        background: white;
+        margin: 8px auto;
+        border-radius: 10px;
+        padding: 5px;
+        box-shadow: 0px 3px 3px #1717172c;
+
+        #date {
+          font-size: .9rem;
+          margin: 0px 4px;
+        }
+
+        #location {
+          margin: 4px;
+          font-size: .8rem;
+        }
+
+        hr {
+          background: rgb(209, 209, 209);
+          width: 90%;
+          margin: 9px auto;
+
+        }
+
+        p {
+          padding: 0;
+          margin: 0;
+        }
+
+        .color {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 99%;
+          border-radius: 200px;
+          background: greenyellow;
+        }
+
+        .details {
+          padding-left: 1.5%;
+          flex-basis: 90%;
+
+          #title {
+            font-size: 1.5rem;
+          }
+        }
+
+        .more {
+          display: flex;
+          align-items: center;
+
+          p {
+            font-size: .9rem;
+          }
+        }
+      }
+    }
+  }
+
+  .tournamentDetails {
+    width: 50%;
+    background: rgba(238, 238, 238, 0.199);
+    backdrop-filter: blur(5px);
+    border-radius: 20px 0px 0px 20px;
+    overflow: hidden;
+
+    .details {
+      width: 100%;
+      height: 30%;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      background: white;
+
+      h4 {
+        margin: 0;
+        padding: 0;
+      }
+
+      p {
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    .matchList {
+      width: 100%;
+      max-height: 70%;
+      min-height: 70%;
+      overflow-y: auto;
+      position: relative;
+
+      .loadingList {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: rgb(240, 240, 240);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+
+        
           .card {
             width: 90%;
             margin: 5px auto;
-            background: linear-gradient(rgba(255, 255, 255, 0.877)),url(../../../assets/footbal_deco.svg);
-            overflow: hidden;
-            border-radius:10px;
-            position: relative;
+            height: 100px;
+            background: rgb(189, 189, 189);
+            border-radius: 10px;
             box-shadow: 0px 3px 3px #1717172c;
-            background-repeat: no-repeat;
-            background-size: 100%;
-            
-            .date {
-              width: 100%;
-              background: #387336;
-              border-radius:10px;
-              padding: 5px;
-              color: white;
-              p {
-                margin: 0;
-                padding: 0;
-              }
-            }
-            .aVb {
-              display: flex;
-              justify-content: space-evenly;
-              height: 70px;
-            }
-            .teamAway {
-              position: absolute;
-              bottom: 0;
-              left: 0;
-              background: #387336;
-              padding: 4px;
-              border-radius: 0px 10px 0px 10px;
-              color: white;
-              p {
-                margin: 0;
-                padding: 0;
-              }
-            }
-            .teamHome {
-              position: absolute;
-              bottom: 0;
-              right: 0;
-              background: #387336;
-              padding: 4px;
-              border-radius: 10px 0px 10px 0px;
-              color: white;
-              p {
-                margin: 0;
-                padding: 0;
-              }
+            animation: lazyLoader 2s linear infinite;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            h5 {
+              margin: auto;
             }
           }
+        
+
+        @keyframes lazyLoader {
+          0% {
+            opacity: 1;
+          }
+
+          50% {
+            opacity: .5;
+          }
+
+          100% {
+            opacity: 1;
+          }
         }
-          
       }
+
+      .card {
+        width: 90%;
+        margin: 5px auto;
+        background: linear-gradient(rgba(255, 255, 255, 0.877)), url(../../../assets/footbal_deco.svg);
+        overflow: hidden;
+        border-radius: 10px;
+        position: relative;
+        box-shadow: 0px 3px 3px #1717172c;
+        background-repeat: no-repeat;
+        background-size: 100%;
+
+        .date {
+          width: 100%;
+          background: #387336;
+          border-radius: 10px;
+          padding: 5px;
+          color: white;
+
+          p {
+            margin: 0;
+            padding: 0;
+          }
+        }
+
+        .aVb {
+          display: flex;
+          justify-content: space-evenly;
+          height: 70px;
+        }
+
+        .teamAway {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          background: #387336;
+          padding: 4px;
+          border-radius: 0px 10px 0px 10px;
+          color: white;
+
+          p {
+            margin: 0;
+            padding: 0;
+          }
+        }
+
+        .teamHome {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          background: #387336;
+          padding: 4px;
+          border-radius: 10px 0px 10px 0px;
+          color: white;
+
+          p {
+            margin: 0;
+            padding: 0;
+          }
+        }
+      }
+    }
+
+  }
 }
+
 // @charset "UTF-8";
 
 /*!
@@ -619,6 +792,7 @@ button[ion-fab] {
  */
 
 @-webkit-keyframes bounce {
+
   from,
   20%,
   53%,
@@ -652,6 +826,7 @@ button[ion-fab] {
 }
 
 @keyframes bounce {
+
   from,
   20%,
   53%,
@@ -692,6 +867,7 @@ button[ion-fab] {
 }
 
 @-webkit-keyframes flash {
+
   from,
   50%,
   to {
@@ -705,6 +881,7 @@ button[ion-fab] {
 }
 
 @keyframes flash {
+
   from,
   50%,
   to {
@@ -843,6 +1020,7 @@ button[ion-fab] {
 }
 
 @-webkit-keyframes shake {
+
   from,
   to {
     -webkit-transform: translate3d(0, 0, 0);
@@ -868,6 +1046,7 @@ button[ion-fab] {
 }
 
 @keyframes shake {
+
   from,
   to {
     -webkit-transform: translate3d(0, 0, 0);
@@ -1182,6 +1361,7 @@ button[ion-fab] {
 }
 
 @-webkit-keyframes jello {
+
   from,
   11.1%,
   to {
@@ -1226,6 +1406,7 @@ button[ion-fab] {
 }
 
 @keyframes jello {
+
   from,
   11.1%,
   to {
@@ -1340,6 +1521,7 @@ button[ion-fab] {
 }
 
 @-webkit-keyframes bounceIn {
+
   from,
   20%,
   40%,
@@ -1385,6 +1567,7 @@ button[ion-fab] {
 }
 
 @keyframes bounceIn {
+
   from,
   20%,
   40%,
@@ -1437,6 +1620,7 @@ button[ion-fab] {
 }
 
 @-webkit-keyframes bounceInDown {
+
   from,
   60%,
   75%,
@@ -1475,6 +1659,7 @@ button[ion-fab] {
 }
 
 @keyframes bounceInDown {
+
   from,
   60%,
   75%,
@@ -1518,6 +1703,7 @@ button[ion-fab] {
 }
 
 @-webkit-keyframes bounceInLeft {
+
   from,
   60%,
   75%,
@@ -1556,6 +1742,7 @@ button[ion-fab] {
 }
 
 @keyframes bounceInLeft {
+
   from,
   60%,
   75%,
@@ -1599,6 +1786,7 @@ button[ion-fab] {
 }
 
 @-webkit-keyframes bounceInRight {
+
   from,
   60%,
   75%,
@@ -1637,6 +1825,7 @@ button[ion-fab] {
 }
 
 @keyframes bounceInRight {
+
   from,
   60%,
   75%,
@@ -1680,6 +1869,7 @@ button[ion-fab] {
 }
 
 @-webkit-keyframes bounceInUp {
+
   from,
   60%,
   75%,
@@ -1718,6 +1908,7 @@ button[ion-fab] {
 }
 
 @keyframes bounceInUp {
+
   from,
   60%,
   75%,
@@ -2511,43 +2702,35 @@ button[ion-fab] {
 
 @-webkit-keyframes flip {
   from {
-    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0)
-      rotate3d(0, 1, 0, -360deg);
+    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0) rotate3d(0, 1, 0, -360deg);
     transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0) rotate3d(0, 1, 0, -360deg);
     -webkit-animation-timing-function: ease-out;
     animation-timing-function: ease-out;
   }
 
   40% {
-    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px)
-      rotate3d(0, 1, 0, -190deg);
-    transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px)
-      rotate3d(0, 1, 0, -190deg);
+    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
+    transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
     -webkit-animation-timing-function: ease-out;
     animation-timing-function: ease-out;
   }
 
   50% {
-    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px)
-      rotate3d(0, 1, 0, -170deg);
-    transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px)
-      rotate3d(0, 1, 0, -170deg);
+    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
+    transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
     -webkit-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
   }
 
   80% {
-    -webkit-transform: perspective(400px) scale3d(0.95, 0.95, 0.95) translate3d(0, 0, 0)
-      rotate3d(0, 1, 0, 0deg);
-    transform: perspective(400px) scale3d(0.95, 0.95, 0.95) translate3d(0, 0, 0)
-      rotate3d(0, 1, 0, 0deg);
+    -webkit-transform: perspective(400px) scale3d(0.95, 0.95, 0.95) translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg);
+    transform: perspective(400px) scale3d(0.95, 0.95, 0.95) translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg);
     -webkit-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
   }
 
   to {
-    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0)
-      rotate3d(0, 1, 0, 0deg);
+    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg);
     transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg);
     -webkit-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
@@ -2556,43 +2739,35 @@ button[ion-fab] {
 
 @keyframes flip {
   from {
-    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0)
-      rotate3d(0, 1, 0, -360deg);
+    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0) rotate3d(0, 1, 0, -360deg);
     transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0) rotate3d(0, 1, 0, -360deg);
     -webkit-animation-timing-function: ease-out;
     animation-timing-function: ease-out;
   }
 
   40% {
-    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px)
-      rotate3d(0, 1, 0, -190deg);
-    transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px)
-      rotate3d(0, 1, 0, -190deg);
+    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
+    transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
     -webkit-animation-timing-function: ease-out;
     animation-timing-function: ease-out;
   }
 
   50% {
-    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px)
-      rotate3d(0, 1, 0, -170deg);
-    transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px)
-      rotate3d(0, 1, 0, -170deg);
+    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
+    transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
     -webkit-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
   }
 
   80% {
-    -webkit-transform: perspective(400px) scale3d(0.95, 0.95, 0.95) translate3d(0, 0, 0)
-      rotate3d(0, 1, 0, 0deg);
-    transform: perspective(400px) scale3d(0.95, 0.95, 0.95) translate3d(0, 0, 0)
-      rotate3d(0, 1, 0, 0deg);
+    -webkit-transform: perspective(400px) scale3d(0.95, 0.95, 0.95) translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg);
+    transform: perspective(400px) scale3d(0.95, 0.95, 0.95) translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg);
     -webkit-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
   }
 
   to {
-    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0)
-      rotate3d(0, 1, 0, 0deg);
+    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg);
     transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg);
     -webkit-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
@@ -4223,7 +4398,8 @@ button[ion-fab] {
   animation-duration: 3s;
 }
 
-@media (print), (prefers-reduced-motion: reduce) {
+@media (print),
+(prefers-reduced-motion: reduce) {
   .animated {
     -webkit-animation-duration: 1ms !important;
     animation-duration: 1ms !important;

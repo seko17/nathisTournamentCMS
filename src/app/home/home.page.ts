@@ -19,6 +19,7 @@ screen = {
     tournaments: false,
     members: false
   }
+
   // form for creating new tournament
 
 //  state of the above form

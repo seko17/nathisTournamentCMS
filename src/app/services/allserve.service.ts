@@ -8,6 +8,7 @@ q1:any =[];
 q2:any =[];
 currentmatch:any ={};
 fixture:any =[];
+tournaments =[];
   constructor() { }
 
 

@@ -66,7 +66,7 @@
             <div class="lists">
                 <div class="homeList">
     
-                    <div class="card" *ngFor="let item of tempCardGen"  >
+                    <div class="card" *ngFor="let item of hparticipants" >
                         <h5>Kasi Team</h5>
                         <p>Manager <b>Name Surname</b></p>
                       </div>
@@ -77,7 +77,7 @@
                         Done
                       </ion-button>
                     </div>
-                      <div class="card" *ngFor="let item of tempCardGen"  >
+                      <div class="card" *ngFor="let item of aparticipants"  >
                           <h5>Kasi Team</h5>
                           <p>Manager <b>Name Surname</b></p>
                         </div>
@@ -104,20 +104,24 @@
           <p><sub>Select Time, Date, Location for each match</sub></p>
         </div>
         <div class="button">
-          <ion-button shape="round" color="success" size="small" >
+          <ion-button shape="round" color="success" size="small" (click) ="savefixture()">
             Create Timeline
           </ion-button>
         </div>
         
       </div>
      <div class="teamList">
-       <div class="card" *ngFor="let item of tempCardGen" >
+       <div class="card"  *ngFor="let item of fixture" >
+         
+                  
+
+
          <div class="details">
-          <h4>TeamA vs TeamB</h4>
+          <h4>{{ item.TeamObject.teamName }}  vs  {{ item.aTeamObject.teamName }}</h4>
          </div>
          <div class="inputs">
            <!--    [(ngModel)] =item.matchdate -->
-          <ion-datetime displayFormat="D MMM, YY - HH:mm a" min="2019-11-22" max="2020-12-31" placeholder="Date, Time"></ion-datetime>
+          <ion-datetime displayFormat="D MMM, YY - HH:mm a" min="2019-11-22" max="2020-12-31" placeholder="Date, Time" [(ngModel)] =item.matchdate></ion-datetime>
          </div>
        </div>
      </div>
@@ -126,10 +130,10 @@
       <div class="header">
         <div class="title">
           <h1>Fixture</h1>
-          <ion-button shape="round" color="success" size="small" >
+          <ion-button shape="round" color="success" size="small" (click)= "editfixture()">
             Make Changes
           </ion-button>
-          <ion-button shape="round" color="success" size="small" (click)="fixtureSetUp('close')">
+          <ion-button shape="round" color="success" size="small" (click)="fixtureSetUp('close')"  (click) ="createfixture()">
             Create Fixture
           </ion-button>
         </div>
@@ -138,24 +142,25 @@
         </div>
       </div>
       <div class="fixtureList">
-          <div class="card" *ngFor="let item of tempCardGen">
+          <div class="card" *ngFor="let item of fixtures" (click)="viewmatch('open', item)">
               <div class="date">
-                <p>27 Jul, 2019 Location Stadium</p>
+                <p>{{item.matchdate | date}}, Location {{item.location}}</p>
               </div>
               <div class="aVb">
                 <div class="home">
-                  <p>Team Name</p>
+                  <p>{{ item.TeamObject.teamName }}</p>
                 </div>
                 <div class="versus">
                   <p>v</p>
                 </div>
                 <div class="away">
-                  <p>Team Name</p>
+                  <p>{{ item.aTeamObject.teamName }}</p>
                 </div>
               </div>
               <div class="teamHome">
                 <p>Home</p>
               </div>
+             
               <div class="teamAway">
                 <p>Away</p>
               </div>
@@ -209,20 +214,24 @@
               </ion-button>
           </div>
           <div class="applicationList">
-            <div class="card" *ngFor="let team of tempCardGen" >
+            <div class="card" *ngFor="let team of tournamentApplications" >
               <div class="teamInfo">
-                <p><b>Team Name</b></p>
+                <p><b>Team Name</b>{{team.doc.TeamObject.teamName}}</p>
                 <p>Manager: Manager Name</p>
               </div>
               <div class="buttons">
-                  <ion-button shape="round" size="small" color="success">
+                  <ion-button shape="round" size="small" color="success"  (click) ="accept()">
                       Accept
                     </ion-button>
-                    <ion-button shape="round" size="small" color="danger">
+                    <ion-button shape="round" size="small" color="danger" (click) ="decline()">
                         Decline
                       </ion-button>
               </div>
             </div>
+
+
+          
+
           </div>
         </div>
         <div class="management">
@@ -255,7 +264,7 @@
                 <ion-input type="text" placeholder="Search Reference Number"></ion-input>
               </div>
               <div class="stillToPayList">
-                <div class="card" *ngFor="let item of tempCardGen" >
+                <div class="card" *ngFor="let item of accepted" >
                   <div class="details">
                     <h5 style="margin: 0;">Kasi Team</h5>
                     <p style="margin: 0;">Manager <b>Name Surname</b></p>
@@ -264,6 +273,7 @@
                     
                     <p> <sub style="font-size: 10px;margin: 0;padding: 0;">Reference.No </sub> <br> RTY75G</p>
                   </div>
+                  <ion-button (click) = "paid(item)">PAID</ion-button>
                 </div>
               </div>
             </div>
@@ -272,9 +282,13 @@
                   <h1>Participating Teams <sub>Paid</sub></h1>
               </div>
               <div class="paidList">
-                  <div class="card" *ngFor="let item of tempCardGen" (click)="promptFixtureConfig('open')">
+                  <div class="card" *ngFor="let item of cparticipants" (click)="promptFixtureConfig('open',cparticipants)">
                     <div class="details">
-                      <h5 style="margin: 0;">Kasi Team</h5>
+                        <h5 style="margin: 0;">Kasi Team</h5>
+                  Coach Name <p>{{item.TeamObject.coachName}}</p>
+               Team Name:  <p>{{item.TeamObject.teamName}}</p>
+               Tournament:  <p>{{item.tournamentName}}</p>
+                      
                       <p style="margin: 0;">Manager <b>Name Surname</b></p>
                     </div>
                   </div>
@@ -369,19 +383,21 @@
           <h4>Approved Tournaments</h4>
         </div>
         <div class="approvedList">
-          <div class="card" *ngFor="let t of tempCardGen" >
+          <div class="card" *ngFor="let t of approvedTournaments" >
               <div class="tTitle">
-                  <h5>Simba Tournament</h5>
+                  <h5>{{t.doc.formInfo.tournamentName}}</h5>
                 </div>
                 <div class="tDetails">
                   <div>
-                      <p>Participants <b>8</b></p>
-                      <p>Soweto</p>
+
+                    
+                      <p>Participants <b>{{t.doc.formInfo.type}}</b></p>
+                      <p> {{t.doc.formInfo.location}}</p>
                       <hr>
-                      <p>27 Jul, 2019 to 30 Jul, 2019</p>
-                      <p>R 1000.00 fee</p>
-                      <p>Top <b>8</b></p>
-                      <p>Application open until - 29 Jul 2019</p>
+                      <p>{{t.doc.formInfo.startDate | date}} to   {{t.doc.formInfo.endDate | date}}</p>
+                      <p>R {{t.doc.formInfo.joiningFee}} fee</p>
+                      <p>Top <b>{{t.doc.formInfo.type}}</b></p>
+                      <p>Application open until -  {{t.doc.formInfo.applicationClosing}}</p>
                       <!-- <p>{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p> -->
                   </div>
                 </div>
@@ -401,19 +417,21 @@
           <h4>Created Tournaments</h4>
         </div>
         <div class="unapprovedList">
-            <div class="card" *ngFor="let u of tempCardGen" >
+            <div class="card" *ngFor="let t of unapprovedTournaments" >
                 <div class="tTitle">
-                    <h5>Simba Tournament</h5>
+                    <h5>{{t.doc.formInfo.tournamentName}}</h5>
                   </div>
                   <div class="tDetails">
                     <div>
-                        <p>Participants <b>8</b></p>
-                        <p>Soweto</p>
+  
+                      
+                        <p>Participants <b>{{t.doc.formInfo.type}}</b></p>
+                        <p> {{t.doc.formInfo.location}}</p>
                         <hr>
-                        <p>27 Jul, 2019 to 30 Jul, 2019</p>
-                        <p>R 1000.00 fee</p>
-                        <p>Top <b>8</b></p>
-                        <p>Application open until - 29 Jul 2019</p>
+                        <p>{{t.doc.formInfo.startDate | date}} to   {{t.doc.formInfo.endDate | date}}</p>
+                        <p>R {{t.doc.formInfo.joiningFee}} fee</p>
+                        <p>Top <b>{{t.doc.formInfo.type}}</b></p>
+                        <p>Application open until -  {{t.doc.formInfo.applicationClosing}}</p>
                         <!-- <p>{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p> -->
                     </div>
                   </div>
