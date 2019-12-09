@@ -27,7 +27,7 @@ import { HomePage } from './home.page';
     
   ],
   // , 
-  declarations: [HomePage,SetfixturesPage, LandingPagePage, ManageTournamentsPage, SetupMatchesPage, ManageMembersPage],
+  declarations: [HomePage, LandingPagePage, ManageTournamentsPage, SetupMatchesPage],
   schemas : []
 })
 export class HomePageModule {}
