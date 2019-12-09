@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { AlertController, LoadingController } from '@ionic/angular';
+import '@firebase/messaging';
+
 @Component({
   selector: 'app-manage-members',
   templateUrl: './manage-members.page.html',
@@ -72,6 +74,7 @@ console.log('fore',val.docid);
 
 
   }
+ 
 getUnapprovedMembers(){
   let obj = {
     docid: null,
@@ -120,5 +123,11 @@ getApprovedMembers(){
       }
     })
   })
+}
+save(){
+  
+  let obj = 'save'
+  this.db.collection('test').doc().set({obj});
+  
 }
 }
