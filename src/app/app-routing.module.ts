@@ -47,6 +47,10 @@ const routes: Routes = [
     path: 'setfixture',
     loadChildren: () => import('./setfixture/setfixture.module').then( m => m.SetfixturePageModule)
   },
+  {
+    path: 'manage-members',
+    loadChildren: () => import('./pages/manage-members/manage-members.module').then( m => m.ManageMembersPageModule)
+  },
 
 
 

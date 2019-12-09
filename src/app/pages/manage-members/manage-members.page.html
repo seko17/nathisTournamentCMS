@@ -1,0 +1,123 @@
+<ion-content>
+    <div class="cmsContentMembers">
+        <div class="managers">
+            <div class="approvedManagers">
+                <div class="title">
+                    <h4>Team Managers</h4>
+                </div>
+                <div class="approvedList">
+                    <div class="card" *ngFor="let t of approvedManagers">
+                        <div class="image">
+                            <img
+                                src="https://firebasestorage.googleapis.com/v0/b/nathistournamentdb.appspot.com/o/Capture.PNG?alt=media&token=0e6194fa-499a-4908-a1f0-1c33bdc67ab1">
+                        </div>
+                        <div class="details">
+                            <div>
+                                <p><b>{{t.form.fullName}}</b></p>
+                                <hr>
+                                <p>{{t.form.phoneNumber}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="unaprovedManagers">
+                <div class="title">
+                    <h4> Managers Applications</h4>
+                </div>
+                <div class="unapprovedList">
+                    <div class="card" *ngFor="let u of manager">
+                        <div class="image">
+                            <div class="img">
+                                <img
+                                    src="../../../assets/icon/manager.png">
+                            </div>
+                        </div>
+                        <div class="details">
+                            <div>
+                                <p><b></b></p>
+                                <hr>
+                                <p><b>{{u.doc.form.fullName}}</b></p>
+                                <hr>
+                                <p>{{u.doc.form.phoneNumber}}</p>
+                            </div>
+                        </div>
+                        <div class="approve">
+                            <ion-fab-button (click)="approve(u)" color="success">
+                                <ion-icon  name="thumbs-up"></ion-icon>
+                            </ion-fab-button>
+                        </div>
+                        <div class="decline">
+                            <ion-fab-button color="danger">
+                                <ion-icon name="thumbs-down"></ion-icon>
+                            </ion-fab-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="vendors">
+            <div class="approvedVendors">
+                <div class="title">
+                    <h4>Vendors</h4>
+                </div>
+                <div class="approvedList">
+                    <div class="card" *ngFor="let t of approvedVendor">
+                        <div class="tTitle">
+                            <h5>Sbuda</h5>
+                        </div>
+                        <div class="tDetails">
+                            <div>
+                                <p><b>{{t.form.fullName}}</b></p>
+                                <hr>
+                                <p>{{t.form.phoneNumber}}</p>
+                            </div>
+
+                        </div>
+                        <div class="setup">
+                            <!-- <ion-button size="small" color="light" *ngIf="t.hasApplications">
+                                Finnsh Setup
+                            </ion-button>
+                            <ion-button size="small" disabled="true" color="light" *ngIf="!t.hasApplications">
+                                No Applications
+                            </ion-button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="unaprovedVendors">
+                <div class="title">
+                    <h4>Vendor Applications</h4>
+                </div>
+                <div class="unapprovedList">
+                    <div class="card" *ngFor="let u of vendors">
+                        <div class="image">
+                            <div class="img">
+                                <img
+                                    src="../../../assets/icon/vendor.png">
+                            </div>
+                        </div>
+                        <div class="details">
+                            <div>
+                                <p><b>{{u.doc.form.fullName}}</b></p>
+                                <hr>
+                                <p>{{u.doc.form.phoneNumber}}</p>
+                                <!-- <p>alongemail@gmail.com</p> -->
+                            </div>
+                        </div>
+                        <div class="approve">
+                            <ion-fab-button (click)="approve(u)" color="success">
+                                <ion-icon name="thumbs-up"></ion-icon>
+                            </ion-fab-button>
+                        </div>
+                        <div class="decline">
+                            <ion-fab-button color="danger">
+                                <ion-icon name="thumbs-down"></ion-icon>
+                            </ion-fab-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

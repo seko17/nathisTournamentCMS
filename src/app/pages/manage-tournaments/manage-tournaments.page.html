@@ -1,6 +1,11 @@
 <ion-content>
   <!-- shows to ask if you manually want to create fixtures or automatically make them -->
   <div class="chooseFixtureConfig animated" [ngClass]="{'zoomIn faster':chooseConfigOption,'zoomOut fast':!chooseConfigOption}">
+      <div class="closebutton">
+          <ion-fab-button size="small" color="success" (click)="promptFixtureConfig('close')">
+            <ion-icon name="close"></ion-icon>
+          </ion-fab-button>
+        </div>
     <div class="middlediv">
       <h1>Fixtures</h1>
       <p>Do you want to manually create fixtures, or can we generate it for you?</p>
@@ -23,6 +28,11 @@
 
 <!-- shows when you have to construct a match from the list of teams -->
   <div class="setUpTimeline animated" [ngClass]="{'fadeInUp':timeLineSetup,'fadeOutDown fast':!timeLineSetup}">
+      <div class="closebutton">
+          <ion-fab-button size="small" color="success" (click)="setUpTimeLine('close')">
+            <ion-icon name="close"></ion-icon>
+          </ion-fab-button>
+        </div>
     <div class="container">
         <div class="teams">
           <div class="header">
@@ -82,6 +92,11 @@
 
   <!-- shows when you have to select the date, time of the matches -->
   <div class="setupFixtures animated" [ngClass]="{'fadeInUp':setUpFixtures,'fadeOutDown fast':!setUpFixtures}">
+      <div class="closebutton">
+          <ion-fab-button size="small" color="success" (click)="fixtureSetUp('close')">
+            <ion-icon name="close"></ion-icon>
+          </ion-fab-button>
+        </div>
     <div class="matches">
       <div class="header">
         <div class="title">
@@ -167,12 +182,36 @@
 
   <!-- shows when you have to accept or decline applications, search for references and conform team payment -->
     <div class="setUpApplications animated" [ngClass]="{'fadeInUp':setUpApplications,'fadeOutDown fast':!setUpApplications}" >
-        <div class="applications">
+        <div class="closebutton">
+            <ion-fab-button size="small" color="success" (click)="finnishSetup(null, 'close')">
+              <ion-icon name="close"></ion-icon>
+            </ion-fab-button>
+          </div>  
+      <div class="applications">
           <div class="head">
+            <div [ngClass]="{'vendorApplications':vedorApplications,'vendorApplications-close':!vedorApplications}" >
+                <div class="card" *ngFor="let team of tempCardGen" >
+                    <div class="teamInfo">
+                      <p><b>Team Name</b></p>
+                      <p>0987654321</p>
+                    </div>
+                    <div class="buttons">
+                        <ion-button shape="round" size="small" color="success">
+                            Accept
+                          </ion-button>
+                          <ion-button shape="round" size="small" color="danger">
+                              Decline
+                            </ion-button>
+                    </div>
+                  </div>
+            </div>
             <p>Applications</p>
-            <ion-button shape="round" color="light">
+            <ion-button shape="round" color="light" *ngIf="!vedorApplications"  (click)="vendorApplications('open')">
               Vendors
             </ion-button>
+            <ion-button shape="round" color="light" *ngIf="vedorApplications"  (click)="vendorApplications('close')">
+                Done
+              </ion-button>
           </div>
           <div class="applicationList">
             <div class="card" *ngFor="let team of tournamentApplications" >
@@ -206,12 +245,13 @@
                 <p>Closing Date</p>
                 <p>20 Jul, 2019</p>
               </div>
-              <div>
+              <div class="two">
                 <p>From 25 Jul, to 25 Jul</p>
                 <p>Fee - R400.00</p>
+                <hr>
                 <p>Sponsors</p>
-                <span><img src="" alt="Absa"></span>
-                <span><img src="" alt="FNB"></span>
+                <span><img src="https://i1.wp.com/themediaonline.co.za/wp-content/uploads/2018/07/Absa_Logo_Primary_Identity_RGB_Passion-01.jpg?fit=1890%2C1890" alt="Absa"></span>
+                <span><img src="https://mountaincrest.co/wp-content/uploads/2019/11/FNB-Logo-e1572589738993.png" alt="FNB"></span>
               </div>
             </div>
           </div>
@@ -362,7 +402,7 @@
                   </div>
                 </div>
            <div class="setup">
-                    <ion-button size="small" color="light" *ngIf="t.hasApplications" (click)="finnishSetup(t)" >
+                    <ion-button size="small" color="light" *ngIf="t.hasApplications" (click)="finnishSetup(t, 'open')" >
                       Finnsh Setup
                     </ion-button>
                     <ion-button size="small" disabled="true" color="light" *ngIf="!t.hasApplications"  >

@@ -7,32 +7,55 @@
       </div>
     </div>
     <div class="links">
-      <ion-button fill="clear" (click)="changeView('main')">
+<div class="main animated" [ngClass]="{'currentView rubberBand': screen.main}" >
+    <ion-button fill="clear" (click)="changeView('main')">
         <ion-icon slot="icon-only" name="home"></ion-icon>
       </ion-button>
-      <ion-button fill="clear" (click)="changeView('tournaments')">
-        <ion-icon slot="icon-only" name="share"></ion-icon>
+</div>
+<div class="tournaments animated" [ngClass]="{'currentView rubberBand': screen.tournaments}">
+    <ion-button fill="clear" (click)="changeView('tournaments')">
+        <!-- <ion-icon slot="icon-only" name="share"></ion-icon> -->
+        <i class="fas fa-sitemap"></i>
       </ion-button>
-      <ion-button fill="clear" (click)="changeView('members')">
-        <ion-icon slot="icon-only" name="people"></ion-icon>
-      </ion-button>
+</div>
+     <div class="members animated" [ngClass]="{'currentView rubberBand': screen.members}">
+        <ion-button fill="clear" (click)="changeView('members')">
+            <ion-icon slot="icon-only" name="people"></ion-icon>
+          </ion-button>
+     </div>
     </div>
   </div>
   <div class="container">
-
     <div class="cmshead">
       <div class="title">
         <p>Nathi's Tournaments</p>
       </div>
       <div class="profile">
-        <div class="user">
+        <div class="user" >
           <div class="details">
             <p>Keketso</p>
           </div>
-          <div class="pImage">
+          <div class="pImage" (click)="profile('open')">
             <img
               src="https://images.unsplash.com/photo-1504710515126-acde274564d1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
               alt="">
+          </div>
+        </div>
+        <div class="profile-more animated" [ngClass]="{'fadeInRight':openProfile,'fadeOutRight':!openProfile}" >
+          <div class="con">
+              <img src="https://images.unsplash.com/photo-1575383095193-52195a64e3a6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" alt="Profile Image">
+              <div class="details">
+                <h5>Name Surname</h5>
+                <p>0987654321</p>
+                <div class="button">
+                  <ion-button size="small" color="danger" (click)="profile('close')" >
+                  close
+                  </ion-button>
+                  <ion-button size="small" color="danger" (click)="signout()" >
+                    Sign Out
+                  </ion-button>
+                </div>
+              </div>
           </div>
         </div>
       </div>
@@ -42,13 +65,16 @@
     <!-- main page  for seeing tournaments (FIRST LINK) -->
     <div class="cmsContentMain animated" [ngClass]="{'bounceInUp': screen.main,'bounceOutDown fast': !screen.main}">
       <app-landing-page></app-landing-page>
-    
     </div>
+
+
     <!-- main page for managing created tournaments (SECOND LINK) -->
     <div class="cmsContentTourns animated"
       [ngClass]="{'bounceInUp': screen.tournaments,'bounceOutDown fast': !screen.tournaments}">
     <app-manage-tournaments></app-manage-tournaments>
     </div>
+
+    
     <!-- main page for managing applying members (THIRD LINK) -->
     <div class="cmsContentMembers animated" [ngClass]="{'bounceInUp': screen.members,'bounceOutDown fast': !screen.members}">
       <div class="tournaments">

@@ -5,6 +5,7 @@ import * as firebase from 'firebase';
 import { AllserveService } from '../services/allserve.service';
 import { LoadingController, NavController, AlertController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { async } from 'q';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -27,8 +28,11 @@ screen = {
 
 
 //  capture applications to accept or decline
+openProfile = false;
+ profileDiv = document.getElementsByClassName('profile-more')
+  // BEGIN BACKEND HERE______________________________
 
-  // ______________________________
+
   // reference to firestore
   db = firebase.firestore()
 
@@ -74,7 +78,7 @@ tournamentObj = {
     // 
     tournaments = []
     tournamentsToDisplay = []
-  constructor(public loadingController: LoadingController, public serve: AllserveService, private authService: AuthService, private router: Router, public navCtrl: NavController, public renderer: Renderer2, public formBuilder: FormBuilder, public alertCtrl: AlertController) { 
+  constructor(public alertController: AlertController,public loadingController: LoadingController, public serve: AllserveService, private authService: AuthService, private router: Router, public navCtrl: NavController, public renderer: Renderer2, public formBuilder: FormBuilder, public alertCtrl: AlertController) { 
 
 
 
@@ -96,7 +100,7 @@ tournamentObj = {
 
   ngOnInit() {
     // add dummy teams
-   
+   this.getCMSUserProfile();
     while (this.tempCardGen.length < 20) {
       let int = 0
       let counter = int + 1;
@@ -130,6 +134,22 @@ tournamentObj = {
     }).catch(err => {
 
     })
+  }
+  profile(state) {
+    switch (state) {
+      case 'open':
+        console.log('profile open',this.profileDiv[0]);
+        
+        this.openProfile = true;
+        this.renderer.setStyle(this.profileDiv[0],'display', 'block')
+        break;
+        case 'close':
+          this.openProfile = false;
+          setTimeout(() => {
+            this.renderer.setStyle(this.profileDiv[0],'display', 'none')
+          }, 500);
+        break;
+    }
   }
   changeView(state) {
     switch (state) {
@@ -172,5 +192,38 @@ tournamentObj = {
   }
   currtourn() {
     this.router.navigate(['currtourn']);
+  }
+
+ async getCMSUserProfile(){
+    this.db.collection('CMS_users').where('profile','==','no').get().then( (res) =>{
+      res.forEach( async doc =>{
+        if(doc.exists){
+          console.log('aaaa',doc.data());
+          const alert = await this.alertController.create({
+            header: 'Please Confirm!',
+            backdropDismiss: false,
+            message: 'Are you sure you want to Approve to be part of Nathis Tournament',
+            buttons: [
+              {
+                text: 'Cancel',
+                role: 'cancel',
+                cssClass: 'secondary',
+                handler: (blah) => {
+                  console.log('Confirm Cancel: blah');
+                }
+              }, {
+                text: 'Okay',
+                handler: () => {
+          
+                }
+              }
+            ]
+          });
+          await alert.present();
+        }
+      })
+ 
+      
+    })
   }
 }
