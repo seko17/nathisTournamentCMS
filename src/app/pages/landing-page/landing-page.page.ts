@@ -196,7 +196,7 @@ currentmatch =[];
 
           this.viewingTeam.home = true;
           this.renderer.setStyle(this.homeTeamDiv[0], 'display', 'block');
-          console.log('home team open'); this.goal1()
+          console.log('home team open'); 
           this.viewPlayer('close', 'home', null);
         } else {
           this.viewPlayer('close', 'away', null);
@@ -327,7 +327,8 @@ this.db.collection('MatchFixtures').where('tournid', '==', x.docid).get().then(v
 
 
 
-
+team1 =[];
+team2 =[];
 
 
 
@@ -381,6 +382,8 @@ console.log("comp = ",this.currmatch[0].TeamObject.userUID)
         val.forEach(res=>{
           // console.log( "players = ",res.data().fullName)
    
+          this.team1.push(res.data())
+          console.log("385 = ",this.team1)
           this.input.data.push({name:"radio",type: 'radio',label:res.data().fullName,value:res.data().fullName})
         })
         
@@ -391,7 +394,7 @@ console.log("comp = ",this.currmatch[0].TeamObject.userUID)
       
       val.forEach(res=>{
         console.log( "players = ",res.data().fullName)
- 
+ this.team2.push(res.data())
         this.ainput.data.push({name:"radio",type: 'radio',label:res.data().fullName,value:res.data().fullName})
       })
       
@@ -659,27 +662,27 @@ this.btn3 =true;
   
   async homestats(x)
   {
-    // console.log(x)
+    console.log(x)
   
   
-    
-      let input={data:[]};
+    console.log(this.input)
+      let input=this.input;
   
-        input.data.push({name:"radio",type: 'radio',label:"Shots",value:"shots"})
-        input.data.push({name:"radio",type: 'radio',label:"On Target",value:"ontarget"})
-        input.data.push({name:"radio",type: 'radio',label:"Foul",value:"fouls"})
-        input.data.push({name:"radio",type: 'radio',label:"Yellow Card",value:"yellow"})
-        input.data.push({name:"radio",type: 'radio',label:"Red Card",value:"red"})
-        input.data.push({name:"radio",type: 'radio',label:"Off Side",value:"offsides"})
-        input.data.push({name:"radio",type: 'radio',label:"Corner",value:"corners"})
+        // input.data.push({name:"radio",type: 'radio',label:"Shots",value:"shots"})
+        // input.data.push({name:"radio",type: 'radio',label:"On Target",value:"ontarget"})
+        // input.data.push({name:"radio",type: 'radio',label:"Foul",value:"fouls"})
+        // input.data.push({name:"radio",type: 'radio',label:"Yellow Card",value:"yellow"})
+        // input.data.push({name:"radio",type: 'radio',label:"Red Card",value:"red"})
+        // input.data.push({name:"radio",type: 'radio',label:"Off Side",value:"offsides"})
+        // input.data.push({name:"radio",type: 'radio',label:"Corner",value:"corners"})
   
         
   
      
       console.log(input);
       const alert = await this.alertController.create({
-        header: 'Home',
-        subHeader:'Pick event',
+        header: 'Home: '+x,
+        subHeader:'Pick Player',
         inputs: input.data,
         buttons: [
           {
@@ -694,163 +697,54 @@ this.btn3 =true;
             handler: (data) => {
               console.log(data);
   
+              
   
-  
-  if(data =="shots")
-  {
-    this.matchstats =[];
-            firebase.firestore().collection('Top4').where("Tournament","==",this.tourname).get().then(val=>{
-      
-              val.forEach(res=>{
-                  let val =res.data().shots;
-                 let obj =res.data();
-                 obj.shots =obj.shots+1;
-                  
-                  this.matchstats.push(obj);
-                  this.id =res.id;
-                  console.log( this.id)
-                  firebase.firestore().collection('Top4').doc(this.id).update({shots:val+1});
-            
-                })
-                
-                        })
-                 
-  
-  
-                      }
-  
-    else
-  
-    if(data =="ontarget")
-  {
-    this.matchstats =[];
-            firebase.firestore().collection('Top4').where("Tournament","==",this.tourname).get().then(val=>{
-      
-              val.forEach(res=>{
-                  let val =res.data().ontarget;
-                 let obj =res.data();
-                 obj.ontarget =obj.ontarget+1;
-                  
-                  this.matchstats.push(obj);
-                  this.id =res.id;
-                  console.log( this.id)
-                  firebase.firestore().collection('Top4').doc(this.id).update({ontarget:val+1});
-            
-                })
-                
-                        })
-  
-  
-                      }
-                      else
-                      if(data =="fouls")
-                      {
-                        this.matchstats =[];
-                                firebase.firestore().collection('Top4').where("Tournament","==",this.tourname).get().then(val=>{
-                          
-                                  val.forEach(res=>{
-                                      let val =res.data().fouls;
-                                     let obj =res.data();
-                                     obj.fouls =obj.fouls+1;
-                                      
-                                      this.matchstats.push(obj);
-                                      this.id =res.id;
-                                      console.log( this.id)
-                                      firebase.firestore().collection('Top4').doc(this.id).update({fouls:val+1});
-                                
-                                    })
+
+   
                                     
-                                            })
-  
-  
-                                            
-                      
-                      
-                                          }
-                                          else
-                                          if(data =="yellow")
+                                          if(x =="yellow")
                                           {
-                                            this.matchstats =[];
-                                                    firebase.firestore().collection('Top4').where("Tournament","==",this.tourname).get().then(val=>{
-                                              
-                                                      val.forEach(res=>{
-                                                          let val =res.data().yellow;
-                                                         let obj =res.data();
-                                                         obj.yellow =obj.yellow+1;
-                                                          
-                                                          this.matchstats.push(obj);
-                                                          this.id =res.id;
-                                                          console.log( this.id)
-                                                          firebase.firestore().collection('Top4').doc(this.id).update({yellow:val+1});
+this.matchstats =[];
+ firebase.firestore().collection('MatchFixtures').doc(this.currmatch[0].fixtureid).update({stats: firebase.firestore.FieldValue.arrayUnion({yellow:this.mins.toString()+
+ ":"+this.secs.toString(),playerName:data })
+ })
+console.log("foul commited = ", this.currmatch[0].fixtureid)
+
+                                                          // firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.userUID).collection('Players').doc(this.id).update({yellow:1});
                                                     
-                                                        })
+                                                      
                                                         
-                                                                })
+                                                                
   
                                                               }
   
                                                               else
-                                                              if(data =="red")
-                                                              {
-                                                                this.matchstats =[];
-                                                                        firebase.firestore().collection('Top4').where("Tournament","==",this.tourname).get().then(val=>{
-                                                                  
-                                                                          val.forEach(res=>{
-                                                                              let val =res.data().red;
-                                                                             let obj =res.data();
-                                                                             obj.red =obj.red+1;
-                                                                              
-                                                                              this.matchstats.push(obj);
-                                                                              this.id =res.id;
-                                                                              console.log( this.id)
-                                                                              firebase.firestore().collection('Top4').doc(this.id).update({red:val+1});
-                                                                        
-                                                                            })
-                                                                            
-                                                                                    })
+ if(x =="red")
+ {
+this.matchstats =[];
+firebase.firestore().collection('MatchFixtures').doc(this.currmatch[0].fixtureid).update({stats: firebase.firestore.FieldValue.arrayUnion({red:this.mins.toString()+
+":"+this.secs.toString(),playerName:data })
+                                                              })
                                                                                   }
   
                                                                                     else
-                                                                                    if(data =="offsides")
+                                                                                    if(x =="offsides")
                                                                                     {
+
                                                                                       this.matchstats =[];
-                                                                                              firebase.firestore().collection('Top4').where("Tournament","==",this.tourname).get().then(val=>{
-                                                                                        
-                                                                                                val.forEach(res=>{
-                                                                                                    let val =res.data().off;
-                                                                                                   let obj =res.data();
-                                                                                                   obj.off =obj.off+1;
-                                                                                                    
-                                                                                                    this.matchstats.push(obj);
-                                                                                                    this.id =res.id;
-                                                                                                    console.log( obj.shots)
-                                                                                                    firebase.firestore().collection('Top4').doc(this.id).update({off:val+1});
-                                                                                              
-                                                                                                  })
-                                                                                                  
-                                                                                                          })
+firebase.firestore().collection('MatchFixtures').doc(this.currmatch[0].fixtureid).update({stats: firebase.firestore.FieldValue.arrayUnion({offsides:this.mins.toString()+
+ ":"+this.secs.toString(),playerName:data })
+                                                                                    })
                                                                                                         }
   
   
                                                                                                         else
-                                                                                                        if(data =="corners")
+                                                                                                        if(x=="corners")
                                                                                                         {
                                                                                                           this.matchstats =[];
-                                                                                                                  firebase.firestore().collection('Top4').where("Tournament","==",this.tourname).get().then(val=>{
-                                                                                                            
-                                                                                                                    val.forEach(res=>{
-                                                                                                                        let val =res.data().corner;
-                                                                                                                       let obj =res.data();
-                                                                                                                       obj.corner = obj.corner+1;
-                                                                                                                        
-                                                                                                                        this.matchstats.push(obj);
-                                                                                                                        this.id =res.id;
-                                                                                                                        console.log( this.id)
-                                                                                                                        firebase.firestore().collection('Top4').doc(this.id).update({corner:val+1});
-                                                                                                                  
-                                                                                                                      })
-                                                                                                                      
-                                                                                                                              })
+firebase.firestore().collection('MatchFixtures').doc(this.currmatch[0].fixtureid).update({stats: firebase.firestore.FieldValue.arrayUnion({corners:this.mins.toString()+
+":"+this.secs.toString(),playerName:data })
+ })
   
                                                                                                                             }
   
@@ -877,19 +771,19 @@ this.btn3 =true;
   
   async awaystats(x)
   {
-    // console.log(x)
+    console.log(x)
   
   
     
-      let input={data:[]};
+      let input=this.ainput;
   
-        input.data.push({name:"radio",type: 'radio',label:"Shots",value:"ashots"})
-        input.data.push({name:"radio",type: 'radio',label:"On Target",value:"aontarget"})
-        input.data.push({name:"radio",type: 'radio',label:"Foul",value:"afouls"})
-        input.data.push({name:"radio",type: 'radio',label:"Yellow Card",value:"ayellow"})
-        input.data.push({name:"radio",type: 'radio',label:"Red Card",value:"ared"})
-        input.data.push({name:"radio",type: 'radio',label:"Off Side",value:"aoffsides"})
-        input.data.push({name:"radio",type: 'radio',label:"Corner",value:"acorners"})
+        // input.data.push({name:"radio",type: 'radio',label:"Shots",value:"ashots"})
+        // input.data.push({name:"radio",type: 'radio',label:"On Target",value:"aontarget"})
+        // input.data.push({name:"radio",type: 'radio',label:"Foul",value:"afouls"})
+        // input.data.push({name:"radio",type: 'radio',label:"Yellow Card",value:"ayellow"})
+        // input.data.push({name:"radio",type: 'radio',label:"Red Card",value:"ared"})
+        // input.data.push({name:"radio",type: 'radio',label:"Off Side",value:"aoffsides"})
+        // input.data.push({name:"radio",type: 'radio',label:"Corner",value:"acorners"})
   
         
   
