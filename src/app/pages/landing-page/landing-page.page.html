@@ -49,12 +49,13 @@
           <h4>Mosia Mosia</h4>
           <p>Phone</p>
           <h4>0124578963</h4>
+          <div class="teamClose">
+            <ion-button (click)="viewTeam('close', 'home', 'obj')">
+              Close
+            </ion-button>
+          </div>
         </div>
-        <div class="teamClose">
-          <ion-button (click)="viewTeam('close', 'home', 'obj')">
-            Close
-          </ion-button>
-        </div>
+        
       </div>
 
 
@@ -313,25 +314,26 @@
           <h4>Mosia Mosia</h4>
           <p>Phone</p>
           <h4>0124578963</h4>
+          <div class="teamClose">
+            <ion-button (click)="viewTeam('close', 'away', 'obj')">
+              Close
+            </ion-button>
+          </div>
         </div>
-        <div class="teamClose">
-          <ion-button (click)="viewTeam('close', 'away', 'obj')">
-            Close
-          </ion-button>
-        </div>
+
       </div>
     </div>
   </div>
   <div class="cmsContentMain">
     <div class="tournaments">
       <div class="links">
-        <button>
+        <button (click)="filterMatches('all')" [ngClass]="{'activeFilter animated pulse':activeFilter.all}" >
           All
-        </button>
-        <button>
+        </button >
+        <button (click)="filterMatches('inplay')"   [ngClass]="{'activeFilter animated pulse':activeFilter.inplay}" >
           InPlay
         </button>
-        <button>
+        <button  (click)="filterMatches('upcoming')"  [ngClass]="{'activeFilter animated pulse':activeFilter.upcoming}" >
           Upcoming
         </button>
       </div>

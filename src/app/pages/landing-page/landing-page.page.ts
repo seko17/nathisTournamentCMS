@@ -11,8 +11,13 @@ export class LandingPagePage implements OnInit {
 
   // divs that contain details about the team
   viewingTeam = {
-    away: false,
-    home: false
+    away: true,
+    home: true
+  }
+  activeFilter = {
+    all: true,
+    inplay: false,
+    upcoming: false
   }
   awayTeamDiv = document.getElementsByClassName('teamAway');
   homeTeamDiv = document.getElementsByClassName('teamHome');
@@ -37,10 +42,10 @@ export class LandingPagePage implements OnInit {
   viewingMatch = false;
 
   // switches between lineup and summary
-  matchView = 'lineup'
+  matchView = 'lineup';
   playing
   // ___________________________________________
-// BEGGIN BACKEND HERE
+  // BEGGIN BACKEND HERE
 
   tempCardGen = [] // temporary card generator, used for ngFor
   constructor(public zone: NgZone, public renderer: Renderer2) { }
@@ -161,29 +166,55 @@ export class LandingPagePage implements OnInit {
     switch (state) {
       case 'open':
         // check for which side the action is done
-      if (side=='home') {
-        this.matchActionState.home = true
-        this.renderer.setStyle(this.homePlayerActions[0], 'display', 'block')
-      } else {
-        this.matchActionState.away = true
-        this.renderer.setStyle(this.awayPlayerActions[0], 'display', 'block')
-      }
+        if (side == 'home') {
+          this.matchActionState.home = true
+          this.renderer.setStyle(this.homePlayerActions[0], 'display', 'block')
+        } else {
+          this.matchActionState.away = true
+          this.renderer.setStyle(this.awayPlayerActions[0], 'display', 'block')
+        }
         break;
       case 'close':
-        if (side=='home') {
+        if (side == 'home') {
           this.matchActionState.home = false
-        setTimeout(() => {
-          this.renderer.setStyle(this.homePlayerActions[0], 'display', 'none')
-        }, 500);
+          setTimeout(() => {
+            this.renderer.setStyle(this.homePlayerActions[0], 'display', 'none')
+          }, 500);
         } else {
           this.matchActionState.away = false
-        setTimeout(() => {
-          this.renderer.setStyle(this.awayPlayerActions[0], 'display', 'none')
-        }, 500);
+          setTimeout(() => {
+            this.renderer.setStyle(this.awayPlayerActions[0], 'display', 'none')
+          }, 500);
         }
         break;
 
       default:
+        break;
+    }
+  }
+  // 
+  filterMatches(option) {
+    switch (option) {
+      case 'all':
+        this.activeFilter = {
+          all: true,
+          inplay: false,
+          upcoming: false
+        }
+        break;
+      case 'inplay':
+        this.activeFilter = {
+          all: false,
+          inplay: true,
+          upcoming: false
+        }
+        break;
+      case 'upcoming':
+        this.activeFilter = {
+          all: false,
+          inplay: false,
+          upcoming: true
+        }
         break;
     }
   }
