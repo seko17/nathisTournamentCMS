@@ -394,7 +394,7 @@
                       <p>Participants <b>{{t.doc.formInfo.type}}</b></p>
                       <p> {{t.doc.formInfo.location}}</p>
                       <hr>
-                      <p>{{t.doc.formInfo.startDate | date}} to   {{t.doc.formInfo.endDate | date}}</p>
+                      <p>{{t.doc.formInfo.startDate}} to   {{t.doc.formInfo.endDate}}</p>
                       <p>R {{t.doc.formInfo.joiningFee}} fee</p>
                       <p>Top <b>{{t.doc.formInfo.type}}</b></p>
                       <p>Application open until -  {{t.doc.formInfo.applicationClosing}}</p>
@@ -417,7 +417,7 @@
           <h4>Created Tournaments</h4>
         </div>
         <div class="unapprovedList">
-            <div class="card" *ngFor="let t of unapprovedTournaments" >
+            <div class="card" *ngFor="let t of approvedTournaments" >
                 <div class="tTitle">
                     <h5>{{t.doc.formInfo.tournamentName}}</h5>
                   </div>
@@ -428,7 +428,7 @@
                         <p>Participants <b>{{t.doc.formInfo.type}}</b></p>
                         <p> {{t.doc.formInfo.location}}</p>
                         <hr>
-                        <p>{{t.doc.formInfo.startDate | date}} to   {{t.doc.formInfo.endDate | date}}</p>
+                        <p>{{t.doc.formInfo.startDate }} to   {{t.doc.formInfo.endDate }}</p>
                         <p>R {{t.doc.formInfo.joiningFee}} fee</p>
                         <p>Top <b>{{t.doc.formInfo.type}}</b></p>
                         <p>Application open until -  {{t.doc.formInfo.applicationClosing}}</p>
@@ -440,41 +440,30 @@
       </div>
     </div>
   </div>
-  <div class="tournamentDetails">
+  <div class="tournamentDetails" *ngFor="let t of approvedTournaments">
     <div class="details">
       <div>
-         <h4>Finest Cup Tournament</h4>
-      <p>Top 8</p>
+         <h4>{{t.doc.formInfo.tournamentName}}</h4>
+      <p>Top {{t.doc.formInfo.type}}</p>
       <hr>
-      <p>8 Participants</p>
-      <p>From 25 Jul, to 26 Jul 2019</p>
+      <p>{{t.doc.formInfo.type}} Participants</p>
+      <p>From {{t.doc.formInfo.startDate}} to   {{t.doc.formInfo.endDate}}</p>
       <hr>
-      <p>Application Closing Date <br> 30Jul, 2019</p>
+      <p>Application Closing Date <br>  {{t.doc.formInfo.applicationClosing}}</p>
       </div>
      
     </div>
     <div class="matchList">
-        <div class="card" *ngFor="let item of tempCardGen" >
+        <div class="card"  >
             <div class="date">
-              <p>27 Jul, 2019</p>
-            </div>
-            <div class="aVb">
-              <div class="home">
-                <p>Team Name</p>
-              </div>
-              <div class="versus">
-                <p>v</p>
-              </div>
-              <div class="away">
-                  <p>Team Name</p>
+              <div class="date">
+                <p>Accepted:{{acceptednum}}</p>
+                <p>Approved:{{approvednum}}</p>
+                <p>Total Applicantions:{{applicationsnum}}</p>
               </div>
             </div>
-            <div class="teamHome">
-              <p>Home</p>
-            </div>
-            <div class="teamAway">
-              <p>Away</p>
-              </div>
+           
+           
           </div>
     </div>
   </div>

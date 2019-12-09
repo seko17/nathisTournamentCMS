@@ -125,6 +125,9 @@ export class ManageTournamentsPage implements OnInit {
 
         this.cparticipants.push({ ...{ id: res.id }, ...res.data() })
         console.log("current Participants = ", this.cparticipants)
+
+        this.acceptednum =this.cparticipants.length;
+        console.log("current Participants = ",this.acceptednum)
       })
     })
   }
@@ -232,6 +235,9 @@ obb =val.data();
           
           this.accepted.push({...form,...{tournid:tournament.docid},...{id:res.id},...res.data()});
           console.log("data = ",this.accepted)
+     
+
+      
         })
       })
        
@@ -328,6 +334,11 @@ obb =val.data();
     }
   }
   async newTournament(formData) {
+    
+
+
+
+    console.log(formData)
     let loader = await this.loadingController.create({
       message: 'Creating Tournament'
     })
@@ -489,7 +500,9 @@ this.serve.tournaments =this.approvedTournaments;
         break;
     }
   }
-
+approvednum:number =0;
+acceptednum:number =0;
+applicationsnum:number =0;
 
   promptFixtureConfig(state, x) {
     console.log(state)
@@ -652,7 +665,7 @@ this.serve.tournaments =this.approvedTournaments;
     console.log(this.fixtures)
     for (let r = 0; r < q1.length; r++) {
       let z: any = {};
-      z = { matchdate: new Date(q1[r].matchdate).toDateString(), secs: 0, mins: 0, ascore: 0, score: 0, ...q1[r], random1: Math.floor((Math.random() * r) * 2), random2: Math.floor((Math.random() * r) + 3) };
+      z = { matchdate: new Date(q1[r].matchdate).toLocaleString(), secs: 0, mins: 0, ascore: 0, score: 0, ...q1[r], random1: Math.floor((Math.random() * r) * 2), random2: Math.floor((Math.random() * r) + 3) };
       console.log("Tdate =", z);
       if (z.matchdate == undefined || z.matchdate == "Invalid Date") {
         const toast = await this.toastController.create({
