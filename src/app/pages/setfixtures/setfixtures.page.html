@@ -1,7 +1,7 @@
 
 
 <ion-content forceOverscroll="false">
-  <ion-grid>
+  <!-- <ion-grid>
  
    
  
@@ -32,67 +32,59 @@
  
   <ion-row class="delete-area" align-items-center justify-content-center>
     <ion-button (click) ="savefixture()"><ion-icon name="checkmark" color="medium"></ion-icon>PUBLISH</ion-button>
-  </ion-row>
+  </ion-row> -->
 
-  <!-- <div class="setUpTimeline animated" [ngClass]="{'fadeInUp':timeLineSetup,'fadeOutDown fast':!timeLineSetup}">
-      <div class="container">
-          <div class="teams">
-            <div class="header">
-              <p>Teams</p>
-              <p><sub>Drag and drop a team to a side</sub></p>
-            </div>
-          
-            </div>
-            <div class="fixture">
-              <div class="head">
-                <h1>Fixture</h1>
-                <div class="step"> <sub>Step 1 / 2</sub></div>
+  <div class="setUpTimeline animated">
+    <!--  [ngClass]="{'fadeInUp':timeLineSetup,'fadeOutDown fast':!timeLineSetup}" -->
+  <div class="container">
+        <div class="fixture">
+          <div class="head">
+            <h1>Fixture</h1>
+            <div class="step"> <sub>Step 1 / 2</sub></div>
+          </div>
+          <div class="hVSa">
+            <div class="headers">
+              <div class="hometitle">
+                <h4>Home</h4>
               </div>
-              <div class="hVSa">
-                <div class="headers">
-                  <div class="hometitle">
-                    <h4>Home</h4>
-                  </div>
-                  <div class="v">
-                    <h4>vs</h4>
-                  </div>  
-                  <div class="awayTitle">
-                    <h4>Away</h4>
-                  </div>
-                </div>
-              <div class="lists">
-                  <div class="homeList"  > -->
-      
-                      <!-- <div class="card" *ngFor="let item of q1" >
-                          <h5> {{ item.TeamObject.teamName }}</h5>
-                          <p>Manager <b>Name Surname</b></p>
-                        </div> -->
-
-                        <!-- <ion-list dragula="bag"  lines="none">
-                            <ion-item *ngFor="let item of q1" [color]="item.color" expand="block" text-wrap>
-                              {{ item.TeamObject.teamName }}
-                            </ion-item>
-                          </ion-list>
-                    </div>
-                    <div class="awayList"> -->
-                      <!-- <div class="doneButton">
-                        <ion-button (click)="fixtureSetUp('open')" >
-                          Done
-                        </ion-button>
-                      </div> -->
-                      <!-- <ion-list dragula="bag"  lines="none">
-                          <ion-item *ngFor="let item of q1" [color]="item.color" expand="block" text-wrap>
-                            {{ item.TeamObject.teamName }}
-                          </ion-item>
-                        </ion-list>
-                    </div>
-              </div>
+              <div class="v">
+                <h4>vs</h4>
+              </div>  
+              <div class="awayTitle">
+                <h4>Away</h4>
               </div>
             </div>
-      </div>
-    </div> -->
-
-
+          <div class="lists">
+              <div class="homeList" dragula="bag" dragula-model="q1">
   
- 
+                  <div   *ngFor="let item of q1" >
+                    <div class="card">
+                      <div>
+                        <h5>{{ item.TeamObject.teamName }}</h5>
+                      <p>Manager <b>Name Surname</b></p>
+                     </div>
+                    </div>
+                     
+                    </div>
+                </div>
+                <div class="awayList" dragula="bag" dragula-model="q2">
+                  <div class="doneButton">
+                    <ion-button (click)="savefixture()" >
+                      Done
+                    </ion-button>
+                  </div>
+                    <div   *ngFor="let item of q2"  >
+                       <div class="card">
+                          <div>
+                              <h5>{{ item.TeamObject.teamName }}</h5>
+                            <p>Manager <b>Name Surname</b></p>
+                           </div>
+                       </div>
+                      </div>
+                </div>
+          </div>
+          </div>
+        </div>
+  </div>
+</div>
 </ion-content>

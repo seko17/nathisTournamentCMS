@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { DragulaService } from 'ng2-dragula';
 import { ToastController, AlertController, ModalController } from '@ionic/angular';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 import { AllserveService } from 'src/app/services/allserve.service';
+import {} from '@angular/core';
+
 @Component({
   selector: 'app-setfixtures',
   templateUrl: './setfixtures.page.html',
@@ -42,35 +44,38 @@ export class SetfixturesPage implements OnInit {
     })
   }
 
-  constructor(public modalcontroller:ModalController,public alertController: AlertController, public serve: AllserveService, private router: Router, private dragulaService: DragulaService, private toastController: ToastController) {
+  constructor(public modalcontroller:ModalController,public alertController: AlertController, public serve: AllserveService, private router: Router, private dragulaService: DragulaService, private toastController: ToastController, public renderer: Renderer2) {
 
     //code for drag and drop
 
     this.dragulaService.drag('bag')
       .subscribe(({ name, el, source }) => {
-        el.setAttribute('color', 'dark');
+        el.setAttribute('color', 'light');   
       });
 
     this.dragulaService.removeModel('bag')
       .subscribe(({ item }) => {
-
-
-
         this.toastController.create({
           message: 'Removed: ' + item.value,
           duration: 2000
         }).then(toast => toast.present());
       });
-
-
-    //when object is dropped,this is the function that listens
-    this.dragulaService.dropModel('bag')
-      .subscribe(({ item }) => {
-        item['color'] = 'success';
-        console.log(item)
-
-
+      this.dragulaService.dropModel('bag').subscribe(({item, sourceIndex}) => {
+        console.log(item,sourceIndex);
+        
+      })
+      this.dragulaService.drop('bag')
+      .subscribe(({ name, el, source }) => {
+        el.setAttribute('color', 'light');
       });
+    //when object is dropped,this is the function that listens
+    // this.dragulaService. dropModel('bag')
+    //   .subscribe(({ item }) => {
+    //     item['color'] = 'success';
+    //     console.log(item)
+
+
+    //   });
 
     this.dragulaService.createGroup('bag', {
       removeOnSpill: false

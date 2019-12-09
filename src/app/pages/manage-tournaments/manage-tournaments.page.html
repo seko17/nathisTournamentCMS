@@ -144,7 +144,7 @@
       <div class="fixtureList">
           <div class="card" *ngFor="let item of fixtures" (click)="viewmatch('open', item)">
               <div class="date">
-                <p>{{item.matchdate}}, Location {{item.location}}</p>
+                <p>{{item.matchdate | date}}, Location {{item.location}}</p>
               </div>
               <div class="aVb">
                 <div class="home">
@@ -394,7 +394,7 @@
                       <p>Participants <b>{{t.doc.formInfo.type}}</b></p>
                       <p> {{t.doc.formInfo.location}}</p>
                       <hr>
-                      <p>{{t.doc.formInfo.startDate}} to   {{t.doc.formInfo.endDate}}</p>
+                      <p>{{t.doc.formInfo.startDate | date}} to   {{t.doc.formInfo.endDate | date}}</p>
                       <p>R {{t.doc.formInfo.joiningFee}} fee</p>
                       <p>Top <b>{{t.doc.formInfo.type}}</b></p>
                       <p>Application open until -  {{t.doc.formInfo.applicationClosing}}</p>
@@ -428,7 +428,7 @@
                         <p>Participants <b>{{t.doc.formInfo.type}}</b></p>
                         <p> {{t.doc.formInfo.location}}</p>
                         <hr>
-                        <p>{{t.doc.formInfo.startDate}} to   {{t.doc.formInfo.endDate}}</p>
+                        <p>{{t.doc.formInfo.startDate | date}} to   {{t.doc.formInfo.endDate | date}}</p>
                         <p>R {{t.doc.formInfo.joiningFee}} fee</p>
                         <p>Top <b>{{t.doc.formInfo.type}}</b></p>
                         <p>Application open until -  {{t.doc.formInfo.applicationClosing}}</p>
