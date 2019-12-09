@@ -383,7 +383,7 @@
           <h4>Approved Tournaments</h4>
         </div>
         <div class="approvedList">
-          <div class="card" *ngFor="let t of approvedTournaments" >
+          <div class="card" *ngFor="let t of approvedTournaments" (click)="moredetails(t)" >
               <div class="tTitle">
                   <h5>{{t.doc.formInfo.tournamentName}}</h5>
                 </div>
@@ -394,10 +394,10 @@
                       <p>Participants <b>{{t.doc.formInfo.type}}</b></p>
                       <p> {{t.doc.formInfo.location}}</p>
                       <hr>
-                      <p>{{t.doc.formInfo.startDate}} to   {{t.doc.formInfo.endDate}}</p>
+                      <p>{{t.doc.formInfo.startDate|date}} to   {{t.doc.formInfo.endDate|date}}</p>
                       <p>R {{t.doc.formInfo.joiningFee}} fee</p>
                       <p>Top <b>{{t.doc.formInfo.type}}</b></p>
-                      <p>Application open until -  {{t.doc.formInfo.applicationClosing}}</p>
+                      <p>Application open until -  {{t.doc.formInfo.applicationClosing|date}}</p>
                       <!-- <p>{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p> -->
                   </div>
                 </div>
@@ -428,10 +428,10 @@
                         <p>Participants <b>{{t.doc.formInfo.type}}</b></p>
                         <p> {{t.doc.formInfo.location}}</p>
                         <hr>
-                        <p>{{t.doc.formInfo.startDate }} to   {{t.doc.formInfo.endDate }}</p>
+                        <p>{{t.doc.formInfo.startDate|date }} to   {{t.doc.formInfo.endDate|date }}</p>
                         <p>R {{t.doc.formInfo.joiningFee}} fee</p>
                         <p>Top <b>{{t.doc.formInfo.type}}</b></p>
-                        <p>Application open until -  {{t.doc.formInfo.applicationClosing}}</p>
+                        <p>Application open until -  {{t.doc.formInfo.applicationClosing|date}}</p>
                         <!-- <p>{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p> -->
                     </div>
                   </div>
@@ -447,9 +447,9 @@
       <p>Top {{t.doc.formInfo.type}}</p>
       <hr>
       <p>{{t.doc.formInfo.type}} Participants</p>
-      <p>From {{t.doc.formInfo.startDate}} to   {{t.doc.formInfo.endDate}}</p>
+      <p>From {{t.doc.formInfo.startDate|date}} to   {{t.doc.formInfo.endDate|date}}</p>
       <hr>
-      <p>Application Closing Date <br>  {{t.doc.formInfo.applicationClosing}}</p>
+      <p>Application Closing Date <br>  {{t.doc.formInfo.applicationClosing|date}}</p>
       </div>
      
     </div>

@@ -743,5 +743,50 @@ applicationsnum:number =0;
 
 
   }
+
+
+
+  moredetails(t)
+  {
+
+    console.log(t)
+let num =0;
+let num2 =0;
+let num3 =0;
+    firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status','==','awaiting').get().then(rez=>{
+      rez.forEach(val=>{
+
+        num =num+1;
+        this.applicationsnum =val.data().length;
+        console.log(this.applicationsnum =num)
+      })
+    })
+
+
+
+    firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status','==','accepted').get().then(rez=>{
+      rez.forEach(val=>{
+
+        num2 =num2+1;
+        this.acceptednum =num2;
+
+        console.log(num2)
+      })
+    })
+
+
+
+
+
+    firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status','==','approved').get().then(rez=>{
+      rez.forEach(val=>{
+
+        num3 =num3+1;
+        this.approvednum =num3;
+
+        console.log(num3)
+      })
+    })
+  }
 }
 
