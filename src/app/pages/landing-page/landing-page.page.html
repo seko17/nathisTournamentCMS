@@ -116,23 +116,21 @@
               </div>
               <div class="points">
                 <ion-button size="small" shape="round" (click)="firsthalf()" [hidden]="btn1">
-                  {{btntxt1}}
+                    {{btntxt1}}
                 </ion-button>
                 <ion-button size="small" shape="round" (click)="secondhalf()" [hidden]="btn2">
-                  {{btntxt2}}
-                </ion-button>
+                    {{btntxt2}}
+                  </ion-button>
 
 
-                <ion-button size="small" shape="round" (click)="stop()" [hidden]="btn3">
-                  STOP
-                </ion-button>
+                  <ion-button size="small" shape="round" (click)="stop()" [hidden]="btn3">
+                     STOP
+                    </ion-button>
                 <p>{{score}} : {{ascore}}</p>
               </div>
               <div class="awayScore">
                 <p>{{item.aTeamObject.teamName}} <br>
-                  <sub (click)="matchAction('open', 'away')"
-                    style="background: white; color: black; padding: 3px 5px; border-radius: 10px 3px;"><i>Action</i></sub>
-                </p>
+                  <sub (click)="matchAction('open', 'away')" style="background: white; color: black; padding: 3px 5px; border-radius: 10px 3px;"><i>Action</i></sub></p>
                 <!-- <div class="buttns">
                   <ion-button color="light" size="small" shape="round">
                     Goal
@@ -352,7 +350,7 @@
         </button>
       </div>
       <div class="tournamentList">
-        <div class="card" *ngFor="let item of tournament" (click)='viewdetails(item)'>
+        <div class="card" *ngFor="let item of tournament" (click) ='viewdetails(item)'>
           <div class="color">
 
           </div>

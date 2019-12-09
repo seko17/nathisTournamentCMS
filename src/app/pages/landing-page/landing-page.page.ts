@@ -259,116 +259,173 @@ export class LandingPagePage implements OnInit {
     }
   }
 
-  clicked = [];
 
-  fixture = [];
-  viewdetails(x) {
-    this.clicked = [];
-    this.fixture = [];
-    console.log(x)
-    this.clicked.push(x);
+clicked =[];
 
-    this.db.collection('MatchFixtures').where('tournid', '==', x.docid).get().then(val => {
-      val.forEach(res => {
-        this.fixture.push({ ...{ fixtureid: res.id }, ...res.data() });
-        firebase.firestore().collection('MatchFixtures').doc(res.id).get().then(val => {
+fixture=[];
+  viewdetails(x)
+  {
+    this.clicked=[];
+    this.fixture =[];
+console.log(x)
+this.clicked.push(x);
 
-          this.score = val.data().score;
-          this.ascore = val.data().ascore;
-          this.tourname = val.data().Tournament;
-          if (val.data().mins > 0 && val.data().mins <= 46) {
-            this.btntxt1 = "Resume First Half";
-            this.btn1 = false;
-            this.btn2 = true;
-            this.btn3 = true;
+
+this.db.collection('MatchFixtures').where('tournid', '==', x.docid).get().then(val=>{
+  val.forEach(res=>{
+    
+
+    this.fixture.push({...{fixtureid:res.id},...res.data()});
+    console.log(this.fixture)
+
+
+
+
+    firebase.firestore().collection('MatchFixtures').doc(res.id).get().then(val=>{
+
+
+      console.log(this.currentmatch)
+    this.score =val.data().score;
+    this.ascore =val.data().ascore;
+    this.tourname =val.data().Tournament;
+      if(val.data().mins>0&&val.data().mins<=46)
+      {
+       this.btntxt1 ="Resume First Half";
+       this.btn1 =false;
+       this.btn2 =true;
+       this.btn3 =true;
+      }
+      else  if(val.data().mins>45&&val.data().mins<=90)
+      {
+        this.btn1 =true;
+        this.btn2 =false;
+        this.btn3 =true;
+        this.btntxt2 ="Resume Second Half";
+      }
+
+
+      // firebase.firestore().collection('Top4').where("Tournament","==",this.tourname).get().then(val=>{
+      
+      //   val.forEach(res=>{
+       
+      //    this.id =res.id;
+      //     this.matchstats.push(res.data());
+     
+    
+      //   })
+        
+                // })
+              
+              
+         })
+  })
+})
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  firsthalf()
+  {
+    this.btn1 =true;
+    this.btn2 =true;
+    this.btn3 =false;
+
+   
+    console.log('docid = ',this.currmatch[0].fixtureid)
+      this.sub = timer(0,1000).subscribe(result =>{
+       
+  
+        
+  
+  
+        firebase.firestore().collection('MatchFixtures').doc(this.currmatch[0].fixtureid).get().then(val=>{
+  
+      
+  this.secs =val.data().secs;
+          console.log("Team = ",val.data())
+
+
+
+          this.mins=val.data().mins;   
+          if(this.secs==59)
+          {
+  this.secs =0;
+  this.mins=this.mins+1;
+  
           }
-          else if (val.data().mins > 45 && val.data().mins <= 90) {
-            this.btn1 = true;
-            this.btn2 = false;
-            this.btn3 = true;
-            this.btntxt2 = "Resume Second Half";
-          }
-
+  
+  
+   firebase.firestore().collection('MatchFixtures').doc(this.currmatch[0].fixtureid).update({mins:this.mins,secs:this.secs+1});
         })
+    
+    
+    
       })
-    })
+  
+  
+console.log("comp = ",this.currmatch[0].TeamObject.userUID)
 
+      firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.userUID).collection('Players').get().then(val=>{
+      
+        val.forEach(res=>{
+          // console.log( "players = ",res.data().fullName)
+   
+          this.input.data.push({name:"radio",type: 'radio',label:res.data().fullName,value:res.data().fullName})
+        })
+        
+    })
+  
+
+    firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.userUID).collection('Players').get().then(val=>{
+      
+      val.forEach(res=>{
+        console.log( "players = ",res.data().fullName)
+ 
+        this.ainput.data.push({name:"radio",type: 'radio',label:res.data().fullName,value:res.data().fullName})
+      })
+      
+
+
+      console.log( "players = ",this.ainput.data)
+  })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
   }
-
-  filterMatches(option) {
-    switch (option) {
-      case 'all':
-        this.activeFilter = {
-          all: true,
-          inplay: false,
-          upcoming: false
-        }
-        break;
-      case 'inplay':
-        this.activeFilter = {
-          all: false,
-          inplay: true,
-          upcoming: false
-        }
-        break;
-      case 'upcoming':
-        this.activeFilter = {
-          all: false,
-          inplay: false,
-          upcoming: true
-        }
-        break;
-    }
-  }
-  firsthalf() {
-    this.btn1 = true;
-    this.btn2 = true;
-    this.btn3 = false;
-
-
-    console.log('docid = ', this.currmatch[0].fixtureid)
-    this.sub = timer(0, 1000).subscribe(result => {
-      firebase.firestore().collection('MatchFixtures').doc(this.currmatch[0].fixtureid).get().then(val => {
-        this.secs = val.data().secs;
-        console.log("Team = ", val.data())
-        this.mins = val.data().mins;
-        if (this.secs == 59) {
-          this.secs = 0;
-          this.mins = this.mins + 1;
-
-        }
-        firebase.firestore().collection('MatchFixtures').doc(this.currmatch[0].fixtureid).update({ mins: this.mins, secs: this.secs + 1 });
-      })
-
-    })
-
-    firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.userUID).collection('Players').get().then(val => {
-
-      val.forEach(res => {
-        // console.log( "players = ",res.data().fullName)
-
-        this.input.data.push({ name: "radio", type: 'radio', label: res.data().fullName, value: res.data().fullName })
-      })
-
-    })
-
-    firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.userUID).collection('Players').get().then(val => {
-
-      val.forEach(res => {
-        console.log("players = ", res.data().fullName)
-
-        this.ainput.data.push({ name: "radio", type: 'radio', label: res.data().fullName, value: res.data().fullName })
-      })
-
-    })
-
-  }
-  btn3 = true;
-  async stop() {
-
-    // this.btn1 =false;
-    this.btn2 = false;
-    this.btn3 = true;
+  btn3=true;
+  async stop()
+  {
+  
+// this.btn1 =false;
+this.btn2 =false;
+this.btn3 =true;
 
     const alert = await this.alertController.create({
       header: 'Confirm!',
@@ -384,8 +441,8 @@ export class LandingPagePage implements OnInit {
         }, {
           text: 'YES',
           handler: () => {
-            this.btn1 = true;
-            this.btn2 = false;
+            this.btn1 =true;
+            this.btn2 =false;
             this.sub.unsubscribe();
             console.log(this.sub.unsubscribe())
           }
@@ -872,7 +929,6 @@ export class LandingPagePage implements OnInit {
       message: 'Leaving this page during a match will pause any ongoing matches!',
       buttons: ['OK']
     });
-
     await alert.present();
     this.sub.unsubscribe();
   }

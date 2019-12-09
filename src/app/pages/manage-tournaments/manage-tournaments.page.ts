@@ -183,60 +183,62 @@ export class ManageTournamentsPage implements OnInit {
       })
       console.log(this.tournamentApplications);
       console.log(tournament.docid);
-
-      this.db.collection('newTournaments').doc(tournament.docid).get().then(val => {
+​
+      this.db.collection('newTournaments').doc(tournament.docid).get().then(val=>{
         console.log(val.data().formInfo)
-
-        form = val.data().formInfo;
-
-        firebase.firestore().collection('participants').where("tournamentName", "==", val.data().formInfo.tournamentName).get().then(res => {
-          res.forEach(val => {
+        
+        form =val.data().formInfo;
+​
+        firebase.firestore().collection('participants').where("tournamentName","==",val.data().formInfo.tournamentName).get().then(res=>{
+          res.forEach(val=>{
 
             this.participants.push(val.data())
-            console.log("participants = ", val.data())
+            console.log("participants = ",val.data())
 
-            num = num + 1;
-
-            let obb = {};
-            obb = val.data();
-
-            if (num % 2 == 0) {
-              firebase.firestore().collection('participants').doc(val.id).update({ ...val.data(), ...{ whr: "home" } })
+ num = num+1;
+​
+let obb = {};
+obb =val.data();
+​
+            if(num%2 == 0)
+            {
+              firebase.firestore().collection('participants').doc(val.id).update({...val.data(),...{whr:"home"}})
               // this.participants.push({...val.data(),...{whr:"home"}})
             }
-            else {
+            else
+            {
               // this.aparticipants.push({...val.data(),...{awhr:"away"}})
-              firebase.firestore().collection('participants').doc(val.id).update({ ...val.data(), ...{ whr: "away" } })
+              firebase.firestore().collection('participants').doc(val.id).update({...val.data(),...{whr:"away"}})
             }
-
-
+​
+​
             // if(this.participants.length==this.aparticipants.length)
             // {
             //   this.serve.randomfixture( this.participants,this.aparticipants);  
             // }
-
-
-            console.log("number = ", num)
-            console.log("parts  = ", this.participants)
+            
+​
+            console.log("number = ",num)
+            console.log("parts  = ",this.participants)
           })
         })
       })
-
-
-
-
-      this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where("status", "==", "accepted").get().then(val => {
-        val.forEach(res => {
-
-          this.accepted.push({ ...form, ...{ tournid: tournament.docid }, ...{ id: res.id }, ...res.data() });
-          console.log("data = ", this.accepted)
+​
+​
+​
+​
+      this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where("status","==","accepted").get().then(val=>{
+        val.forEach(res=>{
+          
+          this.accepted.push({...form,...{tournid:tournament.docid},...{id:res.id},...res.data()});
+          console.log("data = ",this.accepted)
         })
       })
-
+       
     })
 
 
-
+    
     switch (state) {
       case 'open':
         this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
@@ -251,6 +253,9 @@ export class ManageTournamentsPage implements OnInit {
       default:
         break;
     }
+
+
+
   }
   toggleTournamentForm(state) {
     switch (state) {
@@ -310,7 +315,7 @@ export class ManageTournamentsPage implements OnInit {
           upload.snapshot.ref.getDownloadURL().then(downUrl => {
             let newSponsor = {
               image: downUrl,
-
+              
               name: image.item(0).name
             }
             console.log(downUrl)
@@ -379,7 +384,7 @@ export class ManageTournamentsPage implements OnInit {
       doc: null,
       hasApplications: false
     }
-    this.serve.tournaments = [];
+    this.serve.tournaments =[];
     this.db.collection('newTournaments').where('approved', '==', true).get().then(res => {
       this.approvedTournaments = []
       res.forEach(doc => {
@@ -413,7 +418,7 @@ export class ManageTournamentsPage implements OnInit {
         })
       })
       console.log('approvedTournaments ', this.approvedTournaments);
-      this.serve.tournaments = this.approvedTournaments;
+this.serve.tournaments =this.approvedTournaments;
     })
   }
   getUnapprovedTournaments() {
@@ -435,6 +440,8 @@ export class ManageTournamentsPage implements OnInit {
     })
   }
 
+
+
   vendorApplications(state) {
     switch (state) {
       case 'open':
@@ -447,9 +454,13 @@ export class ManageTournamentsPage implements OnInit {
   }
 
 
-  setUpTimeLine(state, x) {
+
+
+  setUpTimeLine(state,x) {
     // timeLineSetup prop
     // setUpTimelineDiv div
+
+    
     switch (state) {
       case 'open':
         this.presentModal();
@@ -508,7 +519,6 @@ export class ManageTournamentsPage implements OnInit {
         break;
     }
   }
-
 
 
   fixtureSetUp(state) {
