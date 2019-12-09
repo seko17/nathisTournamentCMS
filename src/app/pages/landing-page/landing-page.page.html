@@ -49,12 +49,13 @@
           <h4>Mosia Mosia</h4>
           <p>Phone</p>
           <h4>0124578963</h4>
+          <div class="teamClose">
+            <ion-button (click)="viewTeam('close', 'home', 'obj')">
+              Close
+            </ion-button>
+          </div>
         </div>
-        <div class="teamClose">
-          <ion-button (click)="viewTeam('close', 'home', 'obj')">
-            Close
-          </ion-button>
-        </div>
+
       </div>
 
 
@@ -87,11 +88,13 @@
                 </div>
             </div>
           </div>
-          <div class="match"  *ngFor ="let item of currmatch">
+          <div class="match" *ngFor="let item of currmatch">
             <div class="scores">
-              <div class="homeScore" >
+              <div class="homeScore">
                 <p>{{item.aTeamObject.teamName}} <br>
-                <sub (click)="matchAction('open', 'home')" style="background: white; color: black; padding: 3px 5px; border-radius: 3px 10px;"><i>Action</i></sub></p>
+                  <sub (click)="matchAction('open', 'home')"
+                    style="background: white; color: black; padding: 3px 5px; border-radius: 3px 10px;"><i>Action</i></sub>
+                </p>
                 <!-- <div class="buttns">
                   <ion-button color="light" size="small" shape="round">
                     Goal
@@ -148,7 +151,7 @@
             </div>
             <div class="upComingData">
               <h5>{{mins}}:{{secs}}</h5>
-              <p>Starts {{item.startDate}}</p>
+              <p>Starts {{item.startDate | date}}</p>
               <p>Food and Beverage Sold</p>
             </div>
           </div>
@@ -322,25 +325,26 @@
           <h4>Mosia Mosia</h4>
           <p>Phone</p>
           <h4>0124578963</h4>
+          <div class="teamClose">
+            <ion-button (click)="viewTeam('close', 'away', 'obj')">
+              Close
+            </ion-button>
+          </div>
         </div>
-        <div class="teamClose">
-          <ion-button (click)="viewTeam('close', 'away', 'obj')">
-            Close
-          </ion-button>
-        </div>
+
       </div>
     </div>
   </div>
   <div class="cmsContentMain">
     <div class="tournaments">
       <div class="links">
-        <button>
+        <button (click)="filterMatches('all')" [ngClass]="{'activeFilter animated pulse':activeFilter.all}">
           All
         </button>
-        <button>
+        <button (click)="filterMatches('inplay')" [ngClass]="{'activeFilter animated pulse':activeFilter.inplay}">
           InPlay
         </button>
-        <button>
+        <button (click)="filterMatches('upcoming')" [ngClass]="{'activeFilter animated pulse':activeFilter.upcoming}">
           Upcoming
         </button>
       </div>
@@ -352,7 +356,7 @@
           <div class="details">
             <p id="title"><b>{{item.doc.formInfo.tournamentName}}</b></p>
             <hr>
-            <p id="date">{{item.doc.formInfo.startDate}} to {{item.doc.formInfo.endDate}}</p>
+            <p id="date">{{item.doc.formInfo.startDate | date}} to {{item.doc.formInfo.endDate | date}}</p>
             <p id="location">{{item.doc.formInfo.location}}</p>
           </div>
           <div class="more">
@@ -366,21 +370,40 @@
     </div>
     <div class="tournamentDetails" *ngFor="let item of clicked">
       <div class="details">
+        <div class="loadingDetails">
+
+        </div>
         <div>
           <h4>{{item.doc.formInfo.tournamentName}}</h4>
           <p>Top {{item.doc.formInfo.type}}</p>
           <hr>
           <p>{{item.doc.formInfo.type}} Participants</p>
-          <p>{{item.doc.formInfo.startDate}} to {{item.doc.formInfo.endDate}}</p>
+          <p>{{item.doc.formInfo.startDate | date}} to {{item.doc.formInfo.endDate | date}}</p>
           <hr>
-          <p>Application Closing Date <br> {{item.doc.formInfo.applicationClosing}}</p>
+          <p>Application Closing Date <br> {{item.doc.formInfo.applicationClosing | date}}</p>
         </div>
 
       </div>
       <div class="matchList">
+        <div class="loadingList" *ngIf="fixture.length==0" >
+          
+            <div class="card">
+              <h5>No Matches</h5>
+            </div>
+            <div class="card">
+                <h5>No Matches</h5>
+            </div>
+            <div class="card">
+                <h5>No Matches</h5>
+            </div>
+            <div class="card">
+                <h5>No Matches</h5>
+            </div>
+          
+        </div>
         <div class="card" *ngFor="let item of fixture" (click)="viewmatch('open', item)">
           <div class="date">
-            <p>{{item.matchdate}}</p>
+            <p>{{item.matchdate | date}}</p>
           </div>
           <div class="aVb">
             <div class="home">

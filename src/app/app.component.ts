@@ -27,6 +27,7 @@ export class AppComponent {
   async ngOnInit() {
     firebase.initializeApp(config);
     await this.notificationsService.init();
+    
 }
 ngAfterViewInit() {
   this.platform.ready().then(async () => {
