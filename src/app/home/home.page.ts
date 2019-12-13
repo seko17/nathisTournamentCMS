@@ -79,11 +79,7 @@ tournamentObj = {
     // 
     tournaments = []
     tournamentsToDisplay = []
-  constructor(public alertController: AlertController,public loadingController: LoadingController, public serve: AllserveService, private authService: AuthService, private router: Router, public navCtrl: NavController, public renderer: Renderer2, public formBuilder: FormBuilder, public alertCtrl: AlertController) { 
-
-
-
-  }
+  constructor(public alertController: AlertController,public loadingController: LoadingController, public serve: AllserveService, private authService: AuthService, private router: Router, public navCtrl: NavController, public renderer: Renderer2, public formBuilder: FormBuilder, public alertCtrl: AlertController) {  }
 
   async presentLoading() {
     const loading = await this.loadingController.create({
@@ -101,6 +97,8 @@ tournamentObj = {
 
   ngOnInit() {
     // add dummy teams
+    console.log('home loaded');
+    
    this.getCMSUserProfile();
     while (this.tempCardGen.length < 20) {
       let int = 0
@@ -195,11 +193,12 @@ tournamentObj = {
     this.router.navigate(['currtourn']);
   }
 
- async getCMSUserProfile(){
+ async getCMSUserProfile(){  
     this.db.collection('CMS_users').where('profile','==','no').get().then( (res) =>{
-      res.forEach( async doc =>{
-        if(doc.exists){
-          console.log('aaaa',doc.data());
+      if ( res.empty == false) {
+        res.forEach( async doc =>{
+
+          console.log('aaaa', res);
           const alert = await this.alertController.create({
             header: 'Please Confirm!',
             backdropDismiss: false,
@@ -221,8 +220,9 @@ tournamentObj = {
             ]
           });
           await alert.present();
-        }
       })
+      }
+      
  
       
     })

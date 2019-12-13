@@ -2,8 +2,8 @@
 import * as functions from 'firebase-functions';
 // const admin = require('firebase-admin');
 // import * as firebase from 'firebase';
-import admin = require('firebase-admin');
-admin.initializeApp()
+// import admin = require('firebase-admin');
+// admin.initializeApp()
 
 // Firebase function
 /*

@@ -1,9 +1,10 @@
+import { firebase } from '@firebase/app';
 import { Component } from '@angular/core';
 
 import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import * as firebase from 'firebase'
+import * as fire from "firebase";
 // import { a } from '../environments/environment';
 import { config } from '../app/FirebaseConfig';
 import { FcmService } from './services/fcm.service';
@@ -13,6 +14,7 @@ import { FcmService } from './services/fcm.service';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  // db = fire.firestore()
   //  messaging = firebase.messaging();
   constructor(
     private platform: Platform,
@@ -32,14 +34,23 @@ export class AppComponent {
 ngAfterViewInit() {
   this.platform.ready().then(async () => {
      await this.notificationsService.requestPermission();
+     this.initializeApp()
   });
 }
   initializeApp() {
    setTimeout(() => {
-     firebase.auth().onAuthStateChanged(user => {
+     fire.auth().onAuthStateChanged(user => {
        if (user) {
         //  {skipLocationChange: true,}
-        this.navCtrl.navigateRoot('home');
+        fire.firestore().collection('CMS_Profile').doc(fire.auth().currentUser.uid).get().then(res => {
+          console.log('login res', res);
+          
+          if (res.exists) {
+            this.navCtrl.navigateRoot('home')
+            console.log('exists');
+            
+          }
+        })
         console.log('signed in');
         
        } else {

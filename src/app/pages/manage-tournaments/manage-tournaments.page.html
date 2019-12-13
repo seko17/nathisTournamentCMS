@@ -1,11 +1,12 @@
 <ion-content>
   <!-- shows to ask if you manually want to create fixtures or automatically make them -->
-  <div class="chooseFixtureConfig animated" [ngClass]="{'zoomIn faster':chooseConfigOption,'zoomOut fast':!chooseConfigOption}">
-      <div class="closebutton">
-          <ion-fab-button size="small" color="success" (click)="promptFixtureConfig('close')">
-            <ion-icon name="close"></ion-icon>
-          </ion-fab-button>
-        </div>
+  <div class="chooseFixtureConfig animated"
+    [ngClass]="{'zoomIn faster':chooseConfigOption,'zoomOut fast':!chooseConfigOption}">
+    <div class="closebutton">
+      <ion-fab-button size="small" color="success" (click)="promptFixtureConfig('close')">
+        <ion-icon name="close"></ion-icon>
+      </ion-fab-button>
+    </div>
     <div class="middlediv">
       <h1>Fixtures</h1>
       <p>Do you want to manually create fixtures, or can we generate it for you?</p>
@@ -26,65 +27,65 @@
 
 
 
-<!-- shows when you have to construct a match from the list of teams -->
+  <!-- shows when you have to construct a match from the list of teams -->
   <div class="setUpTimeline animated" [ngClass]="{'fadeInUp':timeLineSetup,'fadeOutDown fast':!timeLineSetup}">
-      <div class="closebutton">
-          <ion-fab-button size="small" color="success" (click)="setUpTimeLine('close')">
-            <ion-icon name="close"></ion-icon>
-          </ion-fab-button>
-        </div>
+    <div class="closebutton">
+      <ion-fab-button size="small" color="success" (click)="setUpTimeLine('close')">
+        <ion-icon name="close"></ion-icon>
+      </ion-fab-button>
+    </div>
     <div class="container">
-        <div class="teams">
-          <div class="header">
-            <p>Teams</p>
-            <p><sub>Drag and drop a team to a side</sub></p>
+      <div class="teams">
+        <div class="header">
+          <p>Teams</p>
+          <p><sub>Drag and drop a team to a side</sub></p>
+        </div>
+        <div class="teamList">
+          <div class="card" *ngFor="let item of tempCardGen">
+            <h5>Kasi Team</h5>
+            <p>Manager <b>Name Surname</b></p>
           </div>
-          <div class="teamList">
-            <div class="card" *ngFor="let item of tempCardGen"  >
-              <h5>Kasi Team</h5>
-              <p>Manager <b>Name Surname</b></p>
+        </div>
+      </div>
+      <div class="fixture">
+        <div class="head">
+          <h1>Fixture</h1>
+          <div class="step"> <sub>Step 1 / 2</sub></div>
+        </div>
+        <div class="hVSa">
+          <div class="headers">
+            <div class="hometitle">
+              <h4>Home</h4>
+            </div>
+            <div class="v">
+              <h4>vs</h4>
+            </div>
+            <div class="awayTitle">
+              <h4>Away</h4>
             </div>
           </div>
-          </div>
-          <div class="fixture">
-            <div class="head">
-              <h1>Fixture</h1>
-              <div class="step"> <sub>Step 1 / 2</sub></div>
-            </div>
-            <div class="hVSa">
-              <div class="headers">
-                <div class="hometitle">
-                  <h4>Home</h4>
-                </div>
-                <div class="v">
-                  <h4>vs</h4>
-                </div>  
-                <div class="awayTitle">
-                  <h4>Away</h4>
-                </div>
+          <div class="lists">
+            <div class="homeList">
+
+              <div class="card" *ngFor="let item of hparticipants">
+                <h5>Kasi Team</h5>
+                <p>Manager <b>Name Surname</b></p>
               </div>
-            <div class="lists">
-                <div class="homeList">
-    
-                    <div class="card" *ngFor="let item of hparticipants" >
-                        <h5>Kasi Team</h5>
-                        <p>Manager <b>Name Surname</b></p>
-                      </div>
-                  </div>
-                  <div class="awayList">
-                    <div class="doneButton">
-                      <ion-button (click)="fixtureSetUp('open')" >
-                        Done
-                      </ion-button>
-                    </div>
-                      <div class="card" *ngFor="let item of aparticipants"  >
-                          <h5>Kasi Team</h5>
-                          <p>Manager <b>Name Surname</b></p>
-                        </div>
-                  </div>
             </div>
+            <div class="awayList">
+              <div class="doneButton">
+                <ion-button (click)="fixtureSetUp('open')">
+                  Done
+                </ion-button>
+              </div>
+              <div class="card" *ngFor="let item of aparticipants">
+                <h5>Kasi Team</h5>
+                <p>Manager <b>Name Surname</b></p>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -92,11 +93,11 @@
 
   <!-- shows when you have to select the date, time of the matches -->
   <div class="setupFixtures animated" [ngClass]="{'fadeInUp':setUpFixtures,'fadeOutDown fast':!setUpFixtures}">
-      <div class="closebutton">
-          <ion-fab-button size="small" color="success" (click)="fixtureSetUp('close')">
-            <ion-icon name="close"></ion-icon>
-          </ion-fab-button>
-        </div>
+    <div class="closebutton">
+      <ion-fab-button size="small" color="success" (click)="fixtureSetUp('close')">
+        <ion-icon name="close"></ion-icon>
+      </ion-fab-button>
+    </div>
     <div class="matches">
       <div class="header">
         <div class="title">
@@ -104,36 +105,38 @@
           <p><sub>Select Time, Date, Location for each match</sub></p>
         </div>
         <div class="button">
-          <ion-button shape="round" color="success" size="small" (click) ="savefixture()">
+          <ion-button shape="round" color="success" size="small" (click)="savefixture()">
             Create Timeline
           </ion-button>
         </div>
-        
+
       </div>
-     <div class="teamList">
-       <div class="card"  *ngFor="let item of fixture" >
-         
-                  
+      <div class="teamList">
+        <div class="card" *ngFor="let item of fixture">
 
 
-         <div class="details">
-          <h4>{{ item.TeamObject.teamName }}  vs  {{ item.aTeamObject.teamName }}</h4>
-         </div>
-         <div class="inputs">
-           <!--    [(ngModel)] =item.matchdate -->
-          <ion-datetime displayFormat="D MMM, YY - HH:mm a" min="2019-11-22" max="2020-12-31" placeholder="Date, Time" [(ngModel)] =item.matchdate></ion-datetime>
-         </div>
-       </div>
-     </div>
+
+
+          <div class="details">
+            <h4>{{ item.TeamObject.teamName }} vs {{ item.aTeamObject.teamName }}</h4>
+          </div>
+          <div class="inputs">
+            <!--    [(ngModel)] =item.matchdate -->
+            <ion-datetime displayFormat="D MMM, YY - HH:mm a" min="2019-11-22" max="2020-12-31" placeholder="Date, Time"
+              [(ngModel)]=item.matchdate></ion-datetime>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="fixtures">
       <div class="header">
         <div class="title">
           <h1>Fixture</h1>
-          <ion-button shape="round" color="success" size="small" (click)= "editfixture()">
+          <ion-button shape="round" color="success" size="small" (click)="editfixture()">
             Make Changes
           </ion-button>
-          <ion-button shape="round" color="success" size="small" (click)="fixtureSetUp('close')"  (click) ="createfixture()">
+          <ion-button shape="round" color="success" size="small" (click)="fixtureSetUp('close')"
+            (click)="createfixture()">
             Create Fixture
           </ion-button>
         </div>
@@ -142,29 +145,29 @@
         </div>
       </div>
       <div class="fixtureList">
-          <div class="card" *ngFor="let item of fixtures" (click)="viewmatch('open', item)">
-              <div class="date">
-                <p>{{item.matchdate | date}}, Location {{item.location}}</p>
-              </div>
-              <div class="aVb">
-                <div class="home">
-                  <p>{{ item.TeamObject.teamName }}</p>
-                </div>
-                <div class="versus">
-                  <p>v</p>
-                </div>
-                <div class="away">
-                  <p>{{ item.aTeamObject.teamName }}</p>
-                </div>
-              </div>
-              <div class="teamHome">
-                <p>Home</p>
-              </div>
-             
-              <div class="teamAway">
-                <p>Away</p>
-              </div>
+        <div class="card" *ngFor="let item of fixtures">
+          <div class="date">
+            <p>{{item.matchdate | date}}, Location {{item.location}}</p>
+          </div>
+          <div class="aVb">
+            <div class="home">
+              <p>{{ item.TeamObject.teamName }}</p>
             </div>
+            <div class="versus">
+              <p>v</p>
+            </div>
+            <div class="away">
+              <p>{{ item.aTeamObject.teamName }}</p>
+            </div>
+          </div>
+          <div class="teamHome">
+            <p>Home</p>
+          </div>
+
+          <div class="teamAway">
+            <p>Away</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -181,302 +184,310 @@
 
 
   <!-- shows when you have to accept or decline applications, search for references and conform team payment -->
-    <div class="setUpApplications animated" [ngClass]="{'fadeInUp':setUpApplications,'fadeOutDown fast':!setUpApplications}" >
-        <div class="closebutton">
-            <ion-fab-button size="small" color="success" (click)="finnishSetup(null, 'close')">
-              <ion-icon name="close"></ion-icon>
-            </ion-fab-button>
-          </div>  
-      <div class="applications">
-          <div class="head">
-            <div [ngClass]="{'vendorApplications':vedorApplications,'vendorApplications-close':!vedorApplications}" >
-                <div class="card" *ngFor="let team of tempCardGen" >
-                    <div class="teamInfo">
-                      <p><b>Team Name</b></p>
-                      <p>0987654321</p>
-                    </div>
-                    <div class="buttons">
-                        <ion-button shape="round" size="small" color="success">
-                            Accept
-                          </ion-button>
-                          <ion-button shape="round" size="small" color="danger">
-                              Decline
-                            </ion-button>
-                    </div>
-                  </div>
+  <div class="setUpApplications animated" [ngClass]="{'fadeInUp':setUpApplications,'fadeOut':!setUpApplications}">
+    <div class="closebutton">
+      <ion-fab-button size="small" color="success" (click)="finnishSetup(null, 'close')">
+        <ion-icon name="close"></ion-icon>
+      </ion-fab-button>
+    </div>
+    <div class="applications">
+      <div class="head">
+        <div [ngClass]="{'vendorApplications':vedorApplications,'vendorApplications-close':!vedorApplications}">
+          <div class="card" *ngFor="let team of tempCardGen">
+            <div class="teamInfo">
+              <p><b>Team Name</b></p>
+              <p>0987654321</p>
             </div>
-            <p>Applications</p>
-            <ion-button shape="round" color="light" *ngIf="!vedorApplications"  (click)="vendorApplications('open')">
-              Vendors
-            </ion-button>
-            <ion-button shape="round" color="light" *ngIf="vedorApplications"  (click)="vendorApplications('close')">
-                Done
-              </ion-button>
-          </div>
-          <div class="applicationList">
-            <div class="card" *ngFor="let team of tournamentApplications" >
-              <div class="teamInfo">
-                <p><b>Team Name</b>{{team.doc.TeamObject.teamName}}</p>
-                <p>Manager: Manager Name</p>
-              </div>
-              <div class="buttons">
-                  <ion-button shape="round" size="small" color="success"  (click) ="accept()">
-                      Accept
-                    </ion-button>
-                    <ion-button shape="round" size="small" color="danger" (click) ="decline()">
-                        Decline
-                      </ion-button>
-              </div>
-            </div>
-
-
-          
-
-          </div>
-        </div>
-        <div class="management">
-          <div class="tournamentData">
-            <h1>Msansi Tournament Championshipses</h1>
-            <div class="splitter">
-              <div class="one">
-                <p>Location</p>
-                <p>Participants</p>
-                <hr>
-                <p>Closing Date</p>
-                <p>20 Jul, 2019</p>
-              </div>
-              <div class="two">
-                <p>From 25 Jul, to 25 Jul</p>
-                <p>Fee - R400.00</p>
-                <hr>
-                <p>Sponsors</p>
-                <span><img src="https://i1.wp.com/themediaonline.co.za/wp-content/uploads/2018/07/Absa_Logo_Primary_Identity_RGB_Passion-01.jpg?fit=1890%2C1890" alt="Absa"></span>
-                <span><img src="https://mountaincrest.co/wp-content/uploads/2019/11/FNB-Logo-e1572589738993.png" alt="FNB"></span>
-              </div>
-            </div>
-          </div>
-          <div class="verificationScreen">
-            <div class="acceptedApplications">
-              <div class="head">
-                <h1>Accepted Applications <sub>Still to pay</sub></h1>
-              </div>
-              <div class="searcher">
-                <ion-input type="text" placeholder="Search Reference Number"></ion-input>
-              </div>
-              <div class="stillToPayList">
-                <div class="card" *ngFor="let item of accepted" >
-                  <div class="details">
-                    <h5 style="margin: 0;">Kasi Team</h5>
-                    <p style="margin: 0;">Manager <b>Name Surname</b></p>
-                  </div>
-                  <div class="refNumber">
-                    
-                    <p> <sub style="font-size: 10px;margin: 0;padding: 0;">Reference.No </sub> <br> RTY75G</p>
-                  </div>
-                  <ion-button (click) = "paid(item)">PAID</ion-button>
-                </div>
-              </div>
-            </div>
-            <div class="participatingTeams">
-              <div class="head">
-                  <h1>Participating Teams <sub>Paid</sub></h1>
-              </div>
-              <div class="paidList">
-                  <div class="card" *ngFor="let item of cparticipants" (click)="promptFixtureConfig('open',cparticipants)">
-                    <div class="details">
-                        <h5 style="margin: 0;">Kasi Team</h5>
-                  Coach Name <p>{{item.TeamObject.coachName}}</p>
-               Team Name:  <p>{{item.TeamObject.teamName}}</p>
-               Tournament:  <p>{{item.tournamentName}}</p>
-                      
-                      <p style="margin: 0;">Manager <b>Name Surname</b></p>
-                    </div>
-                  </div>
-                </div>
-            </div>
-          </div>
-        </div>
-        </div>
-
-
-        <!-- shows when you click create tournament button -->
-    <div class="newTournamentForm animated" [ngClass]="{'flipInX': creatingTournament,'flipOutX': !creatingTournament}">
-        <div class="form">
-          <form (ngSubmit)="newTournament(newTournForm.value)" [formGroup]="newTournForm">
-            <div class="header">
-            <ion-item>
-              <ion-label position="floating">Tournament Name</ion-label>
-              <ion-input type="text" formControlName="tournamentName"></ion-input>
-            </ion-item>
-          </div>
-          <div class="inputs">
-            <ion-item>
-              <ion-label position="floating">Tournament Type</ion-label>
-              <ion-select formControlName="type">
-                  <ion-select-option value="8">Top 8</ion-select-option>
-                  <ion-select-option value="16">Top 16</ion-select-option>
-                  <ion-select-option value="32">Top 32</ion-select-option>
-                </ion-select>
-            </ion-item>
-            <ion-item>
-              <ion-label position="floating">Location</ion-label>
-              <ion-input type="text" formControlName="location"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="floating">Tournament Starts</ion-label>
-              <ion-datetime displayFormat="DDDD MMMM YYYY" formControlName="startDate"></ion-datetime>
-            </ion-item>
-            <ion-item>
-              <ion-label position="floating">Tournament Ends</ion-label>
-              <ion-datetime displayFormat="DDDD MMMM YYYY" formControlName="endDate"></ion-datetime>
-            </ion-item>
-            <ion-item>
-              <ion-label position="floating">Joining Fee</ion-label>
-              <ion-input type="number" formControlName="joiningFee"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="floating">Application Closing Date</ion-label>
-              <ion-datetime displayFormat="MMMM DDDD YYYY" formControlName="applicationClosing"></ion-datetime>
-            </ion-item>
-          </div>
-          <div class="sButton">
-            <!--  -->
-            <ion-button type="submit" *ngIf="newTournForm.valid" shape="round">
-                Submit Tournament
-              </ion-button>
-              <ion-button *ngIf="!newTournForm.valid" shape="round" disabled=true>
-                  Submit Tournament
-                </ion-button>
-          </div>
-          <div class="closeButton">
-            <ion-fab-button shape="round" size="small" color="danger" (click)="toggleTournamentForm('close')">
-              <ion-icon name="close"></ion-icon>
-            </ion-fab-button>
-            </div>
-          </form>
-          
-          <div class="sponsors">
             <div class="buttons">
-              <ion-item>
-                <ion-label>Sponsor Logo</ion-label>
-                <ion-input type="file" accept="image/*" multiple="false" (change)="selectimage($event.target.files)"></ion-input>
-              </ion-item>
-              <ion-item>
-                  <ion-label>Sponsor Logo</ion-label>
-                  <ion-input ></ion-input>
-                </ion-item>
+              <ion-button shape="round" size="small" color="success">
+                Accept
+              </ion-button>
+              <ion-button shape="round" size="small" color="danger">
+                Decline
+              </ion-button>
             </div>
           </div>
         </div>
+        <p>Applications</p>
+        <ion-button shape="round" color="light" *ngIf="!vedorApplications" (click)="vendorApplications('open')">
+          Vendors
+        </ion-button>
+        <ion-button shape="round" color="light" *ngIf="vedorApplications" (click)="vendorApplications('close')">
+          Done
+        </ion-button>
       </div>
-      <!-- main screen for displaying all information -->
-  <div class="cmsContentTourns">
-  <div class="tournaments">
-    <div class="links">
-      <button (click)="toggleTournamentForm('open')">
-        Create Tournament
-      </button>
-    </div>
-    <div class="tournamentList">
-      <div class="approvedTournaments">
-        <div class="title">
-          <h4>Approved Tournaments</h4>
+      <div class="applicationList">
+        <div class="card" *ngFor="let team of tournamentApplications">
+          <div class="teamInfo">
+            <p><b>Team Name</b>{{team.doc.TeamObject.teamName}}</p>
+            <p>Manager: Manager Name</p>
+          </div>
+          <div class="buttons">
+            <ion-button shape="round" size="small" color="success" (click)="accept()">
+              Accept
+            </ion-button>
+            <ion-button shape="round" size="small" color="danger" (click)="decline()">
+              Decline
+            </ion-button>
+          </div>
         </div>
-        <div class="approvedList">
-          <div class="card" *ngFor="let t of approvedTournaments" >
-              <div class="tTitle">
-                  <h5>{{t.doc.formInfo.tournamentName}}</h5>
-                </div>
-                <div class="tDetails">
-                  <div>
 
-                    
-                      <p>Participants <b>{{t.doc.formInfo.type}}</b></p>
-                      <p> {{t.doc.formInfo.location}}</p>
-                      <hr>
-                      <p>{{t.doc.formInfo.startDate | date}} to   {{t.doc.formInfo.endDate | date}}</p>
-                      <p>R {{t.doc.formInfo.joiningFee}} fee</p>
-                      <p>Top <b>{{t.doc.formInfo.type}}</b></p>
-                      <p>Application open until -  {{t.doc.formInfo.applicationClosing}}</p>
-                      <!-- <p>{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p> -->
-                  </div>
+
+
+
+      </div>
+    </div>
+    <div class="management">
+      <div class="tournamentData">
+        <h1>Msansi Tournament Championshipses</h1>
+        <div class="splitter">
+          <div class="one">
+            <p>Location</p>
+            <p>Participants</p>
+            <hr>
+            <p>Closing Date</p>
+            <p>20 Jul, 2019</p>
+          </div>
+          <div class="two">
+            <p>From 25 Jul, to 25 Jul</p>
+            <p>Fee - R400.00</p>
+            <hr>
+            <p>Sponsors</p>
+            <span><img
+                src="https://i1.wp.com/themediaonline.co.za/wp-content/uploads/2018/07/Absa_Logo_Primary_Identity_RGB_Passion-01.jpg?fit=1890%2C1890"
+                alt="Absa"></span>
+            <span><img src="https://mountaincrest.co/wp-content/uploads/2019/11/FNB-Logo-e1572589738993.png"
+                alt="FNB"></span>
+          </div>
+        </div>
+      </div>
+      <div class="verificationScreen">
+        <div class="acceptedApplications">
+          <div class="head">
+            <h1>Accepted Applications <sub>Still to pay</sub></h1>
+          </div>
+          <div class="searcher">
+            <ion-input type="text" placeholder="Search Reference Number"></ion-input>
+          </div>
+          <div class="stillToPayList">
+            <div class="card" *ngFor="let item of accepted">
+              <div class="details">
+                <h5 style="margin: 0;">Kasi Team</h5>
+                <p style="margin: 0;">Manager <b>Name Surname</b></p>
+              </div>
+              <div class="refNumber">
+
+                <p> <sub style="font-size: 10px;margin: 0;padding: 0;">Reference.No </sub> <br> RTY75G</p>
+              </div>
+              <ion-button (click)="paid(item)">PAID</ion-button>
+            </div>
+          </div>
+        </div>
+        <div class="participatingTeams">
+          <div class="head">
+            <h1>Participating Teams <sub>Paid</sub></h1>
+          </div>
+          <div class="paidList">
+            <div class="card" *ngFor="let item of cparticipants" (click)="promptFixtureConfig('open',cparticipants)">
+              <div class="details">
+                <h5 style="margin: 0;">Kasi Team</h5>
+                <p>{{item.TeamObject.coachName}}</p>
+                <p>{{item.TeamObject.teamName}}</p>
+                <p>{{item.tournamentName}}</p>
+                <p style="margin: 0;">Manager <b>Name Surname</b></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- shows when you click create tournament button -->
+  <div class="newTournamentForm animated" [ngClass]="{'flipInX': creatingTournament,'flipOutX': !creatingTournament}">
+    <div class="form">
+      <form (ngSubmit)="newTournament(newTournForm.value)" [formGroup]="newTournForm">
+        <div class="header">
+          <ion-item>
+            <ion-label position="floating">Tournament Name</ion-label>
+            <ion-input type="text" formControlName="tournamentName"></ion-input>
+          </ion-item>
+        </div>
+        <div class="inputs">
+          <ion-item>
+            <ion-label position="floating">Tournament Type</ion-label>
+            <ion-select formControlName="type">
+              <ion-select-option value="8">Top 8</ion-select-option>
+              <ion-select-option value="16">Top 16</ion-select-option>
+              <ion-select-option value="32">Top 32</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Location</ion-label>
+            <ion-input type="text" formControlName="location"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Tournament Starts</ion-label>
+            <ion-datetime displayFormat="DDDD MMMM YYYY" formControlName="startDate"></ion-datetime>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Tournament Ends</ion-label>
+            <ion-datetime displayFormat="DDDD MMMM YYYY" formControlName="endDate"></ion-datetime>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Joining Fee</ion-label>
+            <ion-input type="number" formControlName="joiningFee"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Application Closing Date</ion-label>
+            <ion-datetime displayFormat="MMMM DDDD YYYY" formControlName="applicationClosing"></ion-datetime>
+          </ion-item>
+        </div>
+        <div class="sButton">
+          <!--  -->
+          <ion-button type="submit" *ngIf="newTournForm.valid" shape="round">
+            Submit Tournament
+          </ion-button>
+          <ion-button *ngIf="!newTournForm.valid" shape="round" disabled=true>
+            Submit Tournament
+          </ion-button>
+        </div>
+        <div class="closeButton">
+          <ion-fab-button style="margin: 0;" shape="round" size="small" color="danger" (click)="toggleTournamentForm('close')">
+            <ion-icon name="close"></ion-icon>
+          </ion-fab-button>
+        </div>
+      </form>
+
+      <div class="sponsors">
+        <div class="buttons">
+          <ion-item>
+            <ion-label>Sponsor Logo</ion-label>
+            <ion-input type="file" accept="image/*" multiple="false" (change)="selectimage($event.target.files)">
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Sponsor Logo</ion-label>
+            <ion-input></ion-input>
+          </ion-item>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- main screen for displaying all information -->
+  <div class="cmsContentTourns">
+    <div class="tournaments">
+      <div class="links">
+        <ion-button shape="round" color="success" (click)="toggleTournamentForm('open')">
+            Create Tournament
+        </ion-button>
+
+      </div>
+      <div class="tournamentList">
+        <div class="approvedTournaments">
+          <div class="title">
+            <h4>Approved Tournaments</h4>
+          </div>
+          <div class="approvedList">
+            <div class="card" *ngFor="let t of approvedTournaments">
+              <div class="tTitle">
+                <h5>{{t.doc.formInfo.tournamentName}}</h5>
+              </div>
+              <div class="tDetails">
+                <div>
+
+
+                  <p>Participants <b>{{t.doc.formInfo.type}}</b></p>
+                  <p> {{t.doc.formInfo.location}}</p>
+                  <hr>
+                  <p>{{t.doc.formInfo.startDate | date}} to {{t.doc.formInfo.endDate | date}}</p>
+                  <p>R {{t.doc.formInfo.joiningFee}} fee</p>
+                  <p>Top <b>{{t.doc.formInfo.type}}</b></p>
+                  <p>Application open until - {{t.doc.formInfo.applicationClosing | date}}</p>
+                  <!-- <p>{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p> -->
                 </div>
-           <div class="setup">
-                    <ion-button size="small" color="light" *ngIf="t.hasApplications" (click)="finnishSetup(t, 'open')" >
-                      Finnsh Setup
-                    </ion-button>
-                    <ion-button size="small" disabled="true" color="light" *ngIf="!t.hasApplications"  >
-                       No Applications
-                      </ion-button>
-                  </div>
+              </div>
+              <div class="setup">
+                <ion-button size="small" color="light" *ngIf="t.hasApplications" (click)="finnishSetup(t, 'open')">
+                  Finnsh Setup
+                </ion-button>
+                <ion-button size="small" disabled="true" color="light" *ngIf="!t.hasApplications">
+                  No Applications
+                </ion-button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="unaprovedTournaments">
+          <div class="title">
+            <h4>Created Tournaments</h4>
+          </div>
+          <div class="unapprovedList">
+            <div class="card" *ngFor="let t of unapprovedTournaments">
+              <div class="tTitle">
+                <h5>{{t.doc.formInfo.tournamentName}}</h5>
+              </div>
+              <div class="tDetails">
+                <div>
+
+
+                  <p>Participants <b>{{t.doc.formInfo.type}}</b></p>
+                  <p> {{t.doc.formInfo.location}}</p>
+                  <hr>
+                  <p>{{t.doc.formInfo.startDate | date}} to {{t.doc.formInfo.endDate | date}}</p>
+                  <p>R {{t.doc.formInfo.joiningFee}} fee</p>
+                  <p>Top <b>{{t.doc.formInfo.type}}</b></p>
+                  <p>Application open until - {{t.doc.formInfo.applicationClosing | date}}</p>
+                  <!-- <p>{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p> -->
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="unaprovedTournaments">
-        <div class="title">
-          <h4>Created Tournaments</h4>
+    </div>
+    <div class="tournamentDetails">
+      <div class="details">
+        <div>
+          <h4>Finest Cup Tournament</h4>
+          <p>Top 8</p>
+          <hr>
+          <p>8 Participants</p>
+          <p>From 25 Jul, to 26 Jul 2019</p>
+          <hr>
+          <p>Application Closing Date <br> 30Jul, 2019</p>
         </div>
-        <div class="unapprovedList">
-            <div class="card" *ngFor="let t of unapprovedTournaments" >
-                <div class="tTitle">
-                    <h5>{{t.doc.formInfo.tournamentName}}</h5>
-                  </div>
-                  <div class="tDetails">
-                    <div>
-  
-                      
-                        <p>Participants <b>{{t.doc.formInfo.type}}</b></p>
-                        <p> {{t.doc.formInfo.location}}</p>
-                        <hr>
-                        <p>{{t.doc.formInfo.startDate | date}} to   {{t.doc.formInfo.endDate | date}}</p>
-                        <p>R {{t.doc.formInfo.joiningFee}} fee</p>
-                        <p>Top <b>{{t.doc.formInfo.type}}</b></p>
-                        <p>Application open until -  {{t.doc.formInfo.applicationClosing}}</p>
-                        <!-- <p>{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p> -->
-                    </div>
-                  </div>
+
+      </div>
+      <div class="matchList">
+        <div class="stats">
+          <div class="card">
+            <div class="title">
+              <p>Total Applications</p>
             </div>
+            <div class="number">
+              <h3>34</h3>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">
+              <p>Paid Applications</p>
+            </div>
+            <div class="number">
+              <h3>33</h3>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">
+              <p>Accepted Applications</p>
+            </div>
+            <div class="number">
+              <h3>56</h3>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="tournamentDetails">
-    <div class="details">
-      <div>
-         <h4>Finest Cup Tournament</h4>
-      <p>Top 8</p>
-      <hr>
-      <p>8 Participants</p>
-      <p>From 25 Jul, to 26 Jul 2019</p>
-      <hr>
-      <p>Application Closing Date <br> 30Jul, 2019</p>
-      </div>
-     
-    </div>
-    <div class="matchList">
-        <div class="card" *ngFor="let item of tempCardGen" >
-            <div class="date">
-              <p>27 Jul, 2019</p>
-            </div>
-            <div class="aVb">
-              <div class="home">
-                <p>Team Name</p>
-              </div>
-              <div class="versus">
-                <p>v</p>
-              </div>
-              <div class="away">
-                  <p>Team Name</p>
-              </div>
-            </div>
-            <div class="teamHome">
-              <p>Home</p>
-            </div>
-            <div class="teamAway">
-              <p>Away</p>
-              </div>
-          </div>
-    </div>
-  </div>
-</div>
 </ion-content>

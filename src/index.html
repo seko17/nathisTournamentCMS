@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Ionic App</title>
+  <title>Nathis's CMS</title>
 
   <base href="/" />
   <script src="https://kit.fontawesome.com/73b51aa9bc.js" crossorigin="anonymous"></script>
@@ -11,15 +11,32 @@
   <meta name="format-detection" content="telephone=no" />
   <meta name="msapplication-tap-highlight" content="no" />
   <link href="https://fonts.googleapis.com/css?family=Didact+Gothic|Reem+Kufi|Staatliches&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
-
+  <link rel="icon" type="image/png" href="./assets/icon/favicon.png" />
   <!-- add to homescreen for ios -->
-  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="no" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 </head>
 
 <body>
   <app-root></app-root>
+  <div class="cont">
+    <div class="img">
+        <img width="400px" height="400px" src="./assets/icon/favicon.png" alt="">
+    </div>
+  </div>
+  <style>
+    .cont {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg ,rgb(42, 119, 42),rgb(25, 40, 54));
+      display: flex;
+      align-content: center;
+      text-align: center;
+    }
+    .img {
+        margin: auto;
+      }
+  </style>
 </body>
 
 </html>

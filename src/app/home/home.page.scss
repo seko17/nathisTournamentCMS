@@ -4,7 +4,7 @@
         flex-direction: column;
         border-radius: 100px 100px 0px 0px;
         position: absolute;
-        // width: 10vw;
+        width: 60px;
         height: 100%;
         background: #F2F2F2;
         overflow: hidden;
@@ -16,11 +16,13 @@
             align-content: center;
             align-items: center;
             .letter {
+              width: 50px;
+              height: 50px;
+              margin: auto;
+              img {
                 width: 100%;
-                text-align: center;
-                p {
-                    font-size: 30px;
-                }
+                height: 100%;
+              }
             }
         }
         .links {

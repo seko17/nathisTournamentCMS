@@ -22,7 +22,7 @@ export class ManageTournamentsPage implements OnInit {
 
   modal
   async presentModal() {
-    this.setUpTimeLine('close',null)
+    this.setUpTimeLine('close', null)
     this.modal = await this.modalController.create({
       component: SetfixturesPage,
       backdropDismiss: false,
@@ -33,7 +33,7 @@ export class ManageTournamentsPage implements OnInit {
       this.fixtureSetUp('open')
       this.presentLoading();
     });
-    this.promptFixtureConfig('close',null)
+    this.promptFixtureConfig('close', null)
     return await this.modal.present();
 
   }
@@ -82,6 +82,7 @@ export class ManageTournamentsPage implements OnInit {
 
   // array for the red cards
   unapprovedTournaments = []
+  
   tournamentApplications = []
   hparticipants = [];
   aparticipants = [];
@@ -130,6 +131,7 @@ export class ManageTournamentsPage implements OnInit {
   }
 
   ngOnInit() {
+    this.closingDateCountDown()
     this.newTournForm = this.formBuilder.group({
       tournamentName: ['', [Validators.required, Validators.minLength((4))]],
       type: ['', Validators.required],
@@ -154,7 +156,21 @@ export class ManageTournamentsPage implements OnInit {
       docid: null,
       doc: null
     }
+    switch (state) {
+      case 'open':
+        this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
+        this.setUpApplications = true;
+        break;
+      case 'close':
+        this.setUpApplications = false;
 
+        setTimeout(() => {
+          this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'none');
+        }, 500);
+        break;
+      default:
+        break;
+    }
 
     this.generatefixtures(tournament);
     let num = 0;
@@ -183,79 +199,57 @@ export class ManageTournamentsPage implements OnInit {
       })
       console.log(this.tournamentApplications);
       console.log(tournament.docid);
-​
-      this.db.collection('newTournaments').doc(tournament.docid).get().then(val=>{
+
+      this.db.collection('newTournaments').doc(tournament.docid).get().then(val => {
         console.log(val.data().formInfo)
-        
-        form =val.data().formInfo;
-​
-        firebase.firestore().collection('participants').where("tournamentName","==",val.data().formInfo.tournamentName).get().then(res=>{
-          res.forEach(val=>{
+
+        form = val.data().formInfo;
+
+        firebase.firestore().collection('participants').where("tournamentName", "==", val.data().formInfo.tournamentName).get().then(res => {
+          res.forEach(val => {
 
             this.participants.push(val.data())
-            console.log("participants = ",val.data())
+            console.log("participants = ", val.data())
 
- num = num+1;
-​
-let obb = {};
-obb =val.data();
-​
-            if(num%2 == 0)
-            {
-              firebase.firestore().collection('participants').doc(val.id).update({...val.data(),...{whr:"home"}})
+            num = num + 1;
+
+            let obb = {};
+            obb = val.data();
+
+            if (num % 2 == 0) {
+              firebase.firestore().collection('participants').doc(val.id).update({ ...val.data(), ...{ whr: "home" } })
               // this.participants.push({...val.data(),...{whr:"home"}})
             }
-            else
-            {
+            else {
               // this.aparticipants.push({...val.data(),...{awhr:"away"}})
-              firebase.firestore().collection('participants').doc(val.id).update({...val.data(),...{whr:"away"}})
+              firebase.firestore().collection('participants').doc(val.id).update({ ...val.data(), ...{ whr: "away" } })
             }
-​
-​
+
+
             // if(this.participants.length==this.aparticipants.length)
             // {
             //   this.serve.randomfixture( this.participants,this.aparticipants);  
             // }
-            
-​
-            console.log("number = ",num)
-            console.log("parts  = ",this.participants)
+
+
+            console.log("number = ", num)
+            console.log("parts  = ", this.participants)
           })
         })
       })
-​
-​
-​
-​
-      this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where("status","==","accepted").get().then(val=>{
-        val.forEach(res=>{
-          
-          this.accepted.push({...form,...{tournid:tournament.docid},...{id:res.id},...res.data()});
-          console.log("data = ",this.accepted)
+
+
+
+
+      this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where("status", "==", "accepted").get().then(val => {
+        val.forEach(res => {
+
+          this.accepted.push({ ...form, ...{ tournid: tournament.docid }, ...{ id: res.id }, ...res.data() });
+          console.log("data = ", this.accepted)
         })
       })
-       
+
     })
-
-
-    
-    switch (state) {
-      case 'open':
-        this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
-        this.setUpApplications = true;
-        break;
-      case 'close':
-        this.setUpApplications = false;
-        setTimeout(() => {
-          this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'none');
-        }, 500);
-        break;
-      default:
-        break;
-    }
-
-
-
   }
   toggleTournamentForm(state) {
     switch (state) {
@@ -315,7 +309,7 @@ obb =val.data();
           upload.snapshot.ref.getDownloadURL().then(downUrl => {
             let newSponsor = {
               image: downUrl,
-              
+
               name: image.item(0).name
             }
             console.log(downUrl)
@@ -384,7 +378,7 @@ obb =val.data();
       doc: null,
       hasApplications: false
     }
-    this.serve.tournaments =[];
+    this.serve.tournaments = [];
     this.db.collection('newTournaments').where('approved', '==', true).get().then(res => {
       this.approvedTournaments = []
       res.forEach(doc => {
@@ -418,7 +412,7 @@ obb =val.data();
         })
       })
       console.log('approvedTournaments ', this.approvedTournaments);
-this.serve.tournaments =this.approvedTournaments;
+      this.serve.tournaments = this.approvedTournaments;
     })
   }
   getUnapprovedTournaments() {
@@ -439,9 +433,6 @@ this.serve.tournaments =this.approvedTournaments;
 
     })
   }
-
-
-
   vendorApplications(state) {
     switch (state) {
       case 'open':
@@ -452,15 +443,11 @@ this.serve.tournaments =this.approvedTournaments;
         break;
     }
   }
-
-
-
-
-  setUpTimeLine(state,x) {
+  setUpTimeLine(state, x) {
     // timeLineSetup prop
     // setUpTimelineDiv div
 
-    
+
     switch (state) {
       case 'open':
         this.presentModal();
@@ -489,8 +476,6 @@ this.serve.tournaments =this.approvedTournaments;
         break;
     }
   }
-
-
   promptFixtureConfig(state, x) {
     console.log(state)
     // this.presentModal();
@@ -519,8 +504,6 @@ this.serve.tournaments =this.approvedTournaments;
         break;
     }
   }
-
-
   fixtureSetUp(state) {
     // setUpFixtures
     // setUpFixturesDiv
@@ -545,8 +528,6 @@ this.serve.tournaments =this.approvedTournaments;
         break;
     }
   }
-
-
   tourney;
   participants = [];
   accepted = [];
@@ -562,8 +543,6 @@ this.serve.tournaments =this.approvedTournaments;
     console.log(this.tournamentApplications[0].docid);
     this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(this.tournamentApplications[0].docid).update({ status: "accepted" });
   }
-
-
   decline() {
     console.log("Decline")
 
@@ -576,9 +555,6 @@ this.serve.tournaments =this.approvedTournaments;
     console.log(this.tournamentApplications[0].docid);
     this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(this.tournamentApplications[0].docid).update({ status: "declined" });
   }
-
-
-
   paid(c) {
     console.log(c)
     this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ bank: "paid" }).then(res => {
@@ -696,12 +672,7 @@ this.serve.tournaments =this.approvedTournaments;
 
         console.log(num)
         if (num % 2 == 0) {
-
-
-
           temp2.push({ ...val.data(), ...{ matchdate: null, goal: 0 } });
-
-
           this.serve.randomfixture(temp, temp2)
           this.fixture = this.serve.fixture;
 
@@ -729,6 +700,38 @@ this.serve.tournaments =this.approvedTournaments;
 
 
 
+  }
+  
+  closingDateCountDown() {
+    // Set the date we're counting down to
+    var countDownDate = new Date("Dec 14, 2019 15:37:25").getTime();
+
+    // Update the count down every 1 second
+    var x = setInterval(function () {
+
+      // Get today's date and time
+      var now = new Date().getTime();
+
+      // Find the distance between now and the count down date
+      var distance = countDownDate - now;
+
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Output the result in an element with id="demo"
+      // console.log(days + "d " + hours + "h "
+        // + minutes + "m " + seconds + "s ");
+
+
+      // If the count down is over, write some text 
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("demo").innerHTML = "EXPIRED";
+      }
+    }, 1000);
   }
 }
 

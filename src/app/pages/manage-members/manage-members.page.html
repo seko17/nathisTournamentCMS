@@ -6,13 +6,19 @@
                     <h4>Team Managers</h4>
                 </div>
                 <div class="approvedList">
+                    <div class="emptyList" *ngIf="approvedManagers.length==0" >
+                        <div class="v">
+                            <p>No Data</p>
+                            <ion-spinner name="bubbles"></ion-spinner>
+                        </div>
+                    </div>
                     <div class="card" *ngFor="let t of approvedManagers">
                         <div class="image">
                             <img
-                                src="https://firebasestorage.googleapis.com/v0/b/nathistournamentdb.appspot.com/o/Capture.PNG?alt=media&token=0e6194fa-499a-4908-a1f0-1c33bdc67ab1">
+                                src="https://www.jing.fm/clipimg/detail/132-1320447_manager-clipart-work-clipart-area-manager-icon-png.png">
                         </div>
                         <div class="details">
-                            <div>
+                            <div class="f">
                                 <p><b>{{t.form.fullName}}</b></p>
                                 <hr>
                                 <p>{{t.form.phoneNumber}}</p>
@@ -26,6 +32,12 @@
                     <h4> Managers Applications</h4>
                 </div>
                 <div class="unapprovedList">
+                        <div class="emptyList" *ngIf="manager.length==0" >
+                                <div class="v">
+                                    <p>No Data</p>
+                                    <ion-spinner name="bubbles"></ion-spinner>
+                                </div>
+                            </div>
                     <div class="card" *ngFor="let u of manager">
                         <div class="image">
                             <div class="img">
@@ -59,10 +71,16 @@
         <div class="vendors">
             <div class="approvedVendors">
                 <div class="title">
-                    <h4>Vendors</h4> <ion-button (click)="save()"> trigger</ion-button>
+                    <h4>Vendors</h4>
                 </div>
                
                 <div class="approvedList">
+                        <div class="emptyList" *ngIf="approvedVendor.length==0" >
+                                <div class="v">
+                                    <p>No Data</p>
+                                    <ion-spinner name="bubbles"></ion-spinner>
+                                </div>
+                            </div>
                     <div class="card" *ngFor="let t of approvedVendor">
                         <div class="tTitle">
                             <h5>Sbuda</h5>
@@ -91,6 +109,12 @@
                     <h4>Vendor Applications</h4>
                 </div>
                 <div class="unapprovedList">
+                        <div class="emptyList" *ngIf="vendors.length==0" >
+                                <div class="v">
+                                    <p>No Data</p>
+                                    <ion-spinner name="bubbles"></ion-spinner>
+                                </div>
+                            </div>
                     <div class="card" *ngFor="let u of vendors">
                         <div class="image">
                             <div class="img">

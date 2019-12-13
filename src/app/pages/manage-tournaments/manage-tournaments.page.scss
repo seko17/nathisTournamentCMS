@@ -7,114 +7,137 @@
   z-index: 701;
   background: rgb(255, 255, 255);
   display: none;
+
   .closebutton {
     position: absolute;
     top: 30px;
     right: 0px;
   }
+
   .container {
     width: 100%;
     height: 100%;
     display: flex;
-    .teams {
-        flex-basis: 30%;
-        height: 100%;
-        background: rgb(224, 224, 224);
-        border-radius: 10px 10px 0px 0px;
-        .header {
-            width: 100%;
-            padding: 10px;
-            p {
-                margin: 0;
 
-            }
+    .teams {
+      flex-basis: 30%;
+      height: 100%;
+      background: rgb(224, 224, 224);
+      border-radius: 10px 10px 0px 0px;
+
+      .header {
+        width: 100%;
+        padding: 10px;
+
+        p {
+          margin: 0;
+
         }
-        .teamList {
-            width: 100%;
-            height: 90%;
-            overflow-y: auto;
-            
-            .card {
-                width: 90%;
-                margin: 3px auto;
-                border-radius: 10px;
-                background: white;
-                padding: 10px;
-                h5, p {
-                    margin: 0;
-                }
-            }
+      }
+
+      .teamList {
+        width: 100%;
+        height: 90%;
+        overflow-y: auto;
+
+        .card {
+          width: 90%;
+          margin: 3px auto;
+          border-radius: 10px;
+          background: white;
+          padding: 10px;
+
+          h5,
+          p {
+            margin: 0;
+          }
         }
+      }
     }
+
     .fixture {
-        flex-basis: 70%;
-        height: 100%;
-        .head {
-            position: relative;
-            text-align: center;
-            padding: 10px;
-            h1 {
-                margin: 0;
-            }
-            .step {
-                position: absolute;
-                right: 10px;
-                top: 0;
-                bottom: 0;
-                display: flex;
-                align-items: center;
-            }
+      flex-basis: 70%;
+      height: 100%;
+
+      .head {
+        position: relative;
+        text-align: center;
+        padding: 10px;
+
+        h1 {
+          margin: 0;
         }
-        .hVSa {
+
+        .step {
+          position: absolute;
+          right: 10px;
+          top: 0;
+          bottom: 0;
+          display: flex;
+          align-items: center;
+        }
+      }
+
+      .hVSa {
+        width: 100%;
+        height: 92%;
+        background: #142F40;
+        border-radius: 20px 20px 0px 0px;
+        color: white;
+
+        .headers {
+          display: flex;
+          justify-content: space-evenly;
+        }
+
+        .lists {
           width: 100%;
           height: 92%;
-          background: #142F40;
-          border-radius: 20px 20px 0px 0px;
-          color: white;
-          .headers {
-            display: flex;
-            justify-content: space-evenly;
+          display: flex;
+
+          .homeList,
+          .awayList {
+            height: 100%;
+            flex-basis: 50%;
+            overflow-x: visible;
+            overflow-y: auto;
+            position: relative;
+
+            .card {
+              width: 90%;
+              margin: 3px auto;
+              border-radius: 10px;
+              background: white;
+              color: black;
+              padding: 10px;
+
+              h5,
+              p {
+                margin: 0;
+              }
+            }
           }
-          .lists {
-              width: 100%;
-              height: 92%;
-              display: flex;
-              .homeList, .awayList {
-                  height: 100%;
-                  flex-basis: 50%;
-                  overflow-x: visible;
-                  overflow-y: auto;
-                  position: relative;
-                .card {
-                    width: 90%;
-                    margin: 3px auto;
-                    border-radius: 10px;
-                    background: white;
-                    color: black;
-                    padding: 10px;
-                    h5, p {
-                        margin: 0;
-                    }
-                }
-              }
-              .awayList {
-                  .doneButton {
-                      position: fixed;
-                      bottom: 10px;
-                      right: 10px;
-                      z-index: 700;
-                  }
-              }
+
+          .awayList {
+            .doneButton {
+              position: fixed;
+              bottom: 10px;
+              right: 10px;
+              z-index: 700;
+            }
           }
         }
+      }
     }
-}
+  }
+
   .close {
     position: absolute;
     top: 0;
     left: 0;
   }
 }
+
 .setupFixtures {
   position: absolute;
   top: 0;
@@ -125,30 +148,37 @@
   background: linear-gradient(rgb(255, 255, 255));
   background-size: 100% auto;
   display: none;
+
   .closebutton {
     position: absolute;
     top: -10px;
     right: 0;
     z-index: 200;
   }
+
   .matches {
     flex-basis: 50%;
     height: 100%;
     position: relative;
+
     .header {
-      
+
       padding: 10px;
       display: flex;
+
       .title {
         flex-basis: 90%;
+
         h1 {
           margin: 0;
         }
+
         p {
           margin: 0;
         }
       }
     }
+
     .teamList {
       position: absolute;
       bottom: 0;
@@ -157,17 +187,21 @@
       top: 85px;
       border-radius: 20px 20px 0px 0px;
       overflow-y: auto;
+
       .card {
         width: 90%;
         margin: 3px auto;
         border-radius: 10px;
         display: flex;
         align-items: center;
-        background: #387336;color: white;
+        background: #387336;
+        color: white;
         box-shadow: 0px 3px 3px #0000005b;
         padding: 10px;
+
         .details {
           flex-basis: 100%;
+
           h1 {
             margin: 0;
           }
@@ -175,28 +209,34 @@
       }
     }
   }
+
   .fixtures {
     flex-basis: 50%;
     height: 100%;
     position: relative;
+
     .header {
       display: flex;
       align-items: center;
       padding: 10px;
+
       .title {
         flex-basis: 90%;
+
         h1 {
-            margin: 0;
-          
+          margin: 0;
+
         }
-        
+
       }
+
       .div {
         p {
           margin: 0;
         }
       }
     }
+
     .fixtureList {
       position: absolute;
       background: #142F40;
@@ -206,33 +246,37 @@
       top: 85px;
       border-radius: 20px 20px 0px 0px;
       overflow-y: auto;
+
       .card {
         width: 90%;
         margin: 5px auto;
-        background: linear-gradient(rgb(255, 255, 255)),url(../../../assets/footbal_deco.svg);
+        background: linear-gradient(rgb(255, 255, 255)), url(../../../assets/footbal_deco.svg);
         overflow: hidden;
-        border-radius:10px;
+        border-radius: 10px;
         position: relative;
         box-shadow: 0px 3px 3px #1717172c;
         background-repeat: no-repeat;
         background-size: 100%;
-        
+
         .date {
           width: 100%;
           background: #387336;
-          border-radius:10px;
+          border-radius: 10px;
           padding: 5px;
           color: white;
+
           p {
             margin: 0;
             padding: 0;
           }
         }
+
         .aVb {
           display: flex;
           justify-content: space-evenly;
           height: 70px;
         }
+
         .teamAway {
           position: absolute;
           bottom: 0;
@@ -241,11 +285,13 @@
           padding: 4px;
           border-radius: 0px 10px 0px 10px;
           color: white;
+
           p {
             margin: 0;
             padding: 0;
           }
         }
+
         .teamHome {
           position: absolute;
           bottom: 0;
@@ -254,6 +300,7 @@
           padding: 4px;
           border-radius: 10px 0px 10px 0px;
           color: white;
+
           p {
             margin: 0;
             padding: 0;
@@ -263,6 +310,7 @@
     }
   }
 }
+
 .chooseFixtureConfig {
   position: absolute;
   top: 0;
@@ -274,15 +322,17 @@
   // display: flex;
   align-items: center;
   display: none;
+
   .closebutton {
     position: absolute;
     top: 0;
     right: 0;
   }
-  .middlediv{
+
+  .middlediv {
     width: 50%;
-    height:auto;
-    background: linear-gradient(rgba(5, 39, 0, 0.281)),url(../../../assets/markus-spiske-KWQ2kQtxiKE-unsplash.jpg);
+    height: auto;
+    background: linear-gradient(rgba(5, 39, 0, 0.281)), url(../../../assets/markus-spiske-KWQ2kQtxiKE-unsplash.jpg);
     background-size: cover;
     margin: auto;
     text-align: center;
@@ -290,323 +340,383 @@
     box-shadow: 0px 3px 3px #17171731;
     color: white;
     padding: 0px 50px;
+
     hr {
       width: 90%;
       margin: 20px auto;
       background: white;
     }
+
     h1 {
       font-size: 70px;
       letter-spacing: 10px;
     }
   }
 }
+
 .newTournamentForm {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 500;
-    background: rgba(0, 0, 0, 0.5);
-    display: none;
-    align-items: center;
-    .form {
-        // pointer-events: none;
-        overflow: hidden;
-        width: 70%;
-        height: 70%;
-        background: white;
-        border-radius: 10px;
-        margin: 7% auto 0px auto;
-        // transform: translateY(-70vh);
-        box-shadow: 0px 0px 7px #17171769;
-        position: relative;
-        display: flex;
-        form {
-          flex-basis: 50%;
-        }
-        .sButton {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-        }
-        .closeButton {
-          position: absolute;
-          bottom: 0;
-          left: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 500;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+
+  .form {
+    // pointer-events: none;
+    overflow: hidden;
+    width: 70%;
+    height: 70%;
+    background: white;
+    border-radius: 10px;
+    margin: 7% auto 0px auto;
+    // transform: translateY(-70vh);
+    box-shadow: 0px 0px 7px #17171769;
+    position: relative;
+    display: flex;
+
+    form {
+      flex-basis: 50%;
+      overflow-y: auto;
+    }
+
+    .sButton {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+
+    .closeButton {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      z-index: 400;
+      transform: translateX(-20px);
+    }
+  }
+
+  .sponsors {
+    flex-basis: 50%;
+    background: gray;
+  }
+}
+
+.cmsContentTourns {
+  // position: absolute;
+  bottom: 0;
+  top: 65px;
+  right: 0;
+  left: 60px;
+  background: url(../../../assets/markus-spiske-KWQ2kQtxiKE-unsplash.jpg), linear-gradient(white);
+  background-size: cover;
+  z-index: 200;
+  display: flex;
+  height: 100%;
+
+  .tournaments {
+    height: 100%;
+    width: 100%;
+
+    .links {
+      display: flex;
+      // height: 10px;
+      justify-content: center;
+      z-index: 300;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      text-align: center;
+
+      button {
+        outline: none !important;
+        width: 40%;
+        padding: 10px;
+        border-radius: 200px;
+        background: none;
+        border: solid 1px white;
+        margin: 5px;
+        color: white;
       }
     }
-    .sponsors {
-      flex-basis: 50%;
-      background: gray;
-    }
-}
-.cmsContentTourns{
-    // position: absolute;
-    bottom: 0;
-    top: 65px;
-    right: 0;
-    left: 60px;
-    background: linear-gradient(rgba(255, 255, 255, 0.466)),url(../../../assets/orig_64187.jpg);
-    z-index: 200;
-    display: flex;
-    height: 100%;
-    .tournaments {
-        height: 100%;
-        width: 50%;
-        .links {
-            display: flex;
-            // height: 10px;
-            justify-content: center;
-            button {
-                outline: none !important;
-                width: 40%;
-                padding: 10px;
-                border-radius: 200px;
-                background: none;
-                border: solid 1px white;
-                margin: 5px;
-                color: white;
-            }
+
+    .tournamentList {
+      position: absolute;
+      bottom: 0;
+      left: 1vw;
+      right: 30vw;
+      top: 10px;
+      overflow-y: auto;
+
+      h4 {
+        margin: 0;
+        padding: 0;
+      }
+
+      .approvedTournaments {
+        width: 100%;
+        height: 50%;
+
+        // background: red;
+        // display: flex;
+        .title {
+          width: auto;
+          height: 50px;
+          display: flex;
+          align-items: center;
+          color: white;
         }
-        .tournamentList {
-            position: absolute;
-            bottom: 0;
-            left: 2vw;
-            right: 50vw;
-            top: 50px;
-            overflow-y: auto;
-            h4 {
+
+        .approvedList {
+          width: 100%;
+          height: 80%;
+          display: flex;
+          overflow-x: auto;
+          align-items: center;
+
+          .card {
+            position: relative;
+            background: url(../../../assets/cardSVG/SVG/apporvedTournamentSVG.svg),white ;
+            background-position: 287px 3px;
+            background-repeat: no-repeat;
+            min-width: 400px;
+            height: 60%;
+            margin: 5px 5px 25px 5px;
+            border-radius: 10px;
+            box-shadow: 0px 3px 3px #17171717;
+            display: flex;
+            color: black;
+            overflow: hidden;
+            position: relative;
+
+            .tTitle {
+              text-align: center;
+              position: absolute;
+              top: 0;
+              right: 0;
+              left: 0;
+              padding: 5px;
+              backdrop-filter: blur(10px);
+              border-radius: 10px;
+
+              h5 {
                 margin: 0;
                 padding: 0;
+              }
             }
-            .approvedTournaments {
-                width: 100%;
-                height: 50%;
-                // background: red;
-                // display: flex;
-                .title {
-                  width: 100%;
-                  height: 50px;
-                  display: flex;
-                  align-items: center;
-                  color: white;
-                }
-                .approvedList {
-                  width: 100%;
-                  height: 80%;
-                  display: flex;
-                  overflow-x: auto;
-                  .card {
-                    position: relative;
-                 background: linear-gradient(rgba(0, 109, 18, 0.363)), url(../../../assets/green_polygon.png);
-                 background-size: cover;
-                    min-width: 400px;
-                    margin: 5px 5px 25px 5px;
-                    border-radius: 10px;
-                    box-shadow: 0px 3px 3px #17171717;
-                    display: flex;
-                    color: black;
-                    overflow: hidden;
-                    position: relative;
-                    .tTitle {
-                        text-align: center;
-                        position: absolute;
-                        top: 0;
-                        right: 0;
-                        left: 0;
-                        padding: 5px;
-                        backdrop-filter: blur(10px);
-                        border-radius: 10px;
-                        h5 {
-                            margin: 0;
-                            padding: 0;
-                        }
-                    }
-                    .tDetails {
-                        height: 100%;
-                        align-items: center;
-                        padding: 5px;
-                        flex-basis: 90%;
-                        padding-top: 40px;
-                        display: flex;
-                        align-items: center;
-                        position: relative;
-                        width: 100%;
-                        
-                        p {
-                          margin: 0;
-                          padding: 0;
-                        }
-                    }
-                    .sponsors {
-                        display: flex;
-                        flex-direction: column;
-                        padding-top: 40px;
-                        img {
-                            width: 45px;
-                        }
-                    }
-                    .setup {
-                      position: absolute;
-                      bottom: 0;
-                      right: 0;
-                    }
-                }
-                }
-                
-            }
-            .unaprovedTournaments {
+
+            .tDetails {
+              height: 100%;
+              align-items: center;
+              padding: 5px;
+              flex-basis: 90%;
+              padding-top: 40px;
+              display: flex;
+              align-items: center;
+              position: relative;
               width: 100%;
-              height: 50%;
-              // background: red;
-              // display: flex;
-              .title {
-                width: 100%;
-                height: 50px;
-                display: flex;
-                align-items: center;
-                color: white;
-              }
-              .unapprovedList {
-                width: 100%;
-                height: 80%;
-                display: flex;
-                overflow-x: auto;
-                overflow-y: hidden;
-                .card {
-                  position: relative;
-               background: linear-gradient(rgba(95, 0, 0, 0.596)), url(../../../assets/orig_64187.jpg);
-               color: white;
-               background-size: cover;
-                  min-width: 400px;
-                  max-width: 400px;
-                  height: 90%;
-                  margin: 5px 5px 25px 5px;
-                  border-radius: 10px;
-                  box-shadow: 0px 3px 3px #17171717;
-                  display: flex;
-                  overflow: hidden;
-                  .tTitle {
-                    border-radius: 10px;
-                      text-align: center;
-                      position: absolute;
-                      top: 0;
-                      right: 0;
-                      left: 0;
-                      padding: 5px;
-                      backdrop-filter: blur(10px);
-                      h5 {
-                          margin: 0;
-                          padding: 0;
-                      }
-                  }
-                  .tDetails {
-                      height: 100%;
-                      align-items: center;
-                      padding: 5px;
-                      flex-basis: 90%;
-                      padding-top: 40px;
-                      display: flex;
-                      align-items: center;
-                      p {
-                        margin: 0;
-                        padding: 0;
-                      }
-                  }
-                  .sponsors {
-                      display: flex;
-                      flex-direction: column;
-                      padding-top: 40px;
-                      img {
-                          width: 45px;
-                      }
-                  }
-              }
+
+              p {
+                margin: 0;
+                padding: 0;
               }
             }
-        }
-    }
-    .tournamentDetails {
-      width: 50%;
-      height: 100%;
-      background: rgb(238, 238, 238);
-      border-radius: 20px 0px 0px 20px;
-      overflow: hidden;
-      .details {
-        width: 100%;
-        height: 30%;
-        padding: 15px;
-        display: flex;
-        align-items: center;
-        h4 {
-          margin: 0;
-          padding: 0;
-        }
-        p {
-          margin: 0;
-          padding: 0;
-        }
-      }
-      .matchList {
-        width: 100%;
-        height: 70%;
-        overflow-y: auto;
-        .card {
-          width: 90%;
-          margin: 5px auto;
-          background: white;
-          overflow: hidden;
-          border-radius:15px;
-          position: relative;
-          .date {
-            width: 100%;
-            background: #387336;
-            border-radius: 100px;
-            padding: 5px;
-            color: white;
-            p {
-              margin: 0;
-              padding: 0;
+
+            .sponsors {
+              display: flex;
+              flex-direction: column;
+              padding-top: 40px;
+
+              img {
+                width: 45px;
+              }
+            }
+
+            .setup {
+              position: absolute;
+              bottom: 0;
+              right: 0;
             }
           }
-          .aVb {
+        }
+
+      }
+
+      .unaprovedTournaments {
+        width: 100%;
+        height: 50%;
+
+        // background: red;
+        // display: flex;
+        .title {
+          width: 100%;
+          height: 50px;
+          display: flex;
+          align-items: center;
+          color: white;
+        }
+
+        .unapprovedList {
+          width: 100%;
+          height: 80%;
+          display: flex;
+          overflow-x: auto;
+          overflow-y: hidden;
+          align-items: center;
+          .card {
+            position: relative;
+            background: url(../../../assets/cardSVG/SVG/createdSVG.svg),white ;
+            background-position: 136px 3px;
+            background-repeat: no-repeat;
+            color: rgb(27, 27, 27);
+            background-size: 100% 100%;
+            min-width: 400px;
+            max-width: 400px;
+            height: 60%;
+            margin: 5px 5px 25px 5px;
+            border-radius: 10px;
+            box-shadow: 0px 3px 3px #17171717;
             display: flex;
-            justify-content: space-evenly;
-            height: 70px;
-          }
-          .teamAway {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            background: #387336;
-            padding: 4px;
-            border-radius: 0px 10px 0px 10px;
-            color: white;
-            p {
-              margin: 0;
-              padding: 0;
+            overflow: hidden;
+
+            .tTitle {
+              border-radius: 10px;
+              text-align: center;
+              position: absolute;
+              top: 0;
+              right: 0;
+              left: 0;
+              padding: 5px;
+              backdrop-filter: blur(10px);
+
+              h5 {
+                margin: 0;
+                padding: 0;
+              }
             }
-          }
-          .teamHome {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            background: #387336;
-            padding: 4px;
-            border-radius: 10px 0px 10px 0px;
-            color: white;
-            p {
-              margin: 0;
-              padding: 0;
+
+            .tDetails {
+              height: 100%;
+              align-items: center;
+              padding: 5px;
+              flex-basis: 90%;
+              padding-top: 40px;
+              display: flex;
+              align-items: center;
+
+              p {
+                margin: 0;
+                padding: 0;
+              }
+            }
+
+            .sponsors {
+              display: flex;
+              flex-direction: column;
+              padding-top: 40px;
+
+              img {
+                width: 45px;
+              }
             }
           }
         }
       }
-        
     }
+  }
+
+  .tournamentDetails {
+    position: absolute;
+    width: 30%;
+    /* height: 64%; */
+    background: #eeeeee;
+    border-radius: 20px;
+    overflow: hidden;
+    right: 0;
+    top: 25%;
+    bottom: 25%;
+
+    .details {
+      width: 100%;
+      height: 50%;
+      padding: 15px;
+      display: flex;
+      -webkit-box-align: center;
+      align-items: center;
+
+      h4 {
+        margin: 0;
+        padding: 0;
+      }
+
+      p {
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    .matchList {
+      width: 100%;
+      height: 50%;
+      overflow-y: auto;
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-align: center;
+      align-items: center;
+
+      .stats {
+        width: 100%;
+        height: 90%;
+        margin: 5px auto;
+        background: #387336;
+        color: white;
+        overflow: hidden;
+        border-radius: 15px;
+        position: relative;
+        display: flex;
+        align-content: center;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+
+        .card {
+          width: 30%;
+          box-shadow: 0px 2px 2px #17171754;
+          background: white;
+          color: black;
+          border-radius: 10px;
+          overflow: hidden;
+
+          .title {
+            background: green;
+            color: rgb(255, 255, 255);
+            padding: 10px;
+
+            p {
+              margin: 0;
+              font-size: .6em;
+            }
+          }
+
+          .number {
+            display: flex;
+            align-content: center;
+
+            h3 {
+              text-align: center;
+              margin: auto;
+              font-size: 3em;
+            }
+          }
+        }
+      }
+    }
+
+  }
 }
+
 .setUpApplications {
   overflow: hidden;
   position: absolute;
@@ -618,23 +728,27 @@
   z-index: 600;
   border-radius: 20px 20px 0px 0px;
   display: none;
+
   .closebutton {
     position: absolute;
     top: 0;
     right: 0;
   }
+
   .applications {
     flex-basis: 40%;
     height: 100%;
     background: rgb(201, 201, 201);
     padding: 5px;
     border-radius: 20px 20px 0px 0px;
+
     .head {
       width: 100%;
       height: 60px;
       display: flex;
       align-items: center;
       position: relative;
+
       .vendorApplications {
         transition: 0.4s;
         position: absolute;
@@ -648,6 +762,7 @@
         box-shadow: 0px 3px 3px #17171728;
         border-radius: 5px;
         z-index: 300;
+
         .card {
           display: flex;
           min-width: 96%;
@@ -657,15 +772,18 @@
           align-items: center;
           margin: 5px auto;
           color: #C7FFC5;
+
           .teamInfo {
             flex-basis: 100%;
             padding: 10px;
+
             p {
               margin: 0;
             }
           }
         }
       }
+
       .vendorApplications-close {
         transition: 0.4s;
         position: absolute;
@@ -679,6 +797,7 @@
         box-shadow: 0px 3px 3px #17171728;
         border-radius: 5px;
         z-index: 300;
+
         .card {
           display: flex;
           min-width: 96%;
@@ -688,24 +807,29 @@
           align-items: center;
           margin: 5px auto;
           color: #C7FFC5;
+
           .teamInfo {
             flex-basis: 100%;
             padding: 10px;
+
             p {
               margin: 0;
             }
           }
         }
       }
+
       p {
         flex-basis: 90%;
         padding: 0px 10px
       }
     }
+
     .applicationList {
       width: 100%;
       height: 93%;
       overflow-y: auto;
+
       .card {
         display: flex;
         width: 96%;
@@ -713,6 +837,7 @@
         border-radius: 5px;
         align-items: center;
         margin: 5px auto;
+
         .teamInfo {
           flex-basis: 100%;
           padding: 10px;
@@ -720,30 +845,39 @@
       }
     }
   }
+
   .management {
     flex-basis: 60%;
     height: 100%;
     background: rgb(255, 255, 255);
+
     .tournamentData {
       width: 100%;
       height: 30%;
       background: white;
       padding: 10px;
       overflow: hidden;
+
       h1 {
         margin: 0;
       }
+
       .splitter {
         display: flex;
         height: 87%;
-        .one, .two {
+
+        .one,
+        .two {
           flex-basis: 50%;
+
           p {
             margin: 0;
           }
+
           hr {
             background: rgb(233, 233, 233);
           }
+
           img {
             width: 50px;
             border-radius: 5px;
@@ -753,20 +887,25 @@
         }
       }
     }
+
     .verificationScreen {
       height: 70%;
       display: flex;
       background: green;
       color: white;
+
       .acceptedApplications {
         flex-basis: 50%;
         background: rgba(255, 255, 255, 0.151);
+
         .head {
           text-align: center;
+
           h1 {
             font-size: 20px;
           }
         }
+
         .searcher {
           background: rgba(0, 0, 0, 0.267);
           border-radius: 2000px;
@@ -774,12 +913,14 @@
           margin: auto;
           padding: 0px 10px;
         }
+
         .stillToPayList {
           margin-top: 3px;
           width: 100%;
           height: 80%;
           overflow-x: hidden;
           overflow-y: auto;
+
           .card {
             padding: 10px;
             border-radius: 10px;
@@ -790,34 +931,42 @@
             color: black;
             display: flex;
             align-items: center;
+
             .details {
               flex-basis: 100%;
             }
+
             .refNumber {
               p {
                 opacity: 0.7;
-                font-weight: bold;;
+                font-weight: bold;
+                ;
               }
             }
           }
         }
       }
+
       .participatingTeams {
         flex-basis: 50%;
+
         .head {
           text-align: center;
+
           h1 {
             font-size: 20px;
           }
         }
+
         .paidList {
           margin-top: 3px;
           width: 100%;
           height: 88%;
           overflow-x: hidden;
           overflow-y: auto;
+
           .card {
-            
+
             padding: 10px;
             border-radius: 10px;
             box-shadow: 0px 3px 3px #17171746;
@@ -827,13 +976,16 @@
             color: black;
             display: flex;
             align-items: center;
+
             .details {
               flex-basis: 100%;
             }
+
             .refNumber {
               p {
                 opacity: 0.7;
-                font-weight: bold;;
+                font-weight: bold;
+                ;
               }
             }
           }
@@ -842,6 +994,7 @@
     }
   }
 }
+
 // @charset "UTF-8";
 
 /*!
@@ -853,6 +1006,7 @@
  */
 
 @-webkit-keyframes bounce {
+
   from,
   20%,
   53%,
@@ -886,6 +1040,7 @@
 }
 
 @keyframes bounce {
+
   from,
   20%,
   53%,
@@ -926,6 +1081,7 @@
 }
 
 @-webkit-keyframes flash {
+
   from,
   50%,
   to {
@@ -939,6 +1095,7 @@
 }
 
 @keyframes flash {
+
   from,
   50%,
   to {
@@ -1077,6 +1234,7 @@
 }
 
 @-webkit-keyframes shake {
+
   from,
   to {
     -webkit-transform: translate3d(0, 0, 0);
@@ -1102,6 +1260,7 @@
 }
 
 @keyframes shake {
+
   from,
   to {
     -webkit-transform: translate3d(0, 0, 0);
@@ -1416,6 +1575,7 @@
 }
 
 @-webkit-keyframes jello {
+
   from,
   11.1%,
   to {
@@ -1460,6 +1620,7 @@
 }
 
 @keyframes jello {
+
   from,
   11.1%,
   to {
@@ -1574,6 +1735,7 @@
 }
 
 @-webkit-keyframes bounceIn {
+
   from,
   20%,
   40%,
@@ -1619,6 +1781,7 @@
 }
 
 @keyframes bounceIn {
+
   from,
   20%,
   40%,
@@ -1671,6 +1834,7 @@
 }
 
 @-webkit-keyframes bounceInDown {
+
   from,
   60%,
   75%,
@@ -1709,6 +1873,7 @@
 }
 
 @keyframes bounceInDown {
+
   from,
   60%,
   75%,
@@ -1752,6 +1917,7 @@
 }
 
 @-webkit-keyframes bounceInLeft {
+
   from,
   60%,
   75%,
@@ -1790,6 +1956,7 @@
 }
 
 @keyframes bounceInLeft {
+
   from,
   60%,
   75%,
@@ -1833,6 +2000,7 @@
 }
 
 @-webkit-keyframes bounceInRight {
+
   from,
   60%,
   75%,
@@ -1871,6 +2039,7 @@
 }
 
 @keyframes bounceInRight {
+
   from,
   60%,
   75%,
@@ -1914,6 +2083,7 @@
 }
 
 @-webkit-keyframes bounceInUp {
+
   from,
   60%,
   75%,
@@ -1952,6 +2122,7 @@
 }
 
 @keyframes bounceInUp {
+
   from,
   60%,
   75%,
@@ -2745,43 +2916,35 @@
 
 @-webkit-keyframes flip {
   from {
-    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0)
-      rotate3d(0, 1, 0, -360deg);
+    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0) rotate3d(0, 1, 0, -360deg);
     transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0) rotate3d(0, 1, 0, -360deg);
     -webkit-animation-timing-function: ease-out;
     animation-timing-function: ease-out;
   }
 
   40% {
-    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px)
-      rotate3d(0, 1, 0, -190deg);
-    transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px)
-      rotate3d(0, 1, 0, -190deg);
+    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
+    transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
     -webkit-animation-timing-function: ease-out;
     animation-timing-function: ease-out;
   }
 
   50% {
-    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px)
-      rotate3d(0, 1, 0, -170deg);
-    transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px)
-      rotate3d(0, 1, 0, -170deg);
+    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
+    transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
     -webkit-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
   }
 
   80% {
-    -webkit-transform: perspective(400px) scale3d(0.95, 0.95, 0.95) translate3d(0, 0, 0)
-      rotate3d(0, 1, 0, 0deg);
-    transform: perspective(400px) scale3d(0.95, 0.95, 0.95) translate3d(0, 0, 0)
-      rotate3d(0, 1, 0, 0deg);
+    -webkit-transform: perspective(400px) scale3d(0.95, 0.95, 0.95) translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg);
+    transform: perspective(400px) scale3d(0.95, 0.95, 0.95) translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg);
     -webkit-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
   }
 
   to {
-    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0)
-      rotate3d(0, 1, 0, 0deg);
+    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg);
     transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg);
     -webkit-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
@@ -2790,43 +2953,35 @@
 
 @keyframes flip {
   from {
-    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0)
-      rotate3d(0, 1, 0, -360deg);
+    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0) rotate3d(0, 1, 0, -360deg);
     transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0) rotate3d(0, 1, 0, -360deg);
     -webkit-animation-timing-function: ease-out;
     animation-timing-function: ease-out;
   }
 
   40% {
-    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px)
-      rotate3d(0, 1, 0, -190deg);
-    transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px)
-      rotate3d(0, 1, 0, -190deg);
+    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
+    transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
     -webkit-animation-timing-function: ease-out;
     animation-timing-function: ease-out;
   }
 
   50% {
-    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px)
-      rotate3d(0, 1, 0, -170deg);
-    transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px)
-      rotate3d(0, 1, 0, -170deg);
+    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
+    transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
     -webkit-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
   }
 
   80% {
-    -webkit-transform: perspective(400px) scale3d(0.95, 0.95, 0.95) translate3d(0, 0, 0)
-      rotate3d(0, 1, 0, 0deg);
-    transform: perspective(400px) scale3d(0.95, 0.95, 0.95) translate3d(0, 0, 0)
-      rotate3d(0, 1, 0, 0deg);
+    -webkit-transform: perspective(400px) scale3d(0.95, 0.95, 0.95) translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg);
+    transform: perspective(400px) scale3d(0.95, 0.95, 0.95) translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg);
     -webkit-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
   }
 
   to {
-    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0)
-      rotate3d(0, 1, 0, 0deg);
+    -webkit-transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg);
     transform: perspective(400px) scale3d(1, 1, 1) translate3d(0, 0, 0) rotate3d(0, 1, 0, 0deg);
     -webkit-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
@@ -4457,7 +4612,8 @@
   animation-duration: 3s;
 }
 
-@media (print), (prefers-reduced-motion: reduce) {
+@media (print),
+(prefers-reduced-motion: reduce) {
   .animated {
     -webkit-animation-duration: 1ms !important;
     animation-duration: 1ms !important;
@@ -4480,40 +4636,44 @@
 
 
 
-  .q1, .q2, .q3, .q4 {
+  .q1,
+  .q2,
+  .q3,
+  .q4 {
     border: 4px solid #fff;
-}
- 
-.matrix {
+  }
+
+  .matrix {
     margin-top: 30px;
- 
+
     ion-col {
-        --ion-grid-column-padding: 0px;
-        min-height: 150px;
+      --ion-grid-column-padding: 0px;
+      min-height: 150px;
     }
- 
+
     .list {
-        padding: 0px;
-        height: 100%;
+      padding: 0px;
+      height: 100%;
     }
- 
+
     ion-item {
-        margin-bottom: 2px;
+      margin-bottom: 2px;
     }
-}
- 
-.q-header {
+  }
+
+  .q-header {
     background-color: var(--ion-color-light);
     height: 20px;
     text-align: center;
-}
- 
-.delete-area {
+  }
+
+  .delete-area {
     border: 2px dashed var(--ion-color-medium);
     margin: 10px;
     height: 100px;
+
     ion-icon {
-       font-size: 64px;
+      font-size: 64px;
     }
-}
+  }
 }

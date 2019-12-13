@@ -69,10 +69,7 @@ console.log('fore',val.docid);
       }
     ]
   });
-
   await alert.present();
-
-
   }
  
 getUnapprovedMembers(){
@@ -114,8 +111,6 @@ getApprovedMembers(){
       if(doc.data().form.role =='teamManager'){
         this.approvedManagers.push(doc.data())
         console.log('manager', this.manager);
-        
-        
       }else if (doc.data().form.role =='vendor'){
         this.approvedVendor.push(doc.data())
         console.log('vendors',this.vendors);
