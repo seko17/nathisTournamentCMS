@@ -24,9 +24,9 @@ export class FcmService {
             // Register the Service Worker
             messaging.useServiceWorker(registration)
             // Initialize your VAPI key
-            messaging.usePublicVapidKey(
-                  config.vapidKey
-            );
+            // messaging.usePublicVapidKey(
+            //        config.vapidKey
+            // );
             // Optional and not covered in the article
             // Listen to messages when your app is in the foreground
             messaging.onMessage((payload) => {

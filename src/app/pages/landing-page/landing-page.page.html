@@ -90,7 +90,7 @@
           <div class="match"  *ngFor ="let item of currmatch">
             <div class="scores">
               <div class="homeScore" >
-                <p>{{item.aTeamObject.teamName}} <br>
+                <p>{{item.TeamObject.teamName}} <br>
                 <sub (click)="matchAction('open', 'home')" style="background: white; color: black; padding: 3px 5px; border-radius: 3px 10px;"><i>Action</i></sub></p>
                 <!-- <div class="buttns">
                   <ion-button color="light" size="small" shape="round">
@@ -168,7 +168,7 @@
                     Yellow Card
                   </ion-button>
                   <ion-button size="small" shape="round" color="light"  (click)=" awaystats('offsides')">
-                    Free Kick
+                    Off Side
                   </ion-button>
                   <ion-button size="small" shape="round" color="light" (click)=" awaystats('corners')">
                     Corner Kick
@@ -224,7 +224,7 @@
                   <p>{{item.corners}}</p>
                   <p>{{item.red}}</p>
                   <p>{{item.yellow}}</p>
-                  <p> {{item.offsides}}</p>
+                  <p>{{item.offsides}}</p>
                
                 </div>
                 <div class="labels">
@@ -238,10 +238,10 @@
                 <div class="awaySummary">
                
                 
-                  <p>0</p>
-                  <p>0</p>
-                  <p>0</p>
-                  <p>0</p>
+                  <p>{{item.acorners}}</p>
+                  <p>{{item.ared}}</p>
+                  <p>{{item.ayellow}}</p>
+                  <p>{{item.aoffsides}}</p>
                  
                 </div>
               </div>

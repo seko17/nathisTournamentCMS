@@ -68,14 +68,14 @@ export class SetfixturesPage implements OnInit {
       .subscribe(({ name, el, source }) => {
         el.setAttribute('color', 'light');
       });
-    //when object is dropped,this is the function that listens
-    // this.dragulaService. dropModel('bag')
-    //   .subscribe(({ item }) => {
-    //     item['color'] = 'success';
-    //     console.log(item)
+    // when object is dropped,this is the function that listens
+    this.dragulaService. dropModel('bag')
+      .subscribe(({ item }) => {
+        item['color'] = 'success';
+        console.log(item)
 
 
-    //   });
+      });
 
     this.dragulaService.createGroup('bag', {
       removeOnSpill: false
@@ -102,26 +102,26 @@ export class SetfixturesPage implements OnInit {
   }
 
 
-  async savefixture() {
-    console.log("Q1 = ", this.q1);
-    console.log("Q2 =", this.q2);
+  async savefixture(q1,q2) {
+    console.log("Q1 = ", q1);
+    console.log("Q2 =", q2);
     //if fixtures are not equal in assignment
     this.serve.fixture = [];
 
-    this.serve.randomfixture(this.q1, this.q2);
-    if (this.q1.length != this.q2.length) {
-      console.log("Fixtures not correct")
-      const alert = await this.alertController.create({
-        header: 'Alert',
-        subHeader: 'Subtitle',
-        message: 'This is an alert message.',
-        buttons: ['OK']
-      });
-    }
+    // this.serve.randomfixture(this.q1, this.q2);
+    // if (this.q1.length != this.q2.length) {
+    //   console.log("Fixtures not correct")
+    //   const alert = await this.alertController.create({
+    //     header: 'Alert',
+    //     subHeader: 'Subtitle',
+    //     message: 'This is an alert message.',
+    //     buttons: ['OK']
+    //   });
+    // }
 
-    this.modalcontroller.dismiss({
-      'dismissed': true
-    });
+    // this.modalcontroller.dismiss({
+    //   'dismissed': true
+    // });
     // this.router.navigate(['fixtures']);
 
 

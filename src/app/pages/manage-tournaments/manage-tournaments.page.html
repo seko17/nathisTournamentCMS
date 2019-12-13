@@ -14,7 +14,7 @@
 
       <hr>
 
-      <ion-button color="success" shape="round" (click)="promptFixtureConfig('close')">
+      <ion-button color="success" shape="round" (click)="generate()">
         Generate it
       </ion-button>
       <br>
@@ -220,10 +220,10 @@
                 <p>Manager: Manager Name</p>
               </div>
               <div class="buttons">
-                  <ion-button shape="round" size="small" color="success"  (click) ="accept()">
+                  <ion-button shape="round" size="small" color="success"  (click) ="accept(team)">
                       Accept
                     </ion-button>
-                    <ion-button shape="round" size="small" color="danger" (click) ="decline()">
+                    <ion-button shape="round" size="small" color="danger" (click) ="decline(team)">
                         Decline
                       </ion-button>
               </div>
@@ -264,7 +264,7 @@
                 <ion-input type="text" placeholder="Search Reference Number"></ion-input>
               </div>
               <div class="stillToPayList">
-                <div class="card" *ngFor="let item of accepted" >
+                <div class="card" *ngFor="let item of accepted,let i = index" >
                   <div class="details">
                     <h5 style="margin: 0;">Kasi Team</h5>
                     <p style="margin: 0;">Manager <b>Name Surname</b></p>
@@ -273,7 +273,7 @@
                     
                     <p> <sub style="font-size: 10px;margin: 0;padding: 0;">Reference.No </sub> <br> RTY75G</p>
                   </div>
-                  <ion-button (click) = "paid(item)">PAID</ion-button>
+                  <ion-button (click) = "paid(item,i)">PAID</ion-button>
                 </div>
               </div>
             </div>
@@ -402,12 +402,14 @@
                   </div>
                 </div>
            <div class="setup">
-                    <ion-button size="small" color="light" *ngIf="t.hasApplications" (click)="finnishSetup(t, 'open')" >
+                    <ion-button size="small" color="light"  (click)="finnishSetup(t, 'open')" >
                       Finnsh Setup
                     </ion-button>
-                    <ion-button size="small" disabled="true" color="light" *ngIf="!t.hasApplications"  >
+                    <!-- *ngIf="!t.hasApplications" 
+                    *ngIf="t.hasApplications"  -->
+                    <!-- <ion-button size="small" disabled="true" color="light" >
                        No Applications
-                      </ion-button>
+                      </ion-button> -->
                   </div>
           </div>
         </div>
@@ -459,7 +461,7 @@
               <div class="date">
                 <p>Accepted:{{acceptednum}}</p>
                 <p>Approved:{{approvednum}}</p>
-                <p>Total Applicantions:{{applicationsnum}}</p>
+                <p>Total Applications:{{applicationsnum}}</p>
               </div>
             </div>
            

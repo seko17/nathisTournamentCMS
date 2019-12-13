@@ -68,7 +68,9 @@ ainput={data:[]};
               doc: doc.data(),
               hasApplications: false
             }
-            this.approvedTournaments.push(tourn);
+           
+console.log("Menu 2 = ",tourn)
+this.approvedTournaments.push(tourn);
             tourn = {
               docid: null,
               doc: null,
@@ -80,7 +82,7 @@ ainput={data:[]};
               doc: doc.data(),
               hasApplications: true
             }
-            this.approvedTournaments.push(tourn);
+      
             tourn = {
               docid: null,
               doc: null,
@@ -93,7 +95,8 @@ ainput={data:[]};
       // console.log('approvedTournaments ', this.approvedTournaments);
 this.tournament =this.approvedTournaments;
 
-console.log("Menu = ",this.tournament)
+this.serve.firstdoc=this.tournament;
+console.log("Menu = ",tourn)
     })
 
 // 
@@ -122,8 +125,18 @@ matchobject:any ={};
   currmatch=[];
   viewmatch(state, item) {
     console.log('item = ', item);
-    this.matchobject=item;
-    this.currmatch.push(item);
+
+    if(item==null)
+    {
+   
+    }
+    
+    else
+    {
+      this.currmatch=[];
+      this.matchobject=item;
+      this.currmatch.push(item); 
+    }
     switch (state) {
       case 'open':
         this.viewingMatch = true
@@ -267,9 +280,9 @@ fixture=[];
   {
     this.clicked=[];
     this.fixture =[];
-console.log(x)
-this.clicked.push(x);
 
+this.clicked.push(x);
+console.log(parseFloat(this.clicked[0].doc.formInfo.type))
 
 this.db.collection('MatchFixtures').where('tournid', '==', x.docid).get().then(val=>{
   val.forEach(res=>{
@@ -339,6 +352,56 @@ fixtureid;
 
   firsthalf()
   {
+
+
+    console.log("comp = ",this.currmatch[0])
+    // console.log("comp = ",this.currmatch[0].aTeamObject.uid)
+
+    firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(val=>{
+    
+      val.forEach(res=>{
+         console.log( "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeew ")
+ 
+        this.team1.push(res.data())
+        console.log("385 = ",this.team1)
+        this.input.data.push({name:"radio",type: 'radio',label:res.data().fullName,value:res.data().fullName})
+      })
+      console.log( "players = ",this.input.data) 
+  })
+
+
+  firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').get().then(val=>{
+    
+    val.forEach(res=>{
+      this.team2.push(res.data())
+      console.log( "385 = ",this.team2)
+
+      this.ainput.data.push({name:"radio",type: 'radio',label:res.data().fullName,value:res.data().fullName})
+    })
+    
+
+
+    console.log( "Aplayers = ",this.ainput.data)
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     this.btn1 =true;
     this.btn2 =true;
     this.btn3 =false;
@@ -357,7 +420,8 @@ fixtureid;
   this.secs =val.data().secs;
           console.log("Team = ",val.data())
 
-
+this.score=val.data().score;
+this.ascore=val.data().ascore;
 
           this.mins=val.data().mins;   
           if(this.secs==60)
@@ -368,7 +432,7 @@ fixtureid;
           }
   
   
-   firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({mins:this.mins,secs:this.secs+1});
+   firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({mins:this.mins,secs:this.secs+1,type:this.clicked[0].doc.formInfo.type});
         })
     
     
@@ -376,33 +440,6 @@ fixtureid;
       })
   
   
-console.log("comp = ",this.currmatch[0].TeamObject.userUID)
-
-      firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.userUID).collection('Players').get().then(val=>{
-      
-        val.forEach(res=>{
-          // console.log( "players = ",res.data().fullName)
-   
-          this.team1.push(res.data())
-          console.log("385 = ",this.team1)
-          this.input.data.push({name:"radio",type: 'radio',label:res.data().fullName,value:res.data().fullName})
-        })
-        
-    })
-  
-
-    firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.userUID).collection('Players').get().then(val=>{
-      
-      val.forEach(res=>{
-        console.log( "players = ",res.data().fullName)
- this.team2.push(res.data())
-        this.ainput.data.push({name:"radio",type: 'radio',label:res.data().fullName,value:res.data().fullName})
-      })
-      
-
-
-      console.log( "players = ",this.ainput.data)
-  })
 
 
 
@@ -427,12 +464,15 @@ console.log("comp = ",this.currmatch[0].TeamObject.userUID)
   {
   
 // this.btn1 =false;
+
+console.log(this.clicked[0].docid)
+
 this.btn2 =false;
 this.btn3 =true;
 
     const alert = await this.alertController.create({
       header: 'Confirm!',
-      message: 'Ae you sure you want to stop the match?',
+      message: 'Are you sure you want to stop the match?',
       buttons: [
         {
           text: 'Cancel',
@@ -446,6 +486,10 @@ this.btn3 =true;
           handler: () => {
             this.btn1 =true;
             this.btn2 =false;
+
+
+
+          
             this.sub.unsubscribe();
             console.log(this.sub.unsubscribe())
           }
@@ -453,6 +497,159 @@ this.btn3 =true;
       ]
     });
   
+alert.onDidDismiss().then( async rez=>{
+
+  if(this.btn3 ==true)
+            {
+
+
+         
+  
+    const alert = await this.alertController.create({
+      header: 'Confirm!',
+      message: 'Is the current match over?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+
+            firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({matchstate:'incomplete'});
+            
+          }
+        }, {
+          text: 'Yes',
+          handler: () => {
+            console.log('Confirm Okay');
+
+
+            this.viewmatch('close', null);
+
+
+            firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({matchstate:'complete'});
+
+            
+
+
+            firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(rez=>{
+              console.log(rez.data().aTeamObject.teamName)
+
+
+
+
+              if(parseFloat(this.clicked[0].doc.formInfo.type)/2==1)
+              {
+
+                this.db.collection('newTournaments').doc().update({state:'finished'});
+
+                if(rez.data().ascore>rez.data().score)
+                {
+  console.log("AWAYSCORE WON")
+  
+  firebase.firestore().collection('PlayedMatches').add(rez.data());
+  
+  
+  firebase.firestore().collection('TournamentWinners').add({tournid:this.clicked[0].docid,TeamObject:{...rez.data().aTeamObject}});
+  
+  
+  firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).delete();
+  
+                   
+                }
+                else  if(rez.data().score>rez.data().ascore)
+                {
+                  console.log("HOMESCORE WON")
+  
+  firebase.firestore().collection('PlayedMatches').add(rez.data());
+  
+  
+  firebase.firestore().collection('TournamentWinners').add({tournid:this.clicked[0].docid,TeamObject:{...rez.data().TeamObject}});
+  
+  
+  firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).delete();
+  
+                }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              }
+              else
+              if(rez.data().ascore>rez.data().score)
+              {
+console.log("AWAYSCORE WON")
+
+firebase.firestore().collection('PlayedMatches').add(rez.data());
+
+
+firebase.firestore().collection('participants').add({tournid:this.clicked[0].docid,TeamObject:{...rez.data().aTeamObject,...{type:(parseFloat(this.clicked[0].doc.formInfo.type)/2).toString()}}});
+
+
+firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).delete();
+
+                 
+              }
+              else  if(rez.data().score>rez.data().ascore)
+              {
+                console.log("HOMESCORE WON")
+
+firebase.firestore().collection('PlayedMatches').add(rez.data());
+
+
+firebase.firestore().collection('participants').add({tournid:this.clicked[0].docid,TeamObject:{...rez.data().TeamObject,...{type:(parseFloat(this.clicked[0].doc.formInfo.type)/2).toString()}}});
+
+
+firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).delete();
+
+              }
+
+
+             
+            })
+
+
+
+
+
+
+
+
+
+
+
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+})
+
+
     await alert.present();
   
   
@@ -557,7 +754,7 @@ this.btn3 =true;
               
              
   
-              firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({score:this.score+1});    
+              firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({score:this.score});    
   
   
   firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({goal: firebase.firestore.FieldValue.arrayUnion({scoretime:this.mins.toString()+
@@ -635,11 +832,11 @@ this.btn3 =true;
               
              
   
-              firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ascore:this.ascore+1});    
+              firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ascore:this.ascore});    
   
   
               firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({agoal: firebase.firestore.FieldValue.arrayUnion({scoretime:this.mins.toString()+
-  ":"+this.timer.toString(),goalscorer:data })})
+  ":"+this.secs.toString(),goalscorer:data })})
   // ({goal:[{scoretime:this.mins.toString()+this.timer.toString(),goalscorer:data }]}, { merge: true });
         
           
@@ -722,7 +919,7 @@ console.log("yellow")
                                                             obj.yellow = obj.yellow+1;
 
                                                             this.currmatch.push(obj);
-                                                            firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({yellow : obj.yellow+1});
+                                                            firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({yellow : obj.yellow});
                                                             
                                                           })                                                       
                                                                 
@@ -742,7 +939,7 @@ obj.red = res.data().red+1;
 this.currmatch.push(obj);
 
 
-firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({red: obj.red+1});
+firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({red: obj.red});
   
 })   
 firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({stats: firebase.firestore.FieldValue.arrayUnion({red:this.mins.toString()+
@@ -761,7 +958,7 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
                                                                                         let obj =res.data();
                             obj.offsides = res.data().offsides+1;
                             this.currmatch.push(obj);
-                            firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({offsides: obj.offsides+1});                   
+                            firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({offsides: obj.offsides});                   
                                                                                       })   
 
                                                                                       this.currmatch =[];
@@ -786,7 +983,7 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
 obj.corners = res.data().corners+1;
 
 this.currmatch.push(obj);
-firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({corners: obj.corners+1});
+firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({corners: obj.corners});
 })   
                                                                                                                             }
   
@@ -872,7 +1069,7 @@ console.log("yellow")
                                                             obj.ayellow = obj.ayellow+1;
 
                                                             this.currmatch.push(obj);
-                                                            firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ayellow : obj.ayellow+1});
+                                                            firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ayellow : obj.ayellow});
                                                             
                                                           })                                                       
                                                                 
@@ -892,7 +1089,7 @@ obj.ared = res.data().ared+1;
 this.currmatch.push(obj);
 
 
-firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({red: obj.ared+1});
+firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({red: obj.ared});
   
 })   
 firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({stats: firebase.firestore.FieldValue.arrayUnion({ared:this.mins.toString()+
@@ -911,7 +1108,7 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
                                                                                         let obj =res.data();
                             obj.aoffsides = res.data().aoffsides+1;
                             this.currmatch.push(obj);
-                            firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({aoffsides: obj.offsides+1});                   
+                            firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({aoffsides: obj.aoffsides});                   
                                                                                       })   
 
                                                                                       this.currmatch =[];
@@ -933,10 +1130,10 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
  firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res=>{
   res.data();
   let obj =res.data();
-obj.corners = res.data().acorners+1;
+obj.acorners = res.data().acorners+1;
 
 this.currmatch.push(obj);
-firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({corners: obj.acorners+1});
+firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({acorners: obj.acorners});
 })   
                                                                                                                             }
   

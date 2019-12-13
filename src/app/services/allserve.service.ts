@@ -11,17 +11,17 @@ fixture:any =[];
 tournaments =[];
   constructor() { }
 
-
+firstdoc ={};
   randomfixture(q1,q2)
 {
-  this.fixture =[];
+  
  
 
 
 
 for(let v = 0;v<q1.length;v++)
 {
-  console.log(v)
+  console.log(q2[v].whr)
 
 
 let away:any ={
@@ -29,8 +29,9 @@ aTeamObject:q2[v].TeamObject,
 awhr:q2[v].whr
 }
 
+console.log("away = ",away)
 
-this.fixture.push({...q1[v],...away});
+this.fixture.push({...q1[v],...away,...{matchstate:'incomplete'}});
 
 console.log("Fixture variable = ",this.fixture)
 }
