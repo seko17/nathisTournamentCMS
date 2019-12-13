@@ -35,7 +35,7 @@
   </ion-row> -->
 
   <div class="setUpTimeline animated">
-    <!--  [ngClass]="{'fadeInUp':timeLineSetup,'fadeOutDown fast':!timeLineSetup}" -->
+   
   <div class="container">
         <div class="fixture">
           <div class="head">
@@ -69,7 +69,7 @@
                 </div>
                 <div class="awayList" dragula="bag" dragula-model="q2">
                   <div class="doneButton">
-                    <ion-button (click)="savefixture()" >
+                    <ion-button (click)="savefixture(q1,q2)" >
                       Done
                     </ion-button>
                   </div>
@@ -87,4 +87,21 @@
         </div>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </ion-content>

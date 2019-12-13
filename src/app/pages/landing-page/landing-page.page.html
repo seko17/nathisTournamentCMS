@@ -49,13 +49,12 @@
           <h4>Mosia Mosia</h4>
           <p>Phone</p>
           <h4>0124578963</h4>
-          <div class="teamClose">
-            <ion-button (click)="viewTeam('close', 'home', 'obj')">
-              Close
-            </ion-button>
-          </div>
         </div>
-
+        <div class="teamClose">
+          <ion-button (click)="viewTeam('close', 'home', 'obj')">
+            Close
+          </ion-button>
+        </div>
       </div>
 
 
@@ -88,13 +87,11 @@
                 </div>
             </div>
           </div>
-          <div class="match" *ngFor="let item of currmatch">
+          <div class="match"  *ngFor ="let item of currmatch">
             <div class="scores">
-              <div class="homeScore">
-                <p>{{item.aTeamObject.teamName}} <br>
-                  <sub (click)="matchAction('open', 'home')"
-                    style="background: white; color: black; padding: 3px 5px; border-radius: 3px 10px;"><i>Action</i></sub>
-                </p>
+              <div class="homeScore" >
+                <p>{{item.TeamObject.teamName}} <br>
+                <sub (click)="matchAction('open', 'home')" style="background: white; color: black; padding: 3px 5px; border-radius: 3px 10px;"><i>Action</i></sub></p>
                 <!-- <div class="buttns">
                   <ion-button color="light" size="small" shape="round">
                     Goal
@@ -151,7 +148,7 @@
             </div>
             <div class="upComingData">
               <h5>{{mins}}:{{secs}}</h5>
-              <p>Starts {{item.startDate | date}}</p>
+              <p>Starts {{item.startDate}}</p>
               <p>Food and Beverage Sold</p>
             </div>
           </div>
@@ -164,16 +161,16 @@
                   <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'away')">
                     Goal
                   </ion-button>
-                  <ion-button size="small" shape="round" color="danger" (click)="ahomestats('red')">
+                  <ion-button size="small" shape="round" color="danger" (click)=" awaystats('red')">
                     Red Card
                   </ion-button>
-                  <ion-button size="small" shape="round" color="warning" (click)="ahomestats('yellow')">
+                  <ion-button size="small" shape="round" color="warning" (click)=" awaystats('yellow')">
                     Yellow Card
                   </ion-button>
-                  <ion-button size="small" shape="round" color="light"  (click)="ahomestats('offside')">
-                    Free Kick
+                  <ion-button size="small" shape="round" color="light"  (click)=" awaystats('offsides')">
+                    Off Side
                   </ion-button>
-                  <ion-button size="small" shape="round" color="light" (click)="ahomestats('corner')">
+                  <ion-button size="small" shape="round" color="light" (click)=" awaystats('corners')">
                     Corner Kick
                   </ion-button>
                 </div>
@@ -227,7 +224,7 @@
                   <p>{{item.corners}}</p>
                   <p>{{item.red}}</p>
                   <p>{{item.yellow}}</p>
-                  <p> {{item.offsides}}</p>
+                  <p>{{item.offsides}}</p>
                
                 </div>
                 <div class="labels">
@@ -241,10 +238,10 @@
                 <div class="awaySummary">
                
                 
-                  <p>0</p>
-                  <p>0</p>
-                  <p>0</p>
-                  <p>0</p>
+                  <p>{{item.acorners}}</p>
+                  <p>{{item.ared}}</p>
+                  <p>{{item.ayellow}}</p>
+                  <p>{{item.aoffsides}}</p>
                  
                 </div>
               </div>
@@ -325,26 +322,25 @@
           <h4>Mosia Mosia</h4>
           <p>Phone</p>
           <h4>0124578963</h4>
-          <div class="teamClose">
-            <ion-button (click)="viewTeam('close', 'away', 'obj')">
-              Close
-            </ion-button>
-          </div>
         </div>
-
+        <div class="teamClose">
+          <ion-button (click)="viewTeam('close', 'away', 'obj')">
+            Close
+          </ion-button>
+        </div>
       </div>
     </div>
   </div>
   <div class="cmsContentMain">
     <div class="tournaments">
       <div class="links">
-        <button (click)="filterMatches('all')" [ngClass]="{'activeFilter animated pulse':activeFilter.all}">
+        <button>
           All
         </button>
-        <button (click)="filterMatches('inplay')" [ngClass]="{'activeFilter animated pulse':activeFilter.inplay}">
+        <button>
           InPlay
         </button>
-        <button (click)="filterMatches('upcoming')" [ngClass]="{'activeFilter animated pulse':activeFilter.upcoming}">
+        <button>
           Upcoming
         </button>
       </div>
@@ -356,7 +352,7 @@
           <div class="details">
             <p id="title"><b>{{item.doc.formInfo.tournamentName}}</b></p>
             <hr>
-            <p id="date">{{item.doc.formInfo.startDate | date}} to {{item.doc.formInfo.endDate | date}}</p>
+            <p id="date">{{item.doc.formInfo.startDate}} to {{item.doc.formInfo.endDate}}</p>
             <p id="location">{{item.doc.formInfo.location}}</p>
           </div>
           <div class="more">
@@ -370,17 +366,14 @@
     </div>
     <div class="tournamentDetails" *ngFor="let item of clicked">
       <div class="details">
-        <div class="loadingDetails">
-
-        </div>
         <div>
           <h4>{{item.doc.formInfo.tournamentName}}</h4>
           <p>Top {{item.doc.formInfo.type}}</p>
           <hr>
           <p>{{item.doc.formInfo.type}} Participants</p>
-          <p>{{item.doc.formInfo.startDate | date}} to {{item.doc.formInfo.endDate | date}}</p>
+          <p>{{item.doc.formInfo.startDate}} to {{item.doc.formInfo.endDate}}</p>
           <hr>
-          <p>Application Closing Date <br> {{item.doc.formInfo.applicationClosing | date}}</p>
+          <p>Application Closing Date <br> {{item.doc.formInfo.applicationClosing}}</p>
         </div>
 
       </div>
@@ -394,7 +387,7 @@
         </div>
         <div class="card" *ngFor="let item of fixture" (click)="viewmatch('open', item)">
           <div class="date">
-            <p>{{item.matchdate | date}}</p>
+            <p>{{item.matchdate}}</p>
           </div>
           <div class="aVb">
             <div class="home">
