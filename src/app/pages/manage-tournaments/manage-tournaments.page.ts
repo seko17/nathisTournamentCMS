@@ -102,16 +102,36 @@ export class ManageTournamentsPage implements OnInit {
 
     let num = 0;
 
+
+    // firebase.firestore().collection('participants').onSnapshot(val=>{
+    //   val.forEach(res=>{
+    //     res.data()
+    //   })
+    // })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     this.hparticipants = [];
     this.aparticipants = [];
-    firebase.firestore().collection('participants').where("whr", "==", "home").get().then(val => {
+    firebase.firestore().collection('participants').where("whr", "==", "home").onSnapshot(val => {
       val.forEach(res => {
 
         this.hparticipants.push({ ...{ id: res.id }, ...res.data() })
         console.log("current Participants = ", this.hparticipants)
       })
     })
-    firebase.firestore().collection('participants').where("whr", "==", "away").get().then(val => {
+    firebase.firestore().collection('participants').where("whr", "==", "away").onSnapshot(val => {
       val.forEach(res => {
 
         this.aparticipants.push({ ...{ id: res.id }, ...res.data() })
@@ -120,7 +140,7 @@ export class ManageTournamentsPage implements OnInit {
     })
 
 
-    firebase.firestore().collection('participants').get().then(val => {
+    firebase.firestore().collection('participants').onSnapshot(val => {
       val.forEach(res => {
 
         this.cparticipants.push({ ...{ id: res.id }, ...res.data() })
@@ -171,7 +191,7 @@ export class ManageTournamentsPage implements OnInit {
 
     this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
     this.setUpApplications = true;
-    this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').get().then(res => {
+    this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').onSnapshot(res => {
       this.tournamentApplications = []
       res.forEach(doc => {
         team = {
@@ -187,12 +207,12 @@ export class ManageTournamentsPage implements OnInit {
       console.log(this.tournamentApplications);
       console.log(tournament.docid);
 ​
-      this.db.collection('newTournaments').doc(tournament.docid).get().then(val=>{
+      this.db.collection('newTournaments').doc(tournament.docid).onSnapshot(val=>{
         console.log(val.data().formInfo)
         
         form =val.data().formInfo;
 ​
-        firebase.firestore().collection('participants').where("tournid","==",val.data().formInfo.tournamentName).get().then(res=>{
+        firebase.firestore().collection('participants').where("tournid","==",val.data().formInfo.tournamentName).onSnapshot(res=>{
           res.forEach(val=>{
 
             this.participants.push(val.data())
@@ -230,7 +250,7 @@ obb =val.data();
 ​
 ​
 ​
-      this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where("status","==","accepted").get().then(val=>{
+      this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where("status","==","accepted").onSnapshot(val=>{
         val.forEach(res=>{
           
           this.accepted.push({...form,...{tournid:tournament.docid},...{id:res.id},...res.data()});
@@ -396,10 +416,10 @@ obb =val.data();
       hasApplications: false
     }
     this.serve.tournaments =[];
-    this.db.collection('newTournaments').where('approved', '==', true).get().then(res => {
+    this.db.collection('newTournaments').where('approved', '==', true).onSnapshot(res => {
       this.approvedTournaments = []
       res.forEach(doc => {
-        this.db.collection('newTournaments').doc(doc.id).collection('teamApplications').get().then(res => {
+        this.db.collection('newTournaments').doc(doc.id).collection('teamApplications').onSnapshot(res => {
           if (res.empty) {
             tourn = {
               docid: doc.id,
@@ -433,7 +453,7 @@ this.serve.tournaments =this.approvedTournaments;
     })
   }
   getUnapprovedTournaments() {
-    this.db.collection('newTournaments').where('approved', '==', false).get().then(res => {
+    this.db.collection('newTournaments').where('approved', '==', false).onSnapshot(res => {
       this.unapprovedTournaments = []
       res.forEach(doc => {
         let tourn = {
@@ -506,7 +526,7 @@ applicationsnum:number =0;
   generate()
   {
     this.fixtureSetUp('open');
-    // firebase.firestore().collection('participants').where("tournid", "==", ).get().then(val => {
+    // firebase.firestore().collection('participants').where("tournid", "==", ).onSnapshot(val => {
     //   val.forEach(res => {
 
     //     this.hparticipants.push({ ...{ id: res.id }, ...res.data() })
@@ -759,7 +779,7 @@ applicationsnum:number =0;
     this.participantdocids=[];
     console.log("Tourney", tournament)
     let num = 0;
-    firebase.firestore().collection('participants').where('tournid','==',tournament.docid).get().then(res => {
+    firebase.firestore().collection('participants').where('tournid','==',tournament.docid).onSnapshot(res => {
       res.forEach(val => {
 
         this.participantdocids.push({id:val.id});
@@ -817,7 +837,7 @@ applicationsnum:number =0;
 let num =0;
 let num2 =0;
 let num3 =0;
-    firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status','==','awaiting').get().then(rez=>{
+    firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status','==','awaiting').onSnapshot(rez=>{
       rez.forEach(val=>{
 
         num =num+1;
@@ -828,7 +848,7 @@ let num3 =0;
 
 
 
-    firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status','==','accepted').get().then(rez=>{
+    firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status','==','accepted').onSnapshot(rez=>{
       rez.forEach(val=>{
 
         num2 =num2+1;
@@ -842,7 +862,7 @@ let num3 =0;
 
 
 
-    firebase.firestore().collection('participants').where('tournid','==',t.docid).get().then(rez=>{
+    firebase.firestore().collection('participants').where('tournid','==',t.docid).onSnapshot(rez=>{
       rez.forEach(val=>{
 
         num3 =num3+1;
