@@ -276,7 +276,7 @@
                 <p style="margin: 0;">Coach <b>{{item.TeamObject.coachName}}</b></p>
               </div>
               <div class="stillToPayList">
-                <div class="card" *ngFor="let item of accepted,let i = index">
+                <!-- <div class="card" *ngFor="let item of accepted,let i = index">
                   <div class="details">
                     <h5 style="margin: 0;">{{item.TeamObject.coachName}}</h5>
                     <p style="margin: 0;">Coach <b>{{item.TeamObject.coachName}}</b></p>
@@ -286,7 +286,7 @@
                     <p> <sub style="font-size: 10px;margin: 0;padding: 0;">Reference.No </sub> <br> RTY75G</p>
                   </div>
                   <ion-button (click)="paid(item,i)">PAID</ion-button>
-                </div>
+                </div> -->
               </div>
               <ion-button (click)="paid(item)">PAID</ion-button>
             </div>
@@ -443,12 +443,10 @@
                 </div>
               </div>
               <div class="setup">
-                <ion-button size="small" color="light" *ngIf="t.hasApplications" (click)="finnishSetup(t, 'open')">
-                  Finnsh Setup
+                <ion-button size="small" color="light"  (click)="finnishSetup(t, 'open')">
+                  Finish Setup
                 </ion-button>
-                <ion-button size="small" disabled="true" color="light" *ngIf="!t.hasApplications">
-                  No Applications
-                </ion-button>
+
               </div>
             </div>
           </div>
