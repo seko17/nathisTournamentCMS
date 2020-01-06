@@ -1,3 +1,4 @@
+
 import { Component, OnInit, NgZone, Renderer2 } from '@angular/core';
 import { AllserveService } from 'src/app/services/allserve.service';
 import * as firebase from 'firebase';
@@ -45,6 +46,7 @@ export class LandingPagePage implements OnInit {
   // ___________________________________________
 // BEGGIN BACKEND HERE
 tournament;
+adminProfile = {}
 approvedTournaments  =[];
 db =firebase.firestore();
 input={data:[]};
@@ -118,8 +120,7 @@ currentmatch =[];
 
 
   ngOnInit() {
-  
-      
+
   }
 matchobject:any ={};
   currmatch=[];

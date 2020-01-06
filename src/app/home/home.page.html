@@ -35,20 +35,19 @@
       <div class="profile">
         <div class="user" >
           <div class="details">
-            <p>Keketso</p>
+            <p>{{adminProfile.formInfo.fullName}}</p>
           </div>
           <div class="pImage" (click)="profile('open')">
             <img
-              src="../../assets/icon/favicon.png"
-              alt="">
+              src="{{adminProfile.image}}">
           </div>
         </div>
         <div class="profile-more animated" [ngClass]="{'fadeInRight':openProfile,'fadeOutRight':!openProfile}" >
           <div class="con">
-              <img src="https://images.unsplash.com/photo-1575383095193-52195a64e3a6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" alt="Profile Image">
+              <img src="{{adminProfile.image}}" alt="Profile Image">
               <div class="details">
-                <h5>Name Surname</h5>
-                <p>0987654321</p>
+                <h5>{{adminProfile.formInfo.fullName}}</h5>
+                <p>{{adminProfile.formInfo.number}}</p>
                 <div class="button">
                   <ion-button size="small" color="danger" (click)="profile('close')" >
                   Close

@@ -148,7 +148,7 @@
             </div>
             <div class="upComingData">
               <h5>{{mins}}:{{secs}}</h5>
-              <p>Starts {{item.startDate}}</p>
+              <p>Starts {{item.startDate | date}}</p>
               <p>Food and Beverage Sold</p>
             </div>
           </div>
@@ -352,7 +352,7 @@
           <div class="details">
             <p id="title"><b>{{item.doc.formInfo.tournamentName}}</b></p>
             <hr>
-            <p id="date">{{item.doc.formInfo.startDate}} to {{item.doc.formInfo.endDate}}</p>
+            <p id="date">{{item.doc.formInfo.startDate | date}} to {{item.doc.formInfo.endDate | date}}</p>
             <p id="location">{{item.doc.formInfo.location}}</p>
           </div>
           <div class="more">
@@ -371,9 +371,9 @@
           <p>Top {{item.doc.formInfo.type}}</p>
           <hr>
           <p>{{item.doc.formInfo.type}} Participants</p>
-          <p>{{item.doc.formInfo.startDate}} to {{item.doc.formInfo.endDate}}</p>
+          <p>{{item.doc.formInfo.startDate | date}} to {{item.doc.formInfo.endDate  | date}}</p>
           <hr>
-          <p>Application Closing Date <br> {{item.doc.formInfo.applicationClosing}}</p>
+          <p>Application Closing Date <br> {{item.doc.formInfo.applicationClosing  | date}}</p>
         </div>
 
       </div>
@@ -387,7 +387,7 @@
         </div>
         <div class="card" *ngFor="let item of fixture" (click)="viewmatch('open', item)">
           <div class="date">
-            <p>{{item.matchdate}}</p>
+            <p>{{item.matchdate | date}}</p>
           </div>
           <div class="aVb">
             <div class="home">

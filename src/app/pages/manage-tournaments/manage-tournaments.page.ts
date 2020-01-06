@@ -9,7 +9,7 @@ import { FixturesPage } from '../fixtures/fixtures.page';
 import { SetfixturePage } from 'src/app/setfixture/setfixture.page';
 import { AllserveService } from 'src/app/services/allserve.service';
 import { Subscription, Observable, observable, timer } from 'rxjs';
-
+import { Motus } from "motus";
 @Component({
   selector: 'app-manage-tournaments',
   templateUrl: './manage-tournaments.page.html',
@@ -22,7 +22,7 @@ export class ManageTournamentsPage implements OnInit {
 
   modal
   async presentModal() {
-    this.setUpTimeLine('close',null)
+    this.setUpTimeLine('close', null)
     this.modal = await this.modalController.create({
       component: SetfixturesPage,
       backdropDismiss: false,
@@ -33,7 +33,7 @@ export class ManageTournamentsPage implements OnInit {
       this.fixtureSetUp('open')
       this.presentLoading();
     });
-    this.promptFixtureConfig('close',null)
+    this.promptFixtureConfig('close', null)
     return await this.modal.present();
 
   }
@@ -146,8 +146,8 @@ export class ManageTournamentsPage implements OnInit {
         this.cparticipants.push({ ...{ id: res.id }, ...res.data() })
         console.log("current Participants = ", this.cparticipants)
 
-        this.acceptednum =this.cparticipants.length;
-        console.log("current Participants = ",this.acceptednum)
+        this.acceptednum = this.cparticipants.length;
+        console.log("current Participants = ", this.acceptednum)
       })
     })
   }
@@ -171,6 +171,12 @@ export class ManageTournamentsPage implements OnInit {
       let counter = int + 1;
       this.tempCardGen.push({ hasApplications: true })
     }
+    // Motus
+    setTimeout(() => {
+      const newAnimation = new Motus.Animation();
+
+      Motus.addAnimation(newAnimation)
+    }, 500);
   }
   tourndetails =[];
   finnishSetup(tournament, state) {
@@ -207,8 +213,8 @@ export class ManageTournamentsPage implements OnInit {
       })
       console.log(this.tournamentApplications);
       console.log(tournament.docid);
-​
-      this.db.collection('newTournaments').doc(tournament.docid).onSnapshot(val=>{
+
+      this.db.collection('newTournaments').doc(tournament.docid).onSnapshot(val => {
         console.log(val.data().formInfo)
         this.tourndetails.push(val.data().formInfo)
         form =val.data().formInfo;
@@ -217,55 +223,53 @@ export class ManageTournamentsPage implements OnInit {
           res.forEach(val=>{
 
             this.participants.push(val.data())
-            console.log("participants = ",val.data())
+            console.log("participants = ", val.data())
 
- num = num+1;
-​
-let obb = {};
-obb =val.data();
-​
-            if(num%2 == 0)
-            {
-              firebase.firestore().collection('participants').doc(val.id).update({...val.data(),...{whr:"home"}})
+            num = num + 1;
+
+            let obb = {};
+            obb = val.data();
+
+            if (num % 2 == 0) {
+              firebase.firestore().collection('participants').doc(val.id).update({ ...val.data(), ...{ whr: "home" } })
               // this.participants.push({...val.data(),...{whr:"home"}})
             }
-            else
-            {
+            else {
               // this.aparticipants.push({...val.data(),...{awhr:"away"}})
-              firebase.firestore().collection('participants').doc(val.id).update({...val.data(),...{whr:"away"}})
+              firebase.firestore().collection('participants').doc(val.id).update({ ...val.data(), ...{ whr: "away" } })
             }
-​
-​
+
+
             // if(this.participants.length==this.aparticipants.length)
             // {
             //   this.serve.randomfixture( this.participants,this.aparticipants);  
             // }
-            
-​
-            console.log("number = ",num)
-            console.log("parts  = ",this.participants)
+
+
+            console.log("number = ", num)
+            console.log("parts  = ", this.participants)
           })
         })
       })
-​
-​
-​
-​
-      this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where("status","==","accepted").onSnapshot(val=>{
-        val.forEach(res=>{
-          
-          this.accepted.push({...form,...{tournid:tournament.docid},...{id:res.id},...res.data()});
-          console.log("data = ",this.accepted)
-     
 
-      
+
+
+
+      this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where("status", "==", "accepted").onSnapshot(val => {
+        val.forEach(res => {
+
+          this.accepted.push({ ...form, ...{ tournid: tournament.docid }, ...{ id: res.id }, ...res.data() });
+          console.log("data = ", this.accepted)
+
+
+
         })
       })
-       
+
     })
 
 
-    
+
     switch (state) {
       case 'open':
         this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
@@ -342,7 +346,7 @@ obb =val.data();
           upload.snapshot.ref.getDownloadURL().then(downUrl => {
             let newSponsor = {
               image: downUrl,
-              
+
               name: image.item(0).name
             }
             console.log(downUrl)
@@ -355,7 +359,7 @@ obb =val.data();
     }
   }
   async newTournament(formData) {
-    
+
 
 
 
@@ -416,7 +420,7 @@ obb =val.data();
       doc: null,
       hasApplications: false
     }
-    this.serve.tournaments =[];
+    this.serve.tournaments = [];
     this.db.collection('newTournaments').where('approved', '==', true).onSnapshot(res => {
       this.approvedTournaments = []
       res.forEach(doc => {
@@ -450,7 +454,7 @@ obb =val.data();
         })
       })
       console.log('approvedTournaments ', this.approvedTournaments);
-this.serve.tournaments =this.approvedTournaments;
+      this.serve.tournaments = this.approvedTournaments;
     })
   }
   getUnapprovedTournaments() {
@@ -471,9 +475,6 @@ this.serve.tournaments =this.approvedTournaments;
 
     })
   }
-
-
-
   vendorApplications(state) {
     switch (state) {
       case 'open':
@@ -484,15 +485,9 @@ this.serve.tournaments =this.approvedTournaments;
         break;
     }
   }
-
-
-
-
-  setUpTimeLine(state,x) {
+  setUpTimeLine(state, x) {
     // timeLineSetup prop
     // setUpTimelineDiv div
-
-    
     switch (state) {
       case 'open':
         this.presentModal();
@@ -521,11 +516,10 @@ this.serve.tournaments =this.approvedTournaments;
         break;
     }
   }
-approvednum:number =0;
-acceptednum:number =0;
-applicationsnum:number =0;
-  generate()
-  {
+  approvednum: number = 0;
+  acceptednum: number = 0;
+  applicationsnum: number = 0;
+  generate() {
     this.fixtureSetUp('open');
     // firebase.firestore().collection('participants').where("tournid", "==", ).onSnapshot(val => {
     //   val.forEach(res => {
@@ -534,21 +528,7 @@ applicationsnum:number =0;
     //     console.log("current Participants = ", this.hparticipants)
     //   })
     // })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
+  }
   promptFixtureConfig(state, x) {
     console.log(state)
     // this.presentModal();
@@ -561,13 +541,14 @@ applicationsnum:number =0;
         break;
       case 'close':
         this.chooseConfigOption = false;
-        // 
-        // setTimeout(() => {
-        //   this.renderer.setStyle(this.setUpFixturesDiv[0],'display','flex');
-        // this.renderer.setStyle(this.configOptionDiv[0], 'display', 'none');
-        // }, 500);
-        //  this.presentModal();
-        // console.log('will close');
+        /*
+         setTimeout(() => {
+          this.renderer.setStyle(this.setUpFixturesDiv[0],'display','flex');
+         this.renderer.setStyle(this.configOptionDiv[0], 'display', 'none');
+         }, 500);
+         this.presentModal();
+        console.log('will close');
+        */
         this.fixture = this.serve.fixture;
 
         console.log("fixture here", this.fixture)
@@ -577,7 +558,6 @@ applicationsnum:number =0;
         break;
     }
   }
-
 
   fixtureSetUp(state) {
     // setUpFixtures
@@ -603,8 +583,6 @@ applicationsnum:number =0;
         break;
     }
   }
-
-
   tourney;
   participants = [];
   accepted = [];
@@ -612,59 +590,35 @@ applicationsnum:number =0;
   accept(x) {
     console.log(x)
     let obj = x;
-    
-
-
- 
     this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(x.docid).update({ status: "accepted" })
   }
 
-
   decline(x) {
-    console.log("Decline",x)
-
+    console.log("Decline", x)
     let obj = {};
     obj = x;
-
-
     this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(x.docid).update({ status: "declined" });
   }
-
-
-
-  paid(c,pos) {
-
+  paid(c, pos) {
     // console.log(Math.ceil(Math.random() * 10))
     console.log(pos)
-
-    if(pos%2 ==0)
-    {
-    this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ bank: "paid" }).then(res => {
-
-      this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress => {
-        this.db.collection('participants').add({...c,...{whr:'home'}});
-
-      })
-
-
-    })
-    }
-    else
-
-    {
-
+    if (pos % 2 == 0) {
       this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ bank: "paid" }).then(res => {
-
         this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress => {
-          this.db.collection('participants').add({...c,...{whr:'away'}});
-  
+          this.db.collection('participants').add({ ...c, ...{ whr: 'home' } });
+
         })
-  
-  
       })
-
     }
+    else {
+      this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ bank: "paid" }).then(res => {
+        this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress => {
+          this.db.collection('participants').add({ ...c, ...{ whr: 'away' } });
 
+        })
+
+      })
+    }
   }
   q1 = [];
   q2 = [];
@@ -672,8 +626,8 @@ applicationsnum:number =0;
 
   async savefixture() {
     let q1 = this.serve.fixture;
-  
-    console.log(this.fixture =this.serve.fixture)
+
+    console.log(this.fixture = this.serve.fixture)
     for (let r = 0; r < q1.length; r++) {
       let z: any = {};
       z = { matchdate: q1[r].matchdate, secs: 0, mins: 0, ascore: 0, score: 0, ...q1[r], random1: Math.floor((Math.random() * r) * 2) };
@@ -715,7 +669,7 @@ applicationsnum:number =0;
 
       console.log('Loader dismiss fixture array!');
     })
-    
+
   }
   ionViewWillEnter() {
     this.presentLoading();
@@ -725,9 +679,9 @@ applicationsnum:number =0;
     let q1 = this.fixtures;
 
     this.deldocs();
-    console.log(this. participantdocids)
+    console.log(this.participantdocids)
 
-  
+
     for (let r = 0; r < q1.length; r++) {
       let z: any = {};
       z = { matchdate: new Date(q1[r].matchdate).toLocaleString(), secs: 0, mins: 0, ascore: 0, score: 0, ...q1[r] };
@@ -741,7 +695,7 @@ applicationsnum:number =0;
       }
       else {
         firebase.firestore().collection('MatchFixtures').add(z).then(val => {
-          
+
         })
         console.log(this.fixtures)
         const toast = await this.toastController.create({
@@ -752,52 +706,31 @@ applicationsnum:number =0;
         this.deldocs();
       }
     }
-
-    
-
   }
-
-
-
-
-  deldocs()
-  {
-    for(let x=0;x<this.participantdocids.length;x++)
-    {
+  deldocs() {
+    for (let x = 0; x < this.participantdocids.length; x++) {
       console.log("Delete HERE!")
-      firebase.firestore().collection('participants').doc(this. participantdocids[x].id).delete();
-
+      firebase.firestore().collection('participants').doc(this.participantdocids[x].id).delete();
     }
-
-
   }
-
-
-  participantdocids=[];
+  participantdocids = [];
   generatefixtures(tournament) {
     let temp = [];
     let temp2 = [];
-    this.participantdocids=[];
+    this.participantdocids = [];
     console.log("Tourney", tournament)
     let num = 0;
-    firebase.firestore().collection('participants').where('tournid','==',tournament.docid).onSnapshot(res => {
+    firebase.firestore().collection('participants').where('tournid', '==', tournament.docid).onSnapshot(res => {
       res.forEach(val => {
 
-        this.participantdocids.push({id:val.id});
+        this.participantdocids.push({ id: val.id });
         // console.log("participants = ",val.data())
-
-
         let data = val.data();
 
         num = num + 1;
-
-
         console.log(num)
         if (num % 2 == 0) {
-
-
-
-          temp2.push({ ...val.data(), ...{ matchdate: null, goal: 0 ,whr:'home',offsides:0,corners:0,mins:0,secs:0,yellow:0,red:0} });
+          temp2.push({ ...val.data(), ...{ matchdate: null, goal: 0, whr: 'home', offsides: 0, corners: 0, mins: 0, secs: 0, yellow: 0, red: 0 } });
 
 
           this.serve.randomfixture(temp, temp2)
@@ -808,11 +741,9 @@ applicationsnum:number =0;
 
         else if (num % 2 == 1) {
 
-          temp.push({ ...val.data(), ...{matchdate: null, goal: 0 ,whr:'away',aoffsides:0,acorners:0,mins:0,secs:0,ayellow:0,ared:0,offsides:0,corners:0,yellow:0,red:0} });
+          temp.push({ ...val.data(), ...{ matchdate: null, goal: 0, whr: 'away', aoffsides: 0, acorners: 0, mins: 0, secs: 0, ayellow: 0, ared: 0, offsides: 0, corners: 0, yellow: 0, red: 0 } });
         }
         console.log(this.serve.fixture)
-
-
       })
     })
   }
@@ -823,73 +754,60 @@ applicationsnum:number =0;
 
     this.fixture = this.fixtures;
     this.fixtures = [];
-
-
-
-
   }
-
-
-
-  moredetails(t)
-  {
+  moredetails(t) {
 
     console.log(t)
-let num =0;
-let num2 =0;
-let num3 =0;
-    firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status','==','awaiting').onSnapshot(rez=>{
-      rez.forEach(val=>{
+    let num = 0;
+    let num2 = 0;
+    let num3 = 0;
+    firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status', '==', 'awaiting').onSnapshot(rez => {
+      rez.forEach(val => {
 
-        num =num+1;
-        this.applicationsnum =val.data().length;
-        console.log(this.applicationsnum =num)
+        num = num + 1;
+        this.applicationsnum = val.data().length;
+        console.log(this.applicationsnum = num)
       })
     })
+    firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status', '==', 'accepted').get().then(rez => {
+      rez.forEach(val => {
 
 
 
-    firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status','==','accepted').onSnapshot(rez=>{
-      rez.forEach(val=>{
+        firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status', '==', 'accepted').onSnapshot(rez => {
+          rez.forEach(val => {
 
-        num2 =num2+1;
-        this.acceptednum =num2;
+            num2 = num2 + 1;
+            this.acceptednum = num2;
 
-        console.log(num2)
+            console.log(num2)
+          })
+        })
+
+
+
+
+
+        firebase.firestore().collection('participants').where('tournid', '==', t.docid).onSnapshot(rez => {
+          rez.forEach(val => {
+
+            num3 = num3 + 1;
+            this.approvednum = num3;
+
+            console.log(num3)
+
+
+
+            if (num % 2 == 0) {
+
+              this.hparticipants.push({ ...val.data(), ...{ whr: 'home' } })
+            }
+            else {
+              this.aparticipants.push({ ...val.data(), ...{ whr: 'away' } })
+            }
+          })
+        })
       })
     })
-
-
-
-
-
-    firebase.firestore().collection('participants').where('tournid','==',t.docid).onSnapshot(rez=>{
-      rez.forEach(val=>{
-
-        num3 =num3+1;
-        this.approvednum =num3;
-
-        console.log(num3)
-
-
-
-        if(num%2 ==0)
-        {
-
-          this.hparticipants.push({...val.data(),...{whr:'home'}})
-        }
-        else
-        {
-          this.aparticipants.push({...val.data(),...{whr:'away'}})
-        }
-
-
-
-       
-      })
-    })
-
-    // this.serve.randomfixture(this.hparticipants,this.aparticipants);
   }
-
 }
