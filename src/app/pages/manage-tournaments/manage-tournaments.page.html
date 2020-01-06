@@ -68,8 +68,8 @@
             <div class="homeList">
 
               <div class="card" *ngFor="let item of hparticipants">
-                <h5>Kasi Team</h5>
-                <p>Manager <b>Name Surname</b></p>
+                <h5>{{item.teamName}}</h5>
+                <p>Coach<b>{{item.TeamObject.coachName}}</b></p>
               </div>
             </div>
             <div class="awayList">
@@ -79,8 +79,8 @@
                 </ion-button>
               </div>
               <div class="card" *ngFor="let item of aparticipants">
-                <h5>Kasi Team</h5>
-                <p>Manager <b>Name Surname</b></p>
+                <h5>{{item.teamName}}</h5>
+                <p>Coach<b>{{item.TeamObject.coachName}}</b></p>
               </div>
             </div>
           </div>
@@ -238,19 +238,19 @@
       </div>
     </div>
     <div class="management">
-      <div class="tournamentData">
-        <h1>Msansi Tournament Championshipses</h1>
+      <div class="tournamentData" *ngFor ="let x of tourndetails">
+        <h1>{{x.tournamentName}}</h1>
         <div class="splitter">
           <div class="one">
-            <p>Location</p>
+            <p>{{x.location}}</p>
             <p>Participants</p>
             <hr>
             <p>Closing Date</p>
-            <p>20 Jul, 2019</p>
+            <p>{{x.applicationClosing}}</p>
           </div>
           <div class="two">
-            <p>From 25 Jul, to 25 Jul</p>
-            <p>Fee - R400.00</p>
+            <p>From {{x.startDate}}, to {{x.endDate}}</p>
+            <p>Fee - R{{x.joiningFee}}</p>
             <hr>
             <p>Sponsors</p>
             <span><img
@@ -272,21 +272,21 @@
           <div class="stillToPayList">
             <div class="card" *ngFor="let item of accepted">
               <div class="details">
-                <h5 style="margin: 0;">Kasi Team</h5>
-                <p style="margin: 0;">Manager <b>Name Surname</b></p>
+                <h5 style="margin: 0;">{{item.TeamObject.coachName}}</h5>
+                <p style="margin: 0;">Coach <b>{{item.TeamObject.coachName}}</b></p>
               </div>
               <div class="stillToPayList">
-                <div class="card" *ngFor="let item of accepted,let i = index">
+                <!-- <div class="card" *ngFor="let item of accepted,let i = index">
                   <div class="details">
-                    <h5 style="margin: 0;">Kasi Team</h5>
-                    <p style="margin: 0;">Manager <b>Name Surname</b></p>
+                    <h5 style="margin: 0;">{{item.TeamObject.coachName}}</h5>
+                    <p style="margin: 0;">Coach <b>{{item.TeamObject.coachName}}</b></p>
                   </div>
                   <div class="refNumber">
 
                     <p> <sub style="font-size: 10px;margin: 0;padding: 0;">Reference.No </sub> <br> RTY75G</p>
                   </div>
                   <ion-button (click)="paid(item,i)">PAID</ion-button>
-                </div>
+                </div> -->
               </div>
               <ion-button (click)="paid(item)">PAID</ion-button>
             </div>
@@ -303,7 +303,7 @@
                 <p>{{item.TeamObject.coachName}}</p>
                 <p>{{item.TeamObject.teamName}}</p>
                 <p>{{item.tournamentName}}</p>
-                <p style="margin: 0;">Manager <b>Name Surname</b></p>
+                <!-- <p style="margin: 0;">Manager <b>Name Surname</b></p> -->
               </div>
             </div>
           </div>
@@ -444,8 +444,9 @@
               </div>
               <div class="setup">
                 <ion-button size="small" color="light"  (click)="finnishSetup(t, 'open')">
-                  Finnsh Setup
+                  Finish Setup
                 </ion-button>
+
               </div>
             </div>
           </div>

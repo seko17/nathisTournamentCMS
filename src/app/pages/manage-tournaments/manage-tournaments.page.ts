@@ -174,6 +174,7 @@ export class ManageTournamentsPage implements OnInit {
     // Motus
 
   }
+  tourndetails =[];
   finnishSetup(tournament, state) {
     let team = {
       docid: null,
@@ -186,7 +187,8 @@ export class ManageTournamentsPage implements OnInit {
     console.log(tournament)
     this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
     this.setUpApplications = true;
-
+    this.tourndetails =[];
+    this.tourndetails.push(tournament)
 
     let form = {};
     this.tourney = tournament;
@@ -211,11 +213,11 @@ export class ManageTournamentsPage implements OnInit {
 
       this.db.collection('newTournaments').doc(tournament.docid).onSnapshot(val => {
         console.log(val.data().formInfo)
-
-        form = val.data().formInfo;
-
-        firebase.firestore().collection('participants').where("tournid", "==", val.data().formInfo.tournamentName).onSnapshot(res => {
-          res.forEach(val => {
+       
+        form =val.data().formInfo;
+​
+        firebase.firestore().collection('participants').where("tournid","==",val.data().formInfo.tournamentName).onSnapshot(res=>{
+          res.forEach(val=>{
 
             this.participants.push(val.data())
             console.log("participants = ", val.data())
@@ -247,7 +249,7 @@ export class ManageTournamentsPage implements OnInit {
         })
       })
 
-
+this.accepted =[];
 
 
       this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where("status", "==", "accepted").onSnapshot(val => {
@@ -675,7 +677,7 @@ export class ManageTournamentsPage implements OnInit {
 
     this.deldocs();
     console.log(this.participantdocids)
-
+firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update({state:"inprogress"});
 
     for (let r = 0; r < q1.length; r++) {
       let z: any = {};
