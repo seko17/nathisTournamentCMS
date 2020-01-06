@@ -338,11 +338,11 @@
           </ion-item>
           <ion-item>
             <ion-label position="floating">Tournament Starts</ion-label>
-            <ion-datetime displayFormat="DDDD MMMM YYYY" formControlName="startDate"></ion-datetime>
+            <ion-datetime displayFormat="DD MMMM YYYY" formControlName="startDate"></ion-datetime>
           </ion-item>
           <ion-item>
             <ion-label position="floating">Tournament Ends</ion-label>
-            <ion-datetime displayFormat="DDDD MMMM YYYY" formControlName="endDate"></ion-datetime>
+            <ion-datetime displayFormat="DD MMMM YYYY" formControlName="endDate"></ion-datetime>
           </ion-item>
           <ion-item>
             <ion-label position="floating">Joining Fee</ion-label>
@@ -350,7 +350,7 @@
           </ion-item>
           <ion-item>
             <ion-label position="floating">Application Closing Date</ion-label>
-            <ion-datetime displayFormat="MMMM DDDD YYYY" formControlName="applicationClosing"></ion-datetime>
+            <ion-datetime displayFormat="DD MMMM YYYY" formControlName="applicationClosing"></ion-datetime>
           </ion-item>
         </div>
         <div class="sButton">
@@ -443,11 +443,8 @@
                 </div>
               </div>
               <div class="setup">
-                <ion-button size="small" color="light" *ngIf="t.hasApplications" (click)="finnishSetup(t, 'open')">
+                <ion-button size="small" color="light"  (click)="finnishSetup(t, 'open')">
                   Finnsh Setup
-                </ion-button>
-                <ion-button size="small" disabled="true" color="light" *ngIf="!t.hasApplications">
-                  No Applications
                 </ion-button>
               </div>
             </div>

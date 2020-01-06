@@ -172,11 +172,7 @@ export class ManageTournamentsPage implements OnInit {
       this.tempCardGen.push({ hasApplications: true })
     }
     // Motus
-    setTimeout(() => {
-      const newAnimation = new Motus.Animation();
 
-      Motus.addAnimation(newAnimation)
-    }, 500);
   }
   finnishSetup(tournament, state) {
     let team = {
