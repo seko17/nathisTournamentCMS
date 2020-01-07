@@ -3,7 +3,7 @@
   <div class="chooseFixtureConfig animated"
     [ngClass]="{'zoomIn faster':chooseConfigOption,'zoomOut fast':!chooseConfigOption}">
     <div class="closebutton">
-      <ion-fab-button size="small" color="success" (click)="promptFixtureConfig('close')">
+      <ion-fab-button size="small" color="success" (click)="promptFixtureConfig('close', null)">
         <ion-icon name="close"></ion-icon>
       </ion-fab-button>
     </div>
@@ -19,7 +19,7 @@
         Generate it
       </ion-button>
       <br>
-      <ion-button fill="clear" color="light" (click)="setUpTimeLine('open')">
+      <ion-button fill="clear" color="light" (click)="setUpTimeLine('open',null)">
         I'll do it
       </ion-button>
     </div>
@@ -30,7 +30,7 @@
   <!-- shows when you have to construct a match from the list of teams -->
   <div class="setUpTimeline animated" [ngClass]="{'fadeInUp':timeLineSetup,'fadeOutDown fast':!timeLineSetup}">
     <div class="closebutton">
-      <ion-fab-button size="small" color="success" (click)="setUpTimeLine('close')">
+      <ion-fab-button size="small" color="success" (click)="setUpTimeLine('close',null)">
         <ion-icon name="close"></ion-icon>
       </ion-fab-button>
     </div>
@@ -338,11 +338,11 @@
           </ion-item>
           <ion-item>
             <ion-label position="floating">Tournament Starts</ion-label>
-            <ion-datetime displayFormat="DDDD MMMM YYYY" formControlName="startDate"></ion-datetime>
+            <ion-datetime displayFormat="DD MMMM YYYY" formControlName="startDate"></ion-datetime>
           </ion-item>
           <ion-item>
             <ion-label position="floating">Tournament Ends</ion-label>
-            <ion-datetime displayFormat="DDDD MMMM YYYY" formControlName="endDate"></ion-datetime>
+            <ion-datetime displayFormat="DD MMMM YYYY" formControlName="endDate"></ion-datetime>
           </ion-item>
           <ion-item>
             <ion-label position="floating">Joining Fee</ion-label>
@@ -350,7 +350,7 @@
           </ion-item>
           <ion-item>
             <ion-label position="floating">Application Closing Date</ion-label>
-            <ion-datetime displayFormat="MMMM DDDD YYYY" formControlName="applicationClosing"></ion-datetime>
+            <ion-datetime displayFormat="DD MMMM YYYY" formControlName="applicationClosing"></ion-datetime>
           </ion-item>
         </div>
         <div class="sButton">

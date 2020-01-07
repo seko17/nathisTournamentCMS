@@ -109,19 +109,6 @@ export class ManageTournamentsPage implements OnInit {
     //   })
     // })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     this.hparticipants = [];
     this.aparticipants = [];
     firebase.firestore().collection('participants').where("whr", "==", "home").onSnapshot(val => {
@@ -173,7 +160,10 @@ export class ManageTournamentsPage implements OnInit {
     }
     // Motus
   }
+
+
   tourndetails =[];
+  
   finnishSetup(tournament, state) {
     let team = {
       docid: null,
@@ -194,7 +184,7 @@ export class ManageTournamentsPage implements OnInit {
 
     this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
     this.setUpApplications = true;
-    this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').onSnapshot(res => {
+    this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where('status',"==",'awaiting').onSnapshot(res => {
       this.tournamentApplications = []
       res.forEach(doc => {
         team = {
@@ -248,10 +238,11 @@ export class ManageTournamentsPage implements OnInit {
         })
       })
 
-this.accepted =[];
+
 
 
       this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where("status", "==", "accepted").onSnapshot(val => {
+        this.accepted =[];
         val.forEach(res => {
 
           this.accepted.push({ ...form, ...{ tournid: tournament.docid }, ...{ id: res.id }, ...res.data() });
