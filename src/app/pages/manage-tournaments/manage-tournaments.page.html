@@ -19,7 +19,7 @@
         Generate it
       </ion-button>
       <br>
-      <ion-button fill="clear" color="light" (click)="setUpTimeLine('open')">
+      <ion-button fill="clear" color="light" (click)="setUpTimeLine('open',null)">
         I'll do it
       </ion-button>
     </div>
@@ -30,7 +30,7 @@
   <!-- shows when you have to construct a match from the list of teams -->
   <div class="setUpTimeline animated" [ngClass]="{'fadeInUp':timeLineSetup,'fadeOutDown fast':!timeLineSetup}">
     <div class="closebutton">
-      <ion-fab-button size="small" color="success" (click)="setUpTimeLine('close')">
+      <ion-fab-button size="small" color="success" (click)="setUpTimeLine('close',null)">
         <ion-icon name="close"></ion-icon>
       </ion-fab-button>
     </div>
