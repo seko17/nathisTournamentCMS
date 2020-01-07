@@ -355,10 +355,10 @@ fixtureid;
   {
 
 
-    console.log("comp = ",this.currmatch[0])
+    console.log("comp = ",this.currmatch[0].id)
     // console.log("comp = ",this.currmatch[0].aTeamObject.uid)
 
-    firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').onSnapshot(val=>{
+    firebase.firestore().collection('Teams').doc(this.currmatch[0].id).collection('Players').onSnapshot(val=>{
     
       val.forEach(res=>{
          console.log( "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeew ")
@@ -371,7 +371,7 @@ fixtureid;
   })
 
 
-  firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').onSnapshot(val=>{
+  firebase.firestore().collection('Teams').doc(this.currmatch[0].id).collection('Players').onSnapshot(val=>{
     
     val.forEach(res=>{
       this.team2.push(res.data())
