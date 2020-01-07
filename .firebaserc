@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "nathistournamentdb"
+    "default": "nathistournamentdb",
+    "staging": "tournaments-c444f"
   }
 }

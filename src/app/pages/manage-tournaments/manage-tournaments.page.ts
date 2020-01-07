@@ -450,9 +450,6 @@ this.serve.tournaments =this.approvedTournaments;
 
     })
   }
-
-
-
   vendorApplications(state) {
     switch (state) {
       case 'open':
@@ -463,10 +460,6 @@ this.serve.tournaments =this.approvedTournaments;
         break;
     }
   }
-
-
-
-
   setUpTimeLine(state,x) {
     // timeLineSetup prop
     // setUpTimelineDiv div
@@ -541,10 +534,10 @@ applicationsnum:number =0;
       case 'close':
         this.chooseConfigOption = false;
         // 
-        // setTimeout(() => {
-        //   this.renderer.setStyle(this.setUpFixturesDiv[0],'display','flex');
-        // this.renderer.setStyle(this.configOptionDiv[0], 'display', 'none');
-        // }, 500);
+        setTimeout(() => {
+          this.renderer.setStyle(this.setUpFixturesDiv[0],'display','flex');
+        this.renderer.setStyle(this.configOptionDiv[0], 'display', 'none');
+        }, 500);
         //  this.presentModal();
         // console.log('will close');
         this.fixture = this.serve.fixture;
