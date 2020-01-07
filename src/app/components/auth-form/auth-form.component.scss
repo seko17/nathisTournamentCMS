@@ -5,64 +5,162 @@ ion-button {
   --width: 50%;
   margin: auto;
 }
+
+ion-item {
+  --background: rgba(255, 255, 255, 0.027) !important;
+  --background-activated: rgba(255, 255, 255, 0.74);
+  --background-focused: rgb(255, 255, 255);
+  --color: rgb(36, 36, 36);
+  --border-radius: 200px !important;
+  ;
+  margin: 5px 0px;
+  font-weight: normal;
+  --overflow: hidden;
+  overflow: hidden;
+}
+
+ion-label {
+  --color: rgb(255, 255, 255);
+}
+
 .container {
 
   width: 100%;
   height: 100%;
-  background: linear-gradient(rgba(0, 18, 66, 0.432)),url(../../../assets/35060wide.jpg);
+  background: linear-gradient(rgba(0, 18, 66, 0.432)), url(../../../assets/FreeGreatPicture.com-53183-football-field.jpg);
   display: grid;
   align-content: center;
   background-size: cover;
 
   form {
-    backdrop-filter: blur(5px);
+    // backdrop-filter: blur(5px);
+    background: linear-gradient(rgba(255, 255, 255, 0.568)), url(../../../assets/cardSVG/SVG/SVG/background.svg) no-repeat,white;
+    background-size: 88% 105%;
+    background-attachment: fixed;
+    background-position: 0px 70px;
     border-radius: 10px;
-    box-shadow: 0px 3px 3px #171717;
+    box-shadow: 0px 3px 10px #17171765;
     margin: auto;
     display: flex;
+    position: relative;
     // flex-direction: column;
     align-items: center;
     align-content: center;
-    width: 500px;
-    height: 500px;
-    padding: 12px;
+    width: 40vw;
+    height: 40vh;
+    padding: 30px 12px 12px 12px;
     margin-bottom: 32px;
+    z-index: 10;
     .align {
       text-align: center;
       width: 90%;
       margin: auto;
-      
+
     }
+
     ion-button {
       margin-top: 30px;
     }
-     p {
-    font-size: 0.8em;
-    color: #d2d2d2;
-  }
-  
-  ion-label {
-    margin-left: 5px;
-  }
-  
-  ion-input {
-    padding: 5px;
-  }
-  
-  .invalid {
-    border-bottom: 1px solid #ff6153;
-  }
-  
-  .error-message {
-    min-height: 2.2rem;
+
+    p {
+      font-size: 0.8em;
+      color: #d2d2d2;
+    }
+
     ion-label {
-      margin: 2px 0;
-      font-size: 60%;
-      color: #ff6153;
+      margin-left: 5px;
     }
-    .item-inner {
-      border-bottom: 0;
+
+    ion-input {
+      padding: 5px;
+    }
+
+    .invalid {
+      border-bottom: 1px solid #ff6153;
+    }
+
+    .error-message {
+      min-height: 2.2rem;
+
+      ion-label {
+        margin: 2px 0;
+        font-size: 60%;
+        color: #ff6153;
+      }
+
+      .item-inner {
+        border-bottom: 0;
+      }
+    }
+
+    .stadium {
+      position: absolute;
+      width: 16vw;
+      bottom: -34px;
+      right: -62px;
+      animation: stadiumAnimation 3s ease-in-out both infinite;
+    }
+    .greenCirlce {
+      min-width: 5vw;
+      min-height: 5vw;
+      max-width: 10vw;
+      max-height: 10vw;
+      position: absolute;
+      top: -2vw;
+      left: -2vw;
+      background: linear-gradient(45deg, #09bb09, #65ff65);
+      box-shadow: 0px 2px 3px #17171765;
+      border-radius: 200px;
+      -webkit-animation: dGRotation 3s ease-in-out both infinite;
+      animation: dGRotation 3s ease-in-out both infinite;
+      -webkit-transform-origin: 20px;
+      transform-origin: 20px;
+      z-index: -1;
+    }
+    .lightGCircle {
+      width: 3vw;
+      height: 3vw;
+      position: absolute;
+      top: 2vw;
+      left: 0vw;
+      background: linear-gradient(-22deg, #41acb9, #62ffb6);
+      border-radius: 200px;
+    }
+    .svger {
+      position: absolute;
+      top: -14px;
+      left: 18px;
+      width: 4vw;
+      animation: ballRotate 15s linear both infinite;
     }
   }
+}
+@keyframes ballRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes dGRotation {
+  0% {
+    transform: rotate(0deg) translateX(0px);
+  }
+  100% {
+    transform: rotate(0deg) translateX(0px);
+  }
+}
+@keyframes stadiumAnimation {
+  0% {
+    transform: translateY(0)
+  }
+
+  50% {
+    transform: translateY(5px)
+  }
+
+  100% {
+    transform: translateY(0)
   }
 }

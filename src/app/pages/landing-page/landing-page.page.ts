@@ -1,3 +1,4 @@
+
 import { Component, OnInit, NgZone, Renderer2 } from '@angular/core';
 import { AllserveService } from 'src/app/services/allserve.service';
 import * as firebase from 'firebase';
@@ -45,6 +46,7 @@ export class LandingPagePage implements OnInit {
   // ___________________________________________
 // BEGGIN BACKEND HERE
 tournament;
+adminProfile = {}
 approvedTournaments  =[];
 db =firebase.firestore();
 input={data:[]};
@@ -58,10 +60,10 @@ ainput={data:[]};
       hasApplications: false
     }
     this.serve.tournaments =[];
-    this.db.collection('newTournaments').where('approved', '==', true).get().then(res => {
+    this.db.collection('newTournaments').where('approved', '==', true).onSnapshot(res => {
       // this.approvedTournaments = []
       res.forEach(doc => {
-        this.db.collection('newTournaments').doc(doc.id).collection('teamApplications').get().then(res => {
+        this.db.collection('newTournaments').doc(doc.id).collection('teamApplications').onSnapshot(res => {
           if (res.empty) {
             tourn = {
               docid: doc.id,
@@ -118,8 +120,7 @@ currentmatch =[];
 
 
   ngOnInit() {
-  
-      
+
   }
 matchobject:any ={};
   currmatch=[];
@@ -284,7 +285,7 @@ fixture=[];
 this.clicked.push(x);
 console.log(parseFloat(this.clicked[0].doc.formInfo.type))
 
-this.db.collection('MatchFixtures').where('tournid', '==', x.docid).get().then(val=>{
+this.db.collection('MatchFixtures').where('tournid', '==', x.docid).onSnapshot(val=>{
   val.forEach(res=>{
     
 this.fixtureid =res.id;
@@ -294,7 +295,7 @@ this.fixtureid =res.id;
 
 
 
-    firebase.firestore().collection('MatchFixtures').doc(res.id).get().then(val=>{
+    firebase.firestore().collection('MatchFixtures').doc(res.id).onSnapshot(val=>{
 
 
       console.log(this.currentmatch)
@@ -317,7 +318,7 @@ this.fixtureid =res.id;
       }
 
 
-      // firebase.firestore().collection('Top4').where("Tournament","==",this.tourname).get().then(val=>{
+      // firebase.firestore().collection('Top4').where("Tournament","==",this.tourname).onSnapshot(val=>{
       
       //   val.forEach(res=>{
        
@@ -357,7 +358,7 @@ fixtureid;
     console.log("comp = ",this.currmatch[0])
     // console.log("comp = ",this.currmatch[0].aTeamObject.uid)
 
-    firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(val=>{
+    firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').onSnapshot(val=>{
     
       val.forEach(res=>{
          console.log( "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeew ")
@@ -370,7 +371,7 @@ fixtureid;
   })
 
 
-  firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').get().then(val=>{
+  firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').onSnapshot(val=>{
     
     val.forEach(res=>{
       this.team2.push(res.data())
@@ -414,7 +415,7 @@ fixtureid;
         
   
   
-        firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val=>{
+        firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).onSnapshot(val=>{
   
       
   this.secs =val.data().secs;
@@ -533,7 +534,7 @@ alert.onDidDismiss().then( async rez=>{
             
 
 
-            firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(rez=>{
+            firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).onSnapshot(rez=>{
               console.log(rez.data().aTeamObject.teamName)
 
 
@@ -674,7 +675,7 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
   
   
   
-        firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val=>{
+        firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).onSnapshot(val=>{
   
       
   this.secs =val.data().secs;
@@ -737,7 +738,7 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
   
   
   console.log(this.matchobject)
-          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val=>{
+          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).onSnapshot(val=>{
       
            
               console.log( val.data())
@@ -814,7 +815,7 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
   
   
   
-          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res=>{
+          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).onSnapshot(res=>{
       
   
               console.log( res.data())
@@ -913,7 +914,7 @@ console.log("yellow")
                                                           // firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.userUID).collection('Players').doc(this.id).update({yellow:1});
                                                     
                                                       
-                                                          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res=>{
+                                                          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).onSnapshot(res=>{
                                                             res.data();
                                                             let obj =res.data();
                                                             obj.yellow = obj.yellow+1;
@@ -932,7 +933,7 @@ console.log("yellow")
   this.currmatch =[];
   console.log("red")
 
-firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res=>{
+firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).onSnapshot(res=>{
   res.data();
   let obj =res.data();
 obj.red = res.data().red+1;
@@ -953,7 +954,7 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
 
 
 
-                                                                                      firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res=>{
+                                                                                      firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).onSnapshot(res=>{
                                                                                         res.data();
                                                                                         let obj =res.data();
                             obj.offsides = res.data().offsides+1;
@@ -977,7 +978,7 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
  })
   
 
- firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res=>{
+ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).onSnapshot(res=>{
   res.data();
   let obj =res.data();
 obj.corners = res.data().corners+1;
@@ -1063,7 +1064,7 @@ console.log("yellow")
                                                           // firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.userUID).collection('Players').doc(this.id).update({yellow:1});
                                                     
                                                       
-                                                          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res=>{
+                                                          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).onSnapshot(res=>{
                                                             res.data();
                                                             let obj =res.data();
                                                             obj.ayellow = obj.ayellow+1;
@@ -1082,7 +1083,7 @@ console.log("yellow")
   this.currmatch =[];
   console.log("red")
 
-firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res=>{
+firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).onSnapshot(res=>{
   res.data();
   let obj =res.data();
 obj.ared = res.data().ared+1;
@@ -1103,7 +1104,7 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
 
 
 
-                                                                                      firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res=>{
+                                                                                      firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).onSnapshot(res=>{
                                                                                         res.data();
                                                                                         let obj =res.data();
                             obj.aoffsides = res.data().aoffsides+1;
@@ -1127,7 +1128,7 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
  })
   
 
- firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res=>{
+ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).onSnapshot(res=>{
   res.data();
   let obj =res.data();
 obj.acorners = res.data().acorners+1;

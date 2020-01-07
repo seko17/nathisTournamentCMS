@@ -368,8 +368,8 @@
   .form {
     // pointer-events: none;
     overflow: hidden;
-    width: 70%;
-    height: 70%;
+    width: 80%;
+    height: 80%;
     background: white;
     border-radius: 10px;
     margin: 7% auto 0px auto;
@@ -392,15 +392,51 @@
     .closeButton {
       position: absolute;
       bottom: 0;
-      left: 50%;
+      left: 0%;
       z-index: 400;
-      transform: translateX(-20px);
+      transform: translateX(0px);
     }
   }
 
   .sponsors {
     flex-basis: 50%;
+    height: 100%;
     background: gray;
+
+    .buttons {
+      height: 22%;
+      background: white;
+    }
+
+    .arrSponsors {
+      height: 78%;
+      background: white;
+      padding: 4px;
+      display: flex;
+      flex-wrap: wrap;
+      overflow-y: auto;
+
+      .card {
+        width: 120px;
+        height: 30%;
+        box-shadow: 0px 2px 2px #1717173d;
+        margin: 0px 5px;
+        border-radius: 8px;
+        overflow: hidden;
+        text-align: center;
+
+        .image {
+          width: 100%;
+          height: 80%;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -426,7 +462,6 @@
       justify-content: center;
       z-index: 300;
       position: absolute;
-      left: 0;
       right: 0;
       top: 0;
       text-align: center;
@@ -450,6 +485,9 @@
       right: 30vw;
       top: 10px;
       overflow-y: auto;
+      background-image: radial-gradient(circle, #38733610, #25375913);
+      border-radius: 5px;
+      padding: 10px;
 
       h4 {
         margin: 0;
@@ -479,11 +517,11 @@
 
           .card {
             position: relative;
-            background: url(../../../assets/cardSVG/SVG/apporvedTournamentSVG.svg),white ;
+            background: url(../../../assets/cardSVG/SVG/apporvedTournamentSVG.svg), white;
             background-position: 287px 3px;
             background-repeat: no-repeat;
             min-width: 400px;
-            height: 60%;
+            height: 80%;
             margin: 5px 5px 25px 5px;
             border-radius: 10px;
             box-shadow: 0px 3px 3px #17171717;
@@ -509,7 +547,7 @@
             }
 
             .tDetails {
-              height: 100%;
+              height: 86%;
               align-items: center;
               padding: 5px;
               flex-basis: 90%;
@@ -566,9 +604,10 @@
           overflow-x: auto;
           overflow-y: hidden;
           align-items: center;
+
           .card {
             position: relative;
-            background: url(../../../assets/cardSVG/SVG/createdSVG.svg),white ;
+            background: url(../../../assets/cardSVG/SVG/createdSVG.svg), white;
             background-position: 136px 3px;
             background-repeat: no-repeat;
             color: rgb(27, 27, 27);
@@ -630,14 +669,14 @@
 
   .tournamentDetails {
     position: absolute;
-    width: 30%;
+    width: 32%;
     /* height: 64%; */
     background: #eeeeee;
     border-radius: 20px;
     overflow: hidden;
     right: 0;
-    top: 25%;
-    bottom: 25%;
+    top: 12%;
+    bottom: 12%;
 
     .details {
       width: 100%;
@@ -669,8 +708,8 @@
 
       .stats {
         width: 100%;
-        height: 90%;
-        margin: 5px auto;
+        height: 100%;
+        margin: 0px auto;
         background: #387336;
         color: white;
         overflow: hidden;
@@ -678,11 +717,12 @@
         position: relative;
         display: flex;
         align-content: center;
-        justify-content: space-evenly;
         flex-wrap: wrap;
+        justify-content: center;
 
         .card {
-          width: 30%;
+          min-width: 30%;
+          max-width: 50%;
           box-shadow: 0px 2px 2px #17171754;
           background: white;
           color: black;
