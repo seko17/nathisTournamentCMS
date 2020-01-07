@@ -159,9 +159,11 @@ export class ManageTournamentsPage implements OnInit {
       this.tempCardGen.push({ hasApplications: true })
     }
     // Motus
-
   }
+
+
   tourndetails =[];
+  
   finnishSetup(tournament, state) {
     let team = {
       docid: null,
