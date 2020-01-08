@@ -52,7 +52,7 @@ db =firebase.firestore();
 input={data:[]};
 ainput={data:[]};
   tempCardGen = [] // temporary card generator, used for ngFor
-  constructor(public alertController: AlertController,public serve:AllserveService,public zone: NgZone, public renderer: Renderer2) { 
+  constructor(public allserve:AllserveService,public alertController: AlertController,public serve:AllserveService,public zone: NgZone, public renderer: Renderer2) { 
 
 
 
@@ -119,7 +119,7 @@ currentmatch =[];
   }
 matchobject:any ={};
   currmatch=[];
-  viewmatch(state, item) {
+ async viewmatch(state, item) {
     console.log('item = ', item);
 
 
@@ -131,6 +131,21 @@ matchobject:any ={};
     
     else
     {
+
+
+      if(this.allserve.blocker ==true)
+      {
+        const alert = await this.alertController.create({
+          header: 'Alert',
+          subHeader: 'There is another match in play',
+          message: 'Click \'OK \' to continue.',
+          buttons: ['OK']
+        });
+    
+        await alert.present();
+      }
+else
+      {
       this.currmatch=[];
       this.matchobject=item;
       this.currmatch.push(item); 
@@ -139,7 +154,7 @@ matchobject:any ={};
 
 
       firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').onSnapshot(val=>{
-    
+        this.team1 =[];
         val.forEach(res=>{
            console.log( "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeew ")
    
@@ -152,7 +167,7 @@ matchobject:any ={};
   
   
     firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').onSnapshot(val=>{
-      
+      this.team2 =[];
       val.forEach(res=>{
         this.team2.push(res.data())
         console.log( "385 = ",this.team2)
@@ -169,7 +184,7 @@ matchobject:any ={};
 
 
 
-
+}
 
 
 
@@ -223,11 +238,22 @@ matchobject:any ={};
  
   // keep in mind, the playerObj will pass null if were closing the panel
  playerobj =[];
-  viewPlayer(state, side, playerObj) {
-this. playerobj=[]
+ aplayerobj =[];
+  viewPlayer(state, side, playerObj,val) {
 
+
+if(val ==0)
+{
+  this. playerobj=[]
     this.playerobj.push(playerObj);
+}
 
+else
+{
+  this.aplayerobj=[]
+  this.aplayerobj.push(playerObj);
+
+}
 
     console.log("player obj",this.playerobj)
     switch (state) {
@@ -267,9 +293,9 @@ this. playerobj=[]
           this.viewingTeam.home = true;
           this.renderer.setStyle(this.homeTeamDiv[0], 'display', 'block');
           console.log('home team open'); 
-          this.viewPlayer('close', 'home', null);
+          this.viewPlayer('close', 'home', null,0);
         } else {
-          this.viewPlayer('close', 'away', null);
+          this.viewPlayer('close', 'away', null,0);
           this.viewingTeam.away = true;
           this.renderer.setStyle(this.awayTeamDiv[0], 'display', 'block');
           console.log('Away team open');
@@ -377,19 +403,6 @@ this.fixtureid =res.id;
         this.btntxt2 ="Resume Second Half";
       }
 
-
-      // firebase.firestore().collection('Top4').where("Tournament","==",this.tourname).onSnapshot(val=>{
-      
-      //   val.forEach(res=>{
-       
-      //    this.id =res.id;
-      //     this.matchstats.push(res.data());
-     
-    
-      //   })
-        
-                // })
-              
               
          })
   })
@@ -419,7 +432,7 @@ fixtureid;
     // console.log("comp = ",this.currmatch[0].aTeamObject.uid)
 
     firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').onSnapshot(val=>{
-    
+      this.team1 =[];
       val.forEach(res=>{
          console.log( "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeew ")
  
@@ -431,8 +444,8 @@ fixtureid;
   })
 
 
-  firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').onSnapshot(val=>{
-    
+  firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').onSnapshot(val=>{
+    this.team2=[];
     val.forEach(res=>{
       this.team2.push(res.data())
       console.log( "385 = ",this.team2)
@@ -447,22 +460,6 @@ fixtureid;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     this.btn1 =true;
     this.btn2 =true;
     this.btn3 =false;
@@ -470,7 +467,7 @@ fixtureid;
    
     console.log('docid = ',this.matchobject.fixtureid)
       this.sub = timer(0,1000).subscribe(result =>{
-       
+        this.allserve.blocker =true;
         this.matchobject.fixtureid;
    
         
@@ -491,20 +488,6 @@ fixtureid;
     
       })
   
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -548,10 +531,12 @@ this.btn3 =true;
 
 
                 
-                 firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({mins:this.mins,secs:this.secs,type:this.clicked[0].formInfo.type});
+                 firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({mins:this.mins,secs:this.secs,type:this.clicked[0].formInfo.type}).then(res=>{
+                  this.allserve.blocker =false;
+                 })
            
                   
-
+                 this.allserve.blocker =false;
 
 
 
@@ -821,11 +806,10 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
               obj.score =parseFloat(obj.score)+1;
               this.score =obj.score;
         
-              // console.log(obj.goal)
-              // console.log(obj.score)
+          
   
               this.goals =obj.goal;
-              // this.currentmatch.push(obj);
+           
               this.id =val.id;
               
              

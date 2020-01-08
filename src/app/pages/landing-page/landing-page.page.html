@@ -189,9 +189,9 @@
             <div class="lineUps animated"
               [ngClass]="{'slideInLeft':matchView=='lineup','slideOutLeft':matchView=='summary'}">
               <div class="away">
-                <div class="card" *ngFor="let a of team1" (click)="viewPlayer('open', 'home',a)">
+                <div class="card" *ngFor="let a of team1" (click)="viewPlayer('open', 'home',a,0)">
                   <div class="number">
-                    <p>30'</p>
+                    <p>*</p>
                   </div>
                   <div class="name">
                     <p>{{a.fullName}}</p>
@@ -202,9 +202,9 @@
                 </div>
               </div>
               <div class="home">
-                <div class="card" *ngFor="let a of team2" (click)="viewPlayer('open', 'away', a)">
+                <div class="card" *ngFor="let a of team2" (click)="viewPlayer('open', 'away', a,1)">
                   <div class="number">
-                    <p>30'</p>
+                    <p>*</p>
                   </div>
                   <div class="name">
                     <p>{{a.fullName}}</p>
@@ -288,12 +288,16 @@
               <ion-icon name="close"></ion-icon>
             </ion-fab-button>
           </div>
-          <img src="https://i.imgflip.com/109szw.jpg" alt="">
-          <div class="name" *ngFor ="let x of playerobj">
+          <div *ngFor ="let x of aplayerobj">
+            <img 
+              [src]='x.palyerImage'
+              alt="No Image">
+            </div>
+          <div class="name" *ngFor ="let x of aplayerobj">
             <p>{{x.fullName}}</p>
           </div>
         </div>
-        <div class="details" *ngFor ="let x of playerobj">
+        <div class="details" *ngFor ="let x of aplayerobj">
           <p>{{x.playerPosition}}</p>
           <span>{{x.height}}m</span>
           <br>
