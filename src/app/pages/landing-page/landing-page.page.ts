@@ -151,7 +151,7 @@ matchobject:any ={};
     })
   
   
-    firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').onSnapshot(val=>{
+    firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').onSnapshot(val=>{
       
       val.forEach(res=>{
         this.team2.push(res.data())
@@ -225,8 +225,11 @@ matchobject:any ={};
  playerobj =[];
   viewPlayer(state, side, playerObj) {
 this. playerobj=[]
-    console.log("player obj",playerObj)
+
     this.playerobj.push(playerObj);
+
+
+    console.log("player obj",this.playerobj)
     switch (state) {
       case 'open':
         if (side == "home") {

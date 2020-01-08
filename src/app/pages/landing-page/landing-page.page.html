@@ -12,24 +12,23 @@
               <ion-icon name="close"></ion-icon>
             </ion-fab-button>
           </div>
-          <img
-            src="https://the18.com/sites/default/files/styles/photo_story_list_items_1016px_wide/public/photo-story-images/2017-2-22-the18-facesmash.jpg?itok=-1TVm3PY"
-            alt="">
-          <div class="name">
-            <p>Alan Bakes</p>
+          <div *ngFor ="let x of playerobj">
+          <img 
+            [src]='x.palyerImage'
+            alt="No Image">
+          </div>
+          <div class="name" *ngFor ="let x of playerobj">
+            <p>{{x.fullName}}</p>
           </div>
         </div>
-        <div class="details">
-          <p>Defender</p>
-          <span>3.5 m tall</span>
+        <div class="details"  *ngFor ="let x of playerobj">
+          <p>{{x.playerPosition}}</p>
+          <span>{{x.height}}m</span>
           <br>
           <p>Previous Team(s)</p>
-          <span>Bara Team <br> Yarn Team</span>
+          <span>{{x.previousTeam}}</span>
           <br>
           <hr>
-          <p>Acievements</p>
-          <span>Best Defender</span> <br>
-          <span>Best face maker</span>
         </div>
       </div>
       <div class="teamHome animated"
@@ -203,7 +202,7 @@
                 </div>
               </div>
               <div class="home">
-                <div class="card" *ngFor="let a of team2" (click)="viewPlayer('open', 'away', 'object')">
+                <div class="card" *ngFor="let a of team2" (click)="viewPlayer('open', 'away', a)">
                   <div class="number">
                     <p>30'</p>
                   </div>
@@ -285,26 +284,26 @@
         [ngClass]="{'slideInLeft faster':viewingPlayer.away,'slideOutLeft faster':!viewingPlayer.away}">
         <div class="image">
           <div class="playerClose">
-            <ion-fab-button size="small" (click)="viewPlayer('close', 'away', 'object')">
+            <ion-fab-button size="small" (click)="viewPlayer('close', 'away', object)">
               <ion-icon name="close"></ion-icon>
             </ion-fab-button>
           </div>
           <img src="https://i.imgflip.com/109szw.jpg" alt="">
-          <div class="name">
-            <p>Alan Bakes</p>
+          <div class="name" *ngFor ="let x of playerobj">
+            <p>{{x.fullName}}</p>
           </div>
         </div>
         <div class="details" *ngFor ="let x of playerobj">
-          <p>Defender</p>
-          <span>3.5 m tall</span>
+          <p>{{x.playerPosition}}</p>
+          <span>{{x.height}}m</span>
           <br>
           <p>Previous Team(s)</p>
-          <span>Bara Team <br> Yarn Team</span>
+          <span>{{x.previousTeam}}</span>
           <br>
           <hr>
-          <p>Acievements</p>
+          <!-- <p>Acievements</p>
           <span>Best Defender</span> <br>
-          <span>Best face maker</span>
+          <span>Best face maker</span> -->
         </div>
       </div>
       <div class="teamAway animated"
