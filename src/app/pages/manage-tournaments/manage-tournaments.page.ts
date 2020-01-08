@@ -124,7 +124,7 @@ TournSelectedObj = {
 
     let num = 0;
 
-
+    
     // firebase.firestore().collection('participants').onSnapshot(val=>{
     //   val.forEach(res=>{
     //     res.data()
