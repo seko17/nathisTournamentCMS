@@ -37,13 +37,162 @@ export class ManageTournamentsPage implements OnInit {
     return await this.modal.present();
 
   }
-
+  userLocation = "";
+  searchQuery: string = "";
+  searchResults = [];
+  myLocation = "Johannesburg";
+  gauteng = [
+    // City of Johannesburg Metropolitan Municipality
+    "Alexandra",
+    "Johannesburg",
+    "Lenasia",
+    "Midrand",
+    "Roodepoort",
+    "Sandton",
+    "Soweto",
+    "Mshongo",
+    "Klipfontienview",
+    "Orange Farm",
+    // Ekurhuleni Metropolitan Municipality
+    "Alberton",
+    "Germiston",
+    "Benoni",
+    "Boksburg",
+    "Brakpan",
+    "Clayville",
+    "Daveyton",
+    "Devon",
+    "Duduza",
+    "Edenvale",
+    "Ennerdale",
+    "Germiston",
+    "Impumelelo",
+    "Isando",
+    "Katlehong",
+    "Kempton Park",
+    "KwaThema",
+    "Nigel",
+    "Olifantsfontein",
+    "Reiger Park",
+    "Springs",
+    "Tembisa",
+    "Thokoza",
+    "Tsakane",
+    "Vosloorus",
+    "Wattville",
+    //City of Tshwane Metropolitan Municipality
+    "Atteridgeville",
+    "Bronberg",
+    "Bronkhorstspruit",
+    "Centurion",
+    "Cullinan",
+    "Ekangala",
+    "Ga-Rankuwa",
+    "Hammanskraal",
+    "Irene",
+    "Mabopane",
+    "Mamelodi",
+    "Pretoria",
+    "Rayton",
+    "Refilwe",
+    "Soshanguve",
+    "Zithobeni",
+    // Emfuleni Local Municipality
+    "Boipatong",
+    "Bophelong",
+    "Evaton",
+    "Sebokeng",
+    "Sharpeville",
+    "Vanderbijlpark",
+    "Vereeniging",
+    // Midvaal Local Municipality
+    "Meyerton",
+    // Lesedi Local Municipality
+    "Heidelberg",
+    "Ratanda",
+    //Merafong City Local Municipality
+    "Carletonville",
+    "Khutsong",
+    "Fochville",
+    "Kokosi",
+    "Greenspark",
+    "Wedela",
+    "Welverdiend",
+    "Blybank",
+    // Mogale City Local Municipality
+    "Chamdor",
+    "Dan Pienaarville",
+    "Delporton",
+    "Factoria",
+    "Hekpoort",
+    "Kagiso",
+    "Kenmare",
+    "Kromdraai",
+    "Krugersdorp",
+    "Munsieville South",
+    "Magaliesburg",
+    "Monument",
+    "Muldersdrift",
+    "Munsieville",
+    "Noordheuwel",
+    "Rangeview",
+    "Silverfields",
+    "Tarlton",
+    // Randfontein Local Municipality
+    "Aureus",
+    "Bhongweni",
+    "Botha AH",
+    "Brandvlei",
+    "Culemborg Park",
+    "Dwarskloof AH",
+    "Eikepark",
+    "Eland SH",
+    "Finsbury",
+    "Green Hills",
+    "Groot-Elandsvlei AH",
+    "Hectorton",
+    "Helikon Park",
+    "Hillside AH",
+    "Home Lake",
+    "Kocksoord",
+    "Loumarina AH",
+    "Middelvlei AH",
+    "Millside",
+    "Mohlakeng",
+    "Mohlakeng Ext 1",
+    "Mohlakeng Ext 3",
+    "Mohlakeng Ext 4",
+    "Mohlakeng Ext 7",
+    "Panvlak Gold Mine",
+    "Pelzvale AH",
+    "Randfontein",
+    "Randfontein Estate Gold Mine",
+    "Randfontein Harmony Gold Mine",
+    "Randfontein NU",
+    "Randfontein South AH",
+    "Randgate",
+    "Randpoort",
+    "Rikasrus AH",
+    "Robin Park",
+    "Tenacre AH",
+    "Toekomsrus",
+    "West Porges",
+    "Westergloor",
+    "Wheatlands AH",
+    "Wilbotsdal AH",
+    "Zenzele",
+    "Utiliy Economics",
+    // Westonaria Local Municipality
+    "Bekkersdal",
+    "Westonaria"
+  ];
   // CSS PROPERTIES ___________________________________
   newTournFormCont = document.getElementsByClassName('newTournamentForm');
   setUpApplicationsScreen = document.getElementsByClassName('setUpApplications');
   //  state for this screen
   setUpApplications = false;
   sponsorImage = ''
+  sponsorName : string
   creatingTournament = false;
   validationMessages = {
     valid: [
@@ -109,7 +258,7 @@ TournSelectedObj = {
   aparticipants = [];
   cparticipants = [];
   parti = [];
-
+progressOfImage = 0
 
   currentmatch = [];
   timer;
@@ -166,7 +315,7 @@ TournSelectedObj = {
     this.newTournForm = this.formBuilder.group({
       tournamentName: ['', [Validators.required, Validators.minLength((4))]],
       type: ['', Validators.required],
-      location: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(25)]],
+      location: ['', []],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       joiningFee: ['', [Validators.required, Validators.minLength(3)]],
@@ -333,9 +482,42 @@ TournSelectedObj = {
 //   this.db.collection('newTournaments').
 // }
   // selects sponsor Image
-  saveSponsor(){
 
+  getItems(ev: any) {
+    // Reset items back to all of the items
+    // set val to the value of the searchbar
+    const val = ev.target.value;
+    // if the value is an empty string don't filter the items
+    console.log(val);
+    if (val && val.trim() != "") {
+      this.searchResults = this.gauteng.filter(item => {
+        return item.toLowerCase().indexOf(val.toLowerCase()) > -1;
+      });
+      console.log('Results = ',this.searchResults);
+    } else if (val != " ") {
+      this.searchResults = this.gauteng.filter(item => {
+        return item.toLowerCase().indexOf(val.toLowerCase()) > -1;
+      });
+    } else if (val == "") {
+      this.searchResults = [];
+    }
   }
+  selectLocation(location) {
+    this.userLocation = location;
+    this.searchResults = [];
+    console.log(this.userLocation);
+  }
+  saveSponsor(){
+console.log('sponsor name',this.sponsorName);
+let obj = {
+  sponsorName: this.sponsorName,
+  sponsorImage : this.sponsorImage
+}
+this.tournamentObj.sponsors.push(obj)
+this.sponsorName = ''
+this.sponsorImage = ''
+  }
+
   async selectimage(image) {
 
     console.log(image.name)
@@ -367,18 +549,20 @@ TournSelectedObj = {
         const upload = this.storage.child(image.item(0).name).put(imagetosend);
         upload.on('state_changed', snapshot => {
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          this.progressOfImage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log(progress);
 
         }, error => {
         }, () => {
           upload.snapshot.ref.getDownloadURL().then(downUrl => {
             this.sponsorImage = downUrl
+
             let newSponsor = {
               image: downUrl,
 
               name: image.item(0).name
             }
-            console.log(downUrl)
+            // console.log(downUrl)
             // this.tournamentObj.sponsors.push(newSponsor)
             // console.log(this.tournamentObj.sponsors);
 

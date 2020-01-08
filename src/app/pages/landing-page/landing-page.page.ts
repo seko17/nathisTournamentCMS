@@ -100,7 +100,7 @@ console.log("Menu = ",tourn)
 
   }
 
-
+matchstatsclick =false;
 
   timer;
 docid;
@@ -299,7 +299,7 @@ else
           this.viewingTeam.away = true;
           this.renderer.setStyle(this.awayTeamDiv[0], 'display', 'block');
           console.log('Away team open');
-          this.goal2();
+        
         }
         break;
       case 'close':
@@ -428,6 +428,8 @@ fixtureid;
   {
 
 
+
+    
     console.log("comp = ",this.currmatch[0].id)
     // console.log("comp = ",this.currmatch[0].aTeamObject.uid)
 
@@ -470,7 +472,7 @@ fixtureid;
         this.allserve.blocker =true;
         this.matchobject.fixtureid;
    
-        
+        this.matchstatsclick=true;
            
           if(this.secs==60)
           {
@@ -727,12 +729,12 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
     this.btn2 =true;
     this.btn3 =false;
     console.log('docid = ',this.matchobject.fixtureid)
-
+   
     
       this.sub = timer(0,1000).subscribe(result =>{
        
   
-  
+        this.matchstatsclick=true;
   
   
         firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).onSnapshot(val=>{
@@ -861,7 +863,21 @@ else
   agoals;
   async goal2()
   {
-    this.currentmatch =[];
+
+
+
+    if(this.matchstatsclick==false)
+    {
+      const alert = await this.alertController.create({
+        header: 'Alert',
+        message: 'The timer needs to be running before goals can be scored.',
+        buttons: ['OK']
+      });
+    
+      await alert.present();
+    }
+    else
+   { this.currentmatch =[];
  
   
   this.agoals =[];
@@ -924,7 +940,7 @@ else
   await alert.present();
   
   
-  
+}
   
   
   }
@@ -935,7 +951,18 @@ else
   {
     console.log(x)
   
-  
+if(this.matchstatsclick==false)
+{
+  const alert = await this.alertController.create({
+    header: 'Alert',
+    message: 'Start the match first.',
+    buttons: ['OK']
+  });
+
+  await alert.present();
+}
+else
+  {
     console.log(this.input)
       let input=this.input;
   
@@ -959,7 +986,7 @@ else
             }
           }, {
             text: 'Ok',
-            handler: (data) => {
+            handler: async (data) => {
               console.log(data);
   
               
@@ -973,7 +1000,7 @@ else
 
 
 
-                                            
+
 this.currmatch =[];
 
 
@@ -999,10 +1026,24 @@ console.log("yellow")
                                                               }
   
                                                               else
- if(x =="red")
+  if(x =="red")
  {
   this.currmatch =[];
   console.log("red")
+
+
+  if(this.currmatch[0].id==undefined)
+  {
+    const alert = await this.alertController.create({
+      header: 'Alert!',
+      message: 'The timer needs to be running before goals can be scored.',
+      buttons: ['OK']
+    });
+  
+    await alert.present();
+  }
+
+
 
 firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res=>{
   res.data();
@@ -1071,6 +1112,7 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
         ]
       });
       await alert.present();
+    }
     
   }
   
@@ -1083,18 +1125,20 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
   async awaystats(x)
   {
     console.log(x)
-  
-  
+    if(this.matchstatsclick==false)
+    {
+      const alert = await this.alertController.create({
+        header: 'Alert',
+        message: 'Start the match first.',
+        buttons: ['OK']
+      });
+    
+      await alert.present();
+    }
+    else
+  {
     
       let input=this.ainput;
-  
-        // input.data.push({name:"radio",type: 'radio',label:"Shots",value:"ashots"})
-        // input.data.push({name:"radio",type: 'radio',label:"On Target",value:"aontarget"})
-        // input.data.push({name:"radio",type: 'radio',label:"Foul",value:"afouls"})
-        // input.data.push({name:"radio",type: 'radio',label:"Yellow Card",value:"ayellow"})
-        // input.data.push({name:"radio",type: 'radio',label:"Red Card",value:"ared"})
-        // input.data.push({name:"radio",type: 'radio',label:"Off Side",value:"aoffsides"})
-        // input.data.push({name:"radio",type: 'radio',label:"Corner",value:"acorners"})
   
         
   
@@ -1222,6 +1266,7 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
       });
       await alert.present();
     }
+    }
   
   
   
@@ -1241,7 +1286,7 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
 
   changeview(clickedbutton)
   {
-
+    this.clicked=[];
     this.fixture=[];
 console.log(clickedbutton)
     this.db.collection('newTournaments').where('approved', '==', true).where("state","==",clickedbutton).get().then(res => {
