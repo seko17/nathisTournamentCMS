@@ -261,23 +261,23 @@ else
         if (side == "home") {
           this.viewTeam('close', 'home', null)
           this.viewingPlayer.home = true;
-          this.renderer.setStyle(this.homePlayerDiv[0], 'display', 'block')
+          // this.renderer.setStyle(this.homePlayerDiv[0], 'display', 'block')
         } else {
           this.viewTeam('close', 'away', null)
           this.viewingPlayer.away = true;
-          this.renderer.setStyle(this.awayPlayerDiv[0], 'display', 'block')
+          // this.renderer.setStyle(this.awayPlayerDiv[0], 'display', 'block')
         }
         break;
       case 'close':
         if (side == "home") {
           this.viewingPlayer.home = false;
           setTimeout(() => {
-            this.renderer.setStyle(this.homePlayerDiv[0], 'display', 'none')
+            // this.renderer.setStyle(this.homePlayerDiv[0], 'display', 'none')
           }, 500);
         } else {
           this.viewingPlayer.away = false;
           setTimeout(() => {
-            this.renderer.setStyle(this.awayPlayerDiv[0], 'display', 'none')
+            // this.renderer.setStyle(this.awayPlayerDiv[0], 'display', 'none')
           }, 500);
         }
         break;
@@ -775,7 +775,7 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
    async goal1()
   {
 
-if(this.currmatch[0].id==undefined)
+if(this.matchstatsclick==false)
 {
   const alert = await this.alertController.create({
     header: 'Alert!',
