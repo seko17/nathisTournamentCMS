@@ -8,7 +8,7 @@
         [ngClass]="{'slideInRight':viewingPlayer.home,'slideOutRight faster':!viewingPlayer.home}">
         <div class="image">
           <div class="playerClose">
-            <ion-fab-button size="small" (click)="viewPlayer('close', 'home', 'object')">
+            <ion-fab-button size="small" (click)="viewPlayer('close', 'home', 'object',0)">
               <ion-icon name="close"></ion-icon>
             </ion-fab-button>
           </div>
@@ -284,7 +284,7 @@
         [ngClass]="{'slideInLeft faster':viewingPlayer.away,'slideOutLeft faster':!viewingPlayer.away}">
         <div class="image">
           <div class="playerClose">
-            <ion-fab-button size="small" (click)="viewPlayer('close', 'away', object)">
+            <ion-fab-button size="small" (click)="viewPlayer('close', 'away', 'object',0)">
               <ion-icon name="close"></ion-icon>
             </ion-fab-button>
           </div>
