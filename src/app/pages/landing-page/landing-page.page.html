@@ -4,7 +4,7 @@
       <ion-icon name="close"></ion-icon>
     </div>
     <div class="matchDiv"> 
-      <!-- <div class="playerHome animated"
+      <div class="playerHome animated"
         [ngClass]="{'slideInRight':viewingPlayer.home,'slideOutRight faster':!viewingPlayer.home}">
         <div class="image">
           <div class="playerClose">
@@ -30,7 +30,7 @@
           <br>
           <hr>
         </div>
-      </div>  -->
+      </div> 
       <div class="teamHome animated"
         [ngClass]="{'slideInRight':viewingTeam.home,'slideOutRight faster':!viewingTeam.home}">
         <div class="title">
@@ -189,9 +189,9 @@
             <div class="lineUps animated"
               [ngClass]="{'slideInLeft':matchView=='lineup','slideOutLeft':matchView=='summary'}">
               <div class="away">
-                <div class="card" *ngFor="let a of team1" (click)="viewPlayer('open', 'home',a,0)">
+                <div class="card" *ngFor="let a of team1;let i = index" (click)="viewPlayer('open', 'home',a,0)">
                   <div class="number">
-                    <p>*</p>
+                  <p style="margin: 0 auto;">{{i}}</p>
                   </div>
                   <div class="name">
                     <p>{{a.fullName}}</p>
@@ -202,9 +202,9 @@
                 </div>
               </div>
               <div class="home">
-                <div class="card" *ngFor="let a of team2" (click)="viewPlayer('open', 'away', a,1)">
+                <div class="card" *ngFor="let a of team2;let i = index" (click)="viewPlayer('open', 'away', a,1)">
                   <div class="number">
-                    <p>*</p>
+                    <p style="margin: 0 auto;">{{i}}</p>
                   </div>
                   <div class="name">
                     <p>{{a.fullName}}</p>
@@ -280,7 +280,7 @@
       </div>
 
 
-    <!--   <div class="playerAway animated"
+      <div class="playerAway animated"
         [ngClass]="{'slideInLeft faster':viewingPlayer.away,'slideOutLeft faster':!viewingPlayer.away}">
         <div class="image">
           <div class="playerClose">
@@ -304,12 +304,13 @@
           <p>Previous Team(s)</p>
           <span>{{x.previousTeam}}</span>
           <br>
-          <hr> -->
-          <!-- <p>Acievements</p>
+          <hr>
+          <p>Acievements</p>
           <span>Best Defender</span> <br>
           <span>Best face maker</span> 
        </div> 
-       </div> -->
+       </div>
+       
       <div class="teamAway animated"
         [ngClass]="{'slideInLeft':viewingTeam.away,'slideOutLeft faster':!viewingTeam.away}">
         <div class="title">
@@ -351,6 +352,9 @@
         </button>
       </div>
       <div class="tournamentList">
+        <div class="card empty" *ngIf="tournament.length == 0" >
+          <h2>There's nothing in this secton yet.</h2>
+        </div>
         <div class="card" *ngFor="let item of tournament" (click) ='viewdetails(item)'>
           <div class="color">
 
