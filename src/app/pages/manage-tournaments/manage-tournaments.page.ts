@@ -178,7 +178,7 @@ TournSelectedObj = {
 
 
   tourndetails =[];
-  
+
   finnishSetup(tournament, state) {
     let team = {
       docid: null,
@@ -736,6 +736,7 @@ firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update
     console.log("Tourney", tournament)
     let num = 0;
     firebase.firestore().collection('participants').where('tournid', '==', tournament.docid).onSnapshot(res => {
+      this.fixture =[]
       res.forEach(val => {
 
         this.participantdocids.push({ id: val.id });
@@ -756,7 +757,7 @@ firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update
 
         else if (num % 2 == 1) {
 
-          temp.push({ ...val.data(), ...{ matchdate: null, goal: 0, whr: 'away', aoffsides: 0, acorners: 0, mins: 0, secs: 0, ayellow: 0, ared: 0, offsides: 0, corners: 0, yellow: 0, red: 0 } });
+          temp.push({ ...val.data(), ...{score:0, matchdate: null, goal: 0, whr: 'away', aoffsides: 0, acorners: 0, mins: 0, secs: 0, ayellow: 0, ared: 0, offsides: 0, corners: 0, yellow: 0, red: 0 } });
         }
         console.log(this.serve.fixture)
       })
