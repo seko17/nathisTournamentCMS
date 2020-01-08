@@ -22,7 +22,7 @@ export class ManageTournamentsPage implements OnInit {
 
   modal
   async presentModal() {
-    this.setUpTimeLine('close', null)
+    this.setUpTimeLine('close', null);
     this.modal = await this.modalController.create({
       component: SetfixturesPage,
       backdropDismiss: false,
@@ -30,10 +30,10 @@ export class ManageTournamentsPage implements OnInit {
     });
     this.modal.onWillDismiss().then(res => {
 
-      this.fixtureSetUp('open')
+      this.fixtureSetUp('open');
       this.presentLoading();
     });
-    this.promptFixtureConfig('close', null)
+    this.promptFixtureConfig('close', null);
     return await this.modal.present();
 
   }
@@ -77,14 +77,19 @@ export class ManageTournamentsPage implements OnInit {
     AcceptedApplications : 0,
 ApprovedApplications : 0,
 totalApplications : 0
-  }
+  };
   tempCardGen = []
+  acceptedVendor = []
   // array for the green cards
   approvedTournaments = []
-vendorsapplicationArray = []
+// tslint:disable-next-line:member-ordering
+vendorsapplicationArray = [] ;
 TournSelectedObj = {
   doc : {
     state  : '',
+    AcceptedApplications : 0,
+    ApprovedApplications : 0,
+    totalApplications: 0,
     formInfo : {
       tournamentName : '',
       location: '',
@@ -186,10 +191,20 @@ TournSelectedObj = {
       docid: null,
       doc: null
     }
+    let vendorObj = {
+      docid: null,
+      doc:null
+    }
     firebase.firestore().collection('newTournaments').doc(tournament.docid).collection('vendorApplications').where('status', '==', 'awaiting').onSnapshot(res =>{
+      this.vendorsapplicationArray = []
       res.forEach(doc =>{
-        console.log('vendor application',doc.data())
-        this.vendorsapplicationArray.push(doc.data())
+       console.log('vendor application',doc.data())
+        // this.vendorsapplicationArray.push(doc.data())
+        vendorObj = {
+          docid: doc.id,
+          doc: doc.data()
+        }
+        this.vendorsapplicationArray.push(vendorObj)
         
       })
     })
@@ -260,25 +275,23 @@ TournSelectedObj = {
           })
         })
       })
-
-
-
-
       this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where("status", "==", "accepted").onSnapshot(val => {
         this.accepted =[];
         val.forEach(res => {
-
           this.accepted.push({ ...form, ...{ tournid: tournament.docid }, ...{ id: res.id }, ...res.data() });
           console.log("data = ", this.accepted)
-
-
-
         })
       })
-
-    })
-
-
+      this.db.collection('newTournaments').doc(tournament.docid).collection('vendorApplications').where("status", "==", "accepted").onSnapshot(val => {
+       this.acceptedVendor = []
+        val.forEach(res => {
+       
+          
+          this.acceptedVendor.push(res.data());
+          console.log('accepted vendros',   this.acceptedVendor);
+        });
+      });
+    });
 
     switch (state) {
       case 'open':
@@ -294,9 +307,6 @@ TournSelectedObj = {
       default:
         break;
     }
-
-
-
   }
   toggleTournamentForm(state) {
     switch (state) {
@@ -373,10 +383,6 @@ TournSelectedObj = {
     }
   }
   async newTournament(formData) {
-
-
-
-
     console.log(formData)
     let loader = await this.loadingController.create({
       message: 'Creating Tournament'
@@ -620,7 +626,11 @@ TournSelectedObj = {
     console.log("Decline", x)
     let obj = {};
     obj = x;
-    this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(x.docid).update({ status: "declined" });
+    this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(x.docid).update({ status: "declined" }).then( doc =>{
+      this.db.collection('newTournaments').doc(this.tourney.docid).update({
+        DeclinedApplications: firebase.firestore.FieldValue.increment(1)
+      })
+    })
   }
   paid(c, pos) {
     // console.log(Math.ceil(Math.random() * 10))
@@ -779,7 +789,22 @@ firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update
       })
     })
   }
+  acceptVendorApplication(v){
+console.log('aaaaa',v);
+this.db.collection('newTournaments').doc(this.tourney.docid).collection('vendorApplications').doc(v.docid).update({ status: "accepted" }).then(doc =>{
+  this.db.collection('newTournaments').doc(this.tourney.docid).update({
+    AcceptedVendorApplications: firebase.firestore.FieldValue.increment(1)
+  })
+})
 
+  }
+  declineVendorApplication(v){
+this.db.collection('newTournaments').doc(this.tourney.docid).collection('vendorApplications').doc(v.docid).update({ status: "declined" }).then(doc =>{
+  this.db.collection('newTournaments').doc(this.tourney.docid).update({
+    DeclinedVendorApplications: firebase.firestore.FieldValue.increment(1)
+  })
+})
+  }
   fixtures;
   editfixture() {
     console.log("This is where you edit fixtures");

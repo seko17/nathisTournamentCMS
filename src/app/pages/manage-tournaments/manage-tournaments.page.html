@@ -193,16 +193,20 @@
     <div class="applications">
       <div class="head">
         <div [ngClass]="{'vendorApplications':vedorApplications,'vendorApplications-close':!vedorApplications}">
+          <div *ngIf="vendorsapplicationArray.length==0">
+<p>no vendor applications</p>
+          </div>
           <div class="card" *ngFor="let v of vendorsapplicationArray">
+          
             <div class="teamInfo">
-              <p><b>{{v.vendorobject.form.fullName}}</b></p>
-              <p>{{v.vendorobject.form.phoneNumber}}</p>
+              <p><b>{{v.doc.vendorobject.form.fullName}}</b></p>
+              <p>{{v.doc.vendorobject.form.phoneNumber}}</p>
             </div>
             <div class="buttons">
-              <ion-button shape="round" size="small" color="success">
+              <ion-button (click)="acceptVendorApplication(v)" shape="round" size="small" color="success">
                 Accept
               </ion-button>
-              <ion-button shape="round" size="small" color="danger">
+              <ion-button (click)="declineVendorApplication(v)"  shape="round" size="small" color="danger">
                 Decline
               </ion-button>
             </div>
@@ -287,6 +291,9 @@
                   </div>
                   <ion-button (click)="paid(item,i)">PAID</ion-button>
                 </div> -->
+              </div>
+              <div *ngFor="let i of acceptedVendor ">
+                    <p>{{i.refNumber}}</p>
               </div>
               <ion-button (click)="paid(item)">PAID</ion-button>
             </div>
@@ -499,7 +506,7 @@
                 <p>Accepted Applications</p>
               </div>
               <div class="number">
-                <h3>{{acceptednum}}</h3>
+                <h3>{{TournSelectedObj.doc.AcceptedApplications}}</h3>
               </div>
             </div>
             <div class="card">
@@ -507,7 +514,7 @@
                 <p>Approved Applications</p>
               </div>
               <div class="number">
-                <h3>{{approvednum}}</h3>
+                <h3>{{TournSelectedObj.doc.ApprovedApplications}}</h3>
               </div>
             </div>
             <div class="card">
@@ -515,7 +522,7 @@
                 <p>Total Applications</p>
               </div>
               <div class="number">
-                <h3>{{applicationsnum}}</h3>
+                <h3>{{TournSelectedObj.doc.totalApplications}}</h3>
               </div>
             </div>
           </div>
