@@ -1286,7 +1286,7 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
 
   changeview(clickedbutton)
   {
-
+    this.clicked=[];
     this.fixture=[];
 console.log(clickedbutton)
     this.db.collection('newTournaments').where('approved', '==', true).where("state","==",clickedbutton).get().then(res => {
