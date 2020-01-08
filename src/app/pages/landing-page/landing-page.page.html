@@ -190,7 +190,7 @@
             <div class="lineUps animated"
               [ngClass]="{'slideInLeft':matchView=='lineup','slideOutLeft':matchView=='summary'}">
               <div class="away">
-                <div class="card" *ngFor="let a of team1" (click)="viewPlayer('open', 'home', 'object')">
+                <div class="card" *ngFor="let a of team1" (click)="viewPlayer('open', 'home',a)">
                   <div class="number">
                     <p>30'</p>
                   </div>
@@ -294,7 +294,7 @@
             <p>Alan Bakes</p>
           </div>
         </div>
-        <div class="details">
+        <div class="details" *ngFor ="let x of playerobj">
           <p>Defender</p>
           <span>3.5 m tall</span>
           <br>
@@ -334,14 +334,14 @@
   <div class="cmsContentMain">
     <div class="tournaments">
       <div class="links">
-        <button>
-          All
+        <button (click) ="changeview('newTournament')">
+          Upcoming
         </button>
-        <button>
+        <button (click) ="changeview('inprogress')">
           InPlay
         </button>
-        <button>
-          Upcoming
+        <button (click) =" changeview('finished')">
+          History
         </button>
       </div>
       <div class="tournamentList">

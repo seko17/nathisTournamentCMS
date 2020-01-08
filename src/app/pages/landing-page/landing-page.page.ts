@@ -54,13 +54,20 @@ ainput={data:[]};
   tempCardGen = [] // temporary card generator, used for ngFor
   constructor(public alertController: AlertController,public serve:AllserveService,public zone: NgZone, public renderer: Renderer2) { 
 
+
+
+
+
+
+
     let tourn = {
       docid: null,
       doc: null,
       hasApplications: false
     }
     this.serve.tournaments =[];
-    this.db.collection('newTournaments').where('approved', '==', true).onSnapshot(res => {
+
+    this.db.collection('newTournaments').where('approved', '==', true).where("state","==","newTournament").get().then(res => {
       this.tournament=[];
       res.forEach(doc => {
   console.log(doc.data())
@@ -75,6 +82,21 @@ console.log("Menu = ",tourn)
     })
 
 // 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   }
 
@@ -112,6 +134,56 @@ matchobject:any ={};
       this.currmatch=[];
       this.matchobject=item;
       this.currmatch.push(item); 
+
+
+
+
+      firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').onSnapshot(val=>{
+    
+        val.forEach(res=>{
+           console.log( "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeew ")
+   
+          this.team1.push(res.data())
+          console.log("147= ",this.team1)
+          // this.input.data.push({name:"radio",type: 'radio',label:res.data().fullName,value:res.data().fullName})
+        })
+        // console.log( "players = ",this.input.data) 
+    })
+  
+  
+    firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').onSnapshot(val=>{
+      
+      val.forEach(res=>{
+        this.team2.push(res.data())
+        console.log( "385 = ",this.team2)
+  
+        // this.ainput.data.push({name:"radio",type: 'radio',label:res.data().fullName,value:res.data().fullName})
+      })
+      
+  
+  
+      console.log( "Aplayers = ",this.ainput.data)
+  })
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
     switch (state) {
       case 'open':
@@ -148,8 +220,13 @@ matchobject:any ={};
       }
     })
   }
+ 
   // keep in mind, the playerObj will pass null if were closing the panel
+ playerobj =[];
   viewPlayer(state, side, playerObj) {
+this. playerobj=[]
+    console.log("player obj",playerObj)
+    this.playerobj.push(playerObj);
     switch (state) {
       case 'open':
         if (side == "home") {
@@ -338,7 +415,7 @@ fixtureid;
     console.log("comp = ",this.currmatch[0].id)
     // console.log("comp = ",this.currmatch[0].aTeamObject.uid)
 
-    firebase.firestore().collection('Teams').doc(this.currmatch[0].id).collection('Players').onSnapshot(val=>{
+    firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').onSnapshot(val=>{
     
       val.forEach(res=>{
          console.log( "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeew ")
@@ -351,7 +428,7 @@ fixtureid;
   })
 
 
-  firebase.firestore().collection('Teams').doc(this.currmatch[0].id).collection('Players').onSnapshot(val=>{
+  firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').onSnapshot(val=>{
     
     val.forEach(res=>{
       this.team2.push(res.data())
@@ -1155,5 +1232,20 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
   
     await alert.present();
     this.sub.unsubscribe();
+  }
+
+  changeview(clickedbutton)
+  {
+
+    this.fixture=[];
+console.log(clickedbutton)
+    this.db.collection('newTournaments').where('approved', '==', true).where("state","==",clickedbutton).get().then(res => {
+      this.tournament=[];
+      res.forEach(doc => {
+  console.log(doc.data())
+  this.tournament.push({...{docid:doc.id},...doc.data()})
+
+      })
+    });
   }
 }
