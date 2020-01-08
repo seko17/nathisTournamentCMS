@@ -367,6 +367,22 @@
         </div>
       </div>
     </div>
+    <div class="noTournamentDetails" *ngIf="clicked.length==0" >
+      <div class="details">
+        <div>
+         <h1><u>Click on the Tournament to view it's details</u></h1>
+        </div>
+
+      </div>
+      <div class="matchList">
+        <div class="loadingList" >
+          
+            <div class="card">
+              <h5>Matches will list here</h5>
+            </div>
+        </div>
+      </div>
+    </div>
     <div class="tournamentDetails" *ngFor="let item of clicked">
       <div class="details">
         <div>
