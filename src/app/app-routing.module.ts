@@ -51,6 +51,10 @@ const routes: Routes = [
     path: 'manage-members',
     loadChildren: () => import('./pages/manage-members/manage-members.module').then( m => m.ManageMembersPageModule)
   },
+  {
+    path: 'tabs',
+    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
+  },
 
 
 
