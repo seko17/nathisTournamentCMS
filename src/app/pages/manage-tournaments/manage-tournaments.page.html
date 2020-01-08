@@ -193,10 +193,10 @@
     <div class="applications">
       <div class="head">
         <div [ngClass]="{'vendorApplications':vedorApplications,'vendorApplications-close':!vedorApplications}">
-          <div class="card" *ngFor="let team of tempCardGen">
+          <div class="card" *ngFor="let v of vendorsapplicationArray">
             <div class="teamInfo">
-              <p><b>Team Name</b></p>
-              <p>0987654321</p>
+              <p><b>{{v.vendorobject.form.fullName}}</b></p>
+              <p>{{v.vendorobject.form.phoneNumber}}</p>
             </div>
             <div class="buttons">
               <ion-button shape="round" size="small" color="success">
@@ -423,8 +423,8 @@
           <div class="title">
             <h4>Approved Tournaments</h4>
           </div>
-          <div class="approvedList">
-            <div class="card" *ngFor="let t of approvedTournaments">
+          <div class="approvedList" >
+            <div class="card" *ngFor="let t of approvedTournaments" (click)="showSideEvent(t)">
               <div class="tTitle">
                 <h5>{{t.doc.formInfo.tournamentName}}</h5>
               </div>
@@ -479,16 +479,16 @@
           </div>
       </div>
 
-      <div class="tournamentDetails" *ngFor="let t of approvedTournaments">
+      <div class="tournamentDetails" >
         <div class="details">
           <div>
-            <h4>{{t.doc.formInfo.tournamentName}}</h4>
-            <p>Top {{t.doc.formInfo.type}}</p>
+            <p>{{TournSelectedObj.doc.formInfo.tournamentName}}</p>
+            <!-- <p>Top {{t.doc.formInfo.type}}</p>
             <hr>
             <p>{{t.doc.formInfo.type}} Participants</p>
             <p>From {{t.doc.formInfo.startDate|date}} to {{t.doc.formInfo.endDate|date}}</p>
             <hr>
-            <p>Application Closing Date <br> {{t.doc.formInfo.applicationClosing|date}}</p>
+            <p>Application Closing Date <br> {{t.doc.formInfo.applicationClosing|date}}</p> -->
           </div>
 
         </div>

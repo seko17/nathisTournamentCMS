@@ -79,7 +79,21 @@ export class ManageTournamentsPage implements OnInit {
   tempCardGen = []
   // array for the green cards
   approvedTournaments = []
-
+vendorsapplicationArray = []
+TournSelectedObj = {
+  doc : {
+    state  : '',
+    formInfo : {
+      tournamentName : '',
+      location: '',
+      startDate : '',
+      endDate :'',
+      applicationClosing :''  ,     
+      joiningFee :'',
+      type :''
+    }
+  }
+}
   // array for the red cards
   unapprovedTournaments = []
   tournamentApplications = []
@@ -140,6 +154,7 @@ export class ManageTournamentsPage implements OnInit {
   }
 
   ngOnInit() {
+
     this.newTournForm = this.formBuilder.group({
       tournamentName: ['', [Validators.required, Validators.minLength((4))]],
       type: ['', Validators.required],
@@ -169,7 +184,13 @@ export class ManageTournamentsPage implements OnInit {
       docid: null,
       doc: null
     }
-
+    firebase.firestore().collection('newTournaments').doc(tournament.docid).collection('vendorApplications').where('status', '==', 'awaiting').onSnapshot(res =>{
+      res.forEach(doc =>{
+        console.log('vendor application',doc.data())
+        this.vendorsapplicationArray.push(doc.data())
+        
+      })
+    })
 
     this.generatefixtures(tournament);
     let num = 0;
@@ -594,21 +615,21 @@ export class ManageTournamentsPage implements OnInit {
     // console.log(Math.ceil(Math.random() * 10))
     console.log(pos)
     if (pos % 2 == 0) {
-      this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ bank: "paid" }).then(res => {
-        this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress => {
+      this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ status: "paid" }).then(res => {
+        // this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress => {
           this.db.collection('participants').add({ ...c, ...{ whr: 'home' } });
 
-        })
+        // })
       })
     }
     else {
-      this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ bank: "paid" }).then(res => {
-        this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress => {
+      this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ status: "paid" }).then(res => {
+        // this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress => {
           this.db.collection('participants').add({ ...c, ...{ whr: 'away' } });
 
         })
 
-      })
+      // })
     }
   }
   q1 = [];
@@ -665,7 +686,10 @@ export class ManageTournamentsPage implements OnInit {
   ionViewWillEnter() {
     this.presentLoading();
   }
-
+  showSideEvent(v){
+this.TournSelectedObj = v
+console.log('click',this.TournSelectedObj);
+  }
   async createfixture() {
     let q1 = this.fixtures;
 
@@ -752,6 +776,7 @@ firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update
     let num = 0;
     let num2 = 0;
     let num3 = 0;
+
     firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status', '==', 'awaiting').onSnapshot(rez => {
       rez.forEach(val => {
 
@@ -762,9 +787,6 @@ firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update
     })
     firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status', '==', 'accepted').get().then(rez => {
       rez.forEach(val => {
-
-
-
         firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status', '==', 'accepted').onSnapshot(rez => {
           rez.forEach(val => {
 
@@ -774,21 +796,12 @@ firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update
             console.log(num2)
           })
         })
-
-
-
-
-
         firebase.firestore().collection('participants').where('tournid', '==', t.docid).onSnapshot(rez => {
           rez.forEach(val => {
 
             num3 = num3 + 1;
             this.approvednum = num3;
-
             console.log(num3)
-
-
-
             if (num % 2 == 0) {
 
               this.hparticipants.push({ ...val.data(), ...{ whr: 'home' } })
@@ -800,5 +813,20 @@ firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update
         })
       })
     })
+  }
+}
+
+export interface  TOURN {
+  doc : {
+    state  : string
+    formInfo : {
+      tournamentName : string,
+      location: string,
+      startDate : string,
+      endDate :string,
+      applicationClosing :string       
+      joiningFee :string,
+      type :string
+    }
   }
 }
