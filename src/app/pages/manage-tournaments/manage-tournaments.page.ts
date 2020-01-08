@@ -294,6 +294,10 @@ export class ManageTournamentsPage implements OnInit {
         break;
     }
   }
+  //check tournaments vendors application
+// checkVendorApp(){
+//   this.db.collection('newTournaments').
+// }
   // selects sponsor Image
   async selectimage(image) {
 
