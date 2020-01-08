@@ -10,6 +10,8 @@ currentmatch:any ={};
 fixture:any =[];
 tournaments =[];
 blocker =false;
+firsthalf =false;
+secondhalf =false;
   constructor() { }
 
 firstdoc ={};

@@ -772,6 +772,19 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
   goals =[];
    async goal1()
   {
+
+if(this.currmatch[0].id==undefined)
+{
+  const alert = await this.alertController.create({
+    header: 'Alert!',
+    message: 'The timer needs to be running before goals can be scored.',
+    buttons: ['OK']
+  });
+
+  await alert.present();
+}
+else
+    {
     this.currentmatch =[];
   console.log("click",this.currmatch[0].id);
   
@@ -836,7 +849,7 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
   
   
   
-  
+}
     
   
              
@@ -956,6 +969,11 @@ firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid)
                                     
                                           if(x =="yellow")
                                           {
+
+
+
+
+                                            
 this.currmatch =[];
 
 
