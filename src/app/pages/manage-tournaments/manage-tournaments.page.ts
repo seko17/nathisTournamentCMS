@@ -43,6 +43,7 @@ export class ManageTournamentsPage implements OnInit {
   setUpApplicationsScreen = document.getElementsByClassName('setUpApplications');
   //  state for this screen
   setUpApplications = false;
+  sponsorImage = ''
   creatingTournament = false;
   validationMessages = {
     valid: [
@@ -332,6 +333,9 @@ TournSelectedObj = {
 //   this.db.collection('newTournaments').
 // }
   // selects sponsor Image
+  saveSponsor(){
+
+  }
   async selectimage(image) {
 
     console.log(image.name)
@@ -368,14 +372,15 @@ TournSelectedObj = {
         }, error => {
         }, () => {
           upload.snapshot.ref.getDownloadURL().then(downUrl => {
+            this.sponsorImage = downUrl
             let newSponsor = {
               image: downUrl,
 
               name: image.item(0).name
             }
             console.log(downUrl)
-            this.tournamentObj.sponsors.push(newSponsor)
-            console.log(this.tournamentObj.sponsors);
+            // this.tournamentObj.sponsors.push(newSponsor)
+            // console.log(this.tournamentObj.sponsors);
 
           });
         });
