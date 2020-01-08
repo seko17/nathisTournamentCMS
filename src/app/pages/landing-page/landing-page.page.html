@@ -337,13 +337,16 @@
   <div class="cmsContentMain">
     <div class="tournaments">
       <div class="links">
-        <button (click) ="changeview('newTournament')">
+        <button (click) ="changeview('all')" [ngClass]="{'activeFilter':filterBy=='all'}" >
+          All
+        </button>
+        <button (click) ="changeview('newTournament')" [ngClass]="{'activeFilter':filterBy=='newTournament'}">
           Upcoming
         </button>
-        <button (click) ="changeview('inprogress')">
+        <button (click) ="changeview('inprogress')" [ngClass]="{'activeFilter':filterBy=='inprogress'}">
           InPlay
         </button>
-        <button (click) =" changeview('finished')">
+        <button (click) =" changeview('finished')" [ngClass]="{'activeFilter':filterBy=='finished'}">
           History
         </button>
       </div>
