@@ -74,7 +74,9 @@ export class ManageTournamentsPage implements OnInit {
     dateCreated: null,
     sponsors: [],
     state: 'newTournament',
-
+    AcceptedApplications : 0,
+ApprovedApplications : 0,
+totalApplications : 0
   }
   tempCardGen = []
   // array for the green cards
@@ -389,6 +391,9 @@ TournSelectedObj = {
       dateCreated: date.toDateString(),
       sponsors: this.tournamentObj.sponsors,
       state: 'newTournament',
+      AcceptedApplications : 0,
+      ApprovedApplications : 0,
+      totalApplications : 0
     }
     this.db.collection('newTournaments').add(this.tournamentObj).then(async res => {
       loader.dismiss()
@@ -602,7 +607,13 @@ TournSelectedObj = {
   accept(x) {
     console.log(x)
     let obj = x;
-    this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(x.docid).update({ status: "accepted" })
+    this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(x.docid).update({
+       status: "accepted" }).then(doc =>{
+        this.db.collection('newTournaments').doc(this.tourney.docid).update({
+          AcceptedApplications: firebase.firestore.FieldValue.increment(1)
+        })
+       } )
+
   }
 
   decline(x) {
@@ -618,7 +629,10 @@ TournSelectedObj = {
       this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ status: "paid" }).then(res => {
         // this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress => {
           this.db.collection('participants').add({ ...c, ...{ whr: 'home' } });
-
+       
+          this.db.collection('newTournaments').doc(c.tournid).update({
+            ApprovedApplications: firebase.firestore.FieldValue.increment(1)
+          })
         // })
       })
     }
@@ -626,7 +640,9 @@ TournSelectedObj = {
       this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ status: "paid" }).then(res => {
         // this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress => {
           this.db.collection('participants').add({ ...c, ...{ whr: 'away' } });
-
+          this.db.collection('newTournaments').doc(c.tournid).update({
+            ApprovedApplications: firebase.firestore.FieldValue.increment(1)
+          })
         })
 
       // })
