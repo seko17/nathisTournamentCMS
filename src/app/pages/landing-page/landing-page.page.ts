@@ -260,23 +260,23 @@ export class LandingPagePage implements OnInit {
         if (side == "home") {
           this.viewTeam('close', 'home', null)
           this.viewingPlayer.home = true;
-          this.renderer.setStyle(this.homePlayerDiv[0], 'display', 'block')
+          // this.renderer.setStyle(this.homePlayerDiv[0], 'display', 'block')
         } else {
           this.viewTeam('close', 'away', null)
           this.viewingPlayer.away = true;
-          this.renderer.setStyle(this.awayPlayerDiv[0], 'display', 'block')
+          // this.renderer.setStyle(this.awayPlayerDiv[0], 'display', 'block')
         }
         break;
       case 'close':
         if (side == "home") {
           this.viewingPlayer.home = false;
           setTimeout(() => {
-            this.renderer.setStyle(this.homePlayerDiv[0], 'display', 'none')
+            // this.renderer.setStyle(this.homePlayerDiv[0], 'display', 'none')
           }, 500);
         } else {
           this.viewingPlayer.away = false;
           setTimeout(() => {
-            this.renderer.setStyle(this.awayPlayerDiv[0], 'display', 'none')
+            // this.renderer.setStyle(this.awayPlayerDiv[0], 'display', 'none')
           }, 500);
         }
         break;
@@ -755,95 +755,94 @@ export class LandingPagePage implements OnInit {
   ascore;
   tourname;
   id;
-  matchstats = [];
-  goals = [];
-  async goal1() {
+  matchstats =[];
+  goals =[];
+   async goal1()
+  {
 
-    if (this.currmatch[0].id == undefined) {
-      const alert = await this.alertController.create({
-        header: 'Alert!',
-        message: 'The timer needs to be running before goals can be scored.',
-        buttons: ['OK']
-      });
+if(this.matchstatsclick==false)
+{
+  const alert = await this.alertController.create({
+    header: 'Alert!',
+    message: 'The timer needs to be running before goals can be scored.',
+    buttons: ['OK']
+  });
 
-      await alert.present();
-    }
-    else {
-      this.currentmatch = [];
-      console.log("click", this.currmatch[0].id);
+  await alert.present();
+}
+else
+    {
+    this.currentmatch =[];
+  console.log("click",this.currmatch[0].id);
+  
+  this.goals =[];
+  
+     
+  
+  const alert = await this.alertController.create({
+    header: 'Home',
+    subHeader:'Pick Goal scorer',
+    inputs: this.input.data,
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: () => {
+          console.log('Confirm Cancel');
+        }
+      }, {
+        text: 'Ok',
+        handler: (data) => {
+          console.log(data);
+  
+  
+  console.log(this.matchobject)
+          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val=>{
+      
+           
+              console.log( val.data())
+              let obj = val.data();
+              obj.score =parseFloat(obj.score)+1;
+              this.score =obj.score;
+        
+          
+  
+              this.goals =obj.goal;
+           
+              this.id =val.id;
+              
+             
+  
+              firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({score:this.score,mins:this.mins,secs:this.secs});    
+  
+  
+  firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({goal: firebase.firestore.FieldValue.arrayUnion({scoretime:this.mins.toString()+
+  ":"+this.secs.toString(),goalscorer:data })})
 
-      this.goals = [];
-
-
-
-      const alert = await this.alertController.create({
-        header: 'Home',
-        subHeader: 'Pick Goal scorer',
-        inputs: this.input.data,
-        buttons: [
-          {
-            text: 'Cancel',
-            role: 'cancel',
-            cssClass: 'secondary',
-            handler: () => {
-              console.log('Confirm Cancel');
-            }
-          }, {
-            text: 'Ok',
-            handler: (data) => {
-              console.log(data);
-
-
-              console.log(this.matchobject)
-              firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
-
-
-                console.log(val.data())
-                let obj = val.data();
-                obj.score = parseFloat(obj.score) + 1;
-                this.score = obj.score;
-
-
-
-                this.goals = obj.goal;
-
-                this.id = val.id;
-
-
-
-                firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ score: this.score, mins: this.mins, secs: this.secs });
-
-
-                firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({
-                  goal: firebase.firestore.FieldValue.arrayUnion({
-                    scoretime: this.mins.toString() +
-                      ":" + this.secs.toString(), goalscorer: data
-                  })
-                })
-
-
-              })
-
-
-
-
-            }
-          }
-        ]
-      });
-      await alert.present();
-
-
-
-
-
-    }
-
-
-
-
-
-
+        
+            })
+            
+        
+      
+  
+        }
+      }
+    ]
+  });
+  await alert.present();
+  
+  
+  
+  
+  
+}
+    
+  
+             
+      
+  
+        
   }
 
   agoals;
