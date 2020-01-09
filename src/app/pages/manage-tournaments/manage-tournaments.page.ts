@@ -412,6 +412,21 @@ console.log("loadededed")
         console.log("current Participants = ", this.acceptednum )
       })
     })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     this.generatefixtures(tournament);
     let num = 0;
     console.log(tournament)
@@ -491,6 +506,7 @@ console.log("loadededed")
       this.db.collection('newTournaments').doc(tournament.docid).collection('vendorApplications').where("status", "==", "accepted").onSnapshot(val => {
        this.acceptedVendor = []
         val.forEach(res => {
+       
           
           this.acceptedVendor.push(res.data());
           console.log('accepted vendros',   this.acceptedVendor);
@@ -656,7 +672,7 @@ const alert = await this.alertController.create({
 await alert.present();
 
 }
-else if(applicDate <= startDat ){
+else if(applicDate >= startDat ){
   console.log('application date invalid');
   const alert = await this.alertController.create({
     header: 'Warning!',
@@ -852,14 +868,14 @@ else{
         break;
       case 'close':
         this.chooseConfigOption = false;
-        
+        /*
          setTimeout(() => {
-          // this.renderer.setStyle(this.setUpFixturesDiv[0],'display','flex');
+          this.renderer.setStyle(this.setUpFixturesDiv[0],'display','flex');
          this.renderer.setStyle(this.configOptionDiv[0], 'display', 'none');
          }, 500);
-        //  this.presentModal();
+         this.presentModal();
         console.log('will close');
-        
+        */
         this.fixture = this.serve.fixture;
 
         console.log("fixture here", this.fixture)
@@ -1127,15 +1143,23 @@ this.tournid =t.docid;
   
 
 
-    const loading = await this.loadingController.create({
-      spinner:"bubbles",
-      duration: 3000
-    });
-    await loading.present();
 
 
 
-loading.onDidDismiss().then(val=>{
+
+{
+
+
+
+  
+
+
+
+
+
+
+
+
 
     firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status', '==', 'awaiting').onSnapshot(rez => {
       rez.forEach(val => {
