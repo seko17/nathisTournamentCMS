@@ -707,19 +707,35 @@
       align-items: center;
 
       .stats {
-        width: 100%;
+        width: 50%;
         height: 100%;
         margin: 0px auto;
-        background: #387336;
+        background: #05A66B;
         color: white;
         overflow: hidden;
         border-radius: 15px;
         position: relative;
-        display: flex;
-        align-content: center;
-        flex-wrap: wrap;
+        /* display: -webkit-box; */
+        /* display: flex; */
+        /* flex-direction: column; */
+        /* flex-wrap: wrap; */
+        -webkit-box-pack: center;
         justify-content: center;
-
+        overflow-y: auto;
+        padding-top: 37px;
+        .h {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          background: #012615;
+          color: white;
+          text-align: center;
+          p {
+            margin: 5px auto;
+            font-size: .8em;
+          }
+        }
         .card {
           min-width: 30%;
           max-width: 50%;
@@ -728,9 +744,10 @@
           color: black;
           border-radius: 10px;
           overflow: hidden;
+          margin: 10px auto;
 
           .title {
-            background: green;
+            background: #02734A;
             color: rgb(255, 255, 255);
             padding: 10px;
 
@@ -752,6 +769,7 @@
           }
         }
       }
+      
     }
 
   }

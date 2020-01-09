@@ -547,6 +547,9 @@
         </div>
         <div class="matchList">
           <div class="stats">
+            <div class="h">
+              <p>Team Applications</p>
+            </div>
             <div class="card">
               <div class="title">
                 <p>Accepted Applications</p>
@@ -571,8 +574,42 @@
                 <h3>{{TournSelectedObj.doc.totalApplications}}</h3>
               </div>
             </div>
+            <div class="s">
+              <ion-icon name="arrow-down"></ion-icon>
+            </div>
           </div>
-
+          <div class="stats">
+            <div class="h">
+              <p>Vendor Applications</p>
+            </div>
+            <div class="card">
+              <div class="title">
+                <p>Accepted Applications</p>
+              </div>
+              <div class="number">
+                <h3>{{TournSelectedObj.doc.AcceptedApplications}}</h3>
+              </div>
+            </div>
+            <div class="card">
+              <div class="title">
+                <p>Approved Applications</p>
+              </div>
+              <div class="number">
+                <h3>{{TournSelectedObj.doc.ApprovedApplications}}</h3>
+              </div>
+            </div>
+            <div class="card">
+              <div class="title">
+                <p>Total Applications</p>
+              </div>
+              <div class="number">
+                <h3>{{TournSelectedObj.doc.totalApplications}}</h3>
+              </div>
+            </div>
+            <div class="s">
+              <ion-icon name="arrow-down"></ion-icon>
+            </div>
+          </div>
         </div>
       </div>
     </div>
