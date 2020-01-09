@@ -278,6 +278,7 @@ progressOfImage = 0
     
   }
 
+  type:number;
   ngOnInit() {
 
     this.newTournForm = this.formBuilder.group({
@@ -303,16 +304,13 @@ progressOfImage = 0
 
 
   tourndetails =[];
-
+  disablefixtures=true;
+lengthparticipents:number =0;
   async finnishSetup(tournament, state) {
 
-
+this.lengthparticipents =0;
     console.log(state,tournament)
-    const loading = await this.loadingController.create({
-      spinner:"bubbles",
-      duration: 3000
-    });
-    await loading.present();
+
 
     if(tournament.docid ==null)
 
@@ -357,7 +355,31 @@ console.log("finish setup")
       })
     })
     firebase.firestore().collection('participants').where("whr", "==", "away").where("tournid","==",tournament.docid).onSnapshot(val => {
-      val.forEach(res => {
+      val.forEach(async res => {
+this.type = res.data().type;
+this.lengthparticipents=res.data.length+this.lengthparticipents;
+this.type = parseFloat(this.type.toString());
+
+console.log("loadededed")
+
+
+    if(this.lengthparticipents==this.type)
+    {
+    
+    this.disablefixtures=false;
+    
+    
+    const alert = await this.alertController.create({
+      header: 'Good news:-)',
+      message: 'The fixtures are ready to be set.',
+      buttons: ['OK']
+    });
+    
+    await alert.present();
+    
+    }
+
+
 
         this.aparticipants.push({ ...{ id: res.id }, ...res.data() })
         console.log("current Participants = ", this.aparticipants)
@@ -375,6 +397,12 @@ console.log("finish setup")
         console.log("current Participants = ", this.acceptednum)
       })
     })
+
+
+
+
+
+
 
 
 
@@ -1043,15 +1071,11 @@ this.tournid =t.docid;
   
 
 
-    const loading = await this.loadingController.create({
-      spinner:"bubbles",
-      duration: 3000
-    });
-    await loading.present();
 
 
 
-loading.onDidDismiss().then(val=>{
+
+{
 
 
 
@@ -1101,7 +1125,7 @@ loading.onDidDismiss().then(val=>{
         })
       })
     })
-  })
+}
   }
 }
 
