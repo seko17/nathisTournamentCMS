@@ -304,7 +304,24 @@ progressOfImage = 0
 
   tourndetails =[];
 
-  finnishSetup(tournament, state) {
+  async finnishSetup(tournament, state) {
+
+
+    console.log(state,tournament)
+    const loading = await this.loadingController.create({
+      spinner:"bubbles",
+      duration: 3000
+    });
+    await loading.present();
+
+    if(tournament.docid ==null)
+
+{
+
+}
+
+else
+    {
     let team = {
       docid: null,
       doc: null
@@ -465,6 +482,8 @@ console.log("finish setup")
       default:
         break;
     }
+
+  }
   }
   toggleTournamentForm(state) {
     switch (state) {
@@ -873,6 +892,8 @@ this.sponsorImage = ''
           duration: 2000
         });
         toast.present();
+
+        return 0;
       }
       else {
         // firebase.firestore().collection('MatchFixtures').add(z).then(val => {
