@@ -278,6 +278,7 @@ progressOfImage = 0
     
   }
 
+  type:number;
   ngOnInit() {
 
     this.newTournForm = this.formBuilder.group({
@@ -303,7 +304,9 @@ progressOfImage = 0
 
 
   tourndetails =[];
-
+  disablefixtures=true;
+  disablepaid=false;
+lengthparticipents:number =0;
   async finnishSetup(tournament, state) {
     // please keep this switch statement at the top
     switch (state) {
@@ -322,11 +325,7 @@ progressOfImage = 0
     }
 
     console.log(state,tournament)
-    const loading = await this.loadingController.create({
-      spinner:"bubbles",
-      duration: 3000
-    });
-    await loading.present();
+
 
     if(tournament.docid ==null)
 
@@ -371,7 +370,31 @@ console.log("finish setup")
       })
     })
     firebase.firestore().collection('participants').where("whr", "==", "away").where("tournid","==",tournament.docid).onSnapshot(val => {
-      val.forEach(res => {
+      val.forEach(async res => {
+this.type = res.data().type;
+this.lengthparticipents=res.data.length+this.lengthparticipents;
+this.type = parseFloat(this.type.toString());
+
+console.log("loadededed")
+
+
+    if(this.lengthparticipents==this.type)
+    {
+    
+    this.disablefixtures=false;
+    this.disablepaid =true;
+    
+    const alert = await this.alertController.create({
+      header: 'Good news:-)',
+      message: 'The fixtures are ready to be set.',
+      buttons: ['OK']
+    });
+    
+    await alert.present();
+    
+    }
+
+
 
         this.aparticipants.push({ ...{ id: res.id }, ...res.data() })
         console.log("current Participants = ", this.aparticipants)
@@ -386,9 +409,15 @@ console.log("finish setup")
         console.log("current Participants = ", this.cparticipants)
 
         this.acceptednum = this.cparticipants.length;
-        console.log("current Participants = ", this.acceptednum)
+        console.log("current Participants = ", this.acceptednum )
       })
     })
+
+
+
+
+
+
 
 
 
@@ -468,7 +497,10 @@ console.log("finish setup")
         this.accepted =[];
         val.forEach(res => {
           this.accepted.push({ ...form, ...{ tournid: tournament.docid }, ...{ id: res.id }, ...res.data() });
-          console.log("data = ", this.accepted)
+          console.log("datazi = ", this.accepted.length==this.lengthparticipents)
+      
+        
+        
         })
       })
       this.db.collection('newTournaments').doc(tournament.docid).collection('vendorApplications').where("status", "==", "accepted").onSnapshot(val => {
@@ -546,11 +578,9 @@ this.sponsorImage = ''
   }
 
   async selectimage(image) {
-
     console.log(image.name)
     let imagetosend = image.item(0);
     console.log(imagetosend);
-
     if (!imagetosend) {
       const imgalert = await this.alertCtrl.create({
         message: 'Select image to upload',
@@ -598,8 +628,63 @@ this.sponsorImage = ''
       }
     }
   }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Alert',
+      subHeader: 'Subtitle',
+      message: 'This is an alert message.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
   async newTournament(formData) {
-    console.log(formData)
+    let today = new Date();
+    let  date = new Date(today.toDateString());
+    let startDat = new Date(formData.startDate);
+    let endDate  = new Date(formData.endDate);
+    let applicDate = new Date(formData.applicationClosing)
+    console.log('today', date);
+    console.log('past date',startDat)
+
+if(date > startDat){
+
+const alert = await this.alertController.create({
+  header: 'Warning!',
+  subHeader: 'Invalid Tournament start Date',
+  message: 'Please select date from today onwards',
+  buttons: ['OK']
+});
+
+await alert.present();
+
+}
+else if(endDate < startDat){
+console.log('tournament end invalid');
+const alert = await this.alertController.create({
+  header: 'Warning!',
+  subHeader: 'Invalid Tournament end Date',
+  message: 'Please select date from today onwards',
+  buttons: ['OK']
+});
+
+await alert.present();
+
+}
+else if(applicDate >= startDat ){
+  console.log('application date invalid');
+  const alert = await this.alertController.create({
+    header: 'Warning!',
+    subHeader: 'Invalid Application application Date',
+    message: 'Please select date from today onwards',
+    buttons: ['OK']
+  });
+  
+  await alert.present();
+}
+else{
+  console.log('se',formData.startDate)
     let loader = await this.loadingController.create({
       message: 'Creating Tournament'
     })
@@ -651,6 +736,9 @@ this.sponsorImage = ''
       })
       alerter.present()
     })
+}
+
+  
 
   }
   getApprovedTournaments() {
@@ -848,9 +936,19 @@ this.sponsorImage = ''
       })
     })
   }
+
+
+
+
   paid(c, pos) {
     // console.log(Math.ceil(Math.random() * 10))
     console.log(pos)
+if(this.disablepaid==true)
+{
+
+}
+else
+    {
     if (pos % 2 == 0) {
       this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ status: "paid" }).then(res => {
         // this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress => {
@@ -872,6 +970,7 @@ this.sponsorImage = ''
         })
 
       // })
+    }
     }
   }
   q1 = [];
@@ -1044,15 +1143,11 @@ this.tournid =t.docid;
   
 
 
-    const loading = await this.loadingController.create({
-      spinner:"bubbles",
-      duration: 3000
-    });
-    await loading.present();
 
 
 
-loading.onDidDismiss().then(val=>{
+
+{
 
     firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status', '==', 'awaiting').onSnapshot(rez => {
       rez.forEach(val => {
@@ -1090,7 +1185,7 @@ loading.onDidDismiss().then(val=>{
         })
       })
     })
-  })
+}
   }
 }
 

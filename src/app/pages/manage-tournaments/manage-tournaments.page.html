@@ -15,11 +15,11 @@
 
       <hr>
 
-      <ion-button color="success" shape="round" (click)="generate()">
+      <ion-button color="success" shape="round" [disabled] ="disablefixtures" (click)="generate()">
         Generate it
       </ion-button>
       <br>
-      <ion-button fill="clear" color="light" (click)="setUpTimeLine('open',null)">
+      <ion-button [disabled] ="disablefixtures" fill="clear" color="light" (click)="setUpTimeLine('open',null)">
         I'll do it
       </ion-button>
     </div>
@@ -309,7 +309,7 @@
                 <div *ngFor="let i of acceptedVendor ">
                   <p>{{i.refNumber}}</p>
                 </div>
-                <ion-button (click)="paid(item)">PAID</ion-button>
+                <ion-button (click)="paid(item)" [disabled]="disablepaid">PAID</ion-button>
               </div>
             </div>
 
@@ -349,7 +349,7 @@
           <div class="head">
             <h1>Participating Teams <sub>Paid</sub></h1>
           </div>
-          <div class="paidList">
+          <div class="paidList" >
             <div class="card" *ngFor="let item of cparticipants" (click)="promptFixtureConfig('open',cparticipants)">
               <div class="details">
                 <h5 style="margin: 0;">Kasi Team</h5>
