@@ -10,6 +10,7 @@ import { SetfixturePage } from 'src/app/setfixture/setfixture.page';
 import { AllserveService } from 'src/app/services/allserve.service';
 import { Subscription, Observable, observable, timer } from 'rxjs';
 import { Motus } from "motus";
+
 @Component({
   selector: 'app-manage-tournaments',
   templateUrl: './manage-tournaments.page.html',
@@ -273,41 +274,8 @@ progressOfImage = 0
 
     let num = 0;
 
-
-    // firebase.firestore().collection('participants').onSnapshot(val=>{
-    //   val.forEach(res=>{
-    //     res.data()
-    //   })
-    // })
-
-    this.hparticipants = [];
-    this.aparticipants = [];
-    firebase.firestore().collection('participants').where("whr", "==", "home").onSnapshot(val => {
-      val.forEach(res => {
-
-        this.hparticipants.push({ ...{ id: res.id }, ...res.data() })
-        console.log("current Participants = ", this.hparticipants)
-      })
-    })
-    firebase.firestore().collection('participants').where("whr", "==", "away").onSnapshot(val => {
-      val.forEach(res => {
-
-        this.aparticipants.push({ ...{ id: res.id }, ...res.data() })
-        console.log("current Participants = ", this.aparticipants)
-      })
-    })
-
-
-    firebase.firestore().collection('participants').onSnapshot(val => {
-      val.forEach(res => {
-
-        this.cparticipants.push({ ...{ id: res.id }, ...res.data() })
-        console.log("current Participants = ", this.cparticipants)
-
-        this.acceptednum = this.cparticipants.length;
-        console.log("current Participants = ", this.acceptednum)
-      })
-    })
+ 
+    
   }
 
   ngOnInit() {
@@ -336,7 +304,38 @@ progressOfImage = 0
 
   tourndetails =[];
 
-  finnishSetup(tournament, state) {
+  async finnishSetup(tournament, state) {
+    // please keep this switch statement at the top
+    switch (state) {
+      case 'open':
+        this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
+        this.setUpApplications = true;
+        break;
+      case 'close':
+        this.setUpApplications = false;
+        setTimeout(() => {
+          this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'none');
+        }, 500);
+        break;
+      default:
+        break;
+    }
+
+    console.log(state,tournament)
+    const loading = await this.loadingController.create({
+      spinner:"bubbles",
+      duration: 3000
+    });
+    await loading.present();
+
+    if(tournament.docid ==null)
+
+{
+
+}
+
+else
+    {
     let team = {
       docid: null,
       doc: null
@@ -358,6 +357,46 @@ progressOfImage = 0
         
       })
     })
+
+
+
+console.log("finish setup")
+
+
+    firebase.firestore().collection('participants').where("whr", "==", "home").where("tournid","==",tournament.docid).onSnapshot(val => {
+      val.forEach(res => {
+
+        this.hparticipants.push({ ...{ id: res.id }, ...res.data() })
+        console.log("current Participants = ", this.hparticipants)
+      })
+    })
+    firebase.firestore().collection('participants').where("whr", "==", "away").where("tournid","==",tournament.docid).onSnapshot(val => {
+      val.forEach(res => {
+
+        this.aparticipants.push({ ...{ id: res.id }, ...res.data() })
+        console.log("current Participants = ", this.aparticipants)
+      })
+    })
+
+
+    firebase.firestore().collection('participants').where("tournid","==",tournament.docid).onSnapshot(val => {
+      val.forEach(res => {
+
+        this.cparticipants.push({ ...{ id: res.id }, ...res.data() })
+        console.log("current Participants = ", this.cparticipants)
+
+        this.acceptednum = this.cparticipants.length;
+        console.log("current Participants = ", this.acceptednum)
+      })
+    })
+
+
+
+
+
+
+
+
 
     this.generatefixtures(tournament);
     let num = 0;
@@ -443,20 +482,8 @@ progressOfImage = 0
       });
     });
 
-    switch (state) {
-      case 'open':
-        this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
-        this.setUpApplications = true;
-        break;
-      case 'close':
-        this.setUpApplications = false;
-        setTimeout(() => {
-          this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'none');
-        }, 500);
-        break;
-      default:
-        break;
-    }
+
+  }
   }
   toggleTournamentForm(state) {
     switch (state) {
@@ -921,6 +948,8 @@ else{
           duration: 2000
         });
         toast.present();
+
+        return 0;
       }
       else {
         // firebase.firestore().collection('MatchFixtures').add(z).then(val => {
@@ -955,6 +984,7 @@ else{
 
   }
   ionViewWillEnter() {
+
     this.presentLoading();
   }
   showSideEvent(v){
@@ -1057,12 +1087,40 @@ this.db.collection('newTournaments').doc(this.tourney.docid).collection('vendorA
     this.fixture = this.fixtures;
     this.fixtures = [];
   }
-  moredetails(t) {
 
+  tournid =null;
+ async moredetails(t) {
+this.tournid =t.docid;
     console.log(t)
     let num = 0;
     let num2 = 0;
     let num3 = 0;
+    this.hparticipants = [];
+    this.aparticipants = [];
+  
+
+
+    const loading = await this.loadingController.create({
+      spinner:"bubbles",
+      duration: 3000
+    });
+    await loading.present();
+
+
+
+loading.onDidDismiss().then(val=>{
+
+
+
+  
+
+
+
+
+
+
+
+
 
     firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status', '==', 'awaiting').onSnapshot(rez => {
       rez.forEach(val => {
@@ -1100,6 +1158,7 @@ this.db.collection('newTournaments').doc(this.tourney.docid).collection('vendorA
         })
       })
     })
+  })
   }
 }
 

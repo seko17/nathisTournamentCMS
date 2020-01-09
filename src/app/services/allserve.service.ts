@@ -9,7 +9,7 @@ q2:any =[];
 currentmatch:any ={};
 fixture:any =[];
 tournaments =[];
-blocker =false;
+blocker =true;
 firsthalf =false;
 secondhalf =false;
   constructor() { }
