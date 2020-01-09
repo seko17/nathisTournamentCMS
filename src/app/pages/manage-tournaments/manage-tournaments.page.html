@@ -274,6 +274,7 @@
             <ion-input type="text" placeholder="Search Reference Number"></ion-input>
           </div>
           <div class="stillToPayList">
+           <div class="managerApplications">
             <div class="card" *ngFor="let item of accepted">
               <div class="details">
                 <h5 style="margin: 0;">{{item.TeamObject.coachName}}</h5>
@@ -297,6 +298,32 @@
               </div>
               <ion-button (click)="paid(item)">PAID</ion-button>
             </div>
+           </div>
+           <div class="vendorApplications">
+            <div class="card" *ngFor="let item of accepted">
+              <div class="details">
+                <h5 style="margin: 0;">{{item.TeamObject.coachName}}</h5>
+                <p style="margin: 0;">Coach <b>{{item.TeamObject.coachName}}</b></p>
+              </div>
+              <div class="stillToPayList">
+                <!-- <div class="card" *ngFor="let item of accepted,let i = index">
+                  <div class="details">
+                    <h5 style="margin: 0;">{{item.TeamObject.coachName}}</h5>
+                    <p style="margin: 0;">Coach <b>{{item.TeamObject.coachName}}</b></p>
+                  </div>
+                  <div class="refNumber">
+
+                    <p> <sub style="font-size: 10px;margin: 0;padding: 0;">Reference.No </sub> <br> RTY75G</p>
+                  </div>
+                  <ion-button (click)="paid(item,i)">PAID</ion-button>
+                </div> -->
+              </div>
+              <div *ngFor="let i of acceptedVendor ">
+                    <p>{{i.refNumber}}</p>
+              </div>
+              <ion-button (click)="paid(item)">PAID</ion-button>
+            </div>
+           </div>
           </div>
         </div>
         <div class="participatingTeams">

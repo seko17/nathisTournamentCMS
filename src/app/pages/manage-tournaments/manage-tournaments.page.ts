@@ -307,8 +307,22 @@ progressOfImage = 0
   disablefixtures=true;
 lengthparticipents:number =0;
   async finnishSetup(tournament, state) {
+    // please keep this switch statement at the top
+    switch (state) {
+      case 'open':
+        this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
+        this.setUpApplications = true;
+        break;
+      case 'close':
+        this.setUpApplications = false;
+        setTimeout(() => {
+          this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'none');
+        }, 500);
+        break;
+      default:
+        break;
+    }
 
-this.lengthparticipents =0;
     console.log(state,tournament)
 
 
@@ -496,20 +510,6 @@ console.log("loadededed")
       });
     });
 
-    switch (state) {
-      case 'open':
-        this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
-        this.setUpApplications = true;
-        break;
-      case 'close':
-        this.setUpApplications = false;
-        setTimeout(() => {
-          this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'none');
-        }, 500);
-        break;
-      default:
-        break;
-    }
 
   }
   }
@@ -956,6 +956,7 @@ this.sponsorImage = ''
 
   }
   ionViewWillEnter() {
+
     this.presentLoading();
   }
   showSideEvent(v){
