@@ -68,19 +68,19 @@
                 src="https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/kxm6rmrs69f9txyidrjk/zenit-saint-petersburg-2019-20-stadium-home-football-shirt-k1WvdX.jpg"
                 alt="">
                 <div class="homeButton animated" [ngClass]="{'bounceInLeft':matchActionState.home,'bounceOutLeft':!matchActionState.home}">
-                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'home')" (click)="goal1()">
+                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'home')" (click)="goal1()" [disabled] ="blocker">
                     Goal
                   </ion-button>
-                  <ion-button size="small" shape="round" color="danger" (click)="homestats('red')">
+                  <ion-button size="small" shape="round" color="danger" (click)="homestats('red')"  [disabled] ="blocker">
                     Red Card
                   </ion-button>
-                  <ion-button size="small" shape="round" color="warning" (click)="homestats('yellow')">
+                  <ion-button size="small" shape="round" color="warning" (click)="homestats('yellow')"  [disabled] ="blocker">
                     Yellow Card
                   </ion-button>
-                  <ion-button size="small" shape="round" color="light" (click)="homestats('offsides')">
+                  <ion-button size="small" shape="round" color="light" (click)="homestats('offsides')"  [disabled] ="blocker">
                     Off Side
                   </ion-button>
-                  <ion-button size="small" shape="round" color="light" (click)="homestats('corners')">
+                  <ion-button size="small" shape="round" color="light" (click)="homestats('corners')" [disabled] ="blocker">
                     Corner Kick
                   </ion-button>
                 </div>
@@ -157,19 +157,19 @@
                 src="https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/kxm6rmrs69f9txyidrjk/zenit-saint-petersburg-2019-20-stadium-home-football-shirt-k1WvdX.jpg"
                 alt="">
                 <div class="awayButton animated" [ngClass]="{'bounceInRight':matchActionState.away,'bounceOutRight':!matchActionState.away}" >
-                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'away')"  (click)="goal2()">
+                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'away')"  (click)="goal2()" [disabled] ="blocker">
                     Goal
                   </ion-button>
-                  <ion-button size="small" shape="round" color="danger" (click)=" awaystats('red')">
+                  <ion-button size="small" shape="round" color="danger" (click)=" awaystats('red')" [disabled] ="blocker">
                     Red Card
                   </ion-button>
-                  <ion-button size="small" shape="round" color="warning" (click)=" awaystats('yellow')">
+                  <ion-button size="small" shape="round" color="warning" (click)=" awaystats('yellow')" [disabled] ="blocker">
                     Yellow Card
                   </ion-button>
-                  <ion-button size="small" shape="round" color="light"  (click)=" awaystats('offsides')">
+                  <ion-button size="small" shape="round" color="light"  (click)=" awaystats('offsides')" [disabled] ="blocker">
                     Off Side
                   </ion-button>
-                  <ion-button size="small" shape="round" color="light" (click)=" awaystats('corners')">
+                  <ion-button size="small" shape="round" color="light" (click)=" awaystats('corners')" [disabled] ="blocker">
                     Corner Kick
                   </ion-button>
                 </div>
