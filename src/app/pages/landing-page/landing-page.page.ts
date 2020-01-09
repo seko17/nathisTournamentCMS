@@ -1142,4 +1142,39 @@ loading.onDidDismiss().then(async val=>{
         break;
     }
   }
+
+
+
+  async alterminutes() {
+    const alert = await this.alertController.create({
+      header: 'Time Adjustment!',
+      inputs: [
+        {
+          name: 'time',
+          type: 'number',
+          placeholder: 'Enter the number of minutes.'
+        }],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Okay',
+          handler: (time) => {
+            console.log('Confirm Okay' ,time.time);
+            this.mins =parseFloat(time.time.toString());
+            console.log(parseFloat(time.time.toString()))
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+
 }
