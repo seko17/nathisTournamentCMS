@@ -519,11 +519,9 @@ this.sponsorImage = ''
   }
 
   async selectimage(image) {
-
     console.log(image.name)
     let imagetosend = image.item(0);
     console.log(imagetosend);
-
     if (!imagetosend) {
       const imgalert = await this.alertCtrl.create({
         message: 'Select image to upload',
@@ -571,8 +569,63 @@ this.sponsorImage = ''
       }
     }
   }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Alert',
+      subHeader: 'Subtitle',
+      message: 'This is an alert message.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
   async newTournament(formData) {
-    console.log(formData)
+    let today = new Date();
+    let  date = new Date(today.toDateString());
+    let startDat = new Date(formData.startDate);
+    let endDate  = new Date(formData.endDate);
+    let applicDate = new Date(formData.applicationClosing)
+    console.log('today', date);
+    console.log('past date',startDat)
+
+if(date > startDat){
+
+const alert = await this.alertController.create({
+  header: 'Warning!',
+  subHeader: 'Invalid Tournament start Date',
+  message: 'Please select date from today onwards',
+  buttons: ['OK']
+});
+
+await alert.present();
+
+}
+else if(endDate < startDat){
+console.log('tournament end invalid');
+const alert = await this.alertController.create({
+  header: 'Warning!',
+  subHeader: 'Invalid Tournament end Date',
+  message: 'Please select date from today onwards',
+  buttons: ['OK']
+});
+
+await alert.present();
+
+}
+else if(applicDate >= startDat ){
+  console.log('application date invalid');
+  const alert = await this.alertController.create({
+    header: 'Warning!',
+    subHeader: 'Invalid Application application Date',
+    message: 'Please select date from today onwards',
+    buttons: ['OK']
+  });
+  
+  await alert.present();
+}
+else{
+  console.log('se',formData.startDate)
     let loader = await this.loadingController.create({
       message: 'Creating Tournament'
     })
@@ -624,6 +677,9 @@ this.sponsorImage = ''
       })
       alerter.present()
     })
+}
+
+  
 
   }
   getApprovedTournaments() {
