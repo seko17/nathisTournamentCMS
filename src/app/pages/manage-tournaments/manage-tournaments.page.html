@@ -252,24 +252,21 @@
     <!-- TOURNAMENT DETAILS -->
     <div class="management">
       <div class="tournamentData" *ngFor="let x of tourndetails">
-        <h1>{{x.tournamentName}}</h1>
+        <h1>{{x.doc.formInfo.tournamentName}}</h1>
         <div class="splitter">
           <div class="one">
-            <p>{{x.location}}</p>
+            <p>{{x.doc.formInfo.type}}</p>
             <p>Participants</p>
             <hr>
             <p>Closing Date</p>
-            <p>{{x.applicationClosing}}</p>
+            <p>{{x.doc.formInfo.applicationClosing | date}}</p>
           </div>
           <div class="two">
-            <p>From {{x.startDate}}, to {{x.endDate}}</p>
-            <p>Fee - R{{x.joiningFee}}</p>
+            <p>From {{x.doc.formInfo.startDate | date}} <b>TO</b> {{x.doc.formInfo.endDate | date}}</p>
+            <p>Fee - R{{x.doc.formInfo.joiningFee}}</p>
             <hr>
             <p>Sponsors</p>
-            <span><img
-             
-                alt="Sponsor"></span>
-        
+            <span *ngFor="let i of x.doc.sponsors"><img src="{{i.sponsorImage}}" alt="Sponsor"></span>
           </div>
         </div>
       </div>
