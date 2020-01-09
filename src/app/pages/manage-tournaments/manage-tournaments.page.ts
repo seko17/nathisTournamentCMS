@@ -780,14 +780,14 @@ this.sponsorImage = ''
         break;
       case 'close':
         this.chooseConfigOption = false;
-        /*
+        
          setTimeout(() => {
-          this.renderer.setStyle(this.setUpFixturesDiv[0],'display','flex');
+          // this.renderer.setStyle(this.setUpFixturesDiv[0],'display','flex');
          this.renderer.setStyle(this.configOptionDiv[0], 'display', 'none');
          }, 500);
-         this.presentModal();
+        //  this.presentModal();
         console.log('will close');
-        */
+        
         this.fixture = this.serve.fixture;
 
         console.log("fixture here", this.fixture)
@@ -1053,18 +1053,6 @@ this.tournid =t.docid;
 
 
 loading.onDidDismiss().then(val=>{
-
-
-
-  
-
-
-
-
-
-
-
-
 
     firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status', '==', 'awaiting').onSnapshot(rez => {
       rez.forEach(val => {
