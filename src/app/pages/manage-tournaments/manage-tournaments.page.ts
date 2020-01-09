@@ -10,6 +10,7 @@ import { SetfixturePage } from 'src/app/setfixture/setfixture.page';
 import { AllserveService } from 'src/app/services/allserve.service';
 import { Subscription, Observable, observable, timer } from 'rxjs';
 import { Motus } from "motus";
+import { DragdropPage } from '../dragdrop/dragdrop.page';
 
 @Component({
   selector: 'app-manage-tournaments',
@@ -25,7 +26,7 @@ export class ManageTournamentsPage implements OnInit {
   async presentModal() {
     this.setUpTimeLine('close', null);
     this.modal = await this.modalController.create({
-      component: SetfixturesPage,
+      component: DragdropPage,
       backdropDismiss: false,
       showBackdrop: true
     });
@@ -328,7 +329,6 @@ lengthparticipents:number =0;
 
 
     if(tournament.docid ==null)
-
 {
 
 }
@@ -343,6 +343,9 @@ else
       docid: null,
       doc:null
     }
+
+this.serve.tournid =tournament.docid;
+
     firebase.firestore().collection('newTournaments').doc(tournament.docid).collection('vendorApplications').where('status', '==', 'awaiting').onSnapshot(res =>{
       this.vendorsapplicationArray = []
       res.forEach(doc =>{
@@ -378,21 +381,21 @@ this.type = parseFloat(this.type.toString());
 console.log("loadededed")
 
 
-    if(this.lengthparticipents==this.type)
-    {
+    // if(this.lengthparticipents==this.type)
+    // {
     
-    this.disablefixtures=false;
-    this.disablepaid =true;
+    // this.disablefixtures=false;
+    // this.disablepaid =true;
     
-    const alert = await this.alertController.create({
-      header: 'Good news:-)',
-      message: 'The fixtures are ready to be set.',
-      buttons: ['OK']
-    });
+    // const alert = await this.alertController.create({
+    //   header: 'Good news:-)',
+    //   message: 'The fixtures are ready to be set.',
+    //   buttons: ['OK']
+    // });
     
-    await alert.present();
+    // await alert.present();
     
-    }
+    // }
 
 
 

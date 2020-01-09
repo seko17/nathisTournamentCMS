@@ -1,0 +1,39 @@
+
+ 
+<ion-content forceOverscroll="false">
+  <ion-grid>
+ 
+ 
+ 
+ 
+    <ion-row no-padding class="matrix">
+      <ion-col size="6" class="q1">
+        <div class="q-header">Do</div>
+        <ion-list dragula="bag" [(dragulaModel)]="q1" lines="none">
+          <ion-item *ngFor="let item of q1" [color]="item.color" expand="block" text-wrap>
+            {{ item.TeamObject.teamName }}
+          </ion-item>
+        </ion-list>
+      </ion-col>
+ 
+      <ion-col size="6" class="q2">
+        <div class="q-header">AWAY</div>
+        <ion-list dragula="bag" [(dragulaModel)]="q2" lines="none">
+          <ion-item *ngFor="let item of q2" [color]="item.color" expand="block" text-wrap>
+            <h5>{{ item.TeamObject.teamName }}</h5>
+          
+          </ion-item>
+        </ion-list>
+      </ion-col>
+ 
+     
+      <ion-button (click)="savefixture(q1,q2)" >
+        Done
+      </ion-button>
+     
+    </ion-row>
+  </ion-grid>
+ 
+
+ 
+</ion-content>

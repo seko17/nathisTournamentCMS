@@ -13,10 +13,11 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SetfixturesPage } from './pages/setfixtures/setfixtures.page';
 import { SetfixturePage } from './setfixture/setfixture.page';
+import { DragdropPage } from './pages/dragdrop/dragdrop.page';
 
 @NgModule({
-  declarations: [AppComponent,SetfixturesPage],
-  entryComponents: [SetfixturesPage],
+  declarations: [AppComponent,SetfixturesPage,DragdropPage],
+  entryComponents: [SetfixturesPage,DragdropPage],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
     DragulaModule.forRoot()],
   providers: [

@@ -43,7 +43,8 @@ const routes: Routes = [
   {
     path: 'setup-matches',
     loadChildren: () => import('./pages/setup-matches/setup-matches.module').then( m => m.SetupMatchesPageModule)
-  },  {
+  },
+  {
     path: 'setfixture',
     loadChildren: () => import('./setfixture/setfixture.module').then( m => m.SetfixturePageModule)
   },
@@ -54,6 +55,10 @@ const routes: Routes = [
   {
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
+  },
+  {
+    path: 'dragdrop',
+    loadChildren: () => import('./pages/dragdrop/dragdrop.module').then( m => m.DragdropPageModule)
   },
 
 
