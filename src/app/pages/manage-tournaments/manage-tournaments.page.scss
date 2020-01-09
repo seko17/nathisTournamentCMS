@@ -485,7 +485,7 @@
       right: 30vw;
       top: 10px;
       overflow-y: auto;
-      background-image: radial-gradient(circle, #38733610, #25375913);
+      background:#ffffffbd;
       border-radius: 5px;
       padding: 10px;
 
@@ -505,7 +505,7 @@
           height: 50px;
           display: flex;
           align-items: center;
-          color: white;
+          color: rgb(53, 53, 53);
         }
 
         .approvedList {
@@ -594,7 +594,7 @@
           height: 50px;
           display: flex;
           align-items: center;
-          color: white;
+          color: rgb(59, 59, 59);
         }
 
         .unapprovedList {
