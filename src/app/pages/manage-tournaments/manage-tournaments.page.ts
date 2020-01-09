@@ -305,6 +305,7 @@ progressOfImage = 0
 
   tourndetails =[];
   disablefixtures=true;
+  disablepaid=false;
 lengthparticipents:number =0;
   async finnishSetup(tournament, state) {
     // please keep this switch statement at the top
@@ -381,7 +382,7 @@ console.log("loadededed")
     {
     
     this.disablefixtures=false;
-    
+    this.disablepaid =true;
     
     const alert = await this.alertController.create({
       header: 'Good news:-)',
@@ -408,7 +409,7 @@ console.log("loadededed")
         console.log("current Participants = ", this.cparticipants)
 
         this.acceptednum = this.cparticipants.length;
-        console.log("current Participants = ", this.acceptednum)
+        console.log("current Participants = ", this.acceptednum )
       })
     })
 
@@ -496,7 +497,10 @@ console.log("loadededed")
         this.accepted =[];
         val.forEach(res => {
           this.accepted.push({ ...form, ...{ tournid: tournament.docid }, ...{ id: res.id }, ...res.data() });
-          console.log("data = ", this.accepted)
+          console.log("datazi = ", this.accepted.length==this.lengthparticipents)
+      
+        
+        
         })
       })
       this.db.collection('newTournaments').doc(tournament.docid).collection('vendorApplications').where("status", "==", "accepted").onSnapshot(val => {
@@ -932,9 +936,19 @@ else{
       })
     })
   }
+
+
+
+
   paid(c, pos) {
     // console.log(Math.ceil(Math.random() * 10))
     console.log(pos)
+if(this.disablepaid==true)
+{
+
+}
+else
+    {
     if (pos % 2 == 0) {
       this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ status: "paid" }).then(res => {
         // this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress => {
@@ -956,6 +970,7 @@ else{
         })
 
       // })
+    }
     }
   }
   q1 = [];
