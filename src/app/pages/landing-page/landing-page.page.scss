@@ -133,7 +133,7 @@ button[ion-fab] {
         }
 
         .match {
-          width: 70%;
+          width: 60%;
           background: #000D06;
           padding: 5px;
           color: white;
@@ -146,15 +146,22 @@ button[ion-fab] {
             text-align: center;
             width: auto;
             margin: auto;
-
+            justify-content: center;
             .points {
-              width: 90%;
-              padding: 1px;
-
+              width: 35%;
+              position: relative;
+              padding: 24px 1px 1px 1px;
+              .butns {
+                position: absolute;
+                top: -17px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 700;
+              }
               p {
                 margin: 0;
                 padding: 0;
-                font-size: 1.5rem;
+                font-size: 1.3rem;
               }
             }
 
@@ -679,7 +686,7 @@ button[ion-fab] {
 
     .matchList {
       width: 100%;
-      max-height: 70%;
+      max-height: 65%;
       min-height: 65%;
       overflow-y: auto;
       position: relative;
@@ -823,8 +830,8 @@ button[ion-fab] {
 
     .matchList {
       width: 100%;
-      max-height: 70%;
-      min-height: 70%;
+      max-height: 65%;
+      min-height: 65%;
       overflow-y: auto;
       position: relative;
       background: #f0f0f0f0;

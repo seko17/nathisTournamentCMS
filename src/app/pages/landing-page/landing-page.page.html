@@ -110,7 +110,8 @@
                 </div> -->
               </div>
               <div class="points">
-                <ion-button size="small" shape="round" (click)="firsthalf()" [hidden]="btn1">
+                <div class="butns">
+                  <ion-button size="small" shape="round" (click)="firsthalf()" [hidden]="btn1">
                     {{btntxt1}}
                 </ion-button>
                 <ion-button size="small" shape="round" (click)="secondhalf()" [hidden]="btn2">
@@ -121,6 +122,7 @@
                   <ion-button size="small" shape="round" (click)="stop()" [hidden]="btn3">
                      STOP
                     </ion-button>
+                </div>
                 <p>{{score}} : {{ascore}}</p>
               </div>
               <div class="awayScore">

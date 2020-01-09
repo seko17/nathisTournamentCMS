@@ -571,6 +571,7 @@ export class ManageTournamentsPage implements OnInit {
     this.tournamentObj.sponsors.push(obj)
     this.sponsorName = ''
     this.sponsorImage = ''
+    this.progressOfImage = 0
   }
 
   async selectimage(image) {
