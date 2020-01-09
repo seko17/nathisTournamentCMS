@@ -278,6 +278,7 @@ progressOfImage = 0
     
   }
 
+  type:number;
   ngOnInit() {
 
     this.newTournForm = this.formBuilder.group({
@@ -303,7 +304,9 @@ progressOfImage = 0
 
 
   tourndetails =[];
-
+  disablefixtures=true;
+  disablepaid=false;
+lengthparticipents:number =0;
   async finnishSetup(tournament, state) {
     // please keep this switch statement at the top
     switch (state) {
@@ -322,11 +325,7 @@ progressOfImage = 0
     }
 
     console.log(state,tournament)
-    const loading = await this.loadingController.create({
-      spinner:"bubbles",
-      duration: 3000
-    });
-    await loading.present();
+
 
     if(tournament.docid ==null)
 
@@ -371,7 +370,31 @@ console.log("finish setup")
       })
     })
     firebase.firestore().collection('participants').where("whr", "==", "away").where("tournid","==",tournament.docid).onSnapshot(val => {
-      val.forEach(res => {
+      val.forEach(async res => {
+this.type = res.data().type;
+this.lengthparticipents=res.data.length+this.lengthparticipents;
+this.type = parseFloat(this.type.toString());
+
+console.log("loadededed")
+
+
+    if(this.lengthparticipents==this.type)
+    {
+    
+    this.disablefixtures=false;
+    this.disablepaid =true;
+    
+    const alert = await this.alertController.create({
+      header: 'Good news:-)',
+      message: 'The fixtures are ready to be set.',
+      buttons: ['OK']
+    });
+    
+    await alert.present();
+    
+    }
+
+
 
         this.aparticipants.push({ ...{ id: res.id }, ...res.data() })
         console.log("current Participants = ", this.aparticipants)
@@ -386,7 +409,7 @@ console.log("finish setup")
         console.log("current Participants = ", this.cparticipants)
 
         this.acceptednum = this.cparticipants.length;
-        console.log("current Participants = ", this.acceptednum)
+        console.log("current Participants = ", this.acceptednum )
       })
     })
     this.generatefixtures(tournament);
@@ -459,7 +482,10 @@ console.log("finish setup")
         this.accepted =[];
         val.forEach(res => {
           this.accepted.push({ ...form, ...{ tournid: tournament.docid }, ...{ id: res.id }, ...res.data() });
-          console.log("data = ", this.accepted)
+          console.log("datazi = ", this.accepted.length==this.lengthparticipents)
+      
+        
+        
         })
       })
       this.db.collection('newTournaments').doc(tournament.docid).collection('vendorApplications').where("status", "==", "accepted").onSnapshot(val => {
@@ -826,14 +852,14 @@ else{
         break;
       case 'close':
         this.chooseConfigOption = false;
-        /*
+        
          setTimeout(() => {
-          this.renderer.setStyle(this.setUpFixturesDiv[0],'display','flex');
+          // this.renderer.setStyle(this.setUpFixturesDiv[0],'display','flex');
          this.renderer.setStyle(this.configOptionDiv[0], 'display', 'none');
          }, 500);
-         this.presentModal();
+        //  this.presentModal();
         console.log('will close');
-        */
+        
         this.fixture = this.serve.fixture;
 
         console.log("fixture here", this.fixture)
@@ -894,9 +920,19 @@ else{
       })
     })
   }
+
+
+
+
   paid(c, pos) {
     // console.log(Math.ceil(Math.random() * 10))
     console.log(pos)
+if(this.disablepaid==true)
+{
+
+}
+else
+    {
     if (pos % 2 == 0) {
       this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ status: "paid" }).then(res => {
         // this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress => {
@@ -918,6 +954,7 @@ else{
         })
 
       // })
+    }
     }
   }
   q1 = [];
@@ -1136,7 +1173,7 @@ loading.onDidDismiss().then(val=>{
         })
       })
     })
-  })
+}
   }
 }
 

@@ -960,30 +960,65 @@
           height: 80%;
           overflow-x: hidden;
           overflow-y: auto;
-
-          .card {
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0px 3px 3px #17171746;
-            width: 90%;
-            margin: 5px auto;
-            background: white;
-            color: black;
+          .managerApplications {
             display: flex;
-            align-items: center;
-
-            .details {
-              flex-basis: 100%;
-            }
-
-            .refNumber {
-              p {
-                opacity: 0.7;
-                font-weight: bold;
-                ;
+            overflow-x: auto;
+            width: 100%;
+            .card {
+              padding: 10px;
+              border-radius: 10px;
+              box-shadow: 0px 3px 3px #17171746;
+              min-width: 90%;
+              max-width: 90%;
+              margin: 5px;
+              background: white;
+              color: black;
+              display: flex;
+              align-items: center;
+  
+              .details {
+                flex-basis: 100%;
+              }
+  
+              .refNumber {
+                p {
+                  opacity: 0.7;
+                  font-weight: bold;
+                  ;
+                }
               }
             }
           }
+          .vendorApplications {
+            display: flex;
+            overflow-x: auto;
+            width: 100%;
+            .card {
+              padding: 10px;
+              border-radius: 10px;
+              box-shadow: 0px 3px 3px #17171746;
+              min-width: 90%;
+              max-width: 90%;
+              margin: 5px;
+              background: white;
+              color: black;
+              display: flex;
+              align-items: center;
+  
+              .details {
+                flex-basis: 100%;
+              }
+  
+              .refNumber {
+                p {
+                  opacity: 0.7;
+                  font-weight: bold;
+                  ;
+                }
+              }
+            }
+          }
+          
         }
       }
 

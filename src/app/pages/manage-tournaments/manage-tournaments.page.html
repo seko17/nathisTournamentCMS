@@ -15,11 +15,11 @@
 
       <hr>
 
-      <ion-button color="success" shape="round" (click)="generate()">
+      <ion-button color="success" shape="round" [disabled] ="disablefixtures" (click)="generate()">
         Generate it
       </ion-button>
       <br>
-      <ion-button fill="clear" color="light" (click)="setUpTimeLine('open',null)">
+      <ion-button [disabled] ="disablefixtures" fill="clear" color="light" (click)="setUpTimeLine('open',null)">
         I'll do it
       </ion-button>
     </div>
@@ -184,20 +184,26 @@
 
 
   <!-- shows when you have to accept or decline applications, search for references and conform team payment -->
-  <div class="setUpApplications animated" [ngClass]="{'fadeInUp':setUpApplications,'fadeOut':!setUpApplications}">
+  <div class="setUpApplications animated" [ngClass]="{'fadeInUp':setUpApplications,'fadeOutDown':!setUpApplications}">
+    
+    <!-- CLOSE BUTTON -->
     <div class="closebutton">
       <ion-fab-button size="small" color="success" (click)="finnishSetup(null, 'close')">
         <ion-icon name="close"></ion-icon>
       </ion-fab-button>
     </div>
+
+    <!-- LIST OF APPLICATIONS -->
     <div class="applications">
       <div class="head">
+
+        <!-- VENDOR APPLICATIONS -->
         <div [ngClass]="{'vendorApplications':vedorApplications,'vendorApplications-close':!vedorApplications}">
           <div *ngIf="vendorsapplicationArray.length==0">
-<p>no vendor applications</p>
+            <p>no vendor applications</p>
           </div>
           <div class="card" *ngFor="let v of vendorsapplicationArray">
-          
+
             <div class="teamInfo">
               <p><b>{{v.doc.vendorobject.form.fullName}}</b></p>
               <p>{{v.doc.vendorobject.form.phoneNumber}}</p>
@@ -206,7 +212,7 @@
               <ion-button (click)="acceptVendorApplication(v)" shape="round" size="small" color="success">
                 Accept
               </ion-button>
-              <ion-button (click)="declineVendorApplication(v)"  shape="round" size="small" color="danger">
+              <ion-button (click)="declineVendorApplication(v)" shape="round" size="small" color="danger">
                 Decline
               </ion-button>
             </div>
@@ -220,7 +226,12 @@
           Done
         </ion-button>
       </div>
+
+      <!-- NEW TEAM APPLICATIONS -->
       <div class="applicationList">
+        <div class="card" *ngIf="tournamentApplications.length == 0" >
+          <h3 style="text-align: center;margin: auto;">No Applications</h3>
+        </div>
         <div class="card" *ngFor="let team of tournamentApplications">
           <div class="teamInfo">
             <p><b>Team Name</b>{{team.doc.TeamObject.teamName}}</p>
@@ -235,14 +246,12 @@
             </ion-button>
           </div>
         </div>
-
-
-
-
       </div>
     </div>
+    
+    <!-- TOURNAMENT DETAILS -->
     <div class="management">
-      <div class="tournamentData" *ngFor ="let x of tourndetails">
+      <div class="tournamentData" *ngFor="let x of tourndetails">
         <h1>{{x.tournamentName}}</h1>
         <div class="splitter">
           <div class="one">
@@ -265,22 +274,26 @@
         </div>
       </div>
       <div class="verificationScreen">
+
+        <!-- ACCEPTED APPLICATIONS -->
         <div class="acceptedApplications">
           <div class="head">
             <h1>Accepted Applications <sub>Still to pay</sub></h1>
           </div>
+
+          <!-- SEARCH INPUT -->
           <div class="searcher">
             <ion-input type="text" placeholder="Search Reference Number"></ion-input>
           </div>
           <div class="stillToPayList">
-           <div class="managerApplications">
-            <div class="card" *ngFor="let item of accepted">
-              <div class="details">
-                <h5 style="margin: 0;">{{item.TeamObject.coachName}}</h5>
-                <p style="margin: 0;">Coach <b>{{item.TeamObject.coachName}}</b></p>
-              </div>
-              <div class="stillToPayList">
-                <!-- <div class="card" *ngFor="let item of accepted,let i = index">
+            <div class="managerApplications">
+              <div class="card" *ngFor="let item of accepted">
+                <div class="details">
+                  <h5 style="margin: 0;">{{item.TeamObject.coachName}}</h5>
+                  <p style="margin: 0;">Coach <b>{{item.TeamObject.coachName}}</b></p>
+                </div>
+                <div class="stillToPayList">
+                  <!-- <div class="card" *ngFor="let item of accepted,let i = index">
                   <div class="details">
                     <h5 style="margin: 0;">{{item.TeamObject.coachName}}</h5>
                     <p style="margin: 0;">Coach <b>{{item.TeamObject.coachName}}</b></p>
@@ -291,21 +304,25 @@
                   </div>
                   <ion-button (click)="paid(item,i)">PAID</ion-button>
                 </div> -->
+                </div>
+                <div *ngFor="let i of acceptedVendor ">
+                  <p>{{i.refNumber}}</p>
+                </div>
+                <ion-button (click)="paid(item)" [disabled]="disablepaid">PAID</ion-button>
               </div>
-              <div *ngFor="let i of acceptedVendor ">
-                    <p>{{i.refNumber}}</p>
-              </div>
-              <ion-button (click)="paid(item)">PAID</ion-button>
             </div>
-           </div>
-           <div class="vendorApplications">
-            <div class="card" *ngFor="let item of accepted">
-              <div class="details">
-                <h5 style="margin: 0;">{{item.TeamObject.coachName}}</h5>
-                <p style="margin: 0;">Coach <b>{{item.TeamObject.coachName}}</b></p>
-              </div>
-              <div class="stillToPayList">
-                <!-- <div class="card" *ngFor="let item of accepted,let i = index">
+
+            <div class="head">
+              <h1>Vendor Applications <sub>Still to pay</sub></h1>
+            </div>
+            <div class="vendorApplications">
+              <div class="card" *ngFor="let item of accepted">
+                <div class="details">
+                  <h5 style="margin: 0;">{{item.TeamObject.coachName}}</h5>
+                  <p style="margin: 0;">Coach <b>{{item.TeamObject.coachName}}</b></p>
+                </div>
+                <div class="stillToPayList">
+                  <!-- <div class="card" *ngFor="let item of accepted,let i = index">
                   <div class="details">
                     <h5 style="margin: 0;">{{item.TeamObject.coachName}}</h5>
                     <p style="margin: 0;">Coach <b>{{item.TeamObject.coachName}}</b></p>
@@ -316,20 +333,22 @@
                   </div>
                   <ion-button (click)="paid(item,i)">PAID</ion-button>
                 </div> -->
+                </div>
+                <div *ngFor="let i of acceptedVendor ">
+                  <p>{{i.refNumber}}</p>
+                </div>
+                <ion-button (click)="paid(item)">PAID</ion-button>
               </div>
-              <div *ngFor="let i of acceptedVendor ">
-                    <p>{{i.refNumber}}</p>
-              </div>
-              <ion-button (click)="paid(item)">PAID</ion-button>
             </div>
-           </div>
           </div>
         </div>
+
+        <!-- PAID APPLICATIONS -->
         <div class="participatingTeams">
           <div class="head">
             <h1>Participating Teams <sub>Paid</sub></h1>
           </div>
-          <div class="paidList">
+          <div class="paidList" >
             <div class="card" *ngFor="let item of cparticipants" (click)="promptFixtureConfig('open',cparticipants)">
               <div class="details">
                 <h5 style="margin: 0;">Kasi Team</h5>
@@ -367,14 +386,14 @@
           </ion-item>
           <div class="results">
             <p *ngFor="let g of searchResults" (click)="selectLocation(g)"> {{g}} </p>
-            <div class='count' *ngIf="searchResults.length > 0" >
+            <div class='count' *ngIf="searchResults.length > 0">
               {{searchResults.length}}
             </div>
           </div>
           <ion-item>
             <ion-label position="floating">Location</ion-label>
-            <ion-input type="text"  (keyup)="getItems($event)"  formControlName="location">{{userLocation}}</ion-input>
-         
+            <ion-input type="text" (keyup)="getItems($event)" formControlName="location">{{userLocation}}</ion-input>
+
             <!-- <ion-input type="text" formControlName="location"></ion-input> -->
           </ion-item>
           <ion-item>
@@ -417,7 +436,7 @@
             <ion-label>Sponsor Logo</ion-label>
             <ion-input type="file" accept="image/*" multiple="false" (change)="selectimage($event.target.files)">
             </ion-input>
-           
+
           </ion-item>
           <ion-item>
             <ion-progress-bar value="{{progressOfImage/100}}"></ion-progress-bar>
@@ -426,14 +445,14 @@
             <ion-label>Sponsor Name</ion-label>
             <ion-input [(ngModel)]="sponsorName"> </ion-input>
           </ion-item>
-       
-            <ion-button (click)="saveSponsor()" >
-              Add Sponsor
-            </ion-button>
-  
+
+          <ion-button (click)="saveSponsor()">
+            Add Sponsor
+          </ion-button>
+
         </div>
         <div class="arrSponsors">
-          <div class="card"  *ngFor="let i of tournamentObj.sponsors">
+          <div class="card" *ngFor="let i of tournamentObj.sponsors">
             <div class="image">
               <img src="{{i.sponsorImage}}">
             </div>
@@ -449,7 +468,7 @@
               Nedbank
             </div>
           </div> -->
-          
+
         </div>
       </div>
     </div>
@@ -458,9 +477,9 @@
   <div class="cmsContentTourns">
     <div class="tournaments">
       <div class="links">
-          <ion-button shape="round" color="success" (click)="toggleTournamentForm('open')">
-              Create Tournament
-            </ion-button>
+        <ion-button shape="round" color="success" (click)="toggleTournamentForm('open')">
+          Create Tournament
+        </ion-button>
 
       </div>
       <div class="tournamentList">
@@ -468,7 +487,7 @@
           <div class="title">
             <h4>Approved Tournaments</h4>
           </div>
-          <div class="approvedList" >
+          <div class="approvedList">
             <div class="card" *ngFor="let t of approvedTournaments" (click)="showSideEvent(t)">
               <div class="tTitle">
                 <h5>{{t.doc.formInfo.tournamentName}}</h5>
@@ -481,7 +500,7 @@
                 </div>
               </div>
               <div class="setup">
-                <ion-button size="small" color="light"  (click)="finnishSetup(t, 'open')">
+                <ion-button size="small" color="light" (click)="finnishSetup(t, 'open')">
                   Finish Setup
                 </ion-button>
 
@@ -490,28 +509,28 @@
           </div>
         </div>
         <div class="unaprovedTournaments">
-            <div class="title">
-              <h4>Created Tournaments</h4>
-            </div>
-            <div class="unapprovedList">
-              <div class="card" *ngFor="let t of unapprovedTournaments">
-                <div class="tTitle">
-                  <h5>{{t.doc.formInfo.tournamentName}}</h5>
-                </div>
-                <div class="tDetails">
-                  <div>
-                    <hr>
-                    <p>{{t.doc.formInfo.startDate | date }} to {{t.doc.formInfo.endDate | date }}</p>
-                    <p>Application open until - {{t.doc.formInfo.applicationClosing|date}}</p>
-                    <!-- <p>{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p> -->
-                  </div>
+          <div class="title">
+            <h4>Created Tournaments</h4>
+          </div>
+          <div class="unapprovedList">
+            <div class="card" *ngFor="let t of unapprovedTournaments">
+              <div class="tTitle">
+                <h5>{{t.doc.formInfo.tournamentName}}</h5>
+              </div>
+              <div class="tDetails">
+                <div>
+                  <hr>
+                  <p>{{t.doc.formInfo.startDate | date }} to {{t.doc.formInfo.endDate | date }}</p>
+                  <p>Application open until - {{t.doc.formInfo.applicationClosing|date}}</p>
+                  <!-- <p>{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p> -->
                 </div>
               </div>
             </div>
           </div>
+        </div>
       </div>
 
-      <div class="tournamentDetails" >
+      <div class="tournamentDetails">
         <div class="details">
           <div>
             <p>{{TournSelectedObj.doc.formInfo.tournamentName}}</p>
