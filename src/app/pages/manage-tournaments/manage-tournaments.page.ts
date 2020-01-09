@@ -389,15 +389,6 @@ console.log("finish setup")
         console.log("current Participants = ", this.acceptednum)
       })
     })
-
-
-
-
-
-
-
-
-
     this.generatefixtures(tournament);
     let num = 0;
     console.log(tournament)
@@ -474,7 +465,6 @@ console.log("finish setup")
       this.db.collection('newTournaments').doc(tournament.docid).collection('vendorApplications').where("status", "==", "accepted").onSnapshot(val => {
        this.acceptedVendor = []
         val.forEach(res => {
-       
           
           this.acceptedVendor.push(res.data());
           console.log('accepted vendros',   this.acceptedVendor);
@@ -640,7 +630,7 @@ const alert = await this.alertController.create({
 await alert.present();
 
 }
-else if(applicDate >= startDat ){
+else if(applicDate <= startDat ){
   console.log('application date invalid');
   const alert = await this.alertController.create({
     header: 'Warning!',
@@ -1109,18 +1099,6 @@ this.tournid =t.docid;
 
 
 loading.onDidDismiss().then(val=>{
-
-
-
-  
-
-
-
-
-
-
-
-
 
     firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status', '==', 'awaiting').onSnapshot(rez => {
       rez.forEach(val => {
