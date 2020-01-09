@@ -193,7 +193,7 @@ export class ManageTournamentsPage implements OnInit {
   //  state for this screen
   setUpApplications = false;
   sponsorImage = ''
-  sponsorName : string
+  sponsorName: string
   creatingTournament = false;
   validationMessages = {
     valid: [
@@ -225,33 +225,33 @@ export class ManageTournamentsPage implements OnInit {
     dateCreated: null,
     sponsors: [],
     state: 'newTournament',
-    AcceptedApplications : 0,
-ApprovedApplications : 0,
-totalApplications : 0
+    AcceptedApplications: 0,
+    ApprovedApplications: 0,
+    totalApplications: 0
   };
   tempCardGen = []
   acceptedVendor = []
   // array for the green cards
   approvedTournaments = []
-// tslint:disable-next-line:member-ordering
-vendorsapplicationArray = [] ;
-TournSelectedObj = {
-  doc : {
-    state  : '',
-    AcceptedApplications : 0,
-    ApprovedApplications : 0,
-    totalApplications: 0,
-    formInfo : {
-      tournamentName : '',
-      location: '',
-      startDate : '',
-      endDate :'',
-      applicationClosing :''  ,     
-      joiningFee :'',
-      type :''
+  // tslint:disable-next-line:member-ordering
+  vendorsapplicationArray = [];
+  TournSelectedObj = {
+    doc: {
+      state: '',
+      AcceptedApplications: 0,
+      ApprovedApplications: 0,
+      totalApplications: 0,
+      formInfo: {
+        tournamentName: '',
+        location: '',
+        startDate: '',
+        endDate: '',
+        applicationClosing: '',
+        joiningFee: '',
+        type: ''
+      }
     }
   }
-}
   // array for the red cards
   unapprovedTournaments = []
   tournamentApplications = []
@@ -259,7 +259,7 @@ TournSelectedObj = {
   aparticipants = [];
   cparticipants = [];
   parti = [];
-progressOfImage = 0
+  progressOfImage = 0
 
   currentmatch = [];
   timer;
@@ -274,11 +274,11 @@ progressOfImage = 0
 
     let num = 0;
 
- 
-    
+
+
   }
 
-  type:number;
+  type: number;
   ngOnInit() {
 
     this.newTournForm = this.formBuilder.group({
@@ -303,10 +303,10 @@ progressOfImage = 0
   }
 
 
-  tourndetails =[];
-  disablefixtures=true;
-  disablepaid=false;
-lengthparticipents:number =0;
+  tourndetails = [];
+  disablefixtures = true;
+  disablepaid = false;
+  lengthparticipents: number = 0;
   async finnishSetup(tournament, state) {
     // please keep this switch statement at the top
     switch (state) {
@@ -324,198 +324,194 @@ lengthparticipents:number =0;
         break;
     }
 
-    console.log(state,tournament)
+    console.log(state, tournament)
 
 
-    if(tournament.docid ==null)
+    if (tournament.docid == null) {
 
-{
-
-}
-
-else
-    {
-    let team = {
-      docid: null,
-      doc: null
-    }
-    let vendorObj = {
-      docid: null,
-      doc:null
-    }
-    firebase.firestore().collection('newTournaments').doc(tournament.docid).collection('vendorApplications').where('status', '==', 'awaiting').onSnapshot(res =>{
-      this.vendorsapplicationArray = []
-      res.forEach(doc =>{
-       console.log('vendor application',doc.data())
-        // this.vendorsapplicationArray.push(doc.data())
-        vendorObj = {
-          docid: doc.id,
-          doc: doc.data()
-        }
-        this.vendorsapplicationArray.push(vendorObj)
-        
-      })
-    })
-
-
-
-console.log("finish setup")
-
-
-    firebase.firestore().collection('participants').where("whr", "==", "home").where("tournid","==",tournament.docid).onSnapshot(val => {
-      val.forEach(res => {
-
-        this.hparticipants.push({ ...{ id: res.id }, ...res.data() })
-        console.log("current Participants = ", this.hparticipants)
-      })
-    })
-    firebase.firestore().collection('participants').where("whr", "==", "away").where("tournid","==",tournament.docid).onSnapshot(val => {
-      val.forEach(async res => {
-this.type = res.data().type;
-this.lengthparticipents=res.data.length+this.lengthparticipents;
-this.type = parseFloat(this.type.toString());
-
-console.log("loadededed")
-
-
-    if(this.lengthparticipents==this.type)
-    {
-    
-    this.disablefixtures=false;
-    this.disablepaid =true;
-    
-    const alert = await this.alertController.create({
-      header: 'Good news:-)',
-      message: 'The fixtures are ready to be set.',
-      buttons: ['OK']
-    });
-    
-    await alert.present();
-    
     }
 
+    else {
+      let team = {
+        docid: null,
+        doc: null
+      }
+      let vendorObj = {
+        docid: null,
+        doc: null
+      }
+      firebase.firestore().collection('newTournaments').doc(tournament.docid).collection('vendorApplications').where('status', '==', 'awaiting').onSnapshot(res => {
+        this.vendorsapplicationArray = []
+        res.forEach(doc => {
+          console.log('vendor application', doc.data())
+          // this.vendorsapplicationArray.push(doc.data())
+          vendorObj = {
+            docid: doc.id,
+            doc: doc.data()
+          }
+          this.vendorsapplicationArray.push(vendorObj)
 
-
-        this.aparticipants.push({ ...{ id: res.id }, ...res.data() })
-        console.log("current Participants = ", this.aparticipants)
+        })
       })
-    })
 
 
-    firebase.firestore().collection('participants').where("tournid","==",tournament.docid).onSnapshot(val => {
-      val.forEach(res => {
 
-        this.cparticipants.push({ ...{ id: res.id }, ...res.data() })
-        console.log("current Participants = ", this.cparticipants)
+      console.log("finish setup")
 
-        this.acceptednum = this.cparticipants.length;
-        console.log("current Participants = ", this.acceptednum )
+
+      firebase.firestore().collection('participants').where("whr", "==", "home").where("tournid", "==", tournament.docid).onSnapshot(val => {
+        val.forEach(res => {
+
+          this.hparticipants.push({ ...{ id: res.id }, ...res.data() })
+          console.log("current Participants = ", this.hparticipants)
+        })
       })
-    })
+      firebase.firestore().collection('participants').where("whr", "==", "away").where("tournid", "==", tournament.docid).onSnapshot(val => {
+        val.forEach(async res => {
+          this.type = res.data().type;
+          this.lengthparticipents = res.data.length + this.lengthparticipents;
+          this.type = parseFloat(this.type.toString());
+
+          console.log("loadededed")
+
+
+          if (this.lengthparticipents == this.type) {
+
+            this.disablefixtures = false;
+            this.disablepaid = true;
+
+            const alert = await this.alertController.create({
+              header: 'Good news:-)',
+              message: 'The fixtures are ready to be set.',
+              buttons: ['OK']
+            });
+
+            await alert.present();
+
+          }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    this.generatefixtures(tournament);
-    let num = 0;
-    console.log(tournament)
-    this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
-    this.setUpApplications = true;
-    this.tourndetails =[];
-    this.tourndetails.push(tournament)
-
-    let form = {};
-    this.tourney = tournament;
-
-    this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
-    this.setUpApplications = true;
-    this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where('status',"==",'awaiting').onSnapshot(res => {
-      this.tournamentApplications = []
-      res.forEach(doc => {
-        team = {
-          docid: doc.id,
-          doc: doc.data()
-        }
-        this.tournamentApplications.unshift(team)
-        team = {
-          docid: null,
-          doc: null
-        }
+          this.aparticipants.push({ ...{ id: res.id }, ...res.data() })
+          console.log("current Participants = ", this.aparticipants)
+        })
       })
-      console.log(this.tournamentApplications);
-      console.log(tournament.docid);
-
-      this.db.collection('newTournaments').doc(tournament.docid).onSnapshot(val => {
-        console.log(val.data().formInfo)
-       
-        form =val.data().formInfo;
-​
-        firebase.firestore().collection('participants').where("tournid","==",val.data().formInfo.tournamentName).onSnapshot(res=>{
-          res.forEach(val=>{
-
-            this.participants.push(val.data())
-            console.log("participants = ", val.data())
-
-            num = num + 1;
-
-            let obb = {};
-            obb = val.data();
-
-            if (num % 2 == 0) {
-              firebase.firestore().collection('participants').doc(val.id).update({ ...val.data(), ...{ whr: "home" } })
-              // this.participants.push({...val.data(),...{whr:"home"}})
-            }
-            else {
-              // this.aparticipants.push({...val.data(),...{awhr:"away"}})
-              firebase.firestore().collection('participants').doc(val.id).update({ ...val.data(), ...{ whr: "away" } })
-            }
 
 
-            // if(this.participants.length==this.aparticipants.length)
-            // {
-            //   this.serve.randomfixture( this.participants,this.aparticipants);  
-            // }
+      firebase.firestore().collection('participants').where("tournid", "==", tournament.docid).onSnapshot(val => {
+        val.forEach(res => {
+
+          this.cparticipants.push({ ...{ id: res.id }, ...res.data() })
+          console.log("current Participants = ", this.cparticipants)
+
+          this.acceptednum = this.cparticipants.length;
+          console.log("current Participants = ", this.acceptednum)
+        })
+      })
 
 
-            console.log("number = ", num)
-            console.log("parts  = ", this.participants)
+
+
+
+
+
+
+
+
+
+
+
+
+
+      this.generatefixtures(tournament);
+      let num = 0;
+      console.log(tournament)
+      this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
+      this.setUpApplications = true;
+      this.tourndetails = [];
+      this.tourndetails.push(tournament)
+
+      let form = {};
+      this.tourney = tournament;
+
+      this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
+      this.setUpApplications = true;
+      this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where('status', "==", 'awaiting').onSnapshot(res => {
+        this.tournamentApplications = []
+        res.forEach(doc => {
+          team = {
+            docid: doc.id,
+            doc: doc.data()
+          }
+          this.tournamentApplications.unshift(team)
+          team = {
+            docid: null,
+            doc: null
+          }
+        })
+        console.log(this.tournamentApplications);
+        console.log(tournament.docid);
+
+        this.db.collection('newTournaments').doc(tournament.docid).onSnapshot(val => {
+          console.log(val.data().formInfo)
+
+          form = val.data().formInfo;
+
+          firebase.firestore().collection('participants').where("tournid", "==", val.data().formInfo.tournamentName).onSnapshot(res => {
+            res.forEach(val => {
+
+              this.participants.push(val.data())
+              console.log("participants = ", val.data())
+
+              num = num + 1;
+
+              let obb = {};
+              obb = val.data();
+
+              if (num % 2 == 0) {
+                firebase.firestore().collection('participants').doc(val.id).update({ ...val.data(), ...{ whr: "home" } })
+                // this.participants.push({...val.data(),...{whr:"home"}})
+              }
+              else {
+                // this.aparticipants.push({...val.data(),...{awhr:"away"}})
+                firebase.firestore().collection('participants').doc(val.id).update({ ...val.data(), ...{ whr: "away" } })
+              }
+
+
+              // if(this.participants.length==this.aparticipants.length)
+              // {
+              //   this.serve.randomfixture( this.participants,this.aparticipants);  
+              // }
+
+
+              console.log("number = ", num)
+              console.log("parts  = ", this.participants)
+            })
           })
         })
-      })
-      this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where("status", "==", "accepted").onSnapshot(val => {
-        this.accepted =[];
-        val.forEach(res => {
-          this.accepted.push({ ...form, ...{ tournid: tournament.docid }, ...{ id: res.id }, ...res.data() });
-          console.log("datazi = ", this.accepted.length==this.lengthparticipents)
-      
-        
-        
+        this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where("status", "==", "accepted").onSnapshot(val => {
+          this.accepted = [];
+          val.forEach(res => {
+            this.accepted.push({ ...form, ...{ tournid: tournament.docid }, ...{ id: res.id }, ...res.data() });
+            console.log("datazi = ", this.accepted.length == this.lengthparticipents)
+
+
+
+          })
         })
-      })
-      this.db.collection('newTournaments').doc(tournament.docid).collection('vendorApplications').where("status", "==", "accepted").onSnapshot(val => {
-       this.acceptedVendor = []
-        val.forEach(res => {
-       
-          
-          this.acceptedVendor.push(res.data());
-          console.log('accepted vendros',   this.acceptedVendor);
+        this.db.collection('newTournaments').doc(tournament.docid).collection('vendorApplications').where("status", "==", "accepted").onSnapshot(val => {
+          this.acceptedVendor = []
+          val.forEach(res => {
+
+
+            this.acceptedVendor.push(res.data());
+            console.log('accepted vendros', this.acceptedVendor);
+          });
         });
       });
-    });
 
 
-  }
+    }
   }
   toggleTournamentForm(state) {
     switch (state) {
@@ -537,9 +533,9 @@ console.log("loadededed")
     }
   }
   //check tournaments vendors application
-// checkVendorApp(){
-//   this.db.collection('newTournaments').
-// }
+  // checkVendorApp(){
+  //   this.db.collection('newTournaments').
+  // }
   // selects sponsor Image
 
   getItems(ev: any) {
@@ -552,7 +548,7 @@ console.log("loadededed")
       this.searchResults = this.gauteng.filter(item => {
         return item.toLowerCase().indexOf(val.toLowerCase()) > -1;
       });
-      console.log('Results = ',this.searchResults);
+      console.log('Results = ', this.searchResults);
     } else if (val != " ") {
       this.searchResults = this.gauteng.filter(item => {
         return item.toLowerCase().indexOf(val.toLowerCase()) > -1;
@@ -566,15 +562,15 @@ console.log("loadededed")
     this.searchResults = [];
     console.log(this.userLocation);
   }
-  saveSponsor(){
-console.log('sponsor name',this.sponsorName);
-let obj = {
-  sponsorName: this.sponsorName,
-  sponsorImage : this.sponsorImage
-}
-this.tournamentObj.sponsors.push(obj)
-this.sponsorName = ''
-this.sponsorImage = ''
+  saveSponsor() {
+    console.log('sponsor name', this.sponsorName);
+    let obj = {
+      sponsorName: this.sponsorName,
+      sponsorImage: this.sponsorImage
+    }
+    this.tournamentObj.sponsors.push(obj)
+    this.sponsorName = ''
+    this.sponsorImage = ''
   }
 
   async selectimage(image) {
@@ -641,104 +637,104 @@ this.sponsorImage = ''
   }
   async newTournament(formData) {
     let today = new Date();
-    let  date = new Date(today.toDateString());
+    let date = new Date(today.toDateString());
     let startDat = new Date(formData.startDate);
-    let endDate  = new Date(formData.endDate);
+    let endDate = new Date(formData.endDate);
     let applicDate = new Date(formData.applicationClosing)
     console.log('today', date);
-    console.log('past date',startDat)
+    console.log('past date', startDat)
 
-if(date > startDat){
+    if (date > startDat) {
 
-const alert = await this.alertController.create({
-  header: 'Warning!',
-  subHeader: 'Invalid Tournament start Date',
-  message: 'Please select date from today onwards',
-  buttons: ['OK']
-});
+      const alert = await this.alertController.create({
+        header: 'Warning!',
+        subHeader: 'Invalid Tournament start Date',
+        message: 'Please select date from today onwards',
+        buttons: ['OK']
+      });
 
-await alert.present();
+      await alert.present();
 
-}
-else if(endDate < startDat){
-console.log('tournament end invalid');
-const alert = await this.alertController.create({
-  header: 'Warning!',
-  subHeader: 'Invalid Tournament end Date',
-  message: 'Please select date from today onwards',
-  buttons: ['OK']
-});
-
-await alert.present();
-
-}
-else if(applicDate >= startDat ){
-  console.log('application date invalid');
-  const alert = await this.alertController.create({
-    header: 'Warning!',
-    subHeader: 'Invalid Application application Date',
-    message: 'Please select date from today onwards',
-    buttons: ['OK']
-  });
-  
-  await alert.present();
-}
-else{
-  console.log('se',formData.startDate)
-    let loader = await this.loadingController.create({
-      message: 'Creating Tournament'
-    })
-    loader.present()
-    let date = new Date();
-
-    this.tournamentObj = {
-      formInfo: formData,
-      approved: false,
-      approvedVendors: this.tournamentObj.approvedVendors,
-      dateCreated: date.toDateString(),
-      sponsors: this.tournamentObj.sponsors,
-      state: 'newTournament',
-      AcceptedApplications : 0,
-      ApprovedApplications : 0,
-      totalApplications : 0
     }
-    this.db.collection('newTournaments').add(this.tournamentObj).then(async res => {
-      loader.dismiss()
-      let alerter = await this.alertCtrl.create({
-        header: 'Success',
-        subHeader: 'Tournament Created',
-        message: "Please wait for it's approval from the Admin. It will be submitted immediately after the approval.",
-        buttons: [
-          {
-            text: 'Okay',
-            handler: () => {
-              this.newTournForm.reset()
-              this.toggleTournamentForm('close')
-            }
-          }
-        ]
-      })
-      alerter.present()
-    }).catch(async err => {
-      let alerter = await this.alertCtrl.create({
-        header: 'Oops!',
-        subHeader: 'Something went wrong.',
-        message: "It might be the server but please check if your network is connected.",
-        buttons: [
-          {
-            text: 'Okay',
-            handler: () => {
-              this.newTournForm.reset()
-              this.toggleTournamentForm('close')
-            }
-          }
-        ]
-      })
-      alerter.present()
-    })
-}
+    else if (endDate < startDat) {
+      console.log('tournament end invalid');
+      const alert = await this.alertController.create({
+        header: 'Warning!',
+        subHeader: 'Invalid Tournament end Date',
+        message: 'Please select date from today onwards',
+        buttons: ['OK']
+      });
 
-  
+      await alert.present();
+
+    }
+    else if (applicDate >= startDat) {
+      console.log('application date invalid');
+      const alert = await this.alertController.create({
+        header: 'Warning!',
+        subHeader: 'Invalid Application application Date',
+        message: 'Please select date from today onwards',
+        buttons: ['OK']
+      });
+
+      await alert.present();
+    }
+    else {
+      console.log('se', formData.startDate)
+      let loader = await this.loadingController.create({
+        message: 'Creating Tournament'
+      })
+      loader.present()
+      let date = new Date();
+
+      this.tournamentObj = {
+        formInfo: formData,
+        approved: false,
+        approvedVendors: this.tournamentObj.approvedVendors,
+        dateCreated: date.toDateString(),
+        sponsors: this.tournamentObj.sponsors,
+        state: 'newTournament',
+        AcceptedApplications: 0,
+        ApprovedApplications: 0,
+        totalApplications: 0
+      }
+      this.db.collection('newTournaments').add(this.tournamentObj).then(async res => {
+        loader.dismiss()
+        let alerter = await this.alertCtrl.create({
+          header: 'Success',
+          subHeader: 'Tournament Created',
+          message: "Please wait for it's approval from the Admin. It will be submitted immediately after the approval.",
+          buttons: [
+            {
+              text: 'Okay',
+              handler: () => {
+                this.newTournForm.reset()
+                this.toggleTournamentForm('close')
+              }
+            }
+          ]
+        })
+        alerter.present()
+      }).catch(async err => {
+        let alerter = await this.alertCtrl.create({
+          header: 'Oops!',
+          subHeader: 'Something went wrong.',
+          message: "It might be the server but please check if your network is connected.",
+          buttons: [
+            {
+              text: 'Okay',
+              handler: () => {
+                this.newTournForm.reset()
+                this.toggleTournamentForm('close')
+              }
+            }
+          ]
+        })
+        alerter.present()
+      })
+    }
+
+
 
   }
   getApprovedTournaments() {
@@ -868,14 +864,14 @@ else{
         break;
       case 'close':
         this.chooseConfigOption = false;
-        
-         setTimeout(() => {
+
+        setTimeout(() => {
           // this.renderer.setStyle(this.setUpFixturesDiv[0],'display','flex');
-         this.renderer.setStyle(this.configOptionDiv[0], 'display', 'none');
-         }, 500);
+          this.renderer.setStyle(this.configOptionDiv[0], 'display', 'none');
+        }, 500);
         //  this.presentModal();
         console.log('will close');
-        
+
         this.fixture = this.serve.fixture;
 
         console.log("fixture here", this.fixture)
@@ -918,11 +914,12 @@ else{
     console.log(x)
     let obj = x;
     this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(x.docid).update({
-       status: "accepted" }).then(doc =>{
-        this.db.collection('newTournaments').doc(this.tourney.docid).update({
-          AcceptedApplications: firebase.firestore.FieldValue.increment(1)
-        })
-       } )
+      status: "accepted"
+    }).then(doc => {
+      this.db.collection('newTournaments').doc(this.tourney.docid).update({
+        AcceptedApplications: firebase.firestore.FieldValue.increment(1)
+      })
+    })
 
   }
 
@@ -930,7 +927,7 @@ else{
     console.log("Decline", x)
     let obj = {};
     obj = x;
-    this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(x.docid).update({ status: "declined" }).then( doc =>{
+    this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(x.docid).update({ status: "declined" }).then(doc => {
       this.db.collection('newTournaments').doc(this.tourney.docid).update({
         DeclinedApplications: firebase.firestore.FieldValue.increment(1)
       })
@@ -943,34 +940,32 @@ else{
   paid(c, pos) {
     // console.log(Math.ceil(Math.random() * 10))
     console.log(pos)
-if(this.disablepaid==true)
-{
+    if (this.disablepaid == true) {
 
-}
-else
-    {
-    if (pos % 2 == 0) {
-      this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ status: "paid" }).then(res => {
-        // this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress => {
+    }
+    else {
+      if (pos % 2 == 0) {
+        this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ status: "paid" }).then(res => {
+          // this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress => {
           this.db.collection('participants').add({ ...c, ...{ whr: 'home' } });
-       
+
           this.db.collection('newTournaments').doc(c.tournid).update({
             ApprovedApplications: firebase.firestore.FieldValue.increment(1)
           })
-        // })
-      })
-    }
-    else {
-      this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ status: "paid" }).then(res => {
-        // this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress => {
+          // })
+        })
+      }
+      else {
+        this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ status: "paid" }).then(res => {
+          // this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress => {
           this.db.collection('participants').add({ ...c, ...{ whr: 'away' } });
           this.db.collection('newTournaments').doc(c.tournid).update({
             ApprovedApplications: firebase.firestore.FieldValue.increment(1)
           })
         })
 
-      // })
-    }
+        // })
+      }
     }
   }
   q1 = [];
@@ -1030,16 +1025,16 @@ else
 
     this.presentLoading();
   }
-  showSideEvent(v){
-this.TournSelectedObj = v
-console.log('click',this.TournSelectedObj);
+  showSideEvent(v) {
+    this.TournSelectedObj = v
+    console.log('click', this.TournSelectedObj);
   }
   async createfixture() {
     let q1 = this.fixtures;
 
     this.deldocs();
     console.log(this.participantdocids)
-firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update({state:"inprogress"});
+    firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update({ state: "inprogress" });
 
     for (let r = 0; r < q1.length; r++) {
       let z: any = {};
@@ -1080,7 +1075,7 @@ firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update
     console.log("Tourney", tournament)
     let num = 0;
     firebase.firestore().collection('participants').where('tournid', '==', tournament.docid).onSnapshot(res => {
-      this.fixture =[]
+      this.fixture = []
       res.forEach(val => {
 
         this.participantdocids.push({ id: val.id });
@@ -1101,27 +1096,27 @@ firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update
 
         else if (num % 2 == 1) {
 
-          temp.push({ ...val.data(), ...{score:0, matchdate: null, goal: 0, whr: 'away', aoffsides: 0, acorners: 0, mins: 0, secs: 0, ayellow: 0, ared: 0, offsides: 0, corners: 0, yellow: 0, red: 0 } });
+          temp.push({ ...val.data(), ...{ score: 0, matchdate: null, goal: 0, whr: 'away', aoffsides: 0, acorners: 0, mins: 0, secs: 0, ayellow: 0, ared: 0, offsides: 0, corners: 0, yellow: 0, red: 0 } });
         }
         console.log(this.serve.fixture)
       })
     })
   }
-  acceptVendorApplication(v){
-console.log('aaaaa',v);
-this.db.collection('newTournaments').doc(this.tourney.docid).collection('vendorApplications').doc(v.docid).update({ status: "accepted" }).then(doc =>{
-  this.db.collection('newTournaments').doc(this.tourney.docid).update({
-    AcceptedVendorApplications: firebase.firestore.FieldValue.increment(1)
-  })
-})
+  acceptVendorApplication(v) {
+    console.log('aaaaa', v);
+    this.db.collection('newTournaments').doc(this.tourney.docid).collection('vendorApplications').doc(v.docid).update({ status: "accepted" }).then(doc => {
+      this.db.collection('newTournaments').doc(this.tourney.docid).update({
+        AcceptedVendorApplications: firebase.firestore.FieldValue.increment(1)
+      })
+    })
 
   }
-  declineVendorApplication(v){
-this.db.collection('newTournaments').doc(this.tourney.docid).collection('vendorApplications').doc(v.docid).update({ status: "declined" }).then(doc =>{
-  this.db.collection('newTournaments').doc(this.tourney.docid).update({
-    DeclinedVendorApplications: firebase.firestore.FieldValue.increment(1)
-  })
-})
+  declineVendorApplication(v) {
+    this.db.collection('newTournaments').doc(this.tourney.docid).collection('vendorApplications').doc(v.docid).update({ status: "declined" }).then(doc => {
+      this.db.collection('newTournaments').doc(this.tourney.docid).update({
+        DeclinedVendorApplications: firebase.firestore.FieldValue.increment(1)
+      })
+    })
   }
   fixtures;
   editfixture() {
@@ -1131,75 +1126,70 @@ this.db.collection('newTournaments').doc(this.tourney.docid).collection('vendorA
     this.fixtures = [];
   }
 
-  tournid =null;
- async moredetails(t) {
-this.tournid =t.docid;
+  tournid = null;
+  async moredetails(t) {
+    this.tournid = t.docid;
     console.log(t)
     let num = 0;
     let num2 = 0;
     let num3 = 0;
     this.hparticipants = [];
     this.aparticipants = [];
-  
 
 
+    {
 
+      firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status', '==', 'awaiting').onSnapshot(rez => {
+        rez.forEach(val => {
 
-
-
-{
-
-    firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status', '==', 'awaiting').onSnapshot(rez => {
-      rez.forEach(val => {
-
-        num = num + 1;
-        this.applicationsnum = val.data().length;
-        console.log(this.applicationsnum = num)
-      })
-    })
-    firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status', '==', 'accepted').get().then(rez => {
-      rez.forEach(val => {
-        firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status', '==', 'accepted').onSnapshot(rez => {
-          rez.forEach(val => {
-
-            num2 = num2 + 1;
-            this.acceptednum = num2;
-
-            console.log(num2)
-          })
+          num = num + 1;
+          this.applicationsnum = val.data().length;
+          console.log(this.applicationsnum = num)
         })
-        firebase.firestore().collection('participants').where('tournid', '==', t.docid).onSnapshot(rez => {
-          rez.forEach(val => {
+      })
+      firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status', '==', 'accepted').get().then(rez => {
+        rez.forEach(val => {
+          firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status', '==', 'accepted').onSnapshot(rez => {
+            rez.forEach(val => {
 
-            num3 = num3 + 1;
-            this.approvednum = num3;
-            console.log(num3)
-            if (num % 2 == 0) {
+              num2 = num2 + 1;
+              this.acceptednum = num2;
 
-              this.hparticipants.push({ ...val.data(), ...{ whr: 'home' } })
-            }
-            else {
-              this.aparticipants.push({ ...val.data(), ...{ whr: 'away' } })
-            }
+              console.log(num2)
+            })
+          })
+          firebase.firestore().collection('participants').where('tournid', '==', t.docid).onSnapshot(rez => {
+            rez.forEach(val => {
+
+              num3 = num3 + 1;
+              this.approvednum = num3;
+              console.log(num3)
+              if (num % 2 == 0) {
+
+                this.hparticipants.push({ ...val.data(), ...{ whr: 'home' } })
+              }
+              else {
+                this.aparticipants.push({ ...val.data(), ...{ whr: 'away' } })
+              }
+            })
           })
         })
       })
-    })
-}
+    }
   }
 }
 
-export interface  TOURN {
-  doc : {
-    state  : string
-    formInfo : {
-      tournamentName : string,
+export interface TOURN {
+  doc: {
+    state: string
+    formInfo: {
+      tournamentName: string,
       location: string,
-      startDate : string,
-      endDate :string,
-      applicationClosing :string       
-      joiningFee :string,
-      type :string
+      startDate: string,
+      endDate: string,
+      applicationClosing: string
+      joiningFee: string,
+      type: string
     }
   }
 }

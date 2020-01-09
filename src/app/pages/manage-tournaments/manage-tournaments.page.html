@@ -533,14 +533,16 @@
 
       <div class="tournamentDetails">
         <div class="details">
-          <div>
-            <p>{{TournSelectedObj.doc.formInfo.tournamentName}}</p>
-            <!-- <p>Top {{t.doc.formInfo.type}}</p>
+          <div *ngIf="TournSelectedObj.doc.formInfo.tournamentName==''" > <h4>Click on a tournament to see its full info here.</h4></div>
+          <div *ngIf="TournSelectedObj.doc.formInfo.tournamentName!=''">
+           
+            <h1>{{TournSelectedObj.doc.formInfo.tournamentName}}</h1>
+            <p>Top {{TournSelectedObj.doc.formInfo.type}}</p>
             <hr>
-            <p>{{t.doc.formInfo.type}} Participants</p>
-            <p>From {{t.doc.formInfo.startDate|date}} to {{t.doc.formInfo.endDate|date}}</p>
+            <p>{{TournSelectedObj.doc.formInfo.type}} Participants</p>
+            <p>From {{TournSelectedObj.doc.formInfo.startDate|date}} to {{TournSelectedObj.doc.formInfo.endDate|date}}</p>
             <hr>
-            <p>Application Closing Date <br> {{t.doc.formInfo.applicationClosing|date}}</p> -->
+            <p>Application Closing Date <br> {{TournSelectedObj.doc.formInfo.applicationClosing|date}}</p>
           </div>
 
         </div>
