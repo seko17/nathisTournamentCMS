@@ -33,6 +33,8 @@ export class AppComponent {
 }
 ngAfterViewInit() {
   this.platform.ready().then(async () => {
+    console.log(this.platform.platforms());
+    
      await this.notificationsService.requestPermission();
      this.initializeApp()
   });

@@ -252,24 +252,21 @@
     <!-- TOURNAMENT DETAILS -->
     <div class="management">
       <div class="tournamentData" *ngFor="let x of tourndetails">
-        <h1>{{x.tournamentName}}</h1>
+        <h1>{{x.doc.formInfo.tournamentName}}</h1>
         <div class="splitter">
           <div class="one">
-            <p>{{x.location}}</p>
+            <p>{{x.doc.formInfo.type}}</p>
             <p>Participants</p>
             <hr>
             <p>Closing Date</p>
-            <p>{{x.applicationClosing}}</p>
+            <p>{{x.doc.formInfo.applicationClosing | date}}</p>
           </div>
           <div class="two">
-            <p>From {{x.startDate}}, to {{x.endDate}}</p>
-            <p>Fee - R{{x.joiningFee}}</p>
+            <p>From {{x.doc.formInfo.startDate | date}} <b>TO</b> {{x.doc.formInfo.endDate | date}}</p>
+            <p>Fee - R{{x.doc.formInfo.joiningFee}}</p>
             <hr>
             <p>Sponsors</p>
-            <span><img
-             
-                alt="Sponsor"></span>
-        
+            <span *ngFor="let i of x.doc.sponsors"><img src="{{i.sponsorImage}}" alt="Sponsor"></span>
           </div>
         </div>
       </div>
@@ -532,19 +529,24 @@
 
       <div class="tournamentDetails">
         <div class="details">
-          <div>
-            <p>{{TournSelectedObj.doc.formInfo.tournamentName}}</p>
-            <!-- <p>Top {{t.doc.formInfo.type}}</p>
+          <div *ngIf="TournSelectedObj.doc.formInfo.tournamentName==''" > <h4>Click on a tournament to see its full info here.</h4></div>
+          <div *ngIf="TournSelectedObj.doc.formInfo.tournamentName!=''">
+           
+            <h1>{{TournSelectedObj.doc.formInfo.tournamentName}}</h1>
+            <p>Top {{TournSelectedObj.doc.formInfo.type}}</p>
             <hr>
-            <p>{{t.doc.formInfo.type}} Participants</p>
-            <p>From {{t.doc.formInfo.startDate|date}} to {{t.doc.formInfo.endDate|date}}</p>
+            <p>{{TournSelectedObj.doc.formInfo.type}} Participants</p>
+            <p>From {{TournSelectedObj.doc.formInfo.startDate|date}} to {{TournSelectedObj.doc.formInfo.endDate|date}}</p>
             <hr>
-            <p>Application Closing Date <br> {{t.doc.formInfo.applicationClosing|date}}</p> -->
+            <p>Application Closing Date <br> {{TournSelectedObj.doc.formInfo.applicationClosing|date}}</p>
           </div>
 
         </div>
         <div class="matchList">
           <div class="stats">
+            <div class="h">
+              <p>Team Applications</p>
+            </div>
             <div class="card">
               <div class="title">
                 <p>Accepted Applications</p>
@@ -569,8 +571,42 @@
                 <h3>{{TournSelectedObj.doc.totalApplications}}</h3>
               </div>
             </div>
+            <div class="s">
+              <ion-icon name="arrow-down"></ion-icon>
+            </div>
           </div>
-
+          <div class="stats">
+            <div class="h">
+              <p>Vendor Applications</p>
+            </div>
+            <div class="card">
+              <div class="title">
+                <p>Accepted Applications</p>
+              </div>
+              <div class="number">
+                <h3>{{TournSelectedObj.doc.AcceptedApplications}}</h3>
+              </div>
+            </div>
+            <div class="card">
+              <div class="title">
+                <p>Approved Applications</p>
+              </div>
+              <div class="number">
+                <h3>{{TournSelectedObj.doc.ApprovedApplications}}</h3>
+              </div>
+            </div>
+            <div class="card">
+              <div class="title">
+                <p>Total Applications</p>
+              </div>
+              <div class="number">
+                <h3>{{TournSelectedObj.doc.totalApplications}}</h3>
+              </div>
+            </div>
+            <div class="s">
+              <ion-icon name="arrow-down"></ion-icon>
+            </div>
+          </div>
         </div>
       </div>
     </div>
