@@ -36,6 +36,7 @@ h1,h2,h3,h4,h5 {
 a,span {
   font-family: 'Reem Kufi', sans-serif;
 }
+
 :root {
   /** primary **/
   --ion-color-primary: #014023;
@@ -108,4 +109,9 @@ a,span {
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+}
+ion-loading {
+  --background: #000D06;
+  --spinner-color: white;
+  background : #000D06;
 }

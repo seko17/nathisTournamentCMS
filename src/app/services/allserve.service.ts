@@ -16,6 +16,17 @@ secondhalf =false;
   constructor() { }
 
 firstdoc ={};
+
+dragdropfixture(fixture)
+{
+
+this.fixture =fixture;
+
+return this.fixture;
+
+}
+
+
   randomfixture(q1,q2)
 {
   
