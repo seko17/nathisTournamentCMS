@@ -6,7 +6,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { DragdropPageRoutingModule } from './dragdrop-routing.module';
 import {SharedModule} from 'src/app/shared/shared.module'
-
+import { Pipe, PipeTransform } from '@angular/core';
+import { Directive } from '@angular/core';
 import { DragdropPage } from './dragdrop.page';
 
 @NgModule({
@@ -15,8 +16,9 @@ import { DragdropPage } from './dragdrop.page';
     FormsModule,
     DragulaModule,
     IonicModule,
+    
     DragdropPageRoutingModule
   ],
-  declarations: [SharedModule]
+  providers: [SharedModule]
 })
 export class DragdropPageModule {}

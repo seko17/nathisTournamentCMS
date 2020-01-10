@@ -673,7 +673,7 @@ export class ManageTournamentsPage implements OnInit {
       await alert.present();
 
     }
-    else if (applicDate >= startDat) {
+    else if (applicDate < startDat) {
       console.log('application date invalid');
       const alert = await this.alertController.create({
         header: 'Warning!',
