@@ -9,7 +9,7 @@ import { FixturesPage } from '../fixtures/fixtures.page';
 import { SetfixturePage } from 'src/app/setfixture/setfixture.page';
 import { AllserveService } from 'src/app/services/allserve.service';
 import { Subscription, Observable, observable, timer } from 'rxjs';
-import { Motus } from "motus";
+import { Motus } from 'motus';
 import { DragdropPage } from '../dragdrop/dragdrop.page';
 
 @Component({
@@ -39,154 +39,154 @@ export class ManageTournamentsPage implements OnInit {
     return await this.modal.present();
 
   }
-  userLocation = "";
-  searchQuery: string = "";
+  userLocation = '';
+  searchQuery: string = '';
   searchResults = [];
-  myLocation = "Johannesburg";
+  myLocation = 'Johannesburg';
   gauteng = [
     // City of Johannesburg Metropolitan Municipality
-    "Alexandra",
-    "Johannesburg",
-    "Lenasia",
-    "Midrand",
-    "Roodepoort",
-    "Sandton",
-    "Soweto",
-    "Mshongo",
-    "Klipfontienview",
-    "Orange Farm",
+    'Alexandra',
+    'Johannesburg',
+    'Lenasia',
+    'Midrand',
+    'Roodepoort',
+    'Sandton',
+    'Soweto',
+    'Mshongo',
+    'Klipfontienview',
+    'Orange Farm',
     // Ekurhuleni Metropolitan Municipality
-    "Alberton",
-    "Germiston",
-    "Benoni",
-    "Boksburg",
-    "Brakpan",
-    "Clayville",
-    "Daveyton",
-    "Devon",
-    "Duduza",
-    "Edenvale",
-    "Ennerdale",
-    "Germiston",
-    "Impumelelo",
-    "Isando",
-    "Katlehong",
-    "Kempton Park",
-    "KwaThema",
-    "Nigel",
-    "Olifantsfontein",
-    "Reiger Park",
-    "Springs",
-    "Tembisa",
-    "Thokoza",
-    "Tsakane",
-    "Vosloorus",
-    "Wattville",
+    'Alberton',
+    'Germiston',
+    'Benoni',
+    'Boksburg',
+    'Brakpan',
+    'Clayville',
+    'Daveyton',
+    'Devon',
+    'Duduza',
+    'Edenvale',
+    'Ennerdale',
+    'Germiston',
+    'Impumelelo',
+    'Isando',
+    'Katlehong',
+    'Kempton Park',
+    'KwaThema',
+    'Nigel',
+    'Olifantsfontein',
+    'Reiger Park',
+    'Springs',
+    'Tembisa',
+    'Thokoza',
+    'Tsakane',
+    'Vosloorus',
+    'Wattville',
     //City of Tshwane Metropolitan Municipality
-    "Atteridgeville",
-    "Bronberg",
-    "Bronkhorstspruit",
-    "Centurion",
-    "Cullinan",
-    "Ekangala",
-    "Ga-Rankuwa",
-    "Hammanskraal",
-    "Irene",
-    "Mabopane",
-    "Mamelodi",
-    "Pretoria",
-    "Rayton",
-    "Refilwe",
-    "Soshanguve",
-    "Zithobeni",
+    'Atteridgeville',
+    'Bronberg',
+    'Bronkhorstspruit',
+    'Centurion',
+    'Cullinan',
+    'Ekangala',
+    'Ga-Rankuwa',
+    'Hammanskraal',
+    'Irene',
+    'Mabopane',
+    'Mamelodi',
+    'Pretoria',
+    'Rayton',
+    'Refilwe',
+    'Soshanguve',
+    'Zithobeni',
     // Emfuleni Local Municipality
-    "Boipatong",
-    "Bophelong",
-    "Evaton",
-    "Sebokeng",
-    "Sharpeville",
-    "Vanderbijlpark",
-    "Vereeniging",
+    'Boipatong',
+    'Bophelong',
+    'Evaton',
+    'Sebokeng',
+    'Sharpeville',
+    'Vanderbijlpark',
+    'Vereeniging',
     // Midvaal Local Municipality
-    "Meyerton",
+    'Meyerton',
     // Lesedi Local Municipality
-    "Heidelberg",
-    "Ratanda",
+    'Heidelberg',
+    'Ratanda',
     //Merafong City Local Municipality
-    "Carletonville",
-    "Khutsong",
-    "Fochville",
-    "Kokosi",
-    "Greenspark",
-    "Wedela",
-    "Welverdiend",
-    "Blybank",
+    'Carletonville',
+    'Khutsong',
+    'Fochville',
+    'Kokosi',
+    'Greenspark',
+    'Wedela',
+    'Welverdiend',
+    'Blybank',
     // Mogale City Local Municipality
-    "Chamdor",
-    "Dan Pienaarville",
-    "Delporton",
-    "Factoria",
-    "Hekpoort",
-    "Kagiso",
-    "Kenmare",
-    "Kromdraai",
-    "Krugersdorp",
-    "Munsieville South",
-    "Magaliesburg",
-    "Monument",
-    "Muldersdrift",
-    "Munsieville",
-    "Noordheuwel",
-    "Rangeview",
-    "Silverfields",
-    "Tarlton",
+    'Chamdor',
+    'Dan Pienaarville',
+    'Delporton',
+    'Factoria',
+    'Hekpoort',
+    'Kagiso',
+    'Kenmare',
+    'Kromdraai',
+    'Krugersdorp',
+    'Munsieville South',
+    'Magaliesburg',
+    'Monument',
+    'Muldersdrift',
+    'Munsieville',
+    'Noordheuwel',
+    'Rangeview',
+    'Silverfields',
+    'Tarlton',
     // Randfontein Local Municipality
-    "Aureus",
-    "Bhongweni",
-    "Botha AH",
-    "Brandvlei",
-    "Culemborg Park",
-    "Dwarskloof AH",
-    "Eikepark",
-    "Eland SH",
-    "Finsbury",
-    "Green Hills",
-    "Groot-Elandsvlei AH",
-    "Hectorton",
-    "Helikon Park",
-    "Hillside AH",
-    "Home Lake",
-    "Kocksoord",
-    "Loumarina AH",
-    "Middelvlei AH",
-    "Millside",
-    "Mohlakeng",
-    "Mohlakeng Ext 1",
-    "Mohlakeng Ext 3",
-    "Mohlakeng Ext 4",
-    "Mohlakeng Ext 7",
-    "Panvlak Gold Mine",
-    "Pelzvale AH",
-    "Randfontein",
-    "Randfontein Estate Gold Mine",
-    "Randfontein Harmony Gold Mine",
-    "Randfontein NU",
-    "Randfontein South AH",
-    "Randgate",
-    "Randpoort",
-    "Rikasrus AH",
-    "Robin Park",
-    "Tenacre AH",
-    "Toekomsrus",
-    "West Porges",
-    "Westergloor",
-    "Wheatlands AH",
-    "Wilbotsdal AH",
-    "Zenzele",
-    "Utiliy Economics",
+    'Aureus',
+    'Bhongweni',
+    'Botha AH',
+    'Brandvlei',
+    'Culemborg Park',
+    'Dwarskloof AH',
+    'Eikepark',
+    'Eland SH',
+    'Finsbury',
+    'Green Hills',
+    'Groot-Elandsvlei AH',
+    'Hectorton',
+    'Helikon Park',
+    'Hillside AH',
+    'Home Lake',
+    'Kocksoord',
+    'Loumarina AH',
+    'Middelvlei AH',
+    'Millside',
+    'Mohlakeng',
+    'Mohlakeng Ext 1',
+    'Mohlakeng Ext 3',
+    'Mohlakeng Ext 4',
+    'Mohlakeng Ext 7',
+    'Panvlak Gold Mine',
+    'Pelzvale AH',
+    'Randfontein',
+    'Randfontein Estate Gold Mine',
+    'Randfontein Harmony Gold Mine',
+    'Randfontein NU',
+    'Randfontein South AH',
+    'Randgate',
+    'Randpoort',
+    'Rikasrus AH',
+    'Robin Park',
+    'Tenacre AH',
+    'Toekomsrus',
+    'West Porges',
+    'Westergloor',
+    'Wheatlands AH',
+    'Wilbotsdal AH',
+    'Zenzele',
+    'Utiliy Economics',
     // Westonaria Local Municipality
-    "Bekkersdal",
-    "Westonaria"
+    'Bekkersdal',
+    'Westonaria'
   ];
   // CSS PROPERTIES ___________________________________
   newTournFormCont = document.getElementsByClassName('newTournamentForm');
@@ -267,8 +267,8 @@ export class ManageTournamentsPage implements OnInit {
   docid;
   mins: number = 0;
   sub: Subscription;
-  btntxt1 = "First Half";
-  btntxt2 = "Second Half";
+  btntxt1 = 'First Half';
+  btntxt2 = 'Second Half';
   btn1 = false;
   btn2 = true;
   constructor(public alertController: AlertController, public serve: AllserveService, public loadingController: LoadingController, public toastController: ToastController, public modalController: ModalController, public dragulaService: DragulaService, public renderer: Renderer2, public alertCtrl: AlertController, public formBuilder: FormBuilder) {
@@ -357,23 +357,23 @@ export class ManageTournamentsPage implements OnInit {
 
 
 
-      console.log("finish setup")
+      console.log('finish setup')
 
 
-      firebase.firestore().collection('participants').where("whr", "==", "home").where("tournid", "==", tournament.docid).onSnapshot(val => {
+      firebase.firestore().collection('participants').where('whr', '==', 'home').where('tournid', '==', tournament.docid).onSnapshot(val => {
         val.forEach(res => {
 
           this.hparticipants.push({ ...{ id: res.id }, ...res.data() })
-          console.log("current Participants = ", this.hparticipants)
+          console.log('current Participants = ', this.hparticipants)
         })
       })
-      firebase.firestore().collection('participants').where("whr", "==", "away").where("tournid", "==", tournament.docid).onSnapshot(val => {
+      firebase.firestore().collection('participants').where('whr', '==', 'away').where('tournid', '==', tournament.docid).onSnapshot(val => {
         val.forEach(async res => {
           this.type = res.data().type;
           this.lengthparticipents = res.data.length + this.lengthparticipents;
           this.type = parseFloat(this.type.toString());
 
-          console.log("loadededed")
+          console.log('loadededed')
 
 
           if (this.lengthparticipents == this.type) {
@@ -394,19 +394,19 @@ export class ManageTournamentsPage implements OnInit {
 
 
           this.aparticipants.push({ ...{ id: res.id }, ...res.data() })
-          console.log("current Participants = ", this.aparticipants)
+          console.log('current Participants = ', this.aparticipants)
         })
       })
 
 
-      firebase.firestore().collection('participants').where("tournid", "==", tournament.docid).onSnapshot(val => {
+      firebase.firestore().collection('participants').where('tournid', '==', tournament.docid).onSnapshot(val => {
         val.forEach(res => {
 
           this.cparticipants.push({ ...{ id: res.id }, ...res.data() })
-          console.log("current Participants = ", this.cparticipants)
+          console.log('current Participants = ', this.cparticipants)
 
           this.acceptednum = this.cparticipants.length;
-          console.log("current Participants = ", this.acceptednum)
+          console.log('current Participants = ', this.acceptednum)
         })
       })
 
@@ -437,7 +437,7 @@ export class ManageTournamentsPage implements OnInit {
 
       this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
       this.setUpApplications = true;
-      this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where('status', "==", 'awaiting').onSnapshot(res => {
+      this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where('status', '==', 'awaiting').onSnapshot(res => {
         this.tournamentApplications = []
         res.forEach(doc => {
           team = {
@@ -458,11 +458,11 @@ export class ManageTournamentsPage implements OnInit {
 
           form = val.data().formInfo;
 
-          firebase.firestore().collection('participants').where("tournid", "==", val.data().formInfo.tournamentName).onSnapshot(res => {
+          firebase.firestore().collection('participants').where('tournid', '==', val.data().formInfo.tournamentName).onSnapshot(res => {
             res.forEach(val => {
 
               this.participants.push(val.data())
-              console.log("participants = ", val.data())
+              console.log('participants = ', val.data())
 
               num = num + 1;
 
@@ -470,12 +470,12 @@ export class ManageTournamentsPage implements OnInit {
               obb = val.data();
 
               if (num % 2 == 0) {
-                firebase.firestore().collection('participants').doc(val.id).update({ ...val.data(), ...{ whr: "home" } })
+                firebase.firestore().collection('participants').doc(val.id).update({ ...val.data(), ...{ whr: 'home' } })
                 // this.participants.push({...val.data(),...{whr:"home"}})
               }
               else {
                 // this.aparticipants.push({...val.data(),...{awhr:"away"}})
-                firebase.firestore().collection('participants').doc(val.id).update({ ...val.data(), ...{ whr: "away" } })
+                firebase.firestore().collection('participants').doc(val.id).update({ ...val.data(), ...{ whr: 'away' } })
               }
 
 
@@ -485,22 +485,22 @@ export class ManageTournamentsPage implements OnInit {
               // }
 
 
-              console.log("number = ", num)
-              console.log("parts  = ", this.participants)
+              console.log('number = ', num)
+              console.log('parts  = ', this.participants)
             })
           })
         })
-        this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where("status", "==", "accepted").onSnapshot(val => {
+        this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where('status', '==', 'accepted').onSnapshot(val => {
           this.accepted = [];
           val.forEach(res => {
             this.accepted.push({ ...form, ...{ tournid: tournament.docid }, ...{ id: res.id }, ...res.data() });
-            console.log("datazi = ", this.accepted.length == this.lengthparticipents)
+            console.log('datazi = ', this.accepted.length == this.lengthparticipents)
 
 
 
           })
         })
-        this.db.collection('newTournaments').doc(tournament.docid).collection('vendorApplications').where("status", "==", "accepted").onSnapshot(val => {
+        this.db.collection('newTournaments').doc(tournament.docid).collection('vendorApplications').where('status', '==', 'accepted').onSnapshot(val => {
           this.acceptedVendor = []
           val.forEach(res => {
 
@@ -545,16 +545,16 @@ export class ManageTournamentsPage implements OnInit {
     const val = ev.target.value;
     // if the value is an empty string don't filter the items
     console.log(val);
-    if (val && val.trim() != "") {
+    if (val && val.trim() != '') {
       this.searchResults = this.gauteng.filter(item => {
         return item.toLowerCase().indexOf(val.toLowerCase()) > -1;
       });
       console.log('Results = ', this.searchResults);
-    } else if (val != " ") {
+    } else if (val != ' ') {
       this.searchResults = this.gauteng.filter(item => {
         return item.toLowerCase().indexOf(val.toLowerCase()) > -1;
       });
-    } else if (val == "") {
+    } else if (val == '') {
       this.searchResults = [];
     }
   }
@@ -705,7 +705,7 @@ export class ManageTournamentsPage implements OnInit {
         let alerter = await this.alertCtrl.create({
           header: 'Success',
           subHeader: 'Tournament Created',
-          message: "Please wait for it's approval from the Admin. It will be submitted immediately after the approval.",
+          message: 'Please wait for it\'s approval from the Admin. It will be submitted immediately after the approval.',
           buttons: [
             {
               text: 'Okay',
@@ -721,7 +721,7 @@ export class ManageTournamentsPage implements OnInit {
         let alerter = await this.alertCtrl.create({
           header: 'Oops!',
           subHeader: 'Something went wrong.',
-          message: "It might be the server but please check if your network is connected.",
+          message: 'It might be the server but please check if your network is connected.',
           buttons: [
             {
               text: 'Okay',
@@ -816,8 +816,8 @@ export class ManageTournamentsPage implements OnInit {
     switch (state) {
       case 'open':
         this.presentModal();
-        console.log("participants = ")
-        console.log("participants = ", this.hparticipants)
+        console.log('participants = ')
+        console.log('participants = ', this.hparticipants)
         // this.promptFixtureConfig('close',this.hparticipants)
         // this.timeLineSetup = true;
         // this.renderer.setStyle(this.setUpTimelineDiv[0], 'display', 'block');
@@ -827,7 +827,7 @@ export class ManageTournamentsPage implements OnInit {
         this.setUpApplications = false;
         break;
       case 'close':
-        console.log("participants = ", this.hparticipants)
+        console.log('participants = ', this.hparticipants)
         console.log('will close');
 
         this.timeLineSetup = false;
@@ -876,7 +876,7 @@ export class ManageTournamentsPage implements OnInit {
 
         this.fixture = this.serve.fixture;
 
-        console.log("fixture here", this.fixture)
+        console.log('fixture here', this.fixture)
         break;
 
       default:
@@ -916,7 +916,7 @@ export class ManageTournamentsPage implements OnInit {
     console.log(x)
     let obj = x;
     this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(x.docid).update({
-      status: "accepted"
+      status: 'accepted'
     }).then(doc => {
       this.db.collection('newTournaments').doc(this.tourney.docid).update({
         AcceptedApplications: firebase.firestore.FieldValue.increment(1)
@@ -926,10 +926,11 @@ export class ManageTournamentsPage implements OnInit {
   }
 
   decline(x) {
-    console.log("Decline", x)
+    console.log('Decline', x)
     let obj = {};
     obj = x;
-    this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(x.docid).update({ status: "declined" }).then(doc => {
+    // tslint:disable-next-line:max-line-length
+    this.db.collection('newTournaments').doc(this.tourney.docid).collection('teamApplications').doc(x.docid).update({ status: 'declined' }).then(doc => {
       this.db.collection('newTournaments').doc(this.tourney.docid).update({
         DeclinedApplications: firebase.firestore.FieldValue.increment(1)
       })
@@ -947,7 +948,8 @@ export class ManageTournamentsPage implements OnInit {
     }
     else {
       if (pos % 2 == 0) {
-        this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ status: "paid" }).then(res => {
+        // tslint:disable-next-line:max-line-length
+        this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ status: 'paid' }).then(res => {
           // this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress => {
           this.db.collection('participants').add({ ...c, ...{ whr: 'home' } });
 
@@ -958,7 +960,8 @@ export class ManageTournamentsPage implements OnInit {
         })
       }
       else {
-        this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ status: "paid" }).then(res => {
+        // tslint:disable-next-line:max-line-length
+        this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).update({ status: 'paid' }).then(res => {
           // this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress => {
           this.db.collection('participants').add({ ...c, ...{ whr: 'away' } });
           this.db.collection('newTournaments').doc(c.tournid).update({
@@ -970,8 +973,11 @@ export class ManageTournamentsPage implements OnInit {
       }
     }
   }
+  // tslint:disable-next-line:member-ordering
   q1 = [];
+  // tslint:disable-next-line:member-ordering
   q2 = [];
+  // tslint:disable-next-line:member-ordering
   fixture = [];
 
   async savefixture() {
@@ -981,8 +987,8 @@ export class ManageTournamentsPage implements OnInit {
     for (let r = 0; r < q1.length; r++) {
       let z: any = {};
       z = { matchdate: q1[r].matchdate, secs: 0, mins: 0, ascore: 0, score: 0, ...q1[r], random1: Math.floor((Math.random() * r) * 2) };
-      console.log("Tdate =", z);
-      if (z.matchdate == undefined || z.matchdate == "Invalid Date") {
+      console.log('Tdate =', z);
+      if (z.matchdate == undefined || z.matchdate == 'Invalid Date') {
         const toast = await this.toastController.create({
           message: 'Enter the time and date for all the matches.',
           duration: 2000
@@ -1036,13 +1042,13 @@ export class ManageTournamentsPage implements OnInit {
 
     this.deldocs();
     console.log(this.participantdocids)
-    firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update({ state: "inprogress" });
+    firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update({ state: 'inprogress' });
 
     for (let r = 0; r < q1.length; r++) {
       let z: any = {};
       z = { matchdate: new Date(q1[r].matchdate).toLocaleString(), secs: 0, mins: 0, ascore: 0, score: 0, ...q1[r] };
-      console.log("Tdate =", z);
-      if (z.matchdate == undefined || z.matchdate == "Invalid Date") {
+      console.log('Tdate =', z);
+      if (z.matchdate == undefined || z.matchdate == 'Invalid Date') {
         const toast = await this.toastController.create({
           message: 'Enter the time and date for all the matches.',
           duration: 2000
@@ -1065,7 +1071,7 @@ export class ManageTournamentsPage implements OnInit {
   }
   deldocs() {
     for (let x = 0; x < this.participantdocids.length; x++) {
-      console.log("Delete HERE!")
+      console.log('Delete HERE!')
       firebase.firestore().collection('participants').doc(this.participantdocids[x].id).delete();
     }
   }
@@ -1074,7 +1080,7 @@ export class ManageTournamentsPage implements OnInit {
     let temp = [];
     let temp2 = [];
     this.participantdocids = [];
-    console.log("Tourney", tournament)
+    console.log('Tourney', tournament)
     let num = 0;
     firebase.firestore().collection('participants').where('tournid', '==', tournament.docid).onSnapshot(res => {
       this.fixture = []
@@ -1106,7 +1112,7 @@ export class ManageTournamentsPage implements OnInit {
   }
   acceptVendorApplication(v) {
     console.log('aaaaa', v);
-    this.db.collection('newTournaments').doc(this.tourney.docid).collection('vendorApplications').doc(v.docid).update({ status: "accepted" }).then(doc => {
+    this.db.collection('newTournaments').doc(this.tourney.docid).collection('vendorApplications').doc(v.docid).update({ status: 'accepted' }).then(doc => {
       this.db.collection('newTournaments').doc(this.tourney.docid).update({
         AcceptedVendorApplications: firebase.firestore.FieldValue.increment(1)
       })
@@ -1114,7 +1120,7 @@ export class ManageTournamentsPage implements OnInit {
 
   }
   declineVendorApplication(v) {
-    this.db.collection('newTournaments').doc(this.tourney.docid).collection('vendorApplications').doc(v.docid).update({ status: "declined" }).then(doc => {
+    this.db.collection('newTournaments').doc(this.tourney.docid).collection('vendorApplications').doc(v.docid).update({ status: 'declined' }).then(doc => {
       this.db.collection('newTournaments').doc(this.tourney.docid).update({
         DeclinedVendorApplications: firebase.firestore.FieldValue.increment(1)
       })
@@ -1122,7 +1128,7 @@ export class ManageTournamentsPage implements OnInit {
   }
   fixtures;
   editfixture() {
-    console.log("This is where you edit fixtures");
+    console.log('This is where you edit fixtures');
 
     this.fixture = this.fixtures;
     this.fixtures = [];

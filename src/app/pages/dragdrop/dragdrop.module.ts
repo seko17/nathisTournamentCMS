@@ -5,6 +5,7 @@ import { DragulaModule } from 'ng2-dragula';
 import { IonicModule } from '@ionic/angular';
 
 import { DragdropPageRoutingModule } from './dragdrop-routing.module';
+import {SharedModule} from 'src/app/shared/shared.module'
 
 import { DragdropPage } from './dragdrop.page';
 
@@ -16,6 +17,6 @@ import { DragdropPage } from './dragdrop.page';
     IonicModule,
     DragdropPageRoutingModule
   ],
-  declarations: [DragdropPage]
+  declarations: [SharedModule]
 })
 export class DragdropPageModule {}
