@@ -668,7 +668,7 @@ button[ion-fab] {
       backdrop-filter: blur(5px);
       width: 100%;
       height: 35%;
-      padding: 15px;
+      padding: 15px 15px 15px 50px;
       display: flex;
       align-items: center;
       background: rgba(255, 255, 255, 0);
@@ -812,12 +812,13 @@ button[ion-fab] {
       backdrop-filter: blur(5px);
       width: 100%;
       height: 35%;
-      padding: 15px;
+      padding: 15px 15px 15px 50px;
       display: flex;
       align-items: center;
       background: rgba(255, 255, 255, 0);
 
       h4 {
+        font-size: 4vw;
         margin: 0;
         padding: 0;
       }
