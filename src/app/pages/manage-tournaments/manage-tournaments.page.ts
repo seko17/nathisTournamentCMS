@@ -10,6 +10,7 @@ import { SetfixturePage } from 'src/app/setfixture/setfixture.page';
 import { AllserveService } from 'src/app/services/allserve.service';
 import { Subscription, Observable, observable, timer } from 'rxjs';
 import { Motus } from "motus";
+import { DragdropPage } from '../dragdrop/dragdrop.page';
 
 @Component({
   selector: 'app-manage-tournaments',
@@ -25,7 +26,7 @@ export class ManageTournamentsPage implements OnInit {
   async presentModal() {
     this.setUpTimeLine('close', null);
     this.modal = await this.modalController.create({
-      component: SetfixturesPage,
+      component: DragdropPage,
       backdropDismiss: false,
       showBackdrop: true
     });
@@ -309,6 +310,9 @@ export class ManageTournamentsPage implements OnInit {
   lengthparticipents: number = 0;
   async finnishSetup(tournament, state) {
     // please keep this switch statement at the top
+    this.serve.tournid = tournament.docid;
+    console.log("Rose",tournament.docid)
+
     switch (state) {
       case 'open':
         this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
@@ -1015,7 +1019,7 @@ export class ManageTournamentsPage implements OnInit {
     });
     await loading.present();
     await loading.onDidDismiss().then(val => {
-      // this.fixture = this.serve.fixture;
+      this.fixture = this.serve.fixture;
       // console.log("Serve Array = ", this.fixture)
 
       console.log('Loader dismiss fixture array!');
@@ -1129,8 +1133,7 @@ export class ManageTournamentsPage implements OnInit {
 
   tournid = null;
   async moredetails(t) {
-    this.tournid = t.docid;
-    console.log(t)
+
     let num = 0;
     let num2 = 0;
     let num3 = 0;

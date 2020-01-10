@@ -9,12 +9,24 @@ q2:any =[];
 currentmatch:any ={};
 fixture:any =[];
 tournaments =[];
+tournid;
 blocker =true;
 firsthalf =false;
 secondhalf =false;
   constructor() { }
 
 firstdoc ={};
+
+dragdropfixture(fixture)
+{
+
+this.fixture =fixture;
+
+return this.fixture;
+
+}
+
+
   randomfixture(q1,q2)
 {
   
