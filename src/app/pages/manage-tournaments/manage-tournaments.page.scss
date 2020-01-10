@@ -681,16 +681,25 @@
     .details {
       width: 100%;
       height: 50%;
-      padding: 15px;
+      padding: 15px 15px 15px 10%;
       display: flex;
       -webkit-box-align: center;
       align-items: center;
-
+      background: linear-gradient(rgba(255, 255, 255, 0.432)),url(../../../assets/SVG/statsbg.svg), white;
+      background-size: cover;
       h4 {
         margin: 0;
         padding: 0;
+        font-size: 1em;
+        // letter-spacing: 5px;
       }
-
+      h1 {
+        margin: 0;
+        padding: 0;
+        font-size: 4vw;
+        letter-spacing: 7px;
+        
+      }
       p {
         margin: 0;
         padding: 0;

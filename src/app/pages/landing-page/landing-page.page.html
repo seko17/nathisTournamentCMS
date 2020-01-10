@@ -379,7 +379,7 @@
     <div class="noTournamentDetails" *ngIf="clicked.length==0" >
       <div class="details">
         <div>
-         <h1><u>Click on the Tournament to view it's details</u></h1>
+         <h1 style="font-size: 1em;">Click on the Tournament to view it's details</h1>
         </div>
 
       </div>
@@ -395,13 +395,13 @@
     <div class="tournamentDetails" *ngFor="let item of clicked">
       <div class="details">
         <div>
-          <h4>{{item.formInfo.tournamentName}}</h4>
-          <p>Top {{item.formInfo.type}}</p>
+          <h4 style="font-size:4.4vw; letter-spacing: 5px;"> {{item.formInfo.tournamentName}}</h4>
+          <p style="color: gray;">Top {{item.formInfo.type}}</p>
           <hr>
-          <p>{{item.formInfo.type}} Participants</p>
-          <p>{{item.formInfo.startDate | date}} to {{item.formInfo.endDate  | date}}</p>
+          <p style="font-size: 1.7vw;">{{item.formInfo.type}} Participants</p>
+          <!-- <p style="font-size: 1.3vw;">{{item.formInfo.startDate | date}} to {{item.formInfo.endDate  | date}}</p> -->
           <hr>
-          <p>Application Closing Date <br> {{item.formInfo.applicationClosing  | date}}</p>
+          <p style="    font-size: 1.1vw;">Application Closing Date <br> {{item.formInfo.applicationClosing  | date}}</p>
         </div>
 
       </div>

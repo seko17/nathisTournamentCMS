@@ -229,7 +229,9 @@ export class ManageTournamentsPage implements OnInit {
     state: 'newTournament',
     AcceptedApplications: 0,
     ApprovedApplications: 0,
-    totalApplications: 0
+    totalApplications: 0,
+    DeclinedApplications: 0,
+    DeclinedVendorApplications: 0
   };
   tempCardGen = []
   acceptedVendor = []
@@ -312,7 +314,7 @@ export class ManageTournamentsPage implements OnInit {
   async finnishSetup(tournament, state) {
     // please keep this switch statement at the top
     this.serve.tournid = tournament.docid;
-    console.log("Rose",tournament.docid)
+    console.log("Rose", tournament.docid)
 
     switch (state) {
       case 'open':
@@ -674,7 +676,7 @@ export class ManageTournamentsPage implements OnInit {
       await alert.present();
 
     }
-    else if (applicDate >= startDat) {
+    else if (applicDate < startDat) {
       console.log('application date invalid');
       const alert = await this.alertController.create({
         header: 'Warning!',
