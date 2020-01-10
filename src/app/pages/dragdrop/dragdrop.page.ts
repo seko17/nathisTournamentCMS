@@ -65,7 +65,7 @@ num =num+1;
    
   }
 
-  constructor(public loadingController:LoadingController,public modalcontroller:ModalController,public alertController: AlertController, public serve: AllserveService, private router: Router, private dragulaService: DragulaService, private toastController: ToastController, public renderer: Renderer2) {
+  constructor(public modal:ModalController,public loadingController:LoadingController,public modalcontroller:ModalController,public alertController: AlertController, public serve: AllserveService, private router: Router, private dragulaService: DragulaService, private toastController: ToastController, public renderer: Renderer2) {
 
     //code for drag and drop
 
@@ -128,7 +128,7 @@ num =num+1;
     console.log("Q2 =", q2);
    let temp =[];
 let fixture =[];
-    for(let c =0;c<=this.q1.length;c++)
+    for(let c =0;c<this.q1.length;c++)
     {
 
       // temp.push({ ...q1[c],...q2[c], ...{score:0, matchdate: null, goal: 0, whr: 'away', aoffsides: 0, acorners: 0, mins: 0, secs: 0, ayellow: 0, ared: 0, offsides: 0, corners: 0, yellow: 0, red: 0 } });
@@ -142,18 +142,23 @@ aTeamObject:q2[c].TeamObject,
 awhr:q2[c].whr
 }
 
-console.log("away = ",away)
 
-fixture.push({...q1[c],...away,...{matchstate:'incomplete'}});
+
+fixture.push({...q1[c],...away,...{matchstate:'incomplete'}, ...{ascore:0,score:0, matchdate: null, goal: 0, whr: 'away', aoffsides: 0, acorners: 0, mins: 0, secs: 0, ayellow: 0, ared: 0, offsides: 0, corners: 0, yellow: 0, red: 0 } });
 
 console.log("Fixture variable = ",fixture)
     }
 
 
+    this.serve.dragdropfixture(fixture);
 
+    this.modal.dismiss();
 
   }
   ionViewWillLeave() {
     this.dragulaService.destroy('bag');
   }
+
+
+  
 }

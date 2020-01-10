@@ -310,6 +310,9 @@ export class ManageTournamentsPage implements OnInit {
   lengthparticipents: number = 0;
   async finnishSetup(tournament, state) {
     // please keep this switch statement at the top
+    this.serve.tournid = tournament.docid;
+    console.log("Rose",tournament.docid)
+
     switch (state) {
       case 'open':
         this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
@@ -1016,7 +1019,7 @@ export class ManageTournamentsPage implements OnInit {
     });
     await loading.present();
     await loading.onDidDismiss().then(val => {
-      // this.fixture = this.serve.fixture;
+      this.fixture = this.serve.fixture;
       // console.log("Serve Array = ", this.fixture)
 
       console.log('Loader dismiss fixture array!');
@@ -1130,8 +1133,7 @@ export class ManageTournamentsPage implements OnInit {
 
   tournid = null;
   async moredetails(t) {
-    this.tournid = t.docid;
-    console.log(t)
+
     let num = 0;
     let num2 = 0;
     let num3 = 0;
