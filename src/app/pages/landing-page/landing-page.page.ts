@@ -562,10 +562,10 @@ loading.onDidDismiss().then(async val=>{
 
               if (parseFloat(this.clicked[0].formInfo.type) / 2 == 1) {
 
-                this.db.collection('newTournaments').doc().update({ state: 'finished' });
+                this.db.collection('newTournaments').doc(this.clicked[0].docid).update({ state: 'finished' });
 
                 if (rez.data().ascore > rez.data().score) {
-                  console.log("AWAYSCORE WON")
+                
 
                   firebase.firestore().collection('PlayedMatches').add(rez.data());
 

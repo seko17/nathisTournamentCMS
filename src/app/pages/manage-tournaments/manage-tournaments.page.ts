@@ -33,6 +33,7 @@ export class ManageTournamentsPage implements OnInit {
     this.modal.onWillDismiss().then(res => {
 
       this.fixtureSetUp('open');
+      this.fixture =this.serve.dropfixture;
       this.presentLoading();
     });
     this.promptFixtureConfig('close', null);
@@ -1043,10 +1044,14 @@ export class ManageTournamentsPage implements OnInit {
   async createfixture() {
     let q1 = this.fixtures;
 
+
+
+
     this.deldocs();
     console.log(this.participantdocids)
     firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update({ state: 'inprogress' });
 
+    
     for (let r = 0; r < q1.length; r++) {
       let z: any = {};
       z = { matchdate: new Date(q1[r].matchdate).toLocaleString(), secs: 0, mins: 0, ascore: 0, score: 0, ...q1[r] };
@@ -1073,10 +1078,10 @@ export class ManageTournamentsPage implements OnInit {
     }
   }
   deldocs() {
-    for (let x = 0; x < this.participantdocids.length; x++) {
-      console.log('Delete HERE!')
-      firebase.firestore().collection('participants').doc(this.participantdocids[x].id).delete();
-    }
+    // for (let x = 0; x < this.participantdocids.length; x++) {
+    //   console.log('Delete HERE!')
+    //   firebase.firestore().collection('participants').doc(this.participantdocids[x].id).delete();
+    // }
   }
   participantdocids = [];
   generatefixtures(tournament) {

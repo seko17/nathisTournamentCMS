@@ -8,8 +8,8 @@
  
     <ion-row no-padding class="matrix">
       <ion-col size="6" class="q1">
-        <div class="q-header">Do</div>
-        <ion-list dragula="bag" [(dragulaModel)]="q1" lines="none">
+        <div class="q-header">HOME</div>
+        <ion-list dragula="bag" [(dragulaModel)]="q1" lines="full">
           <ion-item *ngFor="let item of q1" [color]="item.color" expand="block" text-wrap>
             {{ item.TeamObject.teamName }}
           </ion-item>
@@ -18,19 +18,19 @@
  
       <ion-col size="6" class="q2">
         <div class="q-header">AWAY</div>
-        <ion-list dragula="bag" [(dragulaModel)]="q2" lines="none">
-          <ion-item *ngFor="let item of q2" [color]="item.color" expand="block" text-wrap>
+        <ion-list dragula="bag" [(dragulaModel)]="q2" lines="full">
+          <ion-item *ngFor="let item of q2" [color]="item.color" expand="block" text-wrap lines ="full">
             <h5>{{ item.TeamObject.teamName }}</h5>
           
           </ion-item>
         </ion-list>
       </ion-col>
  
-     
+     <div align = "center">
       <ion-button (click)="savefixture(q1,q2)" >
         Done
       </ion-button>
-     
+    </div>
     </ion-row>
   </ion-grid>
  
