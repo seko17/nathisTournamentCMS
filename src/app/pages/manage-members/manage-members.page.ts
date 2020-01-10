@@ -19,6 +19,7 @@ export class ManageMembersPage implements OnInit {
     manager = []
     approvedVendor = []
     approvedManagers = []
+    arr = [4,4,5,5,5,5,6,2,3,4,5,6,7,8,9,0,9,8,7,6,5,4,3,23,2]
   constructor(public alertController: AlertController,
     public loadingController: LoadingController) { }
 
@@ -71,7 +72,36 @@ console.log('fore',val.docid);
   });
   await alert.present();
   }
- 
+  async decline(val){
+    console.log('fore',val.docid);
+    
+      const alert = await this.alertController.create({   
+        header: 'Please Confirm!',
+        message: 'Are you sure you want to Decline '+ val.doc.form.fullName +'.',
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: (blah) => {
+              console.log('Confirm Cancel: blah');
+            }
+          }, {
+            text: 'Okay',
+            handler: () => {
+              this.db.collection('members').doc(val.docid).update({status : 'declined'}).then(res =>{
+              
+                this.presentLoading()
+              }).catch(err =>{
+                console.log(err);
+                
+              })
+            }
+          }
+        ]
+      });
+      await alert.present();
+      }
 getUnapprovedMembers(){
   let obj = {
     docid: null,
@@ -110,10 +140,10 @@ getApprovedMembers(){
       // console.log('data', doc.data().form.role);
       if(doc.data().form.role =='teamManager'){
         this.approvedManagers.push(doc.data())
-        console.log('manager', this.manager);
+        console.log('approvedManagers', this.approvedManagers);
       }else if (doc.data().form.role =='vendor'){
         this.approvedVendor.push(doc.data())
-        console.log('vendors',this.vendors);
+        console.log('approvedVendor',this.approvedVendor);
         
       }
     })

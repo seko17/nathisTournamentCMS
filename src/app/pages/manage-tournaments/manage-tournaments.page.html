@@ -435,15 +435,15 @@
             </ion-input>
 
           </ion-item>
-          <ion-item>
+ 
             <ion-progress-bar value="{{progressOfImage/100}}"></ion-progress-bar>
-          </ion-item>
+
           <ion-item>
             <ion-label>Sponsor Name</ion-label>
             <ion-input [(ngModel)]="sponsorName"> </ion-input>
           </ion-item>
 
-          <ion-button (click)="saveSponsor()">
+          <ion-button (click)="saveSponsor()" [disabled]="progressOfImage<100">
             Add Sponsor
           </ion-button>
 
@@ -474,7 +474,7 @@
   <div class="cmsContentTourns">
     <div class="tournaments">
       <div class="links">
-        <ion-button shape="round" color="success" (click)="toggleTournamentForm('open')">
+        <ion-button size="small" shape="round" color="success" (click)="toggleTournamentForm('open')">
           Create Tournament
         </ion-button>
 
@@ -510,6 +510,11 @@
             <h4>Created Tournaments</h4>
           </div>
           <div class="unapprovedList">
+            <div class="card" style="display: flex; align-items: center; height: 15% !important;opacity: 0.5;width: 375px !important;" *ngIf="unapprovedTournaments.length==0" >
+              <div class="tTitle">
+                <h5>No Information</h5>
+              </div>
+            </div>
             <div class="card" *ngFor="let t of unapprovedTournaments">
               <div class="tTitle">
                 <h5>{{t.doc.formInfo.tournamentName}}</h5>
