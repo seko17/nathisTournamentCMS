@@ -538,12 +538,12 @@
           <div *ngIf="TournSelectedObj.doc.formInfo.tournamentName!=''">
            
             <h1>{{TournSelectedObj.doc.formInfo.tournamentName}}</h1>
-            <p>Top {{TournSelectedObj.doc.formInfo.type}}</p>
+            <p style="color: gray;">Top {{TournSelectedObj.doc.formInfo.type}}</p>
             <hr>
-            <p>{{TournSelectedObj.doc.formInfo.type}} Participants</p>
-            <p>From {{TournSelectedObj.doc.formInfo.startDate|date}} to {{TournSelectedObj.doc.formInfo.endDate|date}}</p>
+            <p style="font-size: 1.2vw;">{{TournSelectedObj.doc.formInfo.type}} Participants</p>
+            <p style="font-size: 1.2vw;">From {{TournSelectedObj.doc.formInfo.startDate|date}} to {{TournSelectedObj.doc.formInfo.endDate|date}}</p>
             <hr>
-            <p>Application Closing Date <br> {{TournSelectedObj.doc.formInfo.applicationClosing|date}}</p>
+            <p style="font-weight: bold;">Application Closing Date <br> {{TournSelectedObj.doc.formInfo.applicationClosing|date}}</p>
           </div>
 
         </div>
@@ -570,14 +570,19 @@
             </div>
             <div class="card">
               <div class="title">
+                <p>Rejected Applications</p>
+              </div>
+              <div class="number">
+                <h3>{{TournSelectedObj.doc.DeclinedApplications}}</h3>
+              </div>
+            </div>
+            <div class="card">
+              <div class="title">
                 <p>Total Applications</p>
               </div>
               <div class="number">
                 <h3>{{TournSelectedObj.doc.totalApplications}}</h3>
               </div>
-            </div>
-            <div class="s">
-              <ion-icon name="arrow-down"></ion-icon>
             </div>
           </div>
           <div class="stats">
@@ -602,14 +607,19 @@
             </div>
             <div class="card">
               <div class="title">
+                <p>Rejected Applications</p>
+              </div>
+              <div class="number">
+                <h3>{{TournSelectedObj.doc.DeclinedVendorApplications}}</h3>
+              </div>
+            </div>
+            <div class="card">
+              <div class="title">
                 <p>Total Applications</p>
               </div>
               <div class="number">
                 <h3>{{TournSelectedObj.doc.totalApplications}}</h3>
               </div>
-            </div>
-            <div class="s">
-              <ion-icon name="arrow-down"></ion-icon>
             </div>
           </div>
         </div>
