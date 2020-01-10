@@ -138,7 +138,7 @@ let fixture =[];
 
 
 let away:any ={
-aTeamObject:q2[v].TeamObject,
+aTeamObject:q2[c].TeamObject,
 awhr:q2[c].whr
 }
 
