@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { SetfixturesPage } from './pages/setfixtures/setfixtures.page';
 import { SetfixturePage } from './setfixture/setfixture.page';
 import { DragdropPage } from './pages/dragdrop/dragdrop.page';
+// import {SharedModule} from './shared/shared.module'
 
 @NgModule({
   declarations: [AppComponent,SetfixturesPage,DragdropPage],
