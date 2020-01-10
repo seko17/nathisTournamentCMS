@@ -703,7 +703,9 @@ export class ManageTournamentsPage implements OnInit {
         state: 'newTournament',
         AcceptedApplications: 0,
         ApprovedApplications: 0,
-        totalApplications: 0
+        totalApplications: 0,
+        DeclinedApplications: 0,
+        DeclinedVendorApplications: 0
       }
       this.db.collection('newTournaments').add(this.tournamentObj).then(async res => {
         loader.dismiss()
