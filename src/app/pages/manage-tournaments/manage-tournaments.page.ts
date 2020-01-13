@@ -245,7 +245,8 @@ this.fixtures =[];
     ApprovedApplications: 0,
     totalApplications: 0,
     DeclinedApplications: 0,
-    DeclinedVendorApplications: 0
+    DeclinedVendorApplications: 0,
+    notifyUser : 'yes'
   };
   tempCardGen = []
   acceptedVendor = []
@@ -268,7 +269,8 @@ this.fixtures =[];
         endDate: '',
         applicationClosing: '',
         joiningFee: '',
-        type: ''
+        type: '',
+        
       }
     }
   }
@@ -714,6 +716,7 @@ this.fixtures =[];
       this.tournamentObj = {
         formInfo: formData,
         approved: false,
+        notifyUser: 'yes',
         approvedVendors: this.tournamentObj.approvedVendors,
         dateCreated: date.toDateString(),
         sponsors: this.tournamentObj.sponsors,
