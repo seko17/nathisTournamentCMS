@@ -58,7 +58,7 @@ export class LandingPagePage implements OnInit {
   input = { data: [] };
   ainput = { data: [] };
   tempCardGen = [] // temporary card generator, used for ngFor
-  constructor(public loadingController: LoadingController,public allserve: AllserveService, public alertController: AlertController, public serve: AllserveService, public zone: NgZone, public renderer: Renderer2) {
+  constructor(public loadingController: LoadingController, public allserve: AllserveService, public alertController: AlertController, public serve: AllserveService, public zone: NgZone, public renderer: Renderer2) {
 
 
 
@@ -107,7 +107,7 @@ export class LandingPagePage implements OnInit {
   }
 
 
- blocker =this.allserve.blocker;
+  blocker = this.allserve.blocker;
   timer;
   docid;
   mins: number = 0;
@@ -455,11 +455,11 @@ export class LandingPagePage implements OnInit {
 
     console.log('docid = ', this.matchobject.fixtureid)
     this.sub = timer(0, 1000).subscribe(result => {
-     
+
       this.matchobject.fixtureid;
       this.allserve.blocker = false;
-      this.blocker=this.allserve.blocker;
-   
+      this.blocker = this.allserve.blocker;
+
 
       if (this.secs == 60) {
         this.secs = 0;
@@ -503,13 +503,13 @@ export class LandingPagePage implements OnInit {
 
             firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ mins: this.mins, secs: this.secs, type: this.clicked[0].formInfo.type }).then(res => {
               this.allserve.blocker = true;
-              this.blocker=this.allserve.blocker;
+              this.blocker = this.allserve.blocker;
 
             })
 
 
             this.allserve.blocker = true;
-      this.blocker=this.allserve.blocker;
+            this.blocker = this.allserve.blocker;
 
             console.log(this.sub.unsubscribe())
           }
@@ -527,105 +527,105 @@ export class LandingPagePage implements OnInit {
       });
       await loading.present();
 
-loading.onDidDismiss().then(async val=>{
+      loading.onDidDismiss().then(async val => {
 
 
-  if (this.btn3 == true) {
+        if (this.btn3 == true) {
 
-    const alert = await this.alertController.create({
-      header: 'Confirm!',
-      message: 'Is the current match over?',
-      buttons: [
-        {
-          text: 'No',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+          const alert = await this.alertController.create({
+            header: 'Confirm!',
+            message: 'Is the current match over?',
+            buttons: [
+              {
+                text: 'No',
+                role: 'cancel',
+                cssClass: 'secondary',
+                handler: (blah) => {
+                  console.log('Confirm Cancel: blah');
 
-            firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ matchstate: 'incomplete' });
-
-          }
-        }, {
-          text: 'Yes',
-          handler: () => {
-            console.log('Confirm Okay');
-
-            this.allserve.blocker = true;
-            this.blocker=this.allserve.blocker;
-            this.viewmatch('close', null);
-
-            firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ matchstate: 'complete' });
-
-            firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(rez => {
-              console.log(rez.data().aTeamObject.teamName)
-
-              if (parseFloat(this.clicked[0].formInfo.type) / 2 == 1) {
-
-                this.db.collection('newTournaments').doc(this.clicked[0].docid).update({ state: 'finished' });
-
-                if (rez.data().ascore > rez.data().score) {
-                
-
-                  firebase.firestore().collection('PlayedMatches').add(rez.data());
-
-
-                  firebase.firestore().collection('TournamentWinners').add({ tournid: this.clicked[0].docid, TeamObject: { ...rez.data().aTeamObject } });
-
-
-                  firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).delete();
-
+                  firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ matchstate: 'incomplete' });
 
                 }
-                else if (rez.data().score > rez.data().ascore) {
-                  console.log("HOMESCORE WON")
+              }, {
+                text: 'Yes',
+                handler: () => {
+                  console.log('Confirm Okay');
 
-                  firebase.firestore().collection('PlayedMatches').add(rez.data());
+                  this.allserve.blocker = true;
+                  this.blocker = this.allserve.blocker;
+                  this.viewmatch('close', null);
+
+                  firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ matchstate: 'complete' });
+
+                  firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(rez => {
+                    console.log(rez.data().aTeamObject.teamName)
+
+                    if (parseFloat(this.clicked[0].formInfo.type) / 2 == 1) {
+
+                      this.db.collection('newTournaments').doc(this.clicked[0].docid).update({ state: 'finished' });
+
+                      if (rez.data().ascore > rez.data().score) {
 
 
-                  firebase.firestore().collection('TournamentWinners').add({ tournid: this.clicked[0].docid, TeamObject: { ...rez.data().TeamObject } });
+                        firebase.firestore().collection('PlayedMatches').add(rez.data());
 
 
-                  firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).delete();
+                        firebase.firestore().collection('TournamentWinners').add({ tournid: this.clicked[0].docid, TeamObject: { ...rez.data().aTeamObject } });
 
+
+                        firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).delete();
+
+
+                      }
+                      else if (rez.data().score > rez.data().ascore) {
+                        console.log("HOMESCORE WON")
+
+                        firebase.firestore().collection('PlayedMatches').add(rez.data());
+
+
+                        firebase.firestore().collection('TournamentWinners').add({ tournid: this.clicked[0].docid, TeamObject: { ...rez.data().TeamObject } });
+
+
+                        firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).delete();
+
+                      }
+
+                    }
+                    else
+                      if (rez.data().ascore > rez.data().score) {
+                        console.log("AWAYSCORE WON")
+
+                        firebase.firestore().collection('PlayedMatches').add(rez.data());
+
+
+                        firebase.firestore().collection('participants').add({ tournid: this.clicked[0].docid, TeamObject: { ...rez.data().aTeamObject, ...{ type: (parseFloat(this.clicked[0].formInfo.type) / 2).toString() } } });
+
+
+                        firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).delete();
+
+
+                      }
+                      else if (rez.data().score > rez.data().ascore) {
+                        console.log("HOMESCORE WON")
+
+                        firebase.firestore().collection('PlayedMatches').add(rez.data());
+
+
+                        firebase.firestore().collection('participants').add({ tournid: this.clicked[0].docid, TeamObject: { ...rez.data().TeamObject, ...{ type: (parseFloat(this.clicked[0].formInfo.type) / 2).toString() } } });
+
+
+                        firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).delete();
+
+                      }
+
+                  })
                 }
-
               }
-              else
-                if (rez.data().ascore > rez.data().score) {
-                  console.log("AWAYSCORE WON")
+            ]
+          });
 
-                  firebase.firestore().collection('PlayedMatches').add(rez.data());
-
-
-                  firebase.firestore().collection('participants').add({ tournid: this.clicked[0].docid, TeamObject: { ...rez.data().aTeamObject, ...{ type: (parseFloat(this.clicked[0].formInfo.type) / 2).toString() } } });
-
-
-                  firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).delete();
-
-
-                }
-                else if (rez.data().score > rez.data().ascore) {
-                  console.log("HOMESCORE WON")
-
-                  firebase.firestore().collection('PlayedMatches').add(rez.data());
-
-
-                  firebase.firestore().collection('participants').add({ tournid: this.clicked[0].docid, TeamObject: { ...rez.data().TeamObject, ...{ type: (parseFloat(this.clicked[0].formInfo.type) / 2).toString() } } });
-
-
-                  firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).delete();
-
-                }
-
-            })
-          }
+          await alert.present();
         }
-      ]
-    });
-
-    await alert.present();
-  }
 
 
 
@@ -633,8 +633,8 @@ loading.onDidDismiss().then(async val=>{
 
 
 
-  
-});
+
+      });
 
 
 
@@ -647,7 +647,7 @@ loading.onDidDismiss().then(async val=>{
 
 
 
-     
+
 
     })
     await alert.present();
@@ -660,15 +660,15 @@ loading.onDidDismiss().then(async val=>{
     console.log('docid = ', this.matchobject.fixtureid)
 
     this.allserve.blocker = false;
-    this.blocker=this.allserve.blocker;
+    this.blocker = this.allserve.blocker;
 
     this.sub = timer(0, 1000).subscribe(result => {
 
       this.allserve.blocker = false;
-      this.blocker=this.allserve.blocker;
+      this.blocker = this.allserve.blocker;
 
 
-    this.allserve.blocker =true;
+      this.allserve.blocker = true;
       firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
         this.secs = val.data().secs;
         console.log(val.data().secs)
@@ -690,7 +690,7 @@ loading.onDidDismiss().then(async val=>{
   goals = [];
   async goal1() {
 
-     {
+    {
       this.currentmatch = [];
       console.log("click", this.currmatch[0].id);
 
@@ -752,7 +752,7 @@ loading.onDidDismiss().then(async val=>{
   }
   agoals;
   async goal2() {
-  {
+    {
       this.currentmatch = [];
       this.agoals = [];
       const alert = await this.alertController.create({
@@ -803,7 +803,7 @@ loading.onDidDismiss().then(async val=>{
   async homestats(x) {
     console.log(x)
 
- {
+    {
       console.log(this.input)
       let input = this.input;
       console.log(input);
@@ -856,8 +856,8 @@ loading.onDidDismiss().then(async val=>{
                   console.log("red")
 
                   console.log('currmatch id', this.currmatch);
-                  
-                
+
+
 
 
 
@@ -930,7 +930,7 @@ loading.onDidDismiss().then(async val=>{
 
   async awaystats(x) {
     console.log(x)
-  {
+    {
 
       let input = this.ainput;
 
@@ -1160,13 +1160,13 @@ loading.onDidDismiss().then(async val=>{
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+            // console.log('Confirm Cancel: blah');
           }
         }, {
           text: 'Okay',
           handler: (time) => {
-            console.log('Confirm Okay' ,time.time);
-            this.mins =parseFloat(time.time.toString());
+            console.log('Confirm Okay', time.time);
+            this.mins = parseFloat(time.time.toString());
             console.log(parseFloat(time.time.toString()))
           }
         }

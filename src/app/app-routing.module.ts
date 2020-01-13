@@ -59,7 +59,11 @@ const routes: Routes = [
   {
     path: 'dragdrop',
     loadChildren: () => import('./pages/dragdrop/dragdrop.module').then( m => m.DragdropPageModule)
+  },  {
+    path: 'match2wo',
+    loadChildren: () => import('./pages/match2wo/match2wo.module').then( m => m.Match2woPageModule)
   },
+
 
 
 

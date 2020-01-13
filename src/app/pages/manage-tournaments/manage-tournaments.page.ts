@@ -24,15 +24,29 @@ export class ManageTournamentsPage implements OnInit {
 
   modal
   async presentModal() {
+
+    this.fixture  =[];
+this.fixtures =[];
+    console.log("drop = ",this.fixture)
+
+
     this.setUpTimeLine('close', null);
     this.modal = await this.modalController.create({
       component: DragdropPage,
       backdropDismiss: false,
       showBackdrop: true
     });
-    this.modal.onWillDismiss().then(res => {
+   
+
+  
+    this.modal.onDidDismiss().then(res => {
+
+      this.fixture  =[];
+      this.fixtures =[];
 
       this.fixtureSetUp('open');
+      
+  
       this.fixture =this.serve.dropfixture;
       this.presentLoading();
     });
@@ -245,8 +259,8 @@ export class ManageTournamentsPage implements OnInit {
       state: '',
       AcceptedApplications: 0,
       ApprovedApplications: 0,
-      DeclinedApplications: 0,
       DeclinedVendorApplications: 0,
+      DeclinedApplications: 0,
       totalApplications: 0,
       formInfo: {
         tournamentName: '',
@@ -887,7 +901,7 @@ export class ManageTournamentsPage implements OnInit {
         //  this.presentModal();
         console.log('will close');
 
-        this.fixture = this.serve.fixture;
+       
 
         console.log('fixture here', this.fixture)
         break;
@@ -994,7 +1008,7 @@ export class ManageTournamentsPage implements OnInit {
   fixture = [];
 
   async savefixture() {
-    let q1 = this.serve.fixture;
+    let q1 = this.fixture;
 
     console.log(this.fixture = this.serve.fixture)
     for (let r = 0; r < q1.length; r++) {
@@ -1016,14 +1030,16 @@ export class ManageTournamentsPage implements OnInit {
         // })
         console.log(this.fixture)
 
-        this.fixtures = this.serve.fixture;
-        this.fixture = [];
+        this.fixtures = q1;
+        this.fixture =[];
         const toast = await this.toastController.create({
           message: 'Fixture saved successfully.',
           duration: 2000
         });
         toast.present();
+toast.onDidDismiss().then(val=>{
 
+})
       }
     }
 
@@ -1035,7 +1051,7 @@ export class ManageTournamentsPage implements OnInit {
     });
     await loading.present();
     await loading.onDidDismiss().then(val => {
-      this.fixture = this.serve.fixture;
+      // this.fixture = this.serve.fixture;
       // console.log("Serve Array = ", this.fixture)
 
       console.log('Loader dismiss fixture array!');

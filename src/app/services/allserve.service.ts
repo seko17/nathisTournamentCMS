@@ -20,8 +20,11 @@ firstdoc ={};
 
 dragdropfixture(fixture)
 {
-
+this.fixture =[];
 this.dropfixture  =fixture;
+
+
+
 
 return this.dropfixture ;
 
