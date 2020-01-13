@@ -231,7 +231,8 @@ export class ManageTournamentsPage implements OnInit {
     ApprovedApplications: 0,
     totalApplications: 0,
     DeclinedApplications: 0,
-    DeclinedVendorApplications: 0
+    DeclinedVendorApplications: 0,
+    notifyUser : 'yes'
   };
   tempCardGen = []
   acceptedVendor = []
@@ -244,6 +245,8 @@ export class ManageTournamentsPage implements OnInit {
       state: '',
       AcceptedApplications: 0,
       ApprovedApplications: 0,
+      DeclinedApplications: 0,
+      DeclinedVendorApplications: 0,
       totalApplications: 0,
       formInfo: {
         tournamentName: '',
@@ -252,7 +255,8 @@ export class ManageTournamentsPage implements OnInit {
         endDate: '',
         applicationClosing: '',
         joiningFee: '',
-        type: ''
+        type: '',
+        
       }
     }
   }
@@ -698,6 +702,7 @@ export class ManageTournamentsPage implements OnInit {
       this.tournamentObj = {
         formInfo: formData,
         approved: false,
+        notifyUser: 'yes',
         approvedVendors: this.tournamentObj.approvedVendors,
         dateCreated: date.toDateString(),
         sponsors: this.tournamentObj.sponsors,
