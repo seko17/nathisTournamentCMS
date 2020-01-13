@@ -244,6 +244,8 @@ export class ManageTournamentsPage implements OnInit {
       state: '',
       AcceptedApplications: 0,
       ApprovedApplications: 0,
+      DeclinedVendorApplications: 0,
+      DeclinedApplications: 0,
       totalApplications: 0,
       formInfo: {
         tournamentName: '',
