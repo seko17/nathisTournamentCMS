@@ -139,10 +139,9 @@ let fixture =[];
 
 let away:any ={
 aTeamObject:q2[c].TeamObject,
-awhr:q2[c].whr
 }
 
-
+console.log(q1[c].TeamObject.teamName, " VS ",away.aTeamObject.teamName)
 
 fixture.push({...q1[c],...away,...{matchstate:'incomplete'}, ...{ascore:0,score:0, matchdate: null, goal: 0, whr: 'away', aoffsides: 0, acorners: 0, mins: 0, secs: 0, ayellow: 0, ared: 0, offsides: 0, corners: 0, yellow: 0, red: 0 } });
 
@@ -152,7 +151,7 @@ console.log("Fixture variable = ",fixture)
 
     this.serve.dragdropfixture(fixture);
 
-    this.modal.dismiss();
+    this.modal.dismiss(fixture);
 
   }
   ionViewWillLeave() {
