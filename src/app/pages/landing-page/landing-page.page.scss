@@ -513,7 +513,7 @@ button[ion-fab] {
     }
 
     .playerHome {
-      border-radius: 10px 0px 0px 10px;
+      border-radius: 10px;
       left: 0%;
 
       .details {
@@ -524,7 +524,7 @@ button[ion-fab] {
     }
 
     .playerAway {
-      border-radius: 10px 0px 0px 10px;
+      border-radius: 10px;
       right: 0%;
 
       .details {
@@ -765,7 +765,17 @@ button[ion-fab] {
         .aVb {
           display: flex;
           justify-content: space-evenly;
-          height: 70px;
+          height: auto;
+          padding-bottom: 20px;
+          .home {
+            flex-basis: 40%;
+          }
+          .versus{
+            flex-basis: 10%;
+          }
+          .away {
+            flex-basis: 40%;
+          }
         }
 
         .teamAway {

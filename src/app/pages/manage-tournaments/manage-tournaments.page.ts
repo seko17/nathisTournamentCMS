@@ -54,7 +54,7 @@ this.fixtures =[];
     return await this.modal.present();
 
   }
-  userLocation = '';
+  userLocation = null;
   searchQuery: string = '';
   searchResults = [];
   myLocation = 'Johannesburg';
@@ -245,7 +245,8 @@ this.fixtures =[];
     ApprovedApplications: 0,
     totalApplications: 0,
     DeclinedApplications: 0,
-    DeclinedVendorApplications: 0
+    DeclinedVendorApplications: 0,
+    notifyUser : 'yes'
   };
   tempCardGen = []
   acceptedVendor = []
@@ -258,6 +259,8 @@ this.fixtures =[];
       state: '',
       AcceptedApplications: 0,
       ApprovedApplications: 0,
+      DeclinedVendorApplications: 0,
+      DeclinedApplications: 0,
       totalApplications: 0,
       formInfo: {
         tournamentName: '',
@@ -266,7 +269,7 @@ this.fixtures =[];
         endDate: '',
         applicationClosing: '',
         joiningFee: '',
-        type: ''
+        type: '',
       }
     }
   }
@@ -302,7 +305,7 @@ this.fixtures =[];
     this.newTournForm = this.formBuilder.group({
       tournamentName: ['', [Validators.required, Validators.minLength((4))]],
       type: ['', Validators.required],
-      location: ['', []],
+      location: [this.userLocation, []],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       joiningFee: ['', [Validators.required, Validators.minLength(3)]],
@@ -327,9 +330,6 @@ this.fixtures =[];
   lengthparticipents: number = 0;
   async finnishSetup(tournament, state) {
     // please keep this switch statement at the top
-    this.serve.tournid = tournament.docid;
-    console.log("Rose", tournament.docid)
-
     switch (state) {
       case 'open':
         this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
@@ -344,14 +344,16 @@ this.fixtures =[];
       default:
         break;
     }
-
+    if (tournament != null) {
+      this.serve.tournid = tournament.docid;
+    }
+    console.log("Rose", tournament.docid)
     console.log(state, tournament)
 
 
     if (tournament.docid == null) {
 
     }
-
     else {
       let team = {
         docid: null,
@@ -364,7 +366,7 @@ this.fixtures =[];
       firebase.firestore().collection('newTournaments').doc(tournament.docid).collection('vendorApplications').where('status', '==', 'awaiting').onSnapshot(res => {
         this.vendorsapplicationArray = []
         res.forEach(doc => {
-          console.log('vendor application', doc.data())
+          
           // this.vendorsapplicationArray.push(doc.data())
           vendorObj = {
             docid: doc.id,
@@ -373,6 +375,7 @@ this.fixtures =[];
           this.vendorsapplicationArray.push(vendorObj)
 
         })
+        console.log('vendor application', this.vendorsapplicationArray)
       })
 
 
@@ -420,6 +423,8 @@ this.fixtures =[];
 
 
       firebase.firestore().collection('participants').where('tournid', '==', tournament.docid).onSnapshot(val => {
+        this.cparticipants = []
+        this.acceptednum  = 0
         val.forEach(res => {
 
           this.cparticipants.push({ ...{ id: res.id }, ...res.data() })
@@ -564,7 +569,7 @@ this.fixtures =[];
     // set val to the value of the searchbar
     const val = ev.target.value;
     // if the value is an empty string don't filter the items
-    console.log(val);
+    console.log(ev);
     if (val && val.trim() != '') {
       this.searchResults = this.gauteng.filter(item => {
         return item.toLowerCase().indexOf(val.toLowerCase()) > -1;
@@ -574,7 +579,7 @@ this.fixtures =[];
       this.searchResults = this.gauteng.filter(item => {
         return item.toLowerCase().indexOf(val.toLowerCase()) > -1;
       });
-    } else if (val == '') {
+    } else if (!val) {
       this.searchResults = [];
     }
   }
@@ -712,6 +717,7 @@ this.fixtures =[];
       this.tournamentObj = {
         formInfo: formData,
         approved: false,
+        notifyUser: 'yes',
         approvedVendors: this.tournamentObj.approvedVendors,
         dateCreated: date.toDateString(),
         sponsors: this.tournamentObj.sponsors,
