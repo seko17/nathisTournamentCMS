@@ -1,34 +1,42 @@
 
  
 <ion-content forceOverscroll="false">
- 
-  <ion-grid>
-    <ion-row no-padding class="matrix">
-      <ion-col size="6" class="q1">
-        <div class="q-header">HOME</div>
-        <ion-list dragula="bag" [(dragulaModel)]="q1" lines="full">
-          <ion-item *ngFor="let item of q1" [color]="item.color" expand="block" text-wrap>
-            {{ item.TeamObject.teamName }}
-          </ion-item>
-        </ion-list>
-      </ion-col>
- 
-      <ion-col size="6" class="q2">
-        <div class="q-header">AWAY</div>
-        <ion-list dragula="bag" [(dragulaModel)]="q2" lines="full">
-          <ion-item *ngFor="let item of q2" [color]="item.color" expand="block" text-wrap lines ="full">
-            <h5>{{ item.TeamObject.teamName }}</h5>
-          
-          </ion-item>
-        </ion-list>
-      </ion-col>
- 
-     <div align = "center" expand="full">
-      <ion-button (click)="savefixture(q1,q2)" expand="full">
-        Done
-      </ion-button>
-    </div>
-    </ion-row>
-  </ion-grid>
+ <div class="container">
+   <div class="box">
+<div>
+  <h1>Matches</h1>
+  <p><sub>*Drag a team and it will FT the opposite team in either list.</sub></p>
+ <ion-grid>
+   <ion-row no-padding class="matrix">
+     <ion-col size="6" class="q1">
+       <div class="q-header">HOME</div>
+       <ion-list dragula="bag" [(dragulaModel)]="q1" lines="full">
+         <ion-item *ngFor="let item of q1" [color]="item.color" expand="block" text-wrap>
+           {{ item.TeamObject.teamName }}
+         </ion-item>
+       </ion-list>
+     </ion-col>
+
+     <ion-col size="6" class="q2">
+       <div class="q-header">AWAY</div>
+       <ion-list dragula="bag" [(dragulaModel)]="q2" lines="full">
+         <ion-item *ngFor="let item of q2" [color]="item.color" expand="block" text-wrap lines ="full">
+           <h5>{{ item.TeamObject.teamName }}</h5>
+         
+         </ion-item>
+       </ion-list>
+     </ion-col>
+
+    <div align = "center" style="width: 100%;text-align: center;" >
+     <ion-button expand="full"  (click)="savefixture(q1,q2)" shape="round" expand="full">
+       Done
+     </ion-button>
+   </div>
+   </ion-row>
+ </ion-grid>
+</div>
+   </div>
+ </div>
+
 
 </ion-content>
