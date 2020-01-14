@@ -1,9 +1,51 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>match2wo</ion-title>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content>
+<p>home goal {{game2.currentmatch.score}}:{{game2.currentmatch.ascore}} Away Goal</p>
+<p>Time {{game2.mins}}:{{game2.secs}}</p>
+<ion-button (click) ="firsthalf()">first half</ion-button><br>
+<ion-button (click) ="goal1()"> goal1</ion-button><br>
+<ion-button (click) ="goal2()"> goal2</ion-button><br>
+
+<div>
+<label>Home Team</label><br>
+<label>{{game2.currentmatch.TeamObject.teamName}}</label><br>
+<ion-button (click)=" homestats('red')">Red</ion-button><label>Red Card:{{game2.currentmatch.red}}</label><br>
+<ion-button (click)=" homestats('yellow')">Yellow</ion-button><label>Yellow Card:{{game2.currentmatch.yellow}}</label><br>
+<ion-button (click)=" homestats('offsides')">Offside</ion-button><label>Offside:{{game2.currentmatch.offsides}}</label><br>
+<ion-button (click)=" homestats('corners')">Corner</ion-button><label>Corners:{{game2.currentmatch.corners}}</label><br>
+<div *ngFor ="let x of team1">
+    : <h3>Player :</h3>
+     <label>{{x.fullName}}</label>
+ </div>
+</div>
+
+<div>
+    <label>Away Team</label><br>
+    <label>{{game2.currentmatch.aTeamObject.teamName}}</label><br>
+  <ion-button (click)=" awaystats('red')">Red</ion-button>  <label>Red Card:{{game2.currentmatch.ared}}</label><br>
+  <ion-button (click)=" awaystats('yellow')">Yellow</ion-button>  <label>Yellow Card:{{game2.currentmatch.ayellow}}</label><br>
+  <ion-button (click)=" awaystats('offsides')">Offside</ion-button>   <label>Offside:{{game2.currentmatch.aoffsides}}</label><br>
+  <ion-button (click)=" awaystats('corners')">Corner</ion-button>  <label>Corners:{{game2.currentmatch.acorners}}</label><br>
+    <div *ngFor ="let x of team2">
+       : <h3>Player :</h3>
+        <label>{{x.fullName}}</label>
+    </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </ion-content>

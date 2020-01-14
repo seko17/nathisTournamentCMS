@@ -5,6 +5,9 @@ import * as firebase from 'firebase';
 import { Subscription, Observable, observable, timer } from 'rxjs';
 import { AlertController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
+import { Match2Service} from '../../services/match2.service';
+import { ModalController } from '@ionic/angular';
+import {Match2woPage} from '../match2wo/match2wo.page';
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.page.html',
@@ -58,7 +61,7 @@ export class LandingPagePage implements OnInit {
   input = { data: [] };
   ainput = { data: [] };
   tempCardGen = [] // temporary card generator, used for ngFor
-  constructor(public loadingController: LoadingController,public allserve: AllserveService, public alertController: AlertController, public serve: AllserveService, public zone: NgZone, public renderer: Renderer2) {
+  constructor(public modalController: ModalController,public game2: Match2Service,public loadingController: LoadingController,public allserve: AllserveService, public alertController: AlertController, public serve: AllserveService, public zone: NgZone, public renderer: Renderer2) {
 
 
 
@@ -121,12 +124,37 @@ export class LandingPagePage implements OnInit {
 
 
   ngOnInit() {
-
+    // this.game2.firsthalf('start');
   }
+
+
+
+
+
+
+
+
+
+
+
+position =null;
+
+
+
   matchobject: any = {};
   currmatch = [];
-  async viewmatch(state, item) {
+  async viewmatch(state, item,a) {
     console.log('item = ', item);
+
+   this.game2.selectedmatch(item); 
+
+console.log("Position = ",a)
+this.position =a;
+const modal = await this.modalController.create({
+  component: Match2woPage
+});
+return await modal.present();
+
 
 
 
@@ -137,15 +165,12 @@ export class LandingPagePage implements OnInit {
     else {
 
 
-      if (this.allserve.blocker == false) {
-        const alert = await this.alertController.create({
-          header: 'Alert',
-          subHeader: 'There is a match currently in play',
-          message: 'Click \'OK \' to continue.',
-          buttons: ['OK']
+      if (this.allserve.blocker == false && this.position !=null) {
+        const modal = await this.modalController.create({
+          component: Match2woPage
         });
-
-        await alert.present();
+        return await modal.present();
+      
       }
       else {
         this.currmatch = [];
@@ -356,6 +381,11 @@ export class LandingPagePage implements OnInit {
 
   fixture = [];
   viewdetails(x) {
+
+// this.game2.firsthalf('stop');
+
+
+
     this.clicked = [];
 
     console.log(x)
@@ -553,7 +583,7 @@ loading.onDidDismiss().then(async val=>{
 
             this.allserve.blocker = true;
             this.blocker=this.allserve.blocker;
-            this.viewmatch('close', null);
+            this.viewmatch('close', null,null);
 
             firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ matchstate: 'complete' });
 
@@ -834,7 +864,7 @@ loading.onDidDismiss().then(async val=>{
                 })
                 console.log("yellow")
 
-                // firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.userUID).collection('Players').doc(this.id).update({yellow:1});
+                
 
 
                 firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res => {
