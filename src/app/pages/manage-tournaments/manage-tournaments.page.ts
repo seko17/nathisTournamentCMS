@@ -54,7 +54,7 @@ this.fixtures =[];
     return await this.modal.present();
 
   }
-  userLocation = 'example';
+  userLocation = null;
   searchQuery: string = '';
   searchResults = [];
   myLocation = 'Johannesburg';
@@ -569,7 +569,7 @@ this.fixtures =[];
     // set val to the value of the searchbar
     const val = ev.target.value;
     // if the value is an empty string don't filter the items
-    console.log(val);
+    console.log(ev);
     if (val && val.trim() != '') {
       this.searchResults = this.gauteng.filter(item => {
         return item.toLowerCase().indexOf(val.toLowerCase()) > -1;
@@ -579,7 +579,7 @@ this.fixtures =[];
       this.searchResults = this.gauteng.filter(item => {
         return item.toLowerCase().indexOf(val.toLowerCase()) > -1;
       });
-    } else if (val == '') {
+    } else if (!val) {
       this.searchResults = [];
     }
   }
