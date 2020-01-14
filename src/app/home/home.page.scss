@@ -1,4 +1,3 @@
-
 .sidebar {
         display: flex;
         flex-direction: column;
@@ -11,14 +10,17 @@
         z-index: 100;
         .logo {
             width: 100%;
-            height: 10%;
+            height: 66px;
             display: flex;
             align-content: center;
             align-items: center;
+            
             .letter {
               width: 50px;
               height: 50px;
               margin: auto;
+              overflow: hidden;
+              border-radius: 200px;
               img {
                 width: 100%;
                 height: 100%;
@@ -48,7 +50,7 @@
 
     .cmshead {
         display: flex;
-        background: #142F40;
+        background: #012615;
         color: #F2F2F2;
         width: 100%;
         height: 60px;
@@ -82,7 +84,8 @@
                 .pImage {
                     border-radius: 200px;
                     overflow: hidden;
-                    width: 40px;
+                    min-width: 40px;
+                    max-width: 40px;
                     height: 40px;
                     img {
                         width: 100%;
@@ -174,16 +177,22 @@
     right: 47vw;
     bottom: 70vh;
     top: 60px;
-    background: #142F40;
+    background: #012615;
     border-radius: 0px 0px 90px 90px;
   }
   .currentView {
     width: 96%;
     margin: auto;
     transition: 0.4s;
-    background: rgb(23, 47, 70);
+    background: #05A66B;
     border-radius: 5px;
     box-shadow: 0px 3px 3px #1717174b;
+    color: white;
+    ion-button {
+      ion-icon, i {
+        color: white !important;
+      }
+    }
   }
 //   @charset "UTF-8";
 

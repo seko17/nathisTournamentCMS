@@ -76,8 +76,8 @@ button[ion-fab] {
 
       .topLine {
         width: 100%;
-        height: 20px;
-        background: #142F40;
+        height: 8px;
+        background: #000D06;
       }
 
       .topData {
@@ -107,7 +107,7 @@ button[ion-fab] {
           .homeButton {
             position: absolute;
             top: -50px;
-            right: -30px;
+            right: -70%;
             z-index: 4000;
             background: rgba(255, 255, 255, 0.932);
             display: none;
@@ -122,7 +122,7 @@ button[ion-fab] {
             text-align: right;
             position: absolute;
             top: -50px;
-            left: -30px;
+            left: -70%;
             z-index: 4000;
             background: rgba(255, 255, 255, 0.932);
             display: none;
@@ -133,8 +133,8 @@ button[ion-fab] {
         }
 
         .match {
-          width: 70%;
-          background: #142F40;
+          width: 60%;
+          background: #000D06;
           padding: 5px;
           color: white;
           border-radius: 0px 0px 10px 10px;
@@ -146,15 +146,22 @@ button[ion-fab] {
             text-align: center;
             width: auto;
             margin: auto;
-
+            justify-content: center;
             .points {
-              width: 90%;
-              padding: 6px;
-
+              width: 35%;
+              position: relative;
+              padding: 24px 1px 1px 1px;
+              .butns {
+                position: absolute;
+                top: -17px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 700;
+              }
               p {
                 margin: 0;
                 padding: 0;
-                font-size: 1.5rem;
+                font-size: 1.3rem;
               }
             }
 
@@ -193,7 +200,9 @@ button[ion-fab] {
 
           .upComingData {
             text-align: center;
-
+            h5 { 
+              margin: 3px;
+            }
             p {
               margin: 0;
               padding: 0;
@@ -207,7 +216,7 @@ button[ion-fab] {
         bottom: 0;
         right: 0;
         left: 0;
-        top: 250px;
+        top: 247px;
         display: flex;
 
         .dummydiv {
@@ -370,7 +379,7 @@ button[ion-fab] {
 
     .teamHome {
       border-radius: 10px 0px 0px 10px;
-      left: 3%;
+      left: 0%;
 
       .details {
         text-align: right;
@@ -379,7 +388,7 @@ button[ion-fab] {
 
     .teamAway {
       border-radius: 0px 10px 10px 0px;
-      right: 3%;
+      right: 0%;
 
     }
 
@@ -420,11 +429,15 @@ button[ion-fab] {
       .details {
         padding: 10px;
         overflow-y: auto;
-        height: 60%;
+        height: 52%;
 
         p {
           opacity: 0.6;
           font-size: 12px;
+          margin: 6px 0px;
+        }
+        h4 {
+          margin: 5px 0px;;
         }
       }
     }
@@ -500,8 +513,8 @@ button[ion-fab] {
     }
 
     .playerHome {
-      border-radius: 10px 0px 0px 10px;
-      left: 3%;
+      border-radius: 10px;
+      left: 0%;
 
       .details {
         text-align: right;
@@ -511,8 +524,8 @@ button[ion-fab] {
     }
 
     .playerAway {
-      border-radius: 10px 0px 0px 10px;
-      right: 3%;
+      border-radius: 10px;
+      right: 0%;
 
       .details {
         overflow-y: auto;
@@ -547,10 +560,9 @@ button[ion-fab] {
         width: 30%;
         padding: 10px;
         border-radius: 200px;
-        background: none;
-        border: solid 1px rgb(26, 26, 26);
-        margin: 5px;
-        color: rgb(41, 41, 41);
+        background: white;
+        margin: 5px 2px;
+        color: #000D06;
         box-shadow: 0px 3px 3px #17171717;
         transition: 0.4s;
       }
@@ -577,9 +589,9 @@ button[ion-fab] {
         cursor: pointer;
         display: flex;
         position: relative;
-        width: 90%;
+        width: 100%;
         // max-height: 60px;
-        background: white;
+        background: #ffffffbd;
         margin: 8px auto;
         border-radius: 10px;
         padding: 5px;
@@ -635,6 +647,12 @@ button[ion-fab] {
           }
         }
       }
+      .empty {
+        text-align: center;
+        h2 {
+          margin: auto !important;
+        }
+      }
     }
   }
 
@@ -649,8 +667,8 @@ button[ion-fab] {
     .details {
       backdrop-filter: blur(5px);
       width: 100%;
-      height: 30%;
-      padding: 15px;
+      height: 35%;
+      padding: 15px 15px 15px 50px;
       display: flex;
       align-items: center;
       background: rgba(255, 255, 255, 0);
@@ -668,8 +686,163 @@ button[ion-fab] {
 
     .matchList {
       width: 100%;
-      max-height: 70%;
-      min-height: 70%;
+      max-height: 65%;
+      min-height: 65%;
+      overflow-y: auto;
+      position: relative;
+      background: #f0f0f0f0;
+      .loadingList {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: #f0f0f0f0;
+        overflow: hidden;
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
+        align-content: center;
+        
+          .card {
+            width: 90%;
+            margin: 5px auto;
+            height: 100px;
+            background: rgb(189, 189, 189);
+            border-radius: 10px;
+            box-shadow: 0px 3px 3px #1717172c;
+            animation: lazyLoader 2s linear infinite;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            h5 {
+              margin: auto;
+            }
+          }
+        
+
+        @keyframes lazyLoader {
+          0% {
+            opacity: 1;
+          }
+
+          50% {
+            opacity: .5;
+          }
+
+          100% {
+            opacity: 1;
+          }
+        }
+      }
+
+      .card {
+        width: 90%;
+        margin: 5px auto;
+        background: linear-gradient(rgba(255, 255, 255, 0.877));
+        overflow: hidden;
+        border-radius: 10px;
+        position: relative;
+        box-shadow: 0px 3px 3px #1717172c;
+        background-repeat: no-repeat;
+        background-size: 100%;
+
+        .date {
+          width: 100%;
+          background: #387336;
+          border-radius: 10px;
+          padding: 5px;
+          color: white;
+
+          p {
+            margin: 0;
+            padding: 0;
+          }
+        }
+
+        .aVb {
+          display: flex;
+          justify-content: space-evenly;
+          height: auto;
+          padding-bottom: 20px;
+          .home {
+            flex-basis: 40%;
+          }
+          .versus{
+            flex-basis: 10%;
+          }
+          .away {
+            flex-basis: 40%;
+          }
+        }
+
+        .teamAway {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          background: #387336;
+          padding: 4px;
+          border-radius: 0px 10px 0px 10px;
+          color: white;
+
+          p {
+            margin: 0;
+            padding: 0;
+          }
+        }
+
+        .teamHome {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          background: #387336;
+          padding: 4px;
+          border-radius: 10px 0px 10px 0px;
+          color: white;
+
+          p {
+            margin: 0;
+            padding: 0;
+          }
+        }
+      }
+    }
+
+  }
+  .noTournamentDetails {
+    width: 50%;
+    background: url(../../../assets/cardSVG/SVG/createdSVG.svg),rgba(255, 255, 255, 0.863);
+    width: 50%;
+    border-radius: 20px 0px 0px 20px;
+    background-position: 114px 0px;
+    background-repeat: no-repeat;
+    .details {
+      backdrop-filter: blur(5px);
+      width: 100%;
+      height: 35%;
+      padding: 15px 15px 15px 50px;
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0);
+
+      h4 {
+        font-size: 4vw;
+        margin: 0;
+        padding: 0;
+      }
+
+      p {
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    .matchList {
+      width: 100%;
+      max-height: 65%;
+      min-height: 65%;
       overflow-y: auto;
       position: relative;
       background: #f0f0f0f0;

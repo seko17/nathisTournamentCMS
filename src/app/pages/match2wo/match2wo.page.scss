@@ -1,0 +1,951 @@
+button[ion-fab] {
+  overflow: visible;
+  position: relative;
+
+  ion-label {
+    position: absolute;
+    top: -8px;
+    right: 40px;
+
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    line-height: 24px;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+
+  contain: layout;
+}
+p {
+  font-size: 0.8em !important;
+}
+.viewMatch {
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    ion-icon {
+      margin: auto;
+    }
+  }
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.616);
+  z-index: 900;
+  display: none;
+  align-content: center;
+  overflow: hidden;
+
+
+}
+  .matchDiv {
+    height: 100%;
+    margin: auto;
+    display: flex;
+    position: relative;
+    height: 100%;
+    .matchDetails {
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      backdrop-filter: blur(5px);
+      background: rgb(218, 218, 218);
+      height: 100%;
+      margin: auto;
+      z-index: 0;
+
+      .topLine {
+        width: 100%;
+        height: 8px;
+        background: #000D06;
+      }
+
+      .topData {
+        display: flex;
+        justify-items: center;
+        justify-content: space-between;
+
+        .homeImage,
+        .awayImage,
+        .image {
+          width: 70px;
+          height: 70px;
+          margin: auto;
+          border-radius: 200px;
+          position: relative;
+          // overflow: hidden;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 200px;
+          }
+        }
+
+        .homeImage {
+          .homeButton {
+            position: absolute;
+            top: -50px;
+            right: -70%;
+            z-index: 4000;
+            background: rgba(255, 255, 255, 0.932);
+            display: block;
+            border-radius: 10px;
+            box-shadow: 0px 3px 3px #17171717;
+          }
+
+        }
+
+        .awayImage {
+          .awayButton {
+            text-align: right;
+            position: absolute;
+            top: -50px;
+            left: -70%;
+            z-index: 4000;
+            background: rgba(255, 255, 255, 0.932);
+            display: block;
+            border-radius: 10px;
+            box-shadow: 0px 3px 3px #17171717;
+          }
+
+        }
+
+        .match {
+          width: 60%;
+          background: #000D06;
+          padding: 5px;
+          color: white;
+          border-radius: 0px 0px 10px 10px;
+          position: relative;
+
+          .scores {
+            align-content: center;
+            display: flex;
+            text-align: center;
+            width: auto;
+            margin: auto;
+            justify-content: center;
+            .points {
+              width: 35%;
+              position: relative;
+              padding: 24px 1px 1px 1px;
+              flex-basis: 20%;
+              .butns {
+                position: absolute;
+                top: -17px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 700;
+              }
+              p {
+                margin: 0;
+                padding: 0;
+                font-size: 1.3rem;
+              }
+            }
+
+            .homeScore,
+            .awayScore {
+              flex-basis: 40%;
+              padding: 6px;
+              display: flex;
+              align-items: baseline;
+
+              p {
+                margin-top: 10px;
+                padding: 0;
+              }
+
+              .buttns {
+                position: absolute;
+                background: red;
+              }
+
+            }
+
+            .homeScore {
+              .buttns {
+                left: 0;
+                bottom: 0;
+              }
+            }
+
+            .awayScore {
+              .buttns {
+                left: 0;
+                bottom: 0;
+              }
+            }
+          }
+
+          .upComingData {
+            text-align: center;
+            h5 { 
+              margin: 3px;
+            }
+            p {
+              margin: 0;
+              padding: 0;
+            }
+          }
+        }
+      }
+
+      .list-cont {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        top: 247px;
+        display: flex;
+
+        .dummydiv {
+          position: relative;
+          width: 100%;
+          height: 100%;
+
+          .lineUps {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            background: white;
+            position: absolute;
+
+            .away,
+            .home {
+              height: 100%;
+              overflow-y: auto;
+              width: 50%;
+
+              .card {
+                display: flex;
+                padding: 10px 5px;
+                border-bottom: solid 2px rgba(0, 0, 0, 0.103);
+                position: relative;
+                margin: 15px 0px 10px 60px;
+                background: rgba(39, 44, 66, 0.021);
+
+                .number {
+                  position: absolute;
+                  width: 40px;
+                  height: 40px;
+                  top: -15px;
+                  background: linear-gradient(45deg, green, greenyellow);
+                  border-radius: 10px 10px 0px 10px;
+                  left: -50px;
+                  color: white;
+                  display: flex;
+                  align-items: baseline;
+                  padding: 10px;
+                  box-shadow: 0px 3px 3px #1717172d;
+
+                  p {
+                    margin: 0;
+                    padding: 0;
+                    text-shadow: 0px 3px 3px #17171734;
+                  }
+                }
+
+                .number::after {
+                  position: absolute;
+                  width: 10px;
+                  height: 10px;
+                  content: '';
+                  background: red;
+                  right: -10px;
+                  bottom: 0;
+                  clip-path: polygon(0% 100%, 50% 50%, 100% 100%, 0% 0%);
+                  background: inherit;
+                }
+
+                .name {
+                  flex-basis: 90%;
+
+                  p {
+                    margin: 0;
+                    padding: 0;
+                  }
+                }
+
+                .position {
+                  display: flex;
+                  align-items: center;
+
+                  p {
+                    margin: 0;
+                    padding: 0;
+                    font-size: .6rem;
+                  }
+                }
+              }
+            }
+          }
+
+          .summary {
+            background: white;
+            width: 100%;
+            height: 100%;
+
+            .stats {
+              display: flex;
+
+              // justify-content: center;
+              .labels {
+                width: 80%;
+                text-align: center;
+              }
+
+              .homeSummary,
+              .awaySummary {
+                width: 10%;
+                text-align: center;
+              }
+            }
+
+            .playerCards {
+              width: 100%;
+              height: 100%;
+              display: flex;
+              border-top: solid 1px rgb(223, 223, 223);
+
+              .homePlayerCards,
+              .awayPlayerCards {
+                width: 50%;
+                height: 50%;
+                border-left: solid 1px rgb(223, 223, 223);
+                display: flex;
+                flex-wrap: wrap;
+                overflow-y: auto;
+
+                .card {
+                  margin: 5px auto;
+                  border-radius: 10px;
+                  box-shadow: 0px 3px 3px #1717173d;
+                  padding: 0px 5px;
+                  display: flex;
+                  align-content: center;
+                  align-items: center;
+                  justify-content: center;
+
+                  .redCard {
+                    width: 20px;
+                    height: 30px;
+                    background: red;
+                    border-radius: 5px;
+                  }
+
+                  .yellowCard {
+                    width: 20px;
+                    height: 30px;
+                    background: yellow;
+                    border-radius: 5px;
+                  }
+
+                  .details {
+                    padding: 5px;
+
+                    p {
+                      font-size: .8rem;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+      }
+    }
+
+
+  }
+  .teamHome {
+    border-radius: 10px 0px 0px 10px;
+    left: 0%;
+    z-index: 101;
+    .details {
+      text-align: right;
+    }
+  }
+
+  .teamAway {
+    border-radius: 0px 10px 10px 0px;
+    right: 0%;
+    z-index: 101;
+  }
+
+  .teamHome,
+  .teamAway {
+    background: white;
+    margin: 50px 0px 50px 0px;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 20%;
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    display: block;
+    z-index: 19;
+
+    .teamClose {}
+
+    .title {
+      text-align: center;
+    }
+
+    .image {
+      width: 100%;
+      height: 30%;
+      overflow: hidden;
+      border-radius: 10px;
+      overflow: hidden;
+
+      //    border: solid 1px black;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .details {
+      padding: 10px;
+      overflow-y: auto;
+      height: 52%;
+
+      p {
+        opacity: 0.6;
+        font-size: 12px;
+        margin: 6px 0px;
+      }
+      h4 {
+        margin: 5px 0px;;
+      }
+    }
+  }
+
+  .playerHome,
+  .playerAway {
+    background: white;
+    margin: 50px 0px 50px 0px;
+    overflow: hidden;
+    width: 20%;
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    display: none;
+    border-radius: 10px;
+
+    .title {
+      text-align: center;
+    }
+
+    .image {
+      width: 100%;
+      height: 40%;
+      overflow: hidden;
+      border-radius: 10px;
+      position: relative;
+
+      .playerClose {
+        position: absolute;
+        right: 0;
+        bottom: 10px;
+        z-index: 6;
+
+        p {
+          margin: 0;
+          padding: 0;
+        }
+      }
+
+      .name {
+        position: absolute;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.897);
+        z-index: 5;
+
+        p {
+          margin: 0;
+          padding: 0;
+        }
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      //    border: solid 1px black;
+
+    }
+
+    .details {
+      padding: 10px;
+      position: relative;
+
+      p {
+        opacity: 0.6;
+      }
+    }
+  }
+
+  .playerHome {
+    border-radius: 10px;
+    left: 0%;
+
+    .details {
+      text-align: right;
+      overflow-y: auto;
+      height: 59%;
+    }
+  }
+
+  .playerAway {
+    border-radius: 10px;
+    right: 0%;
+
+    .details {
+      overflow-y: auto;
+      height: 59%;
+    }
+  }
+.cmsContentMain {
+  position: absolute;
+  bottom: 0;
+  top: 0px;
+  right: 0;
+  left: 0px;
+  z-index: 300;
+  display: flex;
+  background: url(../../../assets/markus-spiske-KWQ2kQtxiKE-unsplash.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+
+  .tournaments {
+    width: 50%;
+
+    .links {
+      display: flex;
+      // height: 10px;
+      justify-content: center;
+
+      button {
+        outline: none !important;
+        width: 30%;
+        padding: 10px;
+        border-radius: 200px;
+        background: white;
+        margin: 5px 2px;
+        color: #000D06;
+        box-shadow: 0px 3px 3px #17171717;
+        transition: 0.4s;
+      }
+
+      .activeFilter {
+        transition: 0.4s;
+        border: solid 1px green;
+        background: green;
+        color: white;
+      }
+    }
+
+    .tournamentList {
+      position: absolute;
+      bottom: 0;
+      left: 2vw;
+      right: 50vw;
+      top: 50px;
+      overflow-y: auto;
+      border-radius: 20px 20px 0px 0px;
+      padding: 10px 0px;
+
+      .card {
+        cursor: pointer;
+        display: flex;
+        position: relative;
+        width: 100%;
+        // max-height: 60px;
+        background: #ffffffbd;
+        margin: 8px auto;
+        border-radius: 10px;
+        padding: 5px;
+        box-shadow: 0px 3px 3px #1717172c;
+
+        #date {
+          font-size: .9rem;
+          margin: 0px 4px;
+        }
+
+        #location {
+          margin: 4px;
+          font-size: .8rem;
+        }
+
+        hr {
+          background: rgb(209, 209, 209);
+          width: 90%;
+          margin: 9px auto;
+
+        }
+
+        p {
+          padding: 0;
+          margin: 0;
+        }
+
+        .color {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 99%;
+          border-radius: 200px;
+          background: greenyellow;
+        }
+
+        .details {
+          padding-left: 1.5%;
+          flex-basis: 90%;
+
+          #title {
+            font-size: 1.5rem;
+          }
+        }
+
+        .more {
+          display: flex;
+          align-items: center;
+
+          p {
+            font-size: .9rem;
+          }
+        }
+      }
+      .empty {
+        text-align: center;
+        h2 {
+          margin: auto !important;
+        }
+      }
+    }
+  }
+
+  .tournamentDetails {
+    width: 50%;
+    background: url(../../../assets/cardSVG/SVG/createdSVG.svg),white;
+    width: 50%;
+    border-radius: 20px 0px 0px 20px;
+    background-position: 114px 0px;
+    background-repeat: no-repeat;
+
+    .details {
+      backdrop-filter: blur(5px);
+      width: 100%;
+      height: 35%;
+      padding: 15px 15px 15px 50px;
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0);
+
+      h4 {
+        margin: 0;
+        padding: 0;
+      }
+
+      p {
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    .matchList {
+      width: 100%;
+      max-height: 65%;
+      min-height: 65%;
+      overflow-y: auto;
+      position: relative;
+      background: #f0f0f0f0;
+      .loadingList {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: #f0f0f0f0;
+        overflow: hidden;
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
+        align-content: center;
+        
+          .card {
+            width: 90%;
+            margin: 5px auto;
+            height: 100px;
+            background: rgb(189, 189, 189);
+            border-radius: 10px;
+            box-shadow: 0px 3px 3px #1717172c;
+            animation: lazyLoader 2s linear infinite;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            h5 {
+              margin: auto;
+            }
+          }
+        
+
+        @keyframes lazyLoader {
+          0% {
+            opacity: 1;
+          }
+
+          50% {
+            opacity: .5;
+          }
+
+          100% {
+            opacity: 1;
+          }
+        }
+      }
+
+      .card {
+        width: 90%;
+        margin: 5px auto;
+        background: linear-gradient(rgba(255, 255, 255, 0.877));
+        overflow: hidden;
+        border-radius: 10px;
+        position: relative;
+        box-shadow: 0px 3px 3px #1717172c;
+        background-repeat: no-repeat;
+        background-size: 100%;
+
+        .date {
+          width: 100%;
+          background: #387336;
+          border-radius: 10px;
+          padding: 5px;
+          color: white;
+
+          p {
+            margin: 0;
+            padding: 0;
+          }
+        }
+
+        .aVb {
+          display: flex;
+          justify-content: space-evenly;
+          height: auto;
+          padding-bottom: 20px;
+          .home {
+            flex-basis: 40%;
+          }
+          .versus{
+            flex-basis: 10%;
+          }
+          .away {
+            flex-basis: 40%;
+          }
+        }
+
+        .teamAway {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          background: #387336;
+          padding: 4px;
+          border-radius: 0px 10px 0px 10px;
+          color: white;
+
+          p {
+            margin: 0;
+            padding: 0;
+          }
+        }
+
+        .teamHome {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          background: #387336;
+          padding: 4px;
+          border-radius: 10px 0px 10px 0px;
+          color: white;
+
+          p {
+            margin: 0;
+            padding: 0;
+          }
+        }
+      }
+    }
+
+  }
+  .noTournamentDetails {
+    width: 50%;
+    background: url(../../../assets/cardSVG/SVG/createdSVG.svg),white;
+    width: 50%;
+    border-radius: 20px 0px 0px 20px;
+    background-position: 114px 0px;
+    background-repeat: no-repeat;
+    .details {
+      backdrop-filter: blur(5px);
+      width: 100%;
+      height: 35%;
+      padding: 15px 15px 15px 50px;
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0);
+
+      h4 {
+        font-size: 4vw;
+        margin: 0;
+        padding: 0;
+      }
+
+      p {
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    .matchList {
+      width: 100%;
+      max-height: 65%;
+      min-height: 65%;
+      overflow-y: auto;
+      position: relative;
+      background: #f0f0f0f0;
+      .loadingList {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: #f0f0f0f0;
+        overflow: hidden;
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
+        align-content: center;
+        
+          .card {
+            width: 90%;
+            margin: 5px auto;
+            height: 100px;
+            background: rgb(189, 189, 189);
+            border-radius: 10px;
+            box-shadow: 0px 3px 3px #1717172c;
+            animation: lazyLoader 2s linear infinite;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            h5 {
+              margin: auto;
+            }
+          }
+        
+
+        @keyframes lazyLoader {
+          0% {
+            opacity: 1;
+          }
+
+          50% {
+            opacity: .5;
+          }
+
+          100% {
+            opacity: 1;
+          }
+        }
+      }
+
+      .card {
+        width: 90%;
+        margin: 5px auto;
+        background: linear-gradient(rgba(255, 255, 255, 0.877));
+        overflow: hidden;
+        border-radius: 10px;
+        position: relative;
+        box-shadow: 0px 3px 3px #1717172c;
+        background-repeat: no-repeat;
+        background-size: 100%;
+
+        .date {
+          width: 100%;
+          background: #387336;
+          border-radius: 10px;
+          padding: 5px;
+          color: white;
+
+          p {
+            margin: 0;
+            padding: 0;
+          }
+        }
+
+        .aVb {
+          display: flex;
+          justify-content: space-evenly;
+          height: 70px;
+        }
+
+        .teamAway {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          background: #387336;
+          padding: 4px;
+          border-radius: 0px 10px 0px 10px;
+          color: white;
+
+          p {
+            margin: 0;
+            padding: 0;
+          }
+        }
+
+        .teamHome {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          background: #387336;
+          padding: 4px;
+          border-radius: 10px 0px 10px 0px;
+          color: white;
+
+          p {
+            margin: 0;
+            padding: 0;
+          }
+        }
+      }
+    }
+
+  }
+}

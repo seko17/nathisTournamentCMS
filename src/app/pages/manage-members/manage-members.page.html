@@ -1,148 +1,97 @@
 <ion-content>
-    <div class="cmsContentMembers">
-        <div class="managers">
-            <div class="approvedManagers">
-                <div class="title">
-                    <h4>Team Managers</h4>
-                </div>
-                <div class="approvedList">
-                    <div class="emptyList" *ngIf="approvedManagers.length==0" >
-                        <div class="v">
-                            <p>No Data</p>
-                            <ion-spinner name="bubbles"></ion-spinner>
-                        </div>
-                    </div>
-                    <div class="card" *ngFor="let t of approvedManagers">
-                        <div class="image">
-                            <img
-                                src="https://www.jing.fm/clipimg/detail/132-1320447_manager-clipart-work-clipart-area-manager-icon-png.png">
-                        </div>
-                        <div class="details">
-                            <div class="f">
-                                <p><b>{{t.form.fullName}}</b></p>
-                                <hr>
-                                <p>{{t.form.phoneNumber}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div class="container">
+    <div class="teamNewApplications">
+        <div class="title">
+            <h1>New Manager Applications</h1>
+        </div>
+        <div class="list">
+            <div class="card nothing" *ngIf="manager.length==0" >
+                <p class="dim" style="margin: auto;
+                text-align: center;">No Information</p>
             </div>
-            <div class="unaprovedManagers">
-                <div class="title">
-                    <h4> Managers Applications</h4>
+            <div class="card" *ngFor="let item of manager" >
+                <div class="img">
+                    <img src="../../../assets/35060wide.jpg" alt="">
                 </div>
-                <div class="unapprovedList">
-                        <div class="emptyList" *ngIf="manager.length==0" >
-                                <div class="v">
-                                    <p>No Data</p>
-                                    <ion-spinner name="bubbles"></ion-spinner>
-                                </div>
-                            </div>
-                    <div class="card" *ngFor="let u of manager">
-                        <div class="image">
-                            <div class="img">
-                                <img
-                                    src="../../../assets/icon/manager.png">
-                            </div>
-                        </div>
-                        <div class="details">
-                            <div>
-                                <p><b></b></p>
-                                <hr>
-                                <p><b>{{u.doc.form.fullName}}</b></p>
-                                <hr>
-                                <p>{{u.doc.form.phoneNumber}}</p>
-                            </div>
-                        </div>
-                        <div class="approve">
-                            <ion-fab-button (click)="approve(u)" color="success">
-                                <ion-icon  name="thumbs-up"></ion-icon>
-                            </ion-fab-button>
-                        </div>
-                        <div class="decline">
-                            <ion-fab-button color="danger">
-                                <ion-icon name="thumbs-down"></ion-icon>
-                            </ion-fab-button>
+                <div class="details">
+                <h4>{{item.doc.form.fullName}}</h4>
+                    <p class="dim">{{item.doc.form.phoneNumber}}</p>
+                    <div class="buttons">
+                        <ion-fab-button style="margin: 0;" size="small" fill="clear" (click)="approve(item)">
+                            <ion-icon name="thumbs-up"></ion-icon>
+                        </ion-fab-button>
+                        <ion-fab-button style="margin: 0;" size="small" color="danger" fill="clear" (click)="decline(item)">
+                            <ion-icon name="thumbs-down"></ion-icon>
+                        </ion-fab-button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="teamExistingApplications">
+            <div class="title">
+                <h3>Managers</h3>
+            </div>
+            <div class="teamList">
+                <div class="card" *ngIf="approvedManagers.length==0" >
+                    <p class="dim" style="margin: auto;
+                    text-align: center;">No Information</p>
+                </div>
+                <div class="card" *ngFor="let item of approvedManagers" >
+                   
+                    <div class="details">
+                        <div>
+                            <p id="name"><b>{{item.form.fullName}}</b></p>
+                        <p class="dim">{{item.form.phoneNumber}}</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="vendors">
-            <div class="approvedVendors">
+            <div class="vendorNewApplications">
                 <div class="title">
-                    <h4>Vendors</h4>
+                    <h5 style="margin: 0;">New Vendors</h5>
                 </div>
-               
-                <div class="approvedList">
-                        <div class="emptyList" *ngIf="approvedVendor.length==0" >
-                                <div class="v">
-                                    <p>No Data</p>
-                                    <ion-spinner name="bubbles"></ion-spinner>
-                                </div>
-                            </div>
-                    <div class="card" *ngFor="let t of approvedVendor">
-                        <div class="tTitle">
-                            <h5>Sbuda</h5>
-                        </div>
-                        <div class="tDetails">
-                            <div>
-                                <p><b>{{t.form.fullName}}</b></p>
-                                <hr>
-                                <p>{{t.form.phoneNumber}}</p>
-                            </div>
-
-                        </div>
-                        <div class="setup">
-                            <!-- <ion-button size="small" color="light" *ngIf="t.hasApplications">
-                                Finnsh Setup
-                            </ion-button>
-                            <ion-button size="small" disabled="true" color="light" *ngIf="!t.hasApplications">
-                                No Applications
-                            </ion-button> -->
-                        </div>
+                <div class="list">
+                    <div class="card" *ngIf="vendors.length==0" >
+                        <p class="dim" style="margin: auto;
+                        text-align: center;">No Information</p>
                     </div>
-                </div>
-            </div>
-            <div class="unaprovedVendors">
-                <div class="title">
-                    <h4>Vendor Applications</h4>
-                </div>
-                <div class="unapprovedList">
-                        <div class="emptyList" *ngIf="vendors.length==0" >
-                                <div class="v">
-                                    <p>No Data</p>
-                                    <ion-spinner name="bubbles"></ion-spinner>
-                                </div>
-                            </div>
-                    <div class="card" *ngFor="let u of vendors">
-                        <div class="image">
-                            <div class="img">
-                                <img
-                                    src="../../../assets/icon/vendor.png">
-                            </div>
-                        </div>
+                    <div class="card" *ngFor="let item of vendors" >
                         <div class="details">
-                            <div>
-                                <p><b>{{u.doc.form.fullName}}</b></p>
-                                <hr>
-                                <p>{{u.doc.form.phoneNumber}}</p>
-                                <!-- <p>alongemail@gmail.com</p> -->
-                            </div>
+                            <p><b>Name Surname</b></p>
+                        <p>0123654789</p>
                         </div>
-                        <div class="approve">
-                            <ion-fab-button (click)="approve(u)" color="success">
+                        <div class="buttons">
+                            <ion-fab-button style="margin: 0;" size="small" fill="clear" (click)="approve(item)">
                                 <ion-icon name="thumbs-up"></ion-icon>
                             </ion-fab-button>
-                        </div>
-                        <div class="decline">
-                            <ion-fab-button color="danger">
+                            <ion-fab-button style="margin: 0;" size="small" color="danger" fill="clear" (click)="decline(item)">
                                 <ion-icon name="thumbs-down"></ion-icon>
                             </ion-fab-button>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="existingVendors">
+                <div class="title">
+                    <h5>Vendors</h5>
+                </div>
+                <div class="list">
+                    <div class="card" *ngIf="approvedVendor.length==0" >
+                        <p class="dim" style="margin: auto;
+                        text-align: center;">No Information</p>
+                    </div>
+                    <div class="card" *ngFor="let item of approvedVendor" >
+                    <p><b>{{item.form.fullName}}</b></p>
+                        <p class="dim">{{item.form.phoneNumber}}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
 </ion-content>

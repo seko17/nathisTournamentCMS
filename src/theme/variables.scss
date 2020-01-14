@@ -19,6 +19,7 @@
 ::-webkit-scrollbar-thumb {
   background: #387336;
   border-radius: 200px;
+  width: 40px;
 }
 
 /* Handle on hover */
@@ -36,14 +37,15 @@ h1,h2,h3,h4,h5 {
 a,span {
   font-family: 'Reem Kufi', sans-serif;
 }
+
 :root {
   /** primary **/
-  --ion-color-primary: #3880ff;
+  --ion-color-primary: #014023;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #3171e0;
-  --ion-color-primary-tint: #4c8dff;
+  --ion-color-primary-shade: #014023;
+  --ion-color-primary-tint: #02734A;
 
   /** secondary **/
   --ion-color-secondary: #0cd1e8;
@@ -108,4 +110,9 @@ a,span {
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+}
+ion-loading {
+  --background: rgba(0, 13, 6, 0.555);
+  --spinner-color: white;
+  background : rgba(0, 13, 6, 0.575);
 }

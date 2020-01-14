@@ -14,7 +14,7 @@ import { async } from 'q';
 export class HomePage {
   // CSS Classes & properties__________________
   // changes the view when clickign the side panel navigation
-screen = {
+  screen = {
     main: true,
     tournaments: false,
     members: false
@@ -22,15 +22,22 @@ screen = {
 
   // form for creating new tournament
 
-//  state of the above form
+  //  state of the above form
 
 
-//  show screen for acceptiong or declining applications
+  //  show screen for acceptiong or declining applications
 
 
-//  capture applications to accept or decline
-openProfile = false;
- profileDiv = document.getElementsByClassName('profile-more')
+  //  capture applications to accept or decline
+  openProfile = false;
+  adminProfile = {
+    formInfo: {
+      fullName: null,
+      number: null
+    },
+    image: null
+  } as PROFILE
+  profileDiv = document.getElementsByClassName('profile-more')
   // BEGIN BACKEND HERE______________________________
 
 
@@ -40,19 +47,19 @@ openProfile = false;
   // reference to storage
   storage = firebase.storage().ref()
 
-// form for new tournament
-  newTournForm:FormGroup;
+  // form for new tournament
+  newTournForm: FormGroup;
 
-// contains data for the new tournament
-tournamentObj = {
-  formInfo: null,
-  approved: false,
-  approvedVendors: [],
-  dateCreated: null,
-  sponsors: [],
-  state: 'newTournament',
+  // contains data for the new tournament
+  tournamentObj = {
+    formInfo: null,
+    approved: false,
+    approvedVendors: [],
+    dateCreated: null,
+    sponsors: [],
+    state: 'newTournament',
 
-}
+  }
 
   // contains tournament information for Viewing
   viewTournament = {}
@@ -66,20 +73,20 @@ tournamentObj = {
 
   // dummy array to test css overflow-x or -y
   tempCardGen = []
-// like it says
+  // like it says
   validationMessages = {
     valid: [
-        { type: 'required', message: 'Field required.' },
-        { type: 'minlength', message: 'Field must be at least 4 characters long.' },
-        { type: 'maxlength', message: 'Field cannot be more than 25 characters long.' },
-      ]
-    }
+      { type: 'required', message: 'Field required.' },
+      { type: 'minlength', message: 'Field must be at least 4 characters long.' },
+      { type: 'maxlength', message: 'Field cannot be more than 25 characters long.' },
+    ]
+  }
 
 
-    // 
-    tournaments = []
-    tournamentsToDisplay = []
-  constructor(public alertController: AlertController,public loadingController: LoadingController, public serve: AllserveService, private authService: AuthService, private router: Router, public navCtrl: NavController, public renderer: Renderer2, public formBuilder: FormBuilder, public alertCtrl: AlertController) {  }
+  // 
+  tournaments = []
+  tournamentsToDisplay = []
+  constructor(public alertController: AlertController, public loadingController: LoadingController, public serve: AllserveService, private authService: AuthService, private router: Router, public navCtrl: NavController, public renderer: Renderer2, public formBuilder: FormBuilder, public alertCtrl: AlertController) { }
 
   async presentLoading() {
     const loading = await this.loadingController.create({
@@ -98,8 +105,8 @@ tournamentObj = {
   ngOnInit() {
     // add dummy teams
     console.log('home loaded');
-    
-   this.getCMSUserProfile();
+
+    this.getCMSUserProfile();
     while (this.tempCardGen.length < 20) {
       let int = 0
       let counter = int + 1;
@@ -125,7 +132,7 @@ tournamentObj = {
       })
     })
 
-    
+
   }
   signout() {
     firebase.auth().signOut().then(res => {
@@ -137,29 +144,29 @@ tournamentObj = {
   profile(state) {
     switch (state) {
       case 'open':
-        console.log('profile open',this.profileDiv[0]);
-        
+        console.log('profile open', this.profileDiv[0]);
+
         this.openProfile = true;
-        this.renderer.setStyle(this.profileDiv[0],'display', 'block')
+        this.renderer.setStyle(this.profileDiv[0], 'display', 'block')
         break;
-        case 'close':
-          this.openProfile = false;
-          setTimeout(() => {
-            this.renderer.setStyle(this.profileDiv[0],'display', 'none')
-          }, 500);
+      case 'close':
+        this.openProfile = false;
+        setTimeout(() => {
+          this.renderer.setStyle(this.profileDiv[0], 'display', 'none')
+        }, 500);
         break;
     }
   }
   changeView(state) {
     switch (state) {
       case 'main':
-          
+
         this.screen = {
           main: true,
           tournaments: false,
           members: false
         }
-      
+
         break;
       case 'tournaments':
         this.screen = {
@@ -183,7 +190,7 @@ tournamentObj = {
     this.authService.logoutUser().then(() => {
       this.router.navigateByUrl('login');
     });
-   
+
   }
   setfix(x) {
     console.log(x)
@@ -193,38 +200,28 @@ tournamentObj = {
     this.router.navigate(['currtourn']);
   }
 
- async getCMSUserProfile(){  
-    this.db.collection('CMS_users').where('profile','==','no').get().then( (res) =>{
-      if ( res.empty == false) {
-        res.forEach( async doc =>{
-
-          console.log('aaaa', res);
-          const alert = await this.alertController.create({
-            header: 'Please Confirm!',
-            backdropDismiss: false,
-            message: 'Are you sure you want to Approve to be part of Nathis Tournament',
-            buttons: [
-              {
-                text: 'Cancel',
-                role: 'cancel',
-                cssClass: 'secondary',
-                handler: (blah) => {
-                  console.log('Confirm Cancel: blah');
-                }
-              }, {
-                text: 'Okay',
-                handler: () => {
+  async getCMSUserProfile() {
+    setTimeout(() => {
+      firebase.auth().onAuthStateChanged(user => {
+        this.db.collection('CMS_Profile').doc(user.uid).get().then(res => {
           
-                }
-              }
-            ]
-          });
-          await alert.present();
+          this.adminProfile.image = res.data().image;
+          this.adminProfile.formInfo.fullName = res.data().formInfo.fullName
+          this.adminProfile.formInfo.number = res.data().formInfo.number
+console.log(this.adminProfile);
+        }).catch(err => {
+
+        })
       })
-      }
-      
- 
-      
-    })
+    }, 1000);
+
   }
+}
+interface PROFILE {
+  formInfo: {
+    fullName: string,
+    number: string
+  }
+  image: string
+
 }

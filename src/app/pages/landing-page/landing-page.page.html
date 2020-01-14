@@ -3,35 +3,34 @@
     <div class="close" (click)="viewmatch('close', null)">
       <ion-icon name="close"></ion-icon>
     </div>
-    <div class="matchDiv">
+    <div class="matchDiv"> 
       <div class="playerHome animated"
         [ngClass]="{'slideInRight':viewingPlayer.home,'slideOutRight faster':!viewingPlayer.home}">
         <div class="image">
           <div class="playerClose">
-            <ion-fab-button size="small" (click)="viewPlayer('close', 'home', 'object')">
+            <ion-fab-button size="small" (click)="viewPlayer('close', 'home', 'object',0)">
               <ion-icon name="close"></ion-icon>
             </ion-fab-button>
           </div>
-          <img
-            src="https://the18.com/sites/default/files/styles/photo_story_list_items_1016px_wide/public/photo-story-images/2017-2-22-the18-facesmash.jpg?itok=-1TVm3PY"
-            alt="">
-          <div class="name">
-            <p>Alan Bakes</p>
+          <div *ngFor ="let x of playerobj">
+          <img 
+            [src]='x.palyerImage'
+            alt="No Image">
+          </div>
+          <div class="name" *ngFor ="let x of playerobj">
+            <p>{{x.fullName}}</p>
           </div>
         </div>
-        <div class="details">
-          <p>Defender</p>
-          <span>3.5 m tall</span>
+        <div class="details"  *ngFor ="let x of playerobj">
+          <p>{{x.playerPosition}}</p>
+          <span>{{x.height}}m</span>
           <br>
           <p>Previous Team(s)</p>
-          <span>Bara Team <br> Yarn Team</span>
+          <span>{{x.previousTeam}}</span>
           <br>
           <hr>
-          <p>Acievements</p>
-          <span>Best Defender</span> <br>
-          <span>Best face maker</span>
         </div>
-      </div>
+      </div> 
       <div class="teamHome animated"
         [ngClass]="{'slideInRight':viewingTeam.home,'slideOutRight faster':!viewingTeam.home}">
         <div class="title">
@@ -42,13 +41,13 @@
           <img src="https://image.shutterstock.com/image-vector/soccer-logos-american-logo-sports-600w-411479431.jpg"
             alt="">
         </div>
-        <div class="details">
+        <div class="details" *ngFor ="let item of currmatch">
           <p>Coach</p>
-          <h4>Mosia Mosia</h4>
+          <h4>{{item.TeamObject.coachName}}</h4>
           <p>Region</p>
-          <h4>Mosia Mosia</h4>
-          <p>Phone</p>
-          <h4>0124578963</h4>
+          <h4>{{item.TeamObject.region}}</h4>
+           <p>Phone</p>
+          <h4>{{item.TeamObject.tel}}</h4>
         </div>
         <div class="teamClose">
           <ion-button (click)="viewTeam('close', 'home', 'obj')">
@@ -69,19 +68,19 @@
                 src="https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/kxm6rmrs69f9txyidrjk/zenit-saint-petersburg-2019-20-stadium-home-football-shirt-k1WvdX.jpg"
                 alt="">
                 <div class="homeButton animated" [ngClass]="{'bounceInLeft':matchActionState.home,'bounceOutLeft':!matchActionState.home}">
-                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'home')" (click)="goal1()">
+                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'home')" (click)="goal1()" [disabled] ="blocker">
                     Goal
                   </ion-button>
-                  <ion-button size="small" shape="round" color="danger" (click)="homestats('red')">
+                  <ion-button size="small" shape="round" color="danger" (click)="homestats('red')"  [disabled] ="blocker">
                     Red Card
                   </ion-button>
-                  <ion-button size="small" shape="round" color="warning" (click)="homestats('yellow')">
+                  <ion-button size="small" shape="round" color="warning" (click)="homestats('yellow')"  [disabled] ="blocker">
                     Yellow Card
                   </ion-button>
-                  <ion-button size="small" shape="round" color="light" (click)="homestats('offsides')">
+                  <ion-button size="small" shape="round" color="light" (click)="homestats('offsides')"  [disabled] ="blocker">
                     Off Side
                   </ion-button>
-                  <ion-button size="small" shape="round" color="light" (click)="homestats('corners')">
+                  <ion-button size="small" shape="round" color="light" (click)="homestats('corners')" [disabled] ="blocker">
                     Corner Kick
                   </ion-button>
                 </div>
@@ -92,26 +91,11 @@
               <div class="homeScore" >
                 <p>{{item.TeamObject.teamName}} <br>
                 <sub (click)="matchAction('open', 'home')" style="background: white; color: black; padding: 3px 5px; border-radius: 3px 10px;"><i>Action</i></sub></p>
-                <!-- <div class="buttns">
-                  <ion-button color="light" size="small" shape="round">
-                    Goal
-                  </ion-button>
-                  <ion-button color="danger" size="small" shape="round">
-                    Red Card
-                  </ion-button>
-                  <ion-button color="secondary" size="small" shape="round">
-                    Yellow Card
-                  </ion-button>
-                  <ion-button color="light" size="small" shape="round">
-                    Free Kick
-                  </ion-button>
-                  <ion-button color="light" size="small" shape="round">
-                    Corner Kick
-                  </ion-button>
-                </div> -->
+
               </div>
               <div class="points">
-                <ion-button size="small" shape="round" (click)="firsthalf()" [hidden]="btn1">
+                <div class="butns">
+                  <ion-button size="small" shape="round" (click)="firsthalf()" [hidden]="btn1">
                     {{btntxt1}}
                 </ion-button>
                 <ion-button size="small" shape="round" (click)="secondhalf()" [hidden]="btn2">
@@ -122,33 +106,17 @@
                   <ion-button size="small" shape="round" (click)="stop()" [hidden]="btn3">
                      STOP
                     </ion-button>
+                </div>
                 <p>{{score}} : {{ascore}}</p>
               </div>
               <div class="awayScore">
                 <p>{{item.aTeamObject.teamName}} <br>
                   <sub (click)="matchAction('open', 'away')" style="background: white; color: black; padding: 3px 5px; border-radius: 10px 3px;"><i>Action</i></sub></p>
-                <!-- <div class="buttns">
-                  <ion-button color="light" size="small" shape="round">
-                    Goal
-                  </ion-button>
-                  <ion-button color="danger" size="small" shape="round">
-                    Red Card
-                  </ion-button>
-                  <ion-button color="secondary" size="small" shape="round">
-                    Yellow Card
-                  </ion-button>
-                  <ion-button color="light" size="small" shape="round">
-                    Free Kick
-                  </ion-button>
-                  <ion-button color="light" size="small" shape="round">
-                    Corner Kick
-                  </ion-button>
-                </div> -->
               </div>
             </div>
             <div class="upComingData">
-              <h5>{{mins}}:{{secs}}</h5>
-              <p>Starts {{item.startDate}}</p>
+              <h5><ion-button fill ="clear" color="light" (click) ="alterminutes()" >{{mins}}:{{secs}}</ion-button></h5>
+              <p>Starts {{item.startDate | date}}</p>
               <p>Food and Beverage Sold</p>
             </div>
           </div>
@@ -158,19 +126,19 @@
                 src="https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/kxm6rmrs69f9txyidrjk/zenit-saint-petersburg-2019-20-stadium-home-football-shirt-k1WvdX.jpg"
                 alt="">
                 <div class="awayButton animated" [ngClass]="{'bounceInRight':matchActionState.away,'bounceOutRight':!matchActionState.away}" >
-                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'away')">
+                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'away')"  (click)="goal2()" [disabled] ="blocker">
                     Goal
                   </ion-button>
-                  <ion-button size="small" shape="round" color="danger" (click)=" awaystats('red')">
+                  <ion-button size="small" shape="round" color="danger" (click)=" awaystats('red')" [disabled] ="blocker">
                     Red Card
                   </ion-button>
-                  <ion-button size="small" shape="round" color="warning" (click)=" awaystats('yellow')">
+                  <ion-button size="small" shape="round" color="warning" (click)=" awaystats('yellow')" [disabled] ="blocker">
                     Yellow Card
                   </ion-button>
-                  <ion-button size="small" shape="round" color="light"  (click)=" awaystats('offsides')">
+                  <ion-button size="small" shape="round" color="light"  (click)=" awaystats('offsides')" [disabled] ="blocker">
                     Off Side
                   </ion-button>
-                  <ion-button size="small" shape="round" color="light" (click)=" awaystats('corners')">
+                  <ion-button size="small" shape="round" color="light" (click)=" awaystats('corners')" [disabled] ="blocker">
                     Corner Kick
                   </ion-button>
                 </div>
@@ -190,9 +158,9 @@
             <div class="lineUps animated"
               [ngClass]="{'slideInLeft':matchView=='lineup','slideOutLeft':matchView=='summary'}">
               <div class="away">
-                <div class="card" *ngFor="let a of team1" (click)="viewPlayer('open', 'home', 'object')">
+                <div class="card" *ngFor="let a of team1;let i = index" (click)="viewPlayer('open', 'home',a,0)">
                   <div class="number">
-                    <p>30'</p>
+                  <p style="margin: 0 auto;">{{i}}</p>
                   </div>
                   <div class="name">
                     <p>{{a.fullName}}</p>
@@ -203,9 +171,9 @@
                 </div>
               </div>
               <div class="home">
-                <div class="card" *ngFor="let a of team2" (click)="viewPlayer('open', 'away', 'object')">
+                <div class="card" *ngFor="let a of team2;let i = index" (click)="viewPlayer('open', 'away', a,1)">
                   <div class="number">
-                    <p>30'</p>
+                    <p style="margin: 0 auto;">{{i}}</p>
                   </div>
                   <div class="name">
                     <p>{{a.fullName}}</p>
@@ -285,28 +253,33 @@
         [ngClass]="{'slideInLeft faster':viewingPlayer.away,'slideOutLeft faster':!viewingPlayer.away}">
         <div class="image">
           <div class="playerClose">
-            <ion-fab-button size="small" (click)="viewPlayer('close', 'away', 'object')">
+            <ion-fab-button size="small" (click)="viewPlayer('close', 'away', 'object',0)">
               <ion-icon name="close"></ion-icon>
             </ion-fab-button>
           </div>
-          <img src="https://i.imgflip.com/109szw.jpg" alt="">
-          <div class="name">
-            <p>Alan Bakes</p>
+          <div *ngFor ="let x of aplayerobj">
+            <img 
+              [src]='x.palyerImage'
+              alt="No Image">
+            </div>
+          <div class="name" *ngFor ="let x of aplayerobj">
+            <p>{{x.fullName}}</p>
           </div>
         </div>
-        <div class="details">
-          <p>Defender</p>
-          <span>3.5 m tall</span>
+        <div class="details" *ngFor ="let x of aplayerobj">
+          <p>{{x.playerPosition}}</p>
+          <span>{{x.height}}m</span>
           <br>
           <p>Previous Team(s)</p>
-          <span>Bara Team <br> Yarn Team</span>
+          <span>{{x.previousTeam}}</span>
           <br>
           <hr>
           <p>Acievements</p>
           <span>Best Defender</span> <br>
-          <span>Best face maker</span>
-        </div>
-      </div>
+          <span>Best face maker</span> 
+       </div> 
+       </div>
+       
       <div class="teamAway animated"
         [ngClass]="{'slideInLeft':viewingTeam.away,'slideOutLeft faster':!viewingTeam.away}">
         <div class="title">
@@ -315,13 +288,13 @@
         <div class="image">
           <img src="http://www.logocontest.net/48hourslogo_data/2017/02/11/58207_1486782866.jpg" alt="">
         </div>
-        <div class="details">
+        <div class="details" *ngFor ="let item of currmatch">
           <p>Coach</p>
-          <h4>Mosia Mosia</h4>
+          <h4>{{item.aTeamObject.coachName}}</h4>
           <p>Region</p>
-          <h4>Mosia Mosia</h4>
-          <p>Phone</p>
-          <h4>0124578963</h4>
+          <h4>{{item.aTeamObject.region}}</h4>
+           <p>Phone</p>
+          <h4>{{item.aTeamObject.tel}}</h4>
         </div>
         <div class="teamClose">
           <ion-button (click)="viewTeam('close', 'away', 'obj')">
@@ -334,46 +307,68 @@
   <div class="cmsContentMain">
     <div class="tournaments">
       <div class="links">
-        <button>
+        <button (click) ="changeview('all')" [ngClass]="{'activeFilter':filterBy=='all'}" >
           All
         </button>
-        <button>
+        <button (click) ="changeview('newTournament')" [ngClass]="{'activeFilter':filterBy=='newTournament'}">
+          Upcoming
+        </button>
+        <button (click) ="changeview('inprogress')" [ngClass]="{'activeFilter':filterBy=='inprogress'}">
           InPlay
         </button>
-        <button>
-          Upcoming
+        <button (click) =" changeview('finished')" [ngClass]="{'activeFilter':filterBy=='finished'}">
+          History
         </button>
       </div>
       <div class="tournamentList">
+        <div class="card empty" *ngIf="tournament.length == 0" >
+          <h2>There's nothing in this section yet.</h2>
+        </div>
         <div class="card" *ngFor="let item of tournament" (click) ='viewdetails(item)'>
           <div class="color">
 
           </div>
           <div class="details">
-            <p id="title"><b>{{item.doc.formInfo.tournamentName}}</b></p>
+            <p id="title"><b>{{item.formInfo.tournamentName}}</b></p>
             <hr>
-            <p id="date">{{item.doc.formInfo.startDate}} to {{item.doc.formInfo.endDate}}</p>
-            <p id="location">{{item.doc.formInfo.location}}</p>
+            <p id="date">{{item.formInfo.startDate | date}} to {{item.formInfo.endDate | date}}</p>
+            <p id="location">{{item.formInfo.location}}</p>
           </div>
           <div class="more">
             <div>
-              <p>{{item.doc.formInfo.type}} Teams</p>
-              <!-- <p>Playing</p> -->
+              <p>{{item.formInfo.type}} Teams</p>
+     
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="noTournamentDetails tournamentDetails" *ngIf="clicked.length==0" >
+      <div class="details">
+        <div>
+         <h1 style="font-size: 1em;">Click on the Tournament to view it's details</h1>
+        </div>
+
+      </div>
+      <div class="matchList">
+        <div class="loadingList" >
+          
+            <div class="card">
+              <h5>Matches will list here</h5>
+            </div>
         </div>
       </div>
     </div>
     <div class="tournamentDetails" *ngFor="let item of clicked">
       <div class="details">
         <div>
-          <h4>{{item.doc.formInfo.tournamentName}}</h4>
-          <p>Top {{item.doc.formInfo.type}}</p>
+          <h4 style="font-size:4.4vw; letter-spacing: 5px;"> {{item.formInfo.tournamentName}}</h4>
+          <p style="color: gray;">Top {{item.formInfo.type}}</p>
           <hr>
-          <p>{{item.doc.formInfo.type}} Participants</p>
-          <p>{{item.doc.formInfo.startDate}} to {{item.doc.formInfo.endDate}}</p>
+          <p style="font-size: 1.7vw;">{{item.formInfo.type}} Participants</p>
+          <!-- <p style="font-size: 1.3vw;">{{item.formInfo.startDate | date}} to {{item.formInfo.endDate  | date}}</p> -->
           <hr>
-          <p>Application Closing Date <br> {{item.doc.formInfo.applicationClosing}}</p>
+          <p style="    font-size: 1.1vw;">Application Closing Date <br> {{item.formInfo.applicationClosing  | date}}</p>
         </div>
 
       </div>
@@ -385,9 +380,9 @@
             </div>
           
         </div>
-        <div class="card" *ngFor="let item of fixture" (click)="viewmatch('open', item)">
+        <div class="card" *ngFor="let item of fixture; let a = index" (click)="viewmatch('open', item,a)">
           <div class="date">
-            <p>{{item.matchdate}}</p>
+            <p>{{item.matchdate | date}}</p>
           </div>
           <div class="aVb">
             <div class="home">

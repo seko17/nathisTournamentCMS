@@ -23,7 +23,7 @@ export class AuthFormComponent implements OnInit {
   ) {
     this.authForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.minLength(6)]
+      password: ['', Validators.compose([Validators.required,Validators.minLength(6)])]
     });
   }
 

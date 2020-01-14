@@ -8,14 +8,31 @@ q1:any =[];
 q2:any =[];
 currentmatch:any ={};
 fixture:any =[];
+dropfixture =[];
 tournaments =[];
+tournid;
+blocker =true;
+firsthalf =false;
+secondhalf =false;
   constructor() { }
 
 firstdoc ={};
+
+dragdropfixture(fixture)
+{
+this.fixture =[];
+this.dropfixture  =fixture;
+
+
+return this.dropfixture ;
+
+}
+
+
   randomfixture(q1,q2)
 {
   
- 
+
 
 
 
