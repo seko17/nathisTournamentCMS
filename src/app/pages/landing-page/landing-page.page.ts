@@ -61,7 +61,13 @@ export class LandingPagePage implements OnInit {
   input = { data: [] };
   ainput = { data: [] };
   tempCardGen = [] // temporary card generator, used for ngFor
-  constructor(public loadingController: LoadingController, public allserve: AllserveService, public alertController: AlertController, public serve: AllserveService, public zone: NgZone, public renderer: Renderer2) {
+  constructor(public modalController: ModalController,public game2: Match2Service,public loadingController: LoadingController,public allserve: AllserveService, public alertController: AlertController, public serve: AllserveService, public zone: NgZone, public renderer: Renderer2) {
+
+
+
+
+
+
 
     let tourn = {
       docid: null,
