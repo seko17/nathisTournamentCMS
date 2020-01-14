@@ -234,7 +234,7 @@
         </div>
         <div class="card" *ngFor="let team of tournamentApplications">
           <div class="teamInfo">
-            <p><b>Team Name</b>{{team.doc.TeamObject.teamName}}</p>
+            <p><b>{{team.doc.TeamObject.teamName}}</b></p>
             <p>Manager: Manager Name</p>
           </div>
           <div class="buttons">
@@ -252,21 +252,21 @@
     <!-- TOURNAMENT DETAILS -->
     <div class="management">
       <div class="tournamentData" *ngFor="let x of tourndetails">
-        <h1>{{x.doc.formInfo.tournamentName}}</h1>
+        <h1 style="font-size: 5vw;
+        letter-spacing: 10px;">{{x.doc.formInfo.tournamentName}}</h1>
         <div class="splitter">
           <div class="one">
-            <p>{{x.doc.formInfo.type}}</p>
-            <p>Participants</p>
+            <p>{{x.doc.formInfo.type}} Participants</p>
             <hr>
-            <p>Closing Date</p>
-            <p>{{x.doc.formInfo.applicationClosing | date}}</p>
+            <p>From {{x.doc.formInfo.startDate | date}} <b>to</b> {{x.doc.formInfo.endDate | date}}</p>
+            <p>Fee - R{{x.doc.formInfo.joiningFee}}</p>
           </div>
           <div class="two">
-            <p>From {{x.doc.formInfo.startDate | date}} <b>TO</b> {{x.doc.formInfo.endDate | date}}</p>
-            <p>Fee - R{{x.doc.formInfo.joiningFee}}</p>
+            <p>Closing Date {{x.doc.formInfo.applicationClosing | date}}</p>
+            
             <hr>
             <p>Sponsors</p>
-            <span *ngFor="let i of x.doc.sponsors"><img src="{{i.sponsorImage}}" alt="Sponsor"></span>
+            <span *ngFor="let i of x.doc.sponsors"><img src="{{i.sponsorImage}}"></span>
           </div>
         </div>
       </div>
@@ -313,10 +313,10 @@
               <h1>Vendor Applications <sub>Still to pay</sub></h1>
             </div>
             <div class="vendorApplications">
-              <div class="card" *ngFor="let item of accepted">
+              <div class="card" *ngFor="let item of vendorsapplicationArray">
                 <div class="details">
                   <h5 style="margin: 0;">{{item.TeamObject.coachName}}</h5>
-                  <p style="margin: 0;">Coach <b>{{item.TeamObject.coachName}}</b></p>
+                  <p style="margin: 0;">Coach: <b>{{item.TeamObject.coachName}}</b></p>
                 </div>
                 <div class="stillToPayList">
                   <!-- <div class="card" *ngFor="let item of accepted,let i = index">
@@ -343,15 +343,19 @@
         <!-- PAID APPLICATIONS -->
         <div class="participatingTeams">
           <div class="head">
-            <h1>Participating Teams <sub>Paid</sub></h1>
+            <h1>Participating Teams <ion-badge mode="ios">{{cparticipants.length}}</ion-badge> <sub>Paid</sub></h1>
           </div>
           <div class="paidList" >
             <div class="card" *ngFor="let item of cparticipants" (click)="promptFixtureConfig('open',cparticipants)">
               <div class="details">
-                <h5 style="margin: 0;">Kasi Team</h5>
-                <p>{{item.TeamObject.coachName}}</p>
-                <p>{{item.TeamObject.teamName}}</p>
-                <p>{{item.tournamentName}}</p>
+                <h5 style="margin: 0px ;
+                font-size: 2em;">Kasi Team</h5>
+                <p style="margin: 0px 0px 0px 10px;
+                font-size: 0.8em;">{{item.TeamObject.coachName}}</p>
+                <p style="margin: 0px 0px 0px 10px;
+                font-weight: bold;">{{item.TeamObject.teamName}}</p>
+                <p style="margin: 0px 0px 0px 10px;
+                color: gray;">{{item.tournamentName}}</p>
                 <!-- <p style="margin: 0;">Manager <b>Name Surname</b></p> -->
               </div>
             </div>
@@ -389,7 +393,7 @@
           </div>
           <ion-item>
             <ion-label position="floating">Location</ion-label>
-            <ion-input type="text" (keyup)="getItems($event)" formControlName="location">{{userLocation}}</ion-input>
+          <ion-input type="text" value="{{userLocation}}" (keyup)="getItems($event)" formControlName="location"></ion-input>
 
             <!-- <ion-input type="text" formControlName="location"></ion-input> -->
           </ion-item>
@@ -491,8 +495,8 @@
               </div>
               <div class="tDetails">
                 <div>
-                  <p>{{t.doc.formInfo.startDate | date}} to {{t.doc.formInfo.endDate | date}}</p>
-                  <p>Application open until - {{t.doc.formInfo.applicationClosing | date}}</p>
+                  <p>Starts {{t.doc.formInfo.startDate | date}} <br> Ends {{t.doc.formInfo.endDate | date}}</p>
+                  <p style="    font-size: 0.7em; font-weight: bold;">Application open until - {{t.doc.formInfo.applicationClosing | date}}</p>
                   <!-- <p>{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p> -->
                 </div>
               </div>

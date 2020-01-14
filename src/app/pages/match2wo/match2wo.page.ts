@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./match2wo.page.scss'],
 })
 export class Match2woPage implements OnInit {
-
+  tempCardGen = []
   constructor() { }
 
   ngOnInit() {

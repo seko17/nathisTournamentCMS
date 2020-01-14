@@ -60,12 +60,6 @@ export class LandingPagePage implements OnInit {
   tempCardGen = [] // temporary card generator, used for ngFor
   constructor(public loadingController: LoadingController, public allserve: AllserveService, public alertController: AlertController, public serve: AllserveService, public zone: NgZone, public renderer: Renderer2) {
 
-
-
-
-
-
-
     let tourn = {
       docid: null,
       doc: null,
@@ -88,22 +82,6 @@ export class LandingPagePage implements OnInit {
     })
 
     // 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   }
 
 
@@ -370,11 +348,7 @@ export class LandingPagePage implements OnInit {
         this.fixture.push({ ...{ fixtureid: res.id }, ...res.data() });
         console.log("Fixture Id = ", this.fixtureid)
 
-
-
-
         firebase.firestore().collection('MatchFixtures').doc(res.id).get().then(val => {
-
 
           // console.log(this.currentmatch)
           this.score = val.data().score;
@@ -397,29 +371,18 @@ export class LandingPagePage implements OnInit {
             this.btntxt2 = "Resume Second Half";
           }
 
-
         })
       })
     })
 
   }
 
-
-
-
-
-
   team1 = [];
   team2 = [];
-
-
-
-
 
   fixtureid;
 
   firsthalf() {
-
 
     console.log("comp = ", this.currmatch[0].id)
     // console.log("comp = ",this.currmatch[0].aTeamObject.uid)
