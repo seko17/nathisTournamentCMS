@@ -305,7 +305,7 @@
                 <div *ngFor="let i of acceptedVendor ">
                   <p>{{i.refNumber}}</p>
                 </div>
-                <ion-button (click)="paid(item)" [disabled]="disablepaid">PAID</ion-button>
+                <ion-button (click)="paid(item)" [disabled]="disablepaid">{{item.refNumber}}</ion-button>
               </div>
             </div>
 

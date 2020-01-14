@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone, Renderer2 } from '@angular/core';
 import {Match2Service} from '../../services/match2.service';
 import { AlertController } from '@ionic/angular';
 import * as firebase from 'firebase';
@@ -8,13 +8,49 @@ import * as firebase from 'firebase';
   styleUrls: ['./match2wo.page.scss'],
 })
 export class Match2woPage implements OnInit {
+    // CSS Properties_____________________________
+    viewMatchDiv = document.getElementsByClassName('viewMatch');
+
+    // divs that contain details about the team
+    viewingTeam = {
+      away: false,
+      home: false
+    }
+    awayTeamDiv = document.getElementsByClassName('teamAway');
+    homeTeamDiv = document.getElementsByClassName('teamHome');
+  
+    // divs that contain details about the player
+    viewingPlayer = {
+      away: false,
+      home: false,
+    }
+    awayPlayerDiv = document.getElementsByClassName('playerAway');
+    homePlayerDiv = document.getElementsByClassName('playerHome');
+  
+    // div carrying playing match action buttons
+    matchActionState = {
+      away: false,
+      home: false,
+    }
+    awayPlayerActions = document.getElementsByClassName('awayButton');
+    homePlayerActions = document.getElementsByClassName('homeButton');
+  
+    // opens the div carrying info about a match
+    viewingMatch = false;
+  
+    // switches between lineup and summary
+    matchView = 'lineup'
+    playing
+    filterBy = 'newTournament'
+    tempCardGen = [1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 mins =0;
 secs =0;
 team1 =[];
 team2 =[];
 input = { data: [] };
 ainput = { data: [] };
-  constructor(public alertController: AlertController,public game2:Match2Service) { 
+  constructor(public alertController: AlertController,public game2:Match2Service, private zone: NgZone, public renderer: Renderer2) { 
 this.team1 =[];
 this.team2=[];
 
@@ -64,8 +100,131 @@ firsthalf()
 
 
 
+segmentChanged(state) {
+  this.zone.run(() => {
+    let summaryORlineup = state.target.value;
+    switch (summaryORlineup) {
+      case 'lineup':
+        this.matchView = summaryORlineup
+        console.log('viewing ', summaryORlineup);
+        break;
+      case 'summary':
+        this.matchView = summaryORlineup
+        console.log('viewing ', summaryORlineup);
+        break;
+      default:
+        break;
+    }
+  })
+}
 
+viewPlayer(state, side, playerObj, val) {
+  console.log("player obj")
 
+  // state check if we are opening or closing the player details div
+  switch (state) {
+    case 'open':
+      // if open, check for which side
+      if (side == "home") {
+        this.viewTeam('close', 'home', null)
+        this.viewingPlayer.home = true;
+        this.renderer.setStyle(this.homePlayerDiv[0], 'display', 'block')
+      } else {
+        this.viewTeam('close', 'away', null)
+        this.viewingPlayer.away = true;
+        this.renderer.setStyle(this.awayPlayerDiv[0], 'display', 'block')
+      }
+      break;
+    case 'close':
+      if (side == "home") {
+        this.viewingPlayer.home = false;
+        setTimeout(() => {
+          // this.renderer.setStyle(this.homePlayerDiv[0], 'display', 'none')
+        }, 500);
+      } else {
+        this.viewingPlayer.away = false;
+        setTimeout(() => {
+          // this.renderer.setStyle(this.awayPlayerDiv[0], 'display', 'none')
+        }, 500);
+      }
+      break;
+    default:
+      break;
+  }
+}
+viewTeam(state, side, teamObj) {
+  switch (state) {
+    case 'open':
+      if (side == "home") {
+
+        this.viewingTeam.home = true;
+        this.renderer.setStyle(this.homeTeamDiv[0], 'display', 'block');
+        console.log('home team open');
+        this.viewPlayer('close', 'home', null, 0);
+      } else {
+        this.viewPlayer('close', 'away', null, 0);
+        this.viewingTeam.away = true;
+        this.renderer.setStyle(this.awayTeamDiv[0], 'display', 'block');
+        console.log('Away team open');
+
+      }
+      break;
+    case 'close':
+      if (side == "home") {
+        this.viewingTeam.home = false;
+        setTimeout(() => {
+          this.renderer.setStyle(this.homeTeamDiv[0], 'display', 'none');
+        }, 500);
+      } else {
+        console.log('close away');
+
+        this.viewingTeam.away = false;
+        setTimeout(() => {
+          this.renderer.setStyle(this.awayTeamDiv[0], 'display', 'none');
+        }, 500);
+      }
+      break;
+    default:
+      break;
+  }
+}
+matchAction(state, side) {
+  console.log('match action',state,side);
+  
+  // check the state of the action, are we opening or closing the panel
+  switch (state) {
+    case 'open':
+      // check for which side the action is done
+      if (side == 'home') {
+        this.matchActionState.home = true
+        this.renderer.setStyle(this.homePlayerActions[0], 'display', 'block')
+        console.log(this.homePlayerActions[0]);
+        
+      } else {
+        this.matchActionState.away = true
+        this.renderer.setStyle(this.awayPlayerActions[0], 'display', 'block')
+        console.log(this.awayPlayerActions[0]);
+        
+      }
+      break;
+    case 'close':
+      if (side == 'home') {
+        this.matchActionState.home = false
+        setTimeout(() => {
+          this.renderer.setStyle(this.homePlayerActions[0], 'display', 'none')
+        }, 500);
+      } else {
+        this.matchActionState.away = false
+        setTimeout(() => {
+          this.renderer.setStyle(this.awayPlayerActions[0], 'display', 'none')
+        }, 500);
+      }
+      break;
+
+    default:
+      break;
+  }
+}
 
 async goal1()
 {
@@ -111,22 +270,6 @@ async goal1()
   });
   await alert.present();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 async goal2()

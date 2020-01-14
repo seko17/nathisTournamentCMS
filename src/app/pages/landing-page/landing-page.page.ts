@@ -190,25 +190,7 @@ return await modal.present();
 
           console.log("Aplayers = ", this.ainput.data)
         })
-
-
-
-
-
       }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
     switch (state) {
