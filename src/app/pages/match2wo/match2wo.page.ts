@@ -208,17 +208,18 @@ async homestats(x) {
                     ":" + this.secs.toString(), playerName: data
                 })
               })
-              console.log("yellow")
+        
 
               
 
 
               firebase.firestore().collection('MatchFixtures').doc(this.game2.currentmatch.fixtureid).get().then(res => {
               
-console.log("yellow",  res.data())
+
 
                 let obj:any = {...{fixtureid:res.id},...res.data()};
                 obj.yellow = obj.yellow + 1;
+                console.log("Object yellow = ", obj.yellow)
 
                 this.game2.currentmatch =obj;
                 firebase.firestore().collection('MatchFixtures').doc(this.game2.currentmatch.fixtureid).update({ yellow: obj.yellow });
@@ -242,8 +243,10 @@ console.log("yellow",  res.data())
                   res.data();
                   let obj:any = {...{fixtureid:res.id},...res.data()};
                   obj.red = res.data().red + 1;
-                  this.game2.currentmatch.red =obj;
+                  this.game2.currentmatch =obj;
                   
+
+                  console.log("Object red = ", obj.red)
 
                   firebase.firestore().collection('MatchFixtures').doc(this.game2.currentmatch.fixtureid).update({ red: obj.red });
 
@@ -356,7 +359,7 @@ async awaystats(x) {
                 res.data();
                 let obj:any = {...{fixtureid:res.id},...res.data()};
                 obj.ayellow = obj.ayellow + 1;
-
+console.log(obj.ayellow)
                 this.game2.currentmatch =obj;
                 firebase.firestore().collection('MatchFixtures').doc(this.game2.currentmatch.fixtureid).update({ ayellow: obj.ayellow });
 
@@ -371,13 +374,13 @@ async awaystats(x) {
                 console.log("red")
 
                 firebase.firestore().collection('MatchFixtures').doc(this.game2.currentmatch.fixtureid).get().then(res => {
-                  res.data();
+                  
                   let obj:any = {...{fixtureid:res.id},...res.data()};
-                  obj.ared = res.data().ared + 1;
+                  obj.ared = parseFloat(obj.ared) + 1;
                   this.game2.currentmatch =obj;
+console.log("Away Red", obj.ared)
 
-
-                  firebase.firestore().collection('MatchFixtures').doc(this.game2.currentmatch.fixtureid).update({ red: obj.ared });
+                  firebase.firestore().collection('MatchFixtures').doc(this.game2.currentmatch.fixtureid).update({ ared: obj.ared });
 
                 })
                 firebase.firestore().collection('MatchFixtures').doc(this.game2.currentmatch.fixtureid).update({
