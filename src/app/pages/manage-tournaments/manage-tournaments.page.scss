@@ -401,10 +401,10 @@
   .sponsors {
     flex-basis: 50%;
     height: 100%;
-    background: gray;
+    background: rgb(255, 255, 255);
 
     .buttons {
-      height: 40%;
+      height: 149px;
       background: white;
       text-align: center;
     }
@@ -670,7 +670,7 @@
 
   .tournamentDetails {
     position: absolute;
-    width: 32%;
+    width: 31.7%;
     /* height: 64%; */
     background: #eeeeee;
     border-radius: 20px;
@@ -984,12 +984,13 @@
         }
 
         .searcher {
-          background: rgba(0, 0, 0, 0.267);
-          border-radius: 2000px;
-          width: 70%;
+          /* background: #01261500; */
+          /* border-radius: 7px; */
+          width: 98%;
           margin: auto;
-          padding: 0px 10px;
+          padding: 0px 5px;
           height: 10%;
+          border-bottom: solid 1px white;
         }
 
         .stillToPayList {
