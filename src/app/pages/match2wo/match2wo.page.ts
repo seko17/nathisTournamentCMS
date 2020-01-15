@@ -43,6 +43,10 @@ export class Match2woPage implements OnInit {
     playing
     filterBy = 'newTournament'
     tempCardGen = [1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]
+    player = {
+      home: {},
+      away: {}
+    } as any
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 mins =0;
 secs =0;
@@ -118,21 +122,25 @@ segmentChanged(state) {
   })
 }
 
-viewPlayer(state, side, playerObj, val) {
-  console.log("player obj")
+viewPlayer(state, side, playerData) {
+  console.log("player obj", playerData)
 
   // state check if we are opening or closing the player details div
   switch (state) {
     case 'open':
+      
       // if open, check for which side
       if (side == "home") {
         this.viewTeam('close', 'home', null)
         this.viewingPlayer.home = true;
         this.renderer.setStyle(this.homePlayerDiv[0], 'display', 'block')
+        this.player.home = playerData
       } else {
+        
         this.viewTeam('close', 'away', null)
         this.viewingPlayer.away = true;
         this.renderer.setStyle(this.awayPlayerDiv[0], 'display', 'block')
+        this.player.away = playerData
       }
       break;
     case 'close':
@@ -153,6 +161,7 @@ viewPlayer(state, side, playerObj, val) {
   }
 }
 viewTeam(state, side, teamObj) {
+  
   switch (state) {
     case 'open':
       if (side == "home") {
