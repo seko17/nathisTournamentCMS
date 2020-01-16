@@ -1,6 +1,6 @@
 <ion-content>
   <div class="viewMatch animated" [ngClass]="{'zoomIn faster':viewingMatch,'zoomOut faster':!viewingMatch}">
-    <div class="close" (click)="viewmatch('close', null)">
+    <div class="close" (click)="viewmatch('close', null, null)">
       <ion-icon name="close"></ion-icon>
     </div>
     <div class="matchDiv"> 
@@ -317,10 +317,10 @@
         </button>
       </div>
       <div class="tournamentList">
-        <div class="card empty" *ngIf="tournament.length == 0" >
+        <div class="card empty" *ngIf="tournament.length == 0"  >
           <h2>There's nothing in this section yet.</h2>
         </div>
-        <div class="card" *ngFor="let item of tournament" (click) ='viewdetails(item)'>
+        <div class="card" *ngFor="let item of tournament" [ngClass]="{'newTorunament':item.state=='newTournament','inProgress':item.state=='inprogress'}" (click) ='viewdetails(item)'>
           <div class="color">
 
           </div>

@@ -1,11 +1,11 @@
 export const config = {
-  apiKey: "AIzaSyB7CsU8BC0jZdKP6e3_9dLmXr0DEbLs9xE",
-  authDomain: "tournaments-c444f.firebaseapp.com",
-  databaseURL: "https://tournaments-c444f.firebaseio.com",
-  projectId: "tournaments-c444f",
-  storageBucket: "tournaments-c444f.appspot.com",
-  messagingSenderId: "547769476202",
-  appId: "1:547769476202:web:a32f28c5f97751b4929613",
-  measurementId: "G-RVZNMY7CPT",
-  vapidKey: "BHgsTw3m4jNR2rrPgbyXFiM_3mCt9ElH8ZlOGdzZO-8_q9GOPH1ZXyUuy-nYIiwKhbPH_rsgU4B2F9Qi507W9Qw"
+   apiKey: "AIzaSyDb1Uifevrqy-GbsKt4BZ1PBE0t_bjQ1EQ",
+  authDomain: "testtournamentdb.firebaseapp.com",
+  databaseURL: "https://testtournamentdb.firebaseio.com",
+  projectId: "testtournamentdb",
+  storageBucket: "testtournamentdb.appspot.com",
+  messagingSenderId: "81311888576",
+  appId: "1:81311888576:web:896c7c5eadf5fab1166925",
+  measurementId: "G-8KZEPZZC8R"
+  vapidKey: "BGDfUFFnEacPz8kO1Y_aMEOeoBjS6hG652svWfiJwItjgSQZhNTFvN9Xam240tTMF3tJ45KQ54slIWs-z9XJfGA"
 }

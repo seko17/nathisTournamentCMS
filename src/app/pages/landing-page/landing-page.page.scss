@@ -16,7 +16,12 @@ button[ion-fab] {
 
   contain: layout;
 }
-
+.inProgress {
+  background-color: rgb(233, 245, 255) !important;
+}
+.newTorunament {
+  background-color: rgb(240, 255, 242) !important;
+}
 .container {
   position: absolute;
   top: 0;
@@ -147,10 +152,12 @@ button[ion-fab] {
             width: auto;
             margin: auto;
             justify-content: center;
+
             .points {
               width: 35%;
               position: relative;
               padding: 24px 1px 1px 1px;
+
               .butns {
                 position: absolute;
                 top: -17px;
@@ -158,6 +165,7 @@ button[ion-fab] {
                 transform: translateX(-50%);
                 z-index: 700;
               }
+
               p {
                 margin: 0;
                 padding: 0;
@@ -200,9 +208,11 @@ button[ion-fab] {
 
           .upComingData {
             text-align: center;
-            h5 { 
+
+            h5 {
               margin: 3px;
             }
+
             p {
               margin: 0;
               padding: 0;
@@ -242,20 +252,21 @@ button[ion-fab] {
                 padding: 10px 5px;
                 border-bottom: solid 2px rgba(0, 0, 0, 0.103);
                 position: relative;
-                margin: 15px 0px 10px 60px;
+                margin: 15px 0px 10px 45px;
                 background: rgba(39, 44, 66, 0.021);
 
                 .number {
                   position: absolute;
-                  width: 40px;
-                  height: 40px;
-                  top: -15px;
-                  background: linear-gradient(45deg, green, greenyellow);
+                  width: 29px;
+                  height: 30px;
+                  top: -7px;
+                  background: linear-gradient(45deg, rgb(5, 166, 107), rgb(1, 38, 21));
                   border-radius: 10px 10px 0px 10px;
-                  left: -50px;
+                  left: -35px;
                   color: white;
+                  display: -webkit-box;
                   display: flex;
-                  align-items: baseline;
+                  align-items: center;
                   padding: 10px;
                   box-shadow: 0px 3px 3px #1717172d;
 
@@ -436,8 +447,10 @@ button[ion-fab] {
           font-size: 12px;
           margin: 6px 0px;
         }
+
         h4 {
-          margin: 5px 0px;;
+          margin: 5px 0px;
+          ;
         }
       }
     }
@@ -647,8 +660,10 @@ button[ion-fab] {
           }
         }
       }
+
       .empty {
         text-align: center;
+
         h2 {
           margin: auto !important;
         }
@@ -658,7 +673,7 @@ button[ion-fab] {
 
   .tournamentDetails {
     width: 50%;
-    background: url(../../../assets/cardSVG/SVG/createdSVG.svg),white;
+    background: url(../../../assets/cardSVG/SVG/createdSVG.svg), white;
     width: 50%;
     border-radius: 20px 0px 0px 20px;
     background-position: 114px 0px;
@@ -691,6 +706,7 @@ button[ion-fab] {
       overflow-y: auto;
       position: relative;
       background: #f0f0f0f0;
+
       .loadingList {
         position: absolute;
         top: 0;
@@ -705,23 +721,24 @@ button[ion-fab] {
         -webkit-box-direction: normal;
         flex-direction: column;
         align-content: center;
-        
-          .card {
-            width: 90%;
-            margin: 5px auto;
-            height: 100px;
-            background: rgb(189, 189, 189);
-            border-radius: 10px;
-            box-shadow: 0px 3px 3px #1717172c;
-            animation: lazyLoader 2s linear infinite;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            h5 {
-              margin: auto;
-            }
+
+        .card {
+          width: 90%;
+          margin: 5px auto;
+          height: 100px;
+          background: rgb(189, 189, 189);
+          border-radius: 10px;
+          box-shadow: 0px 3px 3px #1717172c;
+          animation: lazyLoader 2s linear infinite;
+          text-align: center;
+          display: flex;
+          align-items: center;
+
+          h5 {
+            margin: auto;
           }
-        
+        }
+
 
         @keyframes lazyLoader {
           0% {
@@ -767,12 +784,15 @@ button[ion-fab] {
           justify-content: space-evenly;
           height: auto;
           padding-bottom: 20px;
+
           .home {
             flex-basis: 40%;
           }
-          .versus{
+
+          .versus {
             flex-basis: 10%;
           }
+
           .away {
             flex-basis: 40%;
           }
@@ -811,13 +831,15 @@ button[ion-fab] {
     }
 
   }
+
   .noTournamentDetails {
     width: 50%;
-    background: url(../../../assets/cardSVG/SVG/createdSVG.svg),rgba(255, 255, 255, 0.863);
+    background: url(../../../assets/cardSVG/SVG/createdSVG.svg), rgba(255, 255, 255, 0.863);
     width: 50%;
     border-radius: 20px 0px 0px 20px;
     background-position: 114px 0px;
     background-repeat: no-repeat;
+
     .details {
       backdrop-filter: blur(5px);
       width: 100%;
@@ -846,6 +868,7 @@ button[ion-fab] {
       overflow-y: auto;
       position: relative;
       background: #f0f0f0f0;
+
       .loadingList {
         position: absolute;
         top: 0;
@@ -860,23 +883,24 @@ button[ion-fab] {
         -webkit-box-direction: normal;
         flex-direction: column;
         align-content: center;
-        
-          .card {
-            width: 90%;
-            margin: 5px auto;
-            height: 100px;
-            background: rgb(189, 189, 189);
-            border-radius: 10px;
-            box-shadow: 0px 3px 3px #1717172c;
-            animation: lazyLoader 2s linear infinite;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            h5 {
-              margin: auto;
-            }
+
+        .card {
+          width: 90%;
+          margin: 5px auto;
+          height: 100px;
+          background: rgb(189, 189, 189);
+          border-radius: 10px;
+          box-shadow: 0px 3px 3px #1717172c;
+          animation: lazyLoader 2s linear infinite;
+          text-align: center;
+          display: flex;
+          align-items: center;
+
+          h5 {
+            margin: auto;
           }
-        
+        }
+
 
         @keyframes lazyLoader {
           0% {

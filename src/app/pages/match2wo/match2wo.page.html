@@ -2,28 +2,29 @@
 <ion-content>
     <div class="matchDiv"> 
         <!-- HOME PLAYER DIV -->
-        <div class="playerHome animated" [ngClass]="{'fadeIn':viewingPlayer.home,'fadeOut faster':!viewingPlayer.home}">
+        <!--  -->
+        <div class="playerHome animated" [ngClass]="{'fadeIn':viewingPlayer.home,'fadeOut faster':!viewingPlayer.home}"  >
           <div class="image">
             <div class="playerClose">
-              <ion-fab-button size="small" (click)="viewPlayer('close', 'home', 'object',0)">
+              <ion-fab-button size="small" (click)="viewPlayer('close', 'home', null)">
                 <ion-icon name="close"></ion-icon>
               </ion-fab-button>
             </div>
             <div>
             <img 
-              src=""
-              alt="No Image">
+              src="{{player.home.palyerImage}}"
+              alt="{{player.home.fullName}}">
             </div>
             <div class="name" >
-              <p>data</p>
+              <p>{{player.home.fullName}}</p>
             </div>
           </div>
           <div class="details">
-            <p>Player name</p>
-            <span> data m</span>
+          <p></p>
+            <span>{{player.home.height}} m</span>
             <br>
             <p>Previous Team(s)</p>
-            <span>data</span>
+            <span>{{player.home.Achievements}}</span>
             <br>
             <hr>
           </div>
@@ -55,11 +56,12 @@
         </div>
   
         <!-- MATCH MAIN DIV -->
-        <div class="matchDetails">
+        <div  class="matchDetails">
           <div class="topLine"></div>
           <div class="topData">
+            <!-- CONTAINS THE ACTION BUTTONS -->
             <div class="homeImage">
-              <div class="image" (click)="viewTeam('open', 'home', 'object')">
+              <div class="image" (click)="viewTeam('open', 'home')">
                 <img
                   src="https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/kxm6rmrs69f9txyidrjk/zenit-saint-petersburg-2019-20-stadium-home-football-shirt-k1WvdX.jpg"
                   alt="">
@@ -112,8 +114,9 @@
                 <p>Food and Beverage Sold</p>
               </div>
             </div>
+            <!-- CONTAINS THE ACTION BUTTONS -->
             <div class="awayImage">
-              <div class="image" (click)="viewTeam('open', 'away', 'object')">
+              <div class="image" (click)="viewTeam('open', 'away')">
                 <img
                   src="https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/kxm6rmrs69f9txyidrjk/zenit-saint-petersburg-2019-20-stadium-home-football-shirt-k1WvdX.jpg"
                   alt="">
@@ -137,8 +140,8 @@
               </div>
             </div>
           </div>
-          <!-- [(ngModel)]="matchView"  -->
-          <ion-segment (ionChange)="segmentChanged($event)">
+          <!--   -->
+          <ion-segment  (ionChange)="segmentChanged($event)">
             <ion-segment-button value="lineup">
               <ion-label>LineUps</ion-label>
             </ion-segment-button>
@@ -150,21 +153,21 @@
             <div class="dummydiv">
               <div class="lineUps animated"
                 [ngClass]="{'slideInLeft':matchView=='lineup','slideOutLeft':matchView=='summary'}">
-                <div class="away">
-                  <div class="card" *ngFor="let a of team1;let i = index" (click)="viewPlayer('open', 'home',a,0)">
+                <div class="home">
+                  <div class="card animated fadeIn" *ngFor="let h of team1;let i = index" (click)="viewPlayer('open', 'home',h)">
                     <div class="number">
                     <p style="margin: 0 auto;">{{i}}</p>
                     </div>
                     <div class="name">
-                      <p>{{a.fullName}}</p>
+                      <p>{{h.fullName}}</p>
                     </div>
                     <div class="position">
-                      <p>{{a.playerPosition}}</p>
+                      <p>{{h.playerPosition}}</p>
                     </div>
                   </div>
                 </div>
-                <div class="home">
-                  <div class="card" *ngFor="let a of team2;let i = index" (click)="viewPlayer('open', 'away', a,1)">
+                <div class="away">
+                  <div class="card" *ngFor="let a of team2;let i = index" (click)="viewPlayer('open', 'away', a)">
                     <div class="number">
                       <p style="margin: 0 auto;">{{i}}</p>
                     </div>
@@ -245,30 +248,28 @@
         <div class="playerAway animated" [ngClass]="{'fadeIn faster':viewingPlayer.away,'fadeOut faster':!viewingPlayer.away}">
           <div class="image">
             <div class="playerClose">
-              <ion-fab-button size="small" (click)="viewPlayer('close', 'away', null)">
+              <ion-fab-button size="small" (click)="viewPlayer('close', 'away', null, null)">
                 <ion-icon name="close"></ion-icon>
               </ion-fab-button>
             </div>
             <div>
               <img 
-                src=""
-                alt="No Image">
+                src="{{player.away.palyerImage}}"
+                alt="{{player.away.fullName}}">
               </div>
             <div class="name" >
-              <p>data</p>
+              <p>{{player.away.fullName}}</p>
             </div>
           </div>
           <div class="details" >
-            <p>data</p>
-            <span>data m</span>
+            <span>{{player.away.height}} m</span>
             <br>
             <p>Previous Team(s)</p>
-            <span>data</span>
+            <span>{{player.away.previousTeam}}</span>
             <br>
             <hr>
             <p>Acievements</p>
-            <span>Best Defender</span> <br>
-            <span>Best face maker</span> 
+            <span>{{player.away.Achievements}}</span> <br>
          </div> 
          </div>
          
