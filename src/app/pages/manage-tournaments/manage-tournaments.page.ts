@@ -945,7 +945,7 @@ this.fixtures =[];
         break;
     }
   }
-  tourney;
+  tourney = {} as any
   participants = [];
   accepted = [];
   declined = [];
