@@ -128,88 +128,90 @@ position =null;
   matchobject: any = {};
   currmatch = [];
   async viewmatch(state, item,a) {
-    console.log('item = ', item);
+if (item!=null) {
+  console.log('item = ', item);
 
-   this.game2.selectedmatch(item); 
+  this.game2.selectedmatch(item); 
 
 console.log("Position = ",a)
 this.position =a;
 const modal = await this.modalController.create({
-  component: Match2woPage
+ component: Match2woPage
 });
 return await modal.present();
 
 
+}
 
 
-    if (item == null) {
+    // if (item == null) {
 
-    }
+    // }
 
-    else {
+    // else {
 
 
-      if (this.allserve.blocker == false && this.position !=null) {
-        const modal = await this.modalController.create({
-          component: Match2woPage
-        });
-        return await modal.present();
+    //   if (this.allserve.blocker == false && this.position !=null) {
+    //     const modal = await this.modalController.create({
+    //       component: Match2woPage
+    //     });
+    //     return await modal.present();
       
-      }
-      else {
-        this.currmatch = [];
-        this.matchobject = item;
-        this.currmatch.push(item);
+    //   }
+    //   else {
+    //     this.currmatch = [];
+    //     this.matchobject = item;
+    //     this.currmatch.push(item);
 
 
 
 
-        firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(val => {
-          this.team1 = [];
-          val.forEach(res => {
-            console.log("weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeew ")
+    //     firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(val => {
+    //       this.team1 = [];
+    //       val.forEach(res => {
+    //         console.log("weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeew ")
 
-            this.team1.push(res.data())
-            console.log("147= ", this.team1)
-            // this.input.data.push({name:"radio",type: 'radio',label:res.data().fullName,value:res.data().fullName})
-          })
-          // console.log( "players = ",this.input.data) 
-        })
-
-
-        firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').get().then(val => {
-          this.team2 = [];
-          val.forEach(res => {
-            this.team2.push(res.data())
-            console.log("385 = ", this.team2)
-
-            // this.ainput.data.push({name:"radio",type: 'radio',label:res.data().fullName,value:res.data().fullName})
-          })
+    //         this.team1.push(res.data())
+    //         console.log("147= ", this.team1)
+    //         // this.input.data.push({name:"radio",type: 'radio',label:res.data().fullName,value:res.data().fullName})
+    //       })
+    //       // console.log( "players = ",this.input.data) 
+    //     })
 
 
+    //     firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').get().then(val => {
+    //       this.team2 = [];
+    //       val.forEach(res => {
+    //         this.team2.push(res.data())
+    //         console.log("385 = ", this.team2)
 
-          console.log("Aplayers = ", this.ainput.data)
-        })
-      }
+    //         // this.ainput.data.push({name:"radio",type: 'radio',label:res.data().fullName,value:res.data().fullName})
+    //       })
 
-    }
-    switch (state) {
-      case 'open':
-        this.viewingMatch = true
-        this.renderer.setStyle(this.viewMatchDiv[0], 'display', 'flex')
-        setTimeout(() => {
 
-        }, 100);
-        break;
-      case 'close':
-        this.viewingMatch = false
-        setTimeout(() => {
-          this.renderer.setStyle(this.viewMatchDiv[0], 'display', 'none')
-        }, 500);
-        break;
-      default:
-        break;
-    }
+
+    //       console.log("Aplayers = ", this.ainput.data)
+    //     })
+    //   }
+
+    // }
+    // switch (state) {
+    //   case 'open':
+    //     this.viewingMatch = true
+    //     this.renderer.setStyle(this.viewMatchDiv[0], 'display', 'flex')
+    //     setTimeout(() => {
+
+    //     }, 100);
+    //     break;
+    //   case 'close':
+    //     this.viewingMatch = false
+    //     setTimeout(() => {
+    //       this.renderer.setStyle(this.viewMatchDiv[0], 'display', 'none')
+    //     }, 500);
+    //     break;
+    //   default:
+    //     break;
+    // }
   }
   segmentChanged(state) {
     this.zone.run(() => {
