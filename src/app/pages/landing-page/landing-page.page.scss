@@ -20,7 +20,10 @@ button[ion-fab] {
   background-color: rgb(233, 245, 255) !important;
 }
 .newTorunament {
-  background-color: rgb(240, 255, 242) !important;
+  background-color: rgb(230, 255, 233) !important;
+}
+.finnishedTournament {
+  background-color: rgb(255, 233, 233) !important;
 }
 .container {
   position: absolute;
@@ -28,7 +31,7 @@ button[ion-fab] {
   bottom: 0;
   left: 0;
   right: 0;
-  background: red;
+  background: rgb(255, 255, 255);
   z-index: 700;
 }
 

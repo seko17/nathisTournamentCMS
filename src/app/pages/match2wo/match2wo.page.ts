@@ -169,9 +169,9 @@ viewTeam(state, side, teamObj) {
         this.viewingTeam.home = true;
         this.renderer.setStyle(this.homeTeamDiv[0], 'display', 'block');
         console.log('home team open');
-        this.viewPlayer('close', 'home', null, 0);
+        this.viewPlayer('close', 'home', null);
       } else {
-        this.viewPlayer('close', 'away', null, 0);
+        this.viewPlayer('close', 'away', null);
         this.viewingTeam.away = true;
         this.renderer.setStyle(this.awayTeamDiv[0], 'display', 'block');
         console.log('Away team open');

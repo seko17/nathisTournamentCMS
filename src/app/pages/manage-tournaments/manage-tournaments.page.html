@@ -343,7 +343,7 @@
         <!-- PAID APPLICATIONS -->
         <div class="participatingTeams">
           <div class="head">
-            <h1>Participating Teams <ion-badge mode="ios">{{cparticipants.length}}</ion-badge> <sub>Paid</sub></h1>
+          <h1>Participating Teams <sub>Paid</sub><ion-badge mode="ios">{{cparticipants.length}}</ion-badge> </h1>
           </div>
           <div class="paidList" >
             <div class="card" *ngFor="let item of cparticipants" (click)="promptFixtureConfig('open',cparticipants)">
