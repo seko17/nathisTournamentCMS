@@ -56,30 +56,30 @@ this.team2=[];
 
     console.log("Match = ",this.game2.currentmatch)
 
-    firebase.firestore().collection('Teams').doc(this.game2.currentmatch.TeamObject.uid).collection('Players').get().then(val => {
-      this.team1 = [];
-      val.forEach(res => {
+    // firebase.firestore().collection('Teams').doc(this.game2.currentmatch.TeamObject.uid).collection('Players').get().then(val => {
+    //   this.team1 = [];
+    //   val.forEach(res => {
         
   
-        this.team1.push(res.data())
-        console.log("24 = ", this.team1)
-        this.input.data.push({ name: "radio", type: 'radio', label: res.data().fullName, value: res.data().fullName })
-      })
-      console.log("players = ", this.input.data)
-    })
+    //     this.team1.push(res.data())
+    //     console.log("24 = ", this.team1)
+    //     this.input.data.push({ name: "radio", type: 'radio', label: res.data().fullName, value: res.data().fullName })
+    //   })
+    //   console.log("players = ", this.input.data)
+    // })
   
   
-    firebase.firestore().collection('Teams').doc(this.game2.currentmatch.aTeamObject.uid).collection('Players').get().then(val => {
-      this.team2 = [];
-      val.forEach(res => {
-        this.team2.push(res.data())
-        console.log("35 = ", this.team2)
+    // firebase.firestore().collection('Teams').doc(this.game2.currentmatch.aTeamObject.uid).collection('Players').get().then(val => {
+    //   this.team2 = [];
+    //   val.forEach(res => {
+    //     this.team2.push(res.data())
+    //     console.log("35 = ", this.team2)
   
-        this.ainput.data.push({ name: "radio", type: 'radio', label: res.data().fullName, value: res.data().fullName })
-      })
+    //     this.ainput.data.push({ name: "radio", type: 'radio', label: res.data().fullName, value: res.data().fullName })
+    //   })
   
-      console.log("Aplayers = ", this.ainput.data)
-    })
+    //   console.log("Aplayers = ", this.ainput.data)
+    // })
   
   }
 
@@ -91,6 +91,9 @@ this.team2=[];
 
 firsthalf()
 {
+
+ 
+  console.log("first half")
   this.game2.firsthalf()
 
 

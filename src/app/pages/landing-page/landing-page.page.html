@@ -68,19 +68,19 @@
                 src="https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/kxm6rmrs69f9txyidrjk/zenit-saint-petersburg-2019-20-stadium-home-football-shirt-k1WvdX.jpg"
                 alt="">
                 <div class="homeButton animated" [ngClass]="{'bounceInLeft':matchActionState.home,'bounceOutLeft':!matchActionState.home}">
-                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'home')" (click)="goal1()" [disabled] ="blocker">
+                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'home')" (click)="goal1()">
                     Goal
                   </ion-button>
-                  <ion-button size="small" shape="round" color="danger" (click)="homestats('red')"  [disabled] ="blocker">
+                  <ion-button size="small" shape="round" color="danger" (click)="homestats('red')"  >
                     Red Card
                   </ion-button>
-                  <ion-button size="small" shape="round" color="warning" (click)="homestats('yellow')"  [disabled] ="blocker">
+                  <ion-button size="small" shape="round" color="warning" (click)="homestats('yellow')"  >
                     Yellow Card
                   </ion-button>
-                  <ion-button size="small" shape="round" color="light" (click)="homestats('offsides')"  [disabled] ="blocker">
+                  <ion-button size="small" shape="round" color="light" (click)="homestats('offsides')"  >
                     Off Side
                   </ion-button>
-                  <ion-button size="small" shape="round" color="light" (click)="homestats('corners')" [disabled] ="blocker">
+                  <ion-button size="small" shape="round" color="light" (click)="homestats('corners')">
                     Corner Kick
                   </ion-button>
                 </div>
@@ -95,17 +95,13 @@
               </div>
               <div class="points">
                 <div class="butns">
-                  <ion-button size="small" shape="round" (click)="firsthalf()" [hidden]="btn1">
-                    {{btntxt1}}
+                  <ion-button size="small" shape="round" (click)="stop()" >
+                Finished
                 </ion-button>
-                <ion-button size="small" shape="round" (click)="secondhalf()" [hidden]="btn2">
-                    {{btntxt2}}
-                  </ion-button>
+       
 
 
-                  <ion-button size="small" shape="round" (click)="stop()" [hidden]="btn3">
-                     STOP
-                    </ion-button>
+          
                 </div>
                 <p>{{score}} : {{ascore}}</p>
               </div>
@@ -115,7 +111,7 @@
               </div>
             </div>
             <div class="upComingData">
-              <h5><ion-button fill ="clear" color="light" (click) ="alterminutes()" >{{mins}}:{{secs}}</ion-button></h5>
+              <h5></h5>
               <p>Starts {{item.startDate | date}}</p>
               <p>Food and Beverage Sold</p>
             </div>
@@ -126,19 +122,19 @@
                 src="https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/kxm6rmrs69f9txyidrjk/zenit-saint-petersburg-2019-20-stadium-home-football-shirt-k1WvdX.jpg"
                 alt="">
                 <div class="awayButton animated" [ngClass]="{'bounceInRight':matchActionState.away,'bounceOutRight':!matchActionState.away}" >
-                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'away')"  (click)="goal2()" [disabled] ="blocker">
+                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'away')"  (click)="goal2()" >
                     Goal
                   </ion-button>
-                  <ion-button size="small" shape="round" color="danger" (click)=" awaystats('red')" [disabled] ="blocker">
+                  <ion-button size="small" shape="round" color="danger" (click)=" awaystats('red')" >
                     Red Card
                   </ion-button>
-                  <ion-button size="small" shape="round" color="warning" (click)=" awaystats('yellow')" [disabled] ="blocker">
+                  <ion-button size="small" shape="round" color="warning" (click)=" awaystats('yellow')" >
                     Yellow Card
                   </ion-button>
-                  <ion-button size="small" shape="round" color="light"  (click)=" awaystats('offsides')" [disabled] ="blocker">
+                  <ion-button size="small" shape="round" color="light"  (click)=" awaystats('offsides')">
                     Off Side
                   </ion-button>
-                  <ion-button size="small" shape="round" color="light" (click)=" awaystats('corners')" [disabled] ="blocker">
+                  <ion-button size="small" shape="round" color="light" (click)=" awaystats('corners')" >
                     Corner Kick
                   </ion-button>
                 </div>
@@ -365,7 +361,7 @@
           <h4 style="font-size:4.4vw; letter-spacing: 5px;"> {{item.formInfo.tournamentName}}</h4>
           <p style="color: gray;">Top {{item.formInfo.type}}</p>
           <hr>
-          <p style="font-size: 1.7vw;">{{item.formInfo.type}} Participants</p>
+          <p style="font-size: 1.7vw;">{{item.formInfo.type}} Match(s)</p>
           <!-- <p style="font-size: 1.3vw;">{{item.formInfo.startDate | date}} to {{item.formInfo.endDate  | date}}</p> -->
           <hr>
           <p style="    font-size: 1.1vw;">Application Closing Date <br> {{item.formInfo.applicationClosing  | date}}</p>

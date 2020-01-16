@@ -32,7 +32,7 @@ return this.dropfixture ;
   randomfixture(q1,q2)
 {
   
-
+  // this.fixture =[];
 
 
 

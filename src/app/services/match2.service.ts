@@ -49,13 +49,10 @@ return this.currentmatch;
 
 
 
-
     this.sub = timer(0, 1000).subscribe(result => {
      
-
-
    
-   
+console.log("first half")
 
       if (this.secs == 60) {
         this.secs = 0;
