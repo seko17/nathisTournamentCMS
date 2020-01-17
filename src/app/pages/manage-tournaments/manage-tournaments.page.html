@@ -172,16 +172,6 @@
     </div>
   </div>
 
-  <!-- <div class="doneFixtures">
-    <div class="prompter">
-      <h1>Well Done</h1>
-      <p>Checkout your new tournament on the home screen.</p>
-      <ion-button color="success" >
-        Okay
-      </ion-button>
-    </div>
-  </div> -->
-
 
   <!-- shows when you have to accept or decline applications, search for references and conform team payment -->
   <div class="setUpApplications animated" [ngClass]="{'fadeInUp':setUpApplications,'fadeOutDown':!setUpApplications}">
@@ -282,6 +272,7 @@
           <div class="searcher">
             <ion-input type="text" placeholder="Search Reference Number"></ion-input>
           </div>
+          <!-- TEAM APPLICATIONS STILL TO PAY -->
           <div class="stillToPayList">
             <div class="managerApplications">
               <div class="card" *ngFor="let item of accepted">

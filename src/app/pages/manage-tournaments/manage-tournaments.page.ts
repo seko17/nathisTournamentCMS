@@ -253,7 +253,7 @@ this.fixtures =[];
   // array for the green cards
   approvedTournaments = []
   // tslint:disable-next-line:member-ordering
-  vendorsapplicationArray = [];
+  X
   TournSelectedObj = {
     doc: {
       state: '',
@@ -279,6 +279,9 @@ this.fixtures =[];
   hparticipants = [];
   aparticipants = [];
   cparticipants = [];
+  participants = [];
+  accepted = []; // TEAM APPLICATIONS
+  declined = [];
   parti = [];
   progressOfImage = 0
 
@@ -945,10 +948,7 @@ this.fixtures =[];
         break;
     }
   }
-  tourney = {} as any
-  participants = [];
-  accepted = [];
-  declined = [];
+
   accept(x) {
     console.log(x)
     let obj = x;
