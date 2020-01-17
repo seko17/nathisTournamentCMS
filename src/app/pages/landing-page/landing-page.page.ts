@@ -235,6 +235,7 @@ this.position =a;
 
         firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(val => {
           this.team1 = [];
+          this.input.data = [] ;
           val.forEach(res => {
             console.log("weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeew ")
 
@@ -248,6 +249,7 @@ this.position =a;
 
         firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').get().then(val => {
           this.team2 = [];
+          this.ainput.data = [] ;
           val.forEach(res => {
             this.team2.push(res.data())
             console.log("385 = ", this.team2)
@@ -524,10 +526,10 @@ this.position =a;
                     }
 else
                     if (parseFloat(rez.data().type) / 2 == 0.5) {
-                      console.log("TRUE")
+                      console.log("TRUE",this.clicked[0].formInfo)
 
                       this.db.collection('newTournaments').doc(this.clicked[0].docid).update({ state: 'finished' });
-                      firebase.firestore().collection('newTournaments').doc(this.clicked[0].dociddocid).update({formInfo:{applicationClosing:this.clicked[0].doc.formInfo.applicationClosing,tournamentName:this.clicked[0].doc.formInfo.tournamentName,location:this.clicked[0].doc.formInfo.location,joiningFee:this.clicked[0].doc.formInfo.joiningFee,endDate:this.clicked[0].doc.formInfo.endDate,startDate:this.clicked[0].doc.formInfo.startDate,type:"0" }});
+                      firebase.firestore().collection('newTournaments').doc(this.clicked[0].docid).update({formInfo:{applicationClosing:this.clicked[0].formInfo.applicationClosing,tournamentName:this.clicked[0].formInfo.tournamentName,location:this.clicked[0].formInfo.location,joiningFee:this.clicked[0].formInfo.joiningFee,endDate:this.clicked[0].formInfo.endDate,startDate:this.clicked[0].formInfo.startDate,type:"0" }});
 
 
 
@@ -1063,7 +1065,7 @@ else
       // gets all tournaments with a state of in progress
       case 'inprogress':
         this.filterBy = clickedbutton
-        this.db.collection('newTournaments').where('approved', '==', true).where("state", "==", clickedbutton).get().then(res => {
+        this.db.collection('newTournaments').where('approved', '==', true).where("state", "==", clickedbutton).onSnapshot(res => {
           this.tournament = [];
           res.forEach(doc => {
             console.log(doc.data())
