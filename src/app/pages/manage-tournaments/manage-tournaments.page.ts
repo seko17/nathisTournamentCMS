@@ -844,34 +844,36 @@ export class ManageTournamentsPage implements OnInit {
     this.db.collection('newTournaments').where('approved', '==', true).get().then(res => {
 
       res.forEach(doc => {
-        this.db.collection('newTournaments').doc(doc.id).collection('teamApplications').get().then(res => {
-          if (res.empty) {
-            tourn = {
-              docid: doc.id,
-              doc: doc.data(),
-              hasApplications: false
+        if (doc.data().state !== 'finished') {
+          this.db.collection('newTournaments').doc(doc.id).collection('teamApplications').get().then(res => {
+            if (res.empty) {
+              tourn = {
+                docid: doc.id,
+                doc: doc.data(),
+                hasApplications: false
+              }
+              this.approvedTournaments.push(tourn);
+              tourn = {
+                docid: null,
+                doc: null,
+                hasApplications: false
+              }
+            } else {
+              tourn = {
+                docid: doc.id,
+                doc: doc.data(),
+                hasApplications: true
+              }
+              this.approvedTournaments.push(tourn);
+              tourn = {
+                docid: null,
+                doc: null,
+                hasApplications: false
+              }
             }
-            this.approvedTournaments.push(tourn);
-            tourn = {
-              docid: null,
-              doc: null,
-              hasApplications: false
-            }
-          } else {
-            tourn = {
-              docid: doc.id,
-              doc: doc.data(),
-              hasApplications: true
-            }
-            this.approvedTournaments.push(tourn);
-            tourn = {
-              docid: null,
-              doc: null,
-              hasApplications: false
-            }
-          }
-
-        })
+  
+          })
+        }
       })
       console.log('approvedTournaments ', this.approvedTournaments);
       this.serve.tournaments = this.approvedTournaments;
