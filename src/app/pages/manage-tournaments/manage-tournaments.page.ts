@@ -25,9 +25,9 @@ export class ManageTournamentsPage implements OnInit {
   modal
   async presentModal() {
 
-    this.fixture  =[];
-this.fixtures =[];
-    console.log("drop = ",this.fixture)
+    this.fixture = [];
+    this.fixtures = [];
+    console.log("drop = ", this.fixture)
 
 
     this.setUpTimeLine('close', null);
@@ -36,18 +36,18 @@ this.fixtures =[];
       backdropDismiss: false,
       showBackdrop: true
     });
-   
 
-  
+
+
     this.modal.onDidDismiss().then(res => {
 
-      this.fixture  =[];
-      this.fixtures =[];
+      this.fixture = [];
+      this.fixtures = [];
 
       this.fixtureSetUp('open');
-      
-  
-      this.fixture =this.serve.dropfixture;
+
+
+      this.fixture = this.serve.dropfixture;
       this.presentLoading();
     });
     this.promptFixtureConfig('close', null);
@@ -246,14 +246,14 @@ this.fixtures =[];
     totalApplications: 0,
     DeclinedApplications: 0,
     DeclinedVendorApplications: 0,
-    notifyUser : 'yes'
+    notifyUser: 'yes'
   };
   tempCardGen = []
   acceptedVendor = []
   // array for the green cards
   approvedTournaments = []
   // tslint:disable-next-line:member-ordering
-  vendorsapplicationArray = [];
+  X
   TournSelectedObj = {
     doc: {
       state: '',
@@ -279,9 +279,41 @@ this.fixtures =[];
   hparticipants = [];
   aparticipants = [];
   cparticipants = [];
+  participants = [];
+
+  accepted = []; // TEAM APPLICATIONS, stores all documents
+  acceptedSearchResults = [] // filter and search
+  
+  vendorsapplicationArray = [] // VENDOR TO PAY APPLICATIONS
+  declined = [];
   parti = [];
   progressOfImage = 0
-
+  tourney = {
+    doc: {
+      state: '',
+      AcceptedApplications: 0,
+      ApprovedApplications: 0,
+      DeclinedVendorApplications: 0,
+      DeclinedApplications: 0,
+      totalApplications: 0,
+      formInfo: {
+        tournamentName: '',
+        location: '',
+        startDate: '',
+        endDate: '',
+        applicationClosing: '',
+        joiningFee: '',
+        type: '',
+      },
+      hasApplications: null,
+      approved: null,
+      approvedVendors: [],
+      dateCreated: null,
+      notifyUser: null,
+      sponsors: []
+    },
+    docid: null
+  } 
   currentmatch = [];
   timer;
   docid;
@@ -329,7 +361,7 @@ this.fixtures =[];
   disablefixtures = true;
   disablepaid = false;
   lengthparticipents: number = 0;
-  tourntype ={};
+  tourntype = {};
   async finnishSetup(tournament, state) {
     // please keep this switch statement at the top
     switch (state) {
@@ -350,8 +382,8 @@ this.fixtures =[];
       this.serve.tournid = tournament.docid;
     }
     console.log("Rose", tournament.docid)
-    
-  
+
+
     console.log(state, tournament)
 
 
@@ -370,7 +402,7 @@ this.fixtures =[];
       firebase.firestore().collection('newTournaments').doc(tournament.docid).collection('vendorApplications').where('status', '==', 'awaiting').onSnapshot(res => {
         this.vendorsapplicationArray = []
         res.forEach(doc => {
-          
+
           // this.vendorsapplicationArray.push(doc.data())
           vendorObj = {
             docid: doc.id,
@@ -387,16 +419,16 @@ this.fixtures =[];
       console.log('finish setup')
 
 
-      let nums =0;
+      let nums = 0;
       firebase.firestore().collection('participants').where('whr', '==', 'away').where('tournid', '==', tournament.docid).onSnapshot(val => {
         val.forEach(async res => {
           this.type = res.data().type;
-          nums =nums+1;
+          nums = nums + 1;
           this.lengthparticipents = nums;
 
-        
+
           this.type = parseFloat(this.type.toString());
-          console.log(nums,this.type)
+          console.log(nums, this.type)
           console.log('loadededed')
 
 
@@ -430,11 +462,6 @@ this.fixtures =[];
         {
           this.disablepaid =true;
          
-
-
-
-
-
 
           const alert = await this.alertController.create({
             header: 'Good news:-)',
@@ -474,8 +501,8 @@ this.fixtures =[];
 
          
         }
-        else{
-          this.disablepaid =false;
+        else {
+          this.disablepaid = false;
         }
 
         val.forEach(res => {
@@ -507,7 +534,7 @@ this.fixtures =[];
       this.tourney = tournament;
       console.log(this.tourney.doc.formInfo.type)
 
-       
+
 
 
 
@@ -517,7 +544,7 @@ this.fixtures =[];
       this.tourndetails.push(tournament)
 
       let form = {};
-      
+
 
       this.renderer.setStyle(this.setUpApplicationsScreen[0], 'display', 'flex');
       this.setUpApplications = true;
@@ -539,7 +566,7 @@ this.fixtures =[];
 
         this.db.collection('newTournaments').doc(tournament.docid).onSnapshot(val => {
           console.log(val.data().formInfo)
-          this.torntype=val.data().formInfo.type;
+          this.torntype = val.data().formInfo.type;
           console.log("Type = ", this.torntype)
 
           form = val.data().formInfo;
@@ -578,15 +605,18 @@ this.fixtures =[];
         })
         this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where('status', '==', 'accepted').onSnapshot(val => {
           this.accepted = [];
-          
+          this.acceptedSearchResults = []
 
           val.forEach(res => {
-            this.accepted.push({ ...form, ...{ tournid: tournament.docid }, ...{ id: res.id }, ...res.data() });
-         
+            this.acceptedSearchResults.push({ ...form, ...{ tournid: tournament.docid }, ...{ id: res.id }, ...res.data() });
+
 
 
 
           })
+          console.log('line 586',this.acceptedSearchResults);
+          
+          this.accepted = this.acceptedSearchResults
         })
         this.db.collection('newTournaments').doc(tournament.docid).collection('vendorApplications').where('status', '==', 'accepted').onSnapshot(val => {
           this.acceptedVendor = []
@@ -602,6 +632,7 @@ this.fixtures =[];
 
     }
   }
+  
   toggleTournamentForm(state) {
     switch (state) {
       case 'open':
@@ -630,21 +661,24 @@ this.fixtures =[];
   getItems(ev: any) {
     // Reset items back to all of the items
     // set val to the value of the searchbar
+    console.log(ev);
     const val = ev.target.value;
     // if the value is an empty string don't filter the items
-    console.log(ev);
+    
     if (val && val.trim() != '') {
-      this.searchResults = this.gauteng.filter(item => {
-        return item.toLowerCase().indexOf(val.toLowerCase()) > -1;
+      this.acceptedSearchResults = this.accepted.filter(item => {
+        return item.refNumber.toLowerCase().indexOf(val.toLowerCase()) > -1;
       });
       console.log('Results = ', this.searchResults);
     } else if (val != ' ') {
-      this.searchResults = this.gauteng.filter(item => {
-        return item.toLowerCase().indexOf(val.toLowerCase()) > -1;
+      this.acceptedSearchResults = this.accepted.filter(item => {
+        return item.refNumber.toLowerCase().indexOf(val.toLowerCase()) > -1;
       });
     } else if (!val) {
-      this.searchResults = [];
+      this.accepted = this.acceptedSearchResults
     }
+    console.log('line 649',this.acceptedSearchResults);
+    
   }
   selectLocation(location) {
     this.userLocation = location;
@@ -839,36 +873,38 @@ this.fixtures =[];
     this.serve.tournaments = [];
     this.approvedTournaments = []
     this.db.collection('newTournaments').where('approved', '==', true).get().then(res => {
-     
-      res.forEach(doc => {
-        this.db.collection('newTournaments').doc(doc.id).collection('teamApplications').get().then(res => {
-          if (res.empty) {
-            tourn = {
-              docid: doc.id,
-              doc: doc.data(),
-              hasApplications: false
-            }
-            this.approvedTournaments.push(tourn);
-            tourn = {
-              docid: null,
-              doc: null,
-              hasApplications: false
-            }
-          } else {
-            tourn = {
-              docid: doc.id,
-              doc: doc.data(),
-              hasApplications: true
-            }
-            this.approvedTournaments.push(tourn);
-            tourn = {
-              docid: null,
-              doc: null,
-              hasApplications: false
-            }
-          }
 
-        })
+      res.forEach(doc => {
+        if (doc.data().state !== 'finished') {
+          this.db.collection('newTournaments').doc(doc.id).collection('teamApplications').get().then(res => {
+            if (res.empty) {
+              tourn = {
+                docid: doc.id,
+                doc: doc.data(),
+                hasApplications: false
+              }
+              this.approvedTournaments.push(tourn);
+              tourn = {
+                docid: null,
+                doc: null,
+                hasApplications: false
+              }
+            } else {
+              tourn = {
+                docid: doc.id,
+                doc: doc.data(),
+                hasApplications: true
+              }
+              this.approvedTournaments.push(tourn);
+              tourn = {
+                docid: null,
+                doc: null,
+                hasApplications: false
+              }
+            }
+  
+          })
+        }
       })
       console.log('approvedTournaments ', this.approvedTournaments);
       this.serve.tournaments = this.approvedTournaments;
@@ -962,7 +998,7 @@ this.fixtures =[];
         //  this.presentModal();
         console.log('will close');
 
-       
+
 
         console.log('fixture here', this.fixture)
         break;
@@ -987,7 +1023,7 @@ this.fixtures =[];
         break;
       case 'close':
         this.setUpFixtures = false;
-     
+
         setTimeout(() => {
           this.renderer.setStyle(this.setUpFixturesDiv[0], 'display', 'none')
         }, 500);
@@ -997,10 +1033,7 @@ this.fixtures =[];
         break;
     }
   }
-  tourney = {} as any
-  participants = [];
-  accepted = [];
-  declined = [];
+
   accept(x) {
     console.log(x)
     let obj = x;
@@ -1078,7 +1111,7 @@ this.fixtures =[];
     console.log(q1)
     for (let r = 0; r < q1.length; r++) {
       let z: any = {};
-      z = {matchdate: q1[r].matchdate, secs: 0, mins: 0,type:this.torntype, ascore: 0, score: 0, ...q1[r], random1: Math.floor((Math.random() * r) * 2) };
+      z = { matchdate: q1[r].matchdate, secs: 0, mins: 0, type: this.torntype, ascore: 0, score: 0, ...q1[r], random1: Math.floor((Math.random() * r) * 2) };
       console.log('Tdate =', z);
       if (z.matchdate == undefined || z.matchdate == 'Invalid Date') {
         const toast = await this.toastController.create({
@@ -1087,23 +1120,23 @@ this.fixtures =[];
         });
         toast.present();
 
-        return 0;
+        return this.makechanges =true;
       }
       else {
-    
+
         console.log(this.fixture)
 
         this.fixtures = q1;
-        this.fixture =[];
+        this.fixture = [];
         this.db.collection('newTournaments').doc()
         const toast = await this.toastController.create({
           message: 'Fixture saved successfully.',
           duration: 2000
         });
         toast.present();
-toast.onDidDismiss().then(val=>{
+        toast.onDidDismiss().then(val => {
 
-})
+        })
       }
     }
 
@@ -1140,17 +1173,17 @@ toast.onDidDismiss().then(val=>{
     console.log(this.participantdocids)
     firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update({ state: 'inprogress' });
 
-  let val:any =  parseFloat(this.tourney.doc.formInfo.type)/2;
-  val =val.toString();
+    let val: any = parseFloat(this.tourney.doc.formInfo.type) / 2;
+    val = val.toString();
 
-  console.log("VAL = ",val);
+    console.log("VAL = ", val);
 
-    firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update({formInfo:{applicationClosing:this.tourney.doc.formInfo.applicationClosing,tournamentName:this.tourney.doc.formInfo.tournamentName,location:this.tourney.doc.formInfo.location,joiningFee:this.tourney.doc.formInfo.joiningFee,endDate:this.tourney.doc.formInfo.endDate,startDate:this.tourney.doc.formInfo.startDate,type:val }});
+    firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update({ formInfo: { applicationClosing: this.tourney.doc.formInfo.applicationClosing, tournamentName: this.tourney.doc.formInfo.tournamentName, location: this.tourney.doc.formInfo.location, joiningFee: this.tourney.doc.formInfo.joiningFee, endDate: this.tourney.doc.formInfo.endDate, startDate: this.tourney.doc.formInfo.startDate, type: val } });
 
-    
+
     for (let r = 0; r < q1.length; r++) {
       let z: any = {};
-      z = { matchdate: new Date(q1[r].matchdate).toLocaleString(),type:val, secs: 0, mins: 0, ascore: 0, score: 0, ...q1[r] };
+      z = { matchdate: new Date(q1[r].matchdate).toLocaleString(), type: val, secs: 0, mins: 0, ascore: 0, score: 0, ...q1[r] };
       console.log('Tdate =', z);
       if (z.matchdate == undefined || z.matchdate == 'Invalid Date') {
         const toast = await this.toastController.create({
@@ -1160,7 +1193,7 @@ toast.onDidDismiss().then(val=>{
         toast.present();
       }
       else {
-        firebase.firestore().collection('MatchFixtures').add({...z,...{type:val}}).then(val => {
+        firebase.firestore().collection('MatchFixtures').add({ ...z, ...{ type: val } }).then(val => {
 
         })
         console.log(this.fixtures)
@@ -1198,7 +1231,7 @@ toast.onDidDismiss().then(val=>{
         num = num + 1;
         console.log(num)
         if (num % 2 == 0) {
-          temp2.push({ ...val.data(), ...{type:this.torntype, matchdate: null, goal: 0, whr: 'home', offsides: 0, corners: 0, mins: 0, secs: 0, yellow: 0, red: 0 } });
+          temp2.push({ ...val.data(), ...{ type: this.torntype, matchdate: null, goal: 0, whr: 'home', offsides: 0, corners: 0, mins: 0, secs: 0, yellow: 0, red: 0 } });
 
 
           this.serve.randomfixture(temp, temp2)
@@ -1209,7 +1242,7 @@ toast.onDidDismiss().then(val=>{
 
         else if (num % 2 == 1) {
 
-          temp.push({ ...val.data(), ...{ type:this.torntype,score: 0, matchdate: null, goal: 0, whr: 'away', aoffsides: 0, acorners: 0, mins: 0, secs: 0, ayellow: 0, ared: 0, offsides: 0, corners: 0, yellow: 0, red: 0 } });
+          temp.push({ ...val.data(), ...{ type: this.torntype, score: 0, matchdate: null, goal: 0, whr: 'away', aoffsides: 0, acorners: 0, mins: 0, secs: 0, ayellow: 0, ared: 0, offsides: 0, corners: 0, yellow: 0, red: 0 } });
         }
         console.log(this.serve.fixture)
       })
@@ -1242,8 +1275,7 @@ toast.onDidDismiss().then(val=>{
   tournid = null;
 
   refnum;
-  search()
-  {
+  search() {
 
 
 
@@ -1252,19 +1284,18 @@ toast.onDidDismiss().then(val=>{
 
 
 
-  test()
-  {
+  test() {
 
 
-console.log(this.refnum)
-
-
+    console.log(this.refnum)
 
 
 
 
-}
-  
+
+
+  }
+
 
 
 
@@ -1282,7 +1313,7 @@ console.log(this.refnum)
 
   async moredetails(t) {
 
-  
+
 
 
     let num = 0;
@@ -1357,5 +1388,5 @@ export interface TOURN {
 
 
 
-  
+
 }

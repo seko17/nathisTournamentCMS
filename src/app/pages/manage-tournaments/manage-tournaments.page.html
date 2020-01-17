@@ -172,16 +172,6 @@
     </div>
   </div>
 
-  <!-- <div class="doneFixtures">
-    <div class="prompter">
-      <h1>Well Done</h1>
-      <p>Checkout your new tournament on the home screen.</p>
-      <ion-button color="success" >
-        Okay
-      </ion-button>
-    </div>
-  </div> -->
-
 
   <!-- shows when you have to accept or decline applications, search for references and conform team payment -->
   <div class="setUpApplications animated" [ngClass]="{'fadeInUp':setUpApplications,'fadeOutDown':!setUpApplications}">
@@ -280,11 +270,15 @@
 
           <!-- SEARCH INPUT -->
           <div class="searcher">
-            <ion-input type="text" placeholder="Search Reference Number"     (keyup)="test()"           [(ngModel)]="refnum"></ion-input>
+            <ion-input type="text" placeholder="Search Reference Number"     (keyup)="getItems($event)"  ></ion-input>
           </div>
+          <!-- TEAM APPLICATIONS STILL TO PAY -->
           <div class="stillToPayList">
             <div class="managerApplications">
-              <div class="card" *ngFor="let item of accepted">
+              <div class="card" *ngIf="acceptedSearchResults.length==0" >
+                <p style="margin: auto;text-align: center;">No Applications</p>
+              </div>
+              <div class="card" *ngFor="let item of acceptedSearchResults">
                 <div class="details">
                   <h5 style="margin: 0;">{{item.TeamObject.coachName}}</h5>
                   <p style="margin: 0;">Coach <b>{{item.TeamObject.coachName}}</b></p>
