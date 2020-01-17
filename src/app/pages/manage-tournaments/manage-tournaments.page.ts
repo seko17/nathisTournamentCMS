@@ -457,18 +457,49 @@ export class ManageTournamentsPage implements OnInit {
 
       firebase.firestore().collection('participants').where('tournid', '==', tournament.docid).onSnapshot(async val => {
         this.cparticipants = []
-        this.acceptednum = 0
-        if (val.size == parseFloat(this.tourney.doc.formInfo.type)) {
-          this.disablepaid = true;
-
+        this.acceptednum  = 0
+        if(val.size ==parseFloat(this.tourney.doc.formInfo.type))
+        {
+          this.disablepaid =true;
+         
 
           const alert = await this.alertController.create({
             header: 'Good news:-)',
-            message: 'The fixtures are ready to be set.',
-            buttons: ['OK']
-          });
+            subHeader:"Fixtures are ready to be set.",
+            message: 'Would you like to set match fixtures?',
+            buttons: [
+              {
+                text: 'Cancel',
+                role: 'cancel',
+                cssClass: 'secondary',
+                handler: (blah) => {
+                  console.log('Confirm Cancel: blah');
+                }
+              }, {
+                text: 'Okay',
+                handler: () => {
+                  console.log('Confirm Okay');
 
+                  this.promptFixtureConfig('open',this.cparticipants);
+
+                }
+              }
+            ]
+          });
+      
           await alert.present();
+
+
+
+
+
+
+
+
+
+
+
+         
         }
         else {
           this.disablepaid = false;
@@ -754,19 +785,19 @@ export class ManageTournamentsPage implements OnInit {
       const alert = await this.alertController.create({
         header: 'Warning!',
         subHeader: 'Invalid Tournament end Date',
-        message: 'Please select date from today onwards',
+        message: 'Please select date from tournament start onwards',
         buttons: ['OK']
       });
 
       await alert.present();
 
     }
-    else if (applicDate < startDat) {
+    else if ( startDat < applicDate || applicDate == startDat ) {
       console.log('application date invalid');
       const alert = await this.alertController.create({
         header: 'Warning!',
         subHeader: 'Invalid Application application Date',
-        message: 'Please select date from today onwards',
+        message: 'Please select date before the tournament start date, preferrably one-two days before',
         buttons: ['OK']
       });
 
@@ -943,14 +974,9 @@ export class ManageTournamentsPage implements OnInit {
   applicationsnum: number = 0;
   generate() {
     this.fixtureSetUp('open');
-    // firebase.firestore().collection('participants').where("tournid", "==", ).onSnapshot(val => {
-    //   val.forEach(res => {
 
-    //     this.hparticipants.push({ ...{ id: res.id }, ...res.data() })
-    //     console.log("current Participants = ", this.hparticipants)
-    //   })
-    // })
   }
+  makechanges =true;
   promptFixtureConfig(state, x) {
     console.log(state)
     // this.presentModal();
@@ -963,6 +989,7 @@ export class ManageTournamentsPage implements OnInit {
         break;
       case 'close':
         this.chooseConfigOption = false;
+        this.cparticipants =[];
 
         setTimeout(() => {
           // this.renderer.setStyle(this.setUpFixturesDiv[0],'display','flex');
@@ -1079,7 +1106,7 @@ export class ManageTournamentsPage implements OnInit {
     let q1 = this.fixture;
 
     console.log(this.fixture)
-
+    this.makechanges =false; 
 
     console.log(q1)
     for (let r = 0; r < q1.length; r++) {
@@ -1093,7 +1120,7 @@ export class ManageTournamentsPage implements OnInit {
         });
         toast.present();
 
-        return 0;
+        return this.makechanges =true;
       }
       else {
 
@@ -1193,7 +1220,8 @@ export class ManageTournamentsPage implements OnInit {
     console.log('Tourney', tournament)
     let num = 0;
     firebase.firestore().collection('participants').where('tournid', '==', tournament.docid).onSnapshot(res => {
-      this.fixture = []
+      this.fixture= []
+      this.serve.fixture =[];
       res.forEach(val => {
 
         this.participantdocids.push({ id: val.id });

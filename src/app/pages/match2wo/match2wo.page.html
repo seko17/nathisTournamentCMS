@@ -61,7 +61,7 @@
           <div class="topData">
             <!-- CONTAINS THE ACTION BUTTONS -->
             <div class="homeImage">
-              <div class="image" (click)="viewTeam('open', 'home')">
+              <div class="image" (click)="viewTeam('open', 'home','o')">
                 <img
                   src="https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/kxm6rmrs69f9txyidrjk/zenit-saint-petersburg-2019-20-stadium-home-football-shirt-k1WvdX.jpg"
                   alt="">
@@ -116,7 +116,7 @@
             </div>
             <!-- CONTAINS THE ACTION BUTTONS -->
             <div class="awayImage">
-              <div class="image" (click)="viewTeam('open', 'away')">
+              <div class="image" (click)="viewTeam('open', 'away','o')">
                 <img
                   src="https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/kxm6rmrs69f9txyidrjk/zenit-saint-petersburg-2019-20-stadium-home-football-shirt-k1WvdX.jpg"
                   alt="">
@@ -248,7 +248,7 @@
         <div class="playerAway animated" [ngClass]="{'fadeIn faster':viewingPlayer.away,'fadeOut faster':!viewingPlayer.away}">
           <div class="image">
             <div class="playerClose">
-              <ion-fab-button size="small" (click)="viewPlayer('close', 'away', null, null)">
+              <ion-fab-button size="small" (click)="viewPlayer('close', 'away', null)">
                 <ion-icon name="close"></ion-icon>
               </ion-fab-button>
             </div>
