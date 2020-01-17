@@ -423,9 +423,26 @@ this.fixtures =[];
       })
 
 
-      firebase.firestore().collection('participants').where('tournid', '==', tournament.docid).onSnapshot(val => {
+      firebase.firestore().collection('participants').where('tournid', '==', tournament.docid).onSnapshot(async val => {
         this.cparticipants = []
         this.acceptednum  = 0
+        if(val.size ==parseFloat(this.tourney.doc.formInfo.type))
+        {
+          this.disablepaid =true;
+   
+
+            const alert = await this.alertController.create({
+              header: 'Good news:-)',
+              message: 'The fixtures are ready to be set.',
+              buttons: ['OK']
+            });
+
+            await alert.present();
+        }
+        else{
+          this.disablepaid =false;
+        }
+
         val.forEach(res => {
 
           this.cparticipants.push({ ...{ id: res.id }, ...res.data() })
@@ -526,9 +543,11 @@ this.fixtures =[];
         })
         this.db.collection('newTournaments').doc(tournament.docid).collection('teamApplications').where('status', '==', 'accepted').onSnapshot(val => {
           this.accepted = [];
+          
+
           val.forEach(res => {
             this.accepted.push({ ...form, ...{ tournid: tournament.docid }, ...{ id: res.id }, ...res.data() });
-            console.log('datazi = ', this.accepted.length == this.lengthparticipents)
+         
 
 
 
@@ -783,10 +802,11 @@ this.fixtures =[];
       hasApplications: false
     }
     this.serve.tournaments = [];
-    this.db.collection('newTournaments').where('approved', '==', true).onSnapshot(res => {
-      this.approvedTournaments = []
+    this.approvedTournaments = []
+    this.db.collection('newTournaments').where('approved', '==', true).get().then(res => {
+     
       res.forEach(doc => {
-        this.db.collection('newTournaments').doc(doc.id).collection('teamApplications').onSnapshot(res => {
+        this.db.collection('newTournaments').doc(doc.id).collection('teamApplications').get().then(res => {
           if (res.empty) {
             tourn = {
               docid: doc.id,
@@ -936,6 +956,7 @@ this.fixtures =[];
         break;
       case 'close':
         this.setUpFixtures = false;
+     
         setTimeout(() => {
           this.renderer.setStyle(this.setUpFixturesDiv[0], 'display', 'none')
         }, 500);
@@ -1088,12 +1109,17 @@ toast.onDidDismiss().then(val=>{
     console.log(this.participantdocids)
     firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update({ state: 'inprogress' });
 
-    firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update({formInfo:{applicationClosing:this.tourney.doc.formInfo.applicationClosing,tournamentName:this.tourney.doc.formInfo.tournamentName,location:this.tourney.doc.formInfo.location,joiningFee:this.tourney.doc.formInfo.joiningFee,endDate:this.tourney.doc.formInfo.endDate,startDate:this.tourney.doc.formInfo.startDate,type:(parseFloat(this.tourney.doc.formInfo.type)/2).toString() }});
+  let val:any =  parseFloat(this.tourney.doc.formInfo.type)/2;
+  val =val.toString();
+
+  console.log("VAL = ",val);
+
+    firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update({formInfo:{applicationClosing:this.tourney.doc.formInfo.applicationClosing,tournamentName:this.tourney.doc.formInfo.tournamentName,location:this.tourney.doc.formInfo.location,joiningFee:this.tourney.doc.formInfo.joiningFee,endDate:this.tourney.doc.formInfo.endDate,startDate:this.tourney.doc.formInfo.startDate,type:val }});
 
     
     for (let r = 0; r < q1.length; r++) {
       let z: any = {};
-      z = { matchdate: new Date(q1[r].matchdate).toLocaleString(), secs: 0, mins: 0, ascore: 0, score: 0, ...q1[r] };
+      z = { matchdate: new Date(q1[r].matchdate).toLocaleString(),type:val, secs: 0, mins: 0, ascore: 0, score: 0, ...q1[r] };
       console.log('Tdate =', z);
       if (z.matchdate == undefined || z.matchdate == 'Invalid Date') {
         const toast = await this.toastController.create({
@@ -1103,7 +1129,7 @@ toast.onDidDismiss().then(val=>{
         toast.present();
       }
       else {
-        firebase.firestore().collection('MatchFixtures').add(z).then(val => {
+        firebase.firestore().collection('MatchFixtures').add({...z,...{type:val}}).then(val => {
 
         })
         console.log(this.fixtures)
@@ -1182,6 +1208,46 @@ toast.onDidDismiss().then(val=>{
   }
 
   tournid = null;
+
+  refnum;
+  search()
+  {
+
+
+
+  }
+
+
+
+
+  test()
+  {
+
+
+console.log(this.refnum)
+
+
+
+
+
+
+}
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   async moredetails(t) {
 
   
@@ -1249,4 +1315,15 @@ export interface TOURN {
       type: string
     }
   }
+
+
+
+
+
+
+
+
+
+
+  
 }

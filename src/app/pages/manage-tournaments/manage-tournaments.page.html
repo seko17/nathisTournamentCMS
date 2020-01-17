@@ -212,7 +212,7 @@
               <ion-button (click)="acceptVendorApplication(v)" shape="round" size="small" color="success">
                 Accept
               </ion-button>
-              <ion-button (click)="declineVendorApplication(v)" shape="round" size="small" color="danger">
+              <ion-button (click)="declineVendorApplication(v)" shape="round" size="small" color="danger" >
                 Decline
               </ion-button>
             </div>
@@ -238,10 +238,10 @@
             <p>Manager: Manager Name</p>
           </div>
           <div class="buttons">
-            <ion-button shape="round" size="small" color="success" (click)="accept(team)">
+            <ion-button shape="round" size="small" color="success" (click)="accept(team)"   [disabled]="disablepaid">
               Accept
             </ion-button>
-            <ion-button shape="round" size="small" color="danger" (click)="decline(team)">
+            <ion-button shape="round" size="small" color="danger" (click)="decline(team)" [disabled]="disablepaid">
               Decline
             </ion-button>
           </div>
@@ -280,7 +280,7 @@
 
           <!-- SEARCH INPUT -->
           <div class="searcher">
-            <ion-input type="text" placeholder="Search Reference Number"></ion-input>
+            <ion-input type="text" placeholder="Search Reference Number"     (keyup)="test()"           [(ngModel)]="refnum"></ion-input>
           </div>
           <div class="stillToPayList">
             <div class="managerApplications">
@@ -346,7 +346,7 @@
           <h1>Participating Teams <sub>Paid</sub><ion-badge mode="ios">{{cparticipants.length}}</ion-badge> </h1>
           </div>
           <div class="paidList" >
-            <div class="card" *ngFor="let item of cparticipants" (click)="promptFixtureConfig('open',cparticipants)">
+            <div class="card" *ngFor="let item of cparticipants" (click)="promptFixtureConfig('open',cparticipants)"  >
               <div class="details">
                 <h5 style="margin: 0px ;
                 font-size: 2em;">Kasi Team</h5>
