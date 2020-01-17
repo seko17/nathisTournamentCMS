@@ -754,19 +754,19 @@ export class ManageTournamentsPage implements OnInit {
       const alert = await this.alertController.create({
         header: 'Warning!',
         subHeader: 'Invalid Tournament end Date',
-        message: 'Please select date from today onwards',
+        message: 'Please select date from tournament start onwards',
         buttons: ['OK']
       });
 
       await alert.present();
 
     }
-    else if (applicDate < startDat) {
+    else if ( startDat < applicDate || applicDate == startDat ) {
       console.log('application date invalid');
       const alert = await this.alertController.create({
         header: 'Warning!',
         subHeader: 'Invalid Application application Date',
-        message: 'Please select date from today onwards',
+        message: 'Please select date before the tournament start date, preferrably one-two days before',
         buttons: ['OK']
       });
 
