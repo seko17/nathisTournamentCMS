@@ -66,6 +66,20 @@
                 font-size:20px;
             }
         }
+        .editProfile {
+          position: absolute;
+              top: 60px;
+              right: 0px;
+              width: 200px;
+              height: auto;
+              background: rgb(255, 255, 255);
+              z-index: 10001;
+              padding: 0;
+              border-radius: 10px 0px 10px 10px;
+              overflow: hidden;
+              display: block;
+              text-align: center;
+        }
         .profile {
             height: 100%;
             // width: 20%;
@@ -82,9 +96,11 @@
                     width: auto;
                     display: flex;
                     align-items: center;
+                    position: relative;
                     p {
                       font-size: .7em;
                     }
+                   
                 }
                 .pImage {
                     border-radius: 200px;
@@ -106,7 +122,7 @@
               width: 200px;
               height: 250px;
               background: green;
-              z-index: 10000;
+              z-index: 9000;
               padding: 0;
               border-radius: 10px 0px 10px 10px;
               overflow: hidden;
@@ -127,6 +143,11 @@
                   right: 0;
                   left: 0;
                   backdrop-filter: blur(10px);
+                  .editB {
+                    position: absolute;
+                    top: -9px;
+                    right: 0;
+                  }
                   h5, p {
                     margin: 0;
                     text-shadow: 0px 2px 2px #10101133;

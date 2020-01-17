@@ -32,6 +32,30 @@
       <div class="title">
         <p>Nathi's Tournaments</p>
       </div>
+      <div class="editProfile animated" [ngClass]="{'fadeInRight':editMode,'fadeOutRight':!editMode}">
+        <ion-item>
+          <ion-label  position="floating">Image</ion-label>
+          <ion-input type="file" placeholder="Choose Image" accept="image/*" multiple="false" (change)="selectimage($event.target.files)"></ion-input>
+        </ion-item>
+      <ion-progress-bar value="{{uploadProgress}}"></ion-progress-bar>
+        <ion-item>
+          <ion-label  position="floating">Full Name</ion-label>
+          <ion-input type="tel" [(ngModel)]="editProfile.formInfo.fullName" ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Phone Number</ion-label>
+          <ion-input type="text" [(ngModel)]="editProfile.formInfo.number"></ion-input>
+        </ion-item>
+        <ion-button size="small" fill="clear" *ngIf="creatingProfile"  >
+          <ion-spinner name="lines"></ion-spinner>
+        </ion-button>
+        <ion-button [disabled]="uploadProgress>0" size="small"  *ngIf="!creatingProfile" (click)="doneEdit()">
+          Save
+        </ion-button>
+        <ion-button *ngIf="!creatingProfile" size="small" color="danger" (click)="edit('close')">
+          Cancel
+        </ion-button>
+      </div>
       <div class="profile">
         <div class="user" >
           <div class="details">
@@ -39,15 +63,19 @@
             <p>{{adminProfile.formInfo.fullName}}</p>
           </div>
           <div class="pImage" (click)="profile('open')">
-            <img
-              src="{{adminProfile.image}}">
+            <img src="{{adminProfile.image}}">
           </div>
         </div>
         <div class="profile-more animated" [ngClass]="{'fadeInRight':openProfile,'fadeOutRight':!openProfile}" >
           <div class="con">
               <img src="{{adminProfile.image}}" alt="Profile Image">
               <div class="details">
-                <h5>{{adminProfile.formInfo.fullName}}</h5>
+                <div class="editB">
+                  <ion-button size="small" color="light" fill="clear" (click)="edit('open')">
+                    <ion-icon name="create"></ion-icon>
+                  </ion-button>
+                </div>
+                <h5>{{adminProfile.formInfo.fullName}}  </h5>
                 <p>{{adminProfile.formInfo.number}}</p>
                 <div class="button">
                   <ion-button size="small" color="danger" (click)="profile('close')" >
