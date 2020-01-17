@@ -132,11 +132,11 @@
       <div class="header">
         <div class="title">
           <h1>Fixture</h1>
-          <ion-button shape="round" color="success" size="small" (click)="editfixture()">
+          <ion-button shape="round" color="success" size="small" (click)="editfixture()" [disabled] ="makechanges">
             Make Changes
           </ion-button>
           <ion-button shape="round" color="success" size="small" (click)="fixtureSetUp('close')"
-            (click)="createfixture()">
+            (click)="createfixture()"  [disabled] ="makechanges">
             Create Fixture
           </ion-button>
         </div>
@@ -340,7 +340,7 @@
           <h1>Participating Teams <sub>Paid</sub><ion-badge mode="ios">{{cparticipants.length}}</ion-badge> </h1>
           </div>
           <div class="paidList" >
-            <div class="card" *ngFor="let item of cparticipants" (click)="promptFixtureConfig('open',cparticipants)"  >
+            <div class="card" *ngFor="let item of cparticipants" >
               <div class="details">
                 <h5 style="margin: 0px ;
                 font-size: 2em;">Kasi Team</h5>
