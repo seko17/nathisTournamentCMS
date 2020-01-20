@@ -1001,7 +1001,7 @@ else
       // gets all approved tournaments tournaments
       case 'all':
         this.filterBy = clickedbutton
-        this.db.collection('newTournaments').where('approved', '==', true).orderBy('state','asc').get().then(res => {
+        this.db.collection('newTournaments').where('approved', '==', true).orderBy('state','desc').get().then(res => {
           this.tournament = [];
           res.forEach(doc => {
             console.log(doc.data())
