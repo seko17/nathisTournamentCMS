@@ -124,16 +124,6 @@ export class LandingPagePage implements OnInit {
     // this.game2.firsthalf('start');
   }
 
-
-
-
-
-
-
-
-
-
-
 position =null;
 
 
@@ -168,35 +158,6 @@ this.score = item.score;
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   //  this.game2.selectedmatch(item); 
@@ -1040,7 +1001,7 @@ else
       // gets all approved tournaments tournaments
       case 'all':
         this.filterBy = clickedbutton
-        this.db.collection('newTournaments').where('approved', '==', true).where("state", "==", clickedbutton).get().then(res => {
+        this.db.collection('newTournaments').where('approved', '==', true).orderBy('state','asc').get().then(res => {
           this.tournament = [];
           res.forEach(doc => {
             console.log(doc.data())

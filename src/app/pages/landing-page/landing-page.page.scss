@@ -570,7 +570,7 @@ button[ion-fab] {
       display: flex;
       // height: 10px;
       justify-content: center;
-
+      width: 100%;
       button {
         outline: none !important;
         width: 30%;
@@ -581,13 +581,15 @@ button[ion-fab] {
         color: #000D06;
         box-shadow: 0px 3px 3px #17171717;
         transition: 0.4s;
+        font-size: .5em;
       }
 
       .activeFilter {
         transition: 0.4s;
-        border: solid 1px green;
+        // border: solid 1px green;
         background: green;
         color: white;
+        transform: scale(1.05);
       }
     }
 

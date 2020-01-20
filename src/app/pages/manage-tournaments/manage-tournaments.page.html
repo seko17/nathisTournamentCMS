@@ -373,7 +373,7 @@
         <div class="inputs">
           <ion-item>
             <ion-label position="floating">Tournament Type</ion-label>
-            <ion-select formControlName="type">
+            <ion-select color="light" formControlName="type">
               <ion-select-option value="8">Top 8</ion-select-option>
               <ion-select-option value="16">Top 16</ion-select-option>
               <ion-select-option value="32">Top 32</ion-select-option>
@@ -441,14 +441,14 @@
             <ion-input [(ngModel)]="sponsorName"> </ion-input>
           </ion-item>
 
-          <ion-button (click)="saveSponsor()" [disabled]="progressOfImage<100">
+          <ion-button shape="round" size="small" (click)="saveSponsor()" [disabled]="progressOfImage<100">
             Add Sponsor
           </ion-button>
 
         </div>
         <div class="arrSponsors">
-          <div class="card" style="margin: auto;" *ngIf="tournamentObj.sponsors.length==0" >
-            <p><b>You need to add sponsors before submitting (Optional)</b></p>
+          <div class="card noSponsors" style="margin: auto;" *ngIf="tournamentObj.sponsors.length==0" >
+            <p style="font-size: .8em;"><b>You need to add sponsors before submitting (Optional)</b></p>
           </div>
           <div class="card" *ngFor="let i of tournamentObj.sponsors">
             <div class="image">
@@ -471,6 +471,8 @@
       </div>
     </div>
   </div>
+
+
   <!-- main screen for displaying all information -->
   <div class="cmsContentTourns">
     <div class="tournaments">
@@ -523,8 +525,9 @@
               <div class="tDetails">
                 <div>
                   <hr>
-                  <p>{{t.doc.formInfo.startDate | date }} to {{t.doc.formInfo.endDate | date }}</p>
-                  <p>Application open until - {{t.doc.formInfo.applicationClosing|date}}</p>
+                  <p> Starts {{t.doc.formInfo.startDate | date }} <br> Ends {{t.doc.formInfo.endDate | date }}</p>
+                  <p style="font-size: 0.7em;
+                  font-weight: bold;">Application open until - {{t.doc.formInfo.applicationClosing|date}}</p>
                   <!-- <p>{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p> -->
                 </div>
               </div>

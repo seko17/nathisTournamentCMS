@@ -636,7 +636,7 @@ export class ManageTournamentsPage implements OnInit {
   toggleTournamentForm(state) {
     switch (state) {
       case 'open':
-        this.renderer.setStyle(this.newTournFormCont[0], 'display', 'block')
+        this.renderer.setStyle(this.newTournFormCont[0], 'display', 'flex')
         this.creatingTournament = true;
         console.log('form open');
 
