@@ -387,17 +387,17 @@
           </div>
           <ion-item>
             <ion-label position="floating">Location</ion-label>
-          <ion-input type="text" value="{{userLocation}}" (keyup)="getItems($event)" formControlName="location"></ion-input>
+          <ion-input type="text" value="{{userLocation}}" (keyup)="getLocation($event)" formControlName="location"></ion-input>
 
             <!-- <ion-input type="text" formControlName="location"></ion-input> -->
           </ion-item>
           <ion-item>
             <ion-label position="floating">Tournament Starts</ion-label>
-            <ion-datetime displayFormat="DD MMMM YYYY" formControlName="startDate"></ion-datetime>
+          <ion-datetime displayFormat="DD MMMM YYYY" min="{{tournToday}}" formControlName="startDate"></ion-datetime>
           </ion-item>
           <ion-item>
             <ion-label position="floating">Tournament Ends</ion-label>
-            <ion-datetime displayFormat="DD MMMM YYYY" formControlName="endDate"></ion-datetime>
+            <ion-datetime displayFormat="DD MMMM YYYY" min="{{tournToday}}" formControlName="endDate"></ion-datetime>
           </ion-item>
           <ion-item>
             <ion-label position="floating">Joining Fee</ion-label>
@@ -405,7 +405,7 @@
           </ion-item>
           <ion-item>
             <ion-label position="floating">Application Closing Date</ion-label>
-            <ion-datetime displayFormat="DD MMMM YYYY" formControlName="applicationClosing"></ion-datetime>
+            <ion-datetime displayFormat="DD MMMM YYYY" min="{{tournToday}}" formControlName="applicationClosing"></ion-datetime>
           </ion-item>
         </div>
         <div class="sButton">
@@ -488,7 +488,10 @@
             <h4>Approved Tournaments</h4>
           </div>
           <div class="approvedList">
-            <div class="card" *ngFor="let t of approvedTournaments" (click)="showSideEvent(t)">
+            <div class="card noTourns" *ngIf="approvedTournaments.length==0" >
+              <h5>No Tournaments</h5>
+            </div>
+            <div class="card " *ngFor="let t of approvedTournaments" (click)="showSideEvent(t)">
               <div class="tTitle">
                 <h5>{{t.doc.formInfo.tournamentName}}</h5>
               </div>
@@ -513,10 +516,10 @@
             <h4>Created Tournaments</h4>
           </div>
           <div class="unapprovedList">
-            <div class="card" style="display: flex; align-items: center; height: 15% !important;opacity: 0.5;width: 375px !important;" *ngIf="unapprovedTournaments.length==0" >
-              <div class="tTitle">
-                <h5>No Information</h5>
-              </div>
+            <div class="card" style="display: flex; align-items: center; opacity: 1;" *ngIf="unapprovedTournaments.length==0" >
+              
+                <h5 style="margin: auto">No Tournaments</h5>
+              
             </div>
             <div class="card" *ngFor="let t of unapprovedTournaments">
               <div class="tTitle">
@@ -549,8 +552,8 @@
             <hr>
             <p style="font-weight: bold;">Application Closing Date <br> {{TournSelectedObj.doc.formInfo.applicationClosing|date}}</p>
           </div>
-
         </div>
+        <!-- DISPLAYS INFORMATION OF APPLICATIONS -->
         <div class="matchList">
           <div class="stats">
             <div class="h">
