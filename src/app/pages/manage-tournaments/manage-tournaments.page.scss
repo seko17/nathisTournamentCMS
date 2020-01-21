@@ -528,7 +528,7 @@
       .approvedTournaments {
         width: 100%;
         height: 50%;
-
+        
         // background: red;
         // display: flex;
         .title {
@@ -612,6 +612,13 @@
           }
         }
 
+      }
+      .noTourns {
+        display: flex !important;
+        align-items: center !important;
+        h5 {
+          margin: auto !important;
+        }
       }
 
       .unaprovedTournaments {
@@ -1145,25 +1152,27 @@
 }
 .results {
   position: absolute;
-  color: rgb(65, 65, 65);
-  top: 55px;
+  color: rgb(255, 255, 255);
+  top: 190px;
   left: 10px;
-  right: 10px;
+  right: 40vw;
   max-height: 40%;
-  background: whitesmoke;
+  background: rgb(255, 255, 255);
   z-index: 200;
   overflow-y: auto;
   justify-content: left;
-  border-radius: 10px;
+  border-radius: 3px;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
   p {
     margin: 3px;
-    padding: 10px;
-    background: linear-gradient(90deg, rgb(223, 223, 223),white);
-    color: rgb(68, 68, 68);
-    border-radius: 7px;
+    padding: 3px;
+    color: #ffffff;
+    border-radius: 3px;
+    background:
+    linear-gradient(45deg, #05a66b 80%, transparent 20%), linear-gradient(45deg, #012615 85%, transparent 15%), linear-gradient(45deg, #02734a 90%, transparent 10%);
   }
   .count {
+    display: none;
     pointer-events: none;
     opacity: 0.1;
     position: fixed;

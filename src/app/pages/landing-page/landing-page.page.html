@@ -90,7 +90,7 @@
             <div class="scores">
               <div class="homeScore" >
                 <p>{{item.TeamObject.teamName}} <br>
-                <sub (click)="matchAction('open', 'home')" style="background: white; color: black; padding: 3px 5px; border-radius: 3px 10px;"><i>Action</i></sub></p>
+                <sub *ngIf="clicked[0].state!=='finished'||clicked[0].state!=='upcoming'"  (click)="matchAction('open', 'home')" style="background: white; color: black; padding: 3px 5px; border-radius: 3px 10px;"><i>Action</i></sub></p>
 
               </div>
               <div class="points">
@@ -98,10 +98,7 @@
                   <ion-button size="small" shape="round" (click)="stop()" >
                 Finished
                 </ion-button>
-       
-
-
-          
+                
                 </div>
                 <p>{{score}} : {{ascore}}</p>
               </div>

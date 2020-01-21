@@ -228,7 +228,7 @@ export class ManageTournamentsPage implements OnInit {
   setUpFixturesDiv = document.getElementsByClassName('setupFixtures');
 
   vedorApplications = false;
-
+  tournToday = null
   // BEGIN  BACKEND HERE ______________________________
   db = firebase.firestore()
   storage = firebase.storage().ref()
@@ -283,7 +283,7 @@ export class ManageTournamentsPage implements OnInit {
 
   accepted = []; // TEAM APPLICATIONS, stores all documents
   acceptedSearchResults = [] // filter and search
-  
+
   vendorsapplicationArray = [] // VENDOR TO PAY APPLICATIONS
   declined = [];
   parti = [];
@@ -313,7 +313,7 @@ export class ManageTournamentsPage implements OnInit {
       sponsors: []
     },
     docid: null
-  } 
+  }
   currentmatch = [];
   timer;
   docid;
@@ -334,7 +334,8 @@ export class ManageTournamentsPage implements OnInit {
   type: number;
   torntype;
   ngOnInit() {
-
+    let t = new Date().toJSON().split('T')[0];
+    this.tournToday = t
     this.newTournForm = this.formBuilder.group({
       tournamentName: ['', [Validators.required, Validators.minLength((4))]],
       type: ['', Validators.required],
@@ -431,24 +432,6 @@ export class ManageTournamentsPage implements OnInit {
           console.log(nums, this.type)
           console.log('loadededed')
 
-
-          // if (nums == this.type) {
-
-          //   this.disablefixtures = false;
-          //   this.disablepaid = true;
-
-          //   const alert = await this.alertController.create({
-          //     header: 'Good news:-)',
-          //     message: 'The fixtures are ready to be set.',
-          //     buttons: ['OK']
-          //   });
-
-          //   await alert.present();
-
-          // }
-
-
-
           this.aparticipants.push({ ...{ id: res.id }, ...res.data() })
           console.log('current Participants = ', this.aparticipants)
         })
@@ -457,15 +440,13 @@ export class ManageTournamentsPage implements OnInit {
 
       firebase.firestore().collection('participants').where('tournid', '==', tournament.docid).onSnapshot(async val => {
         this.cparticipants = []
-        this.acceptednum  = 0
-        if(val.size ==parseFloat(this.tourney.doc.formInfo.type))
-        {
-          this.disablepaid =true;
-         
+        this.acceptednum = 0
+        if (val.size == parseFloat(this.tourney.doc.formInfo.type)) {
+          this.disablepaid = true;
 
           const alert = await this.alertController.create({
             header: 'Good news:-)',
-            subHeader:"Fixtures are ready to be set.",
+            subHeader: "Fixtures are ready to be set.",
             message: 'Would you like to set match fixtures?',
             buttons: [
               {
@@ -480,26 +461,15 @@ export class ManageTournamentsPage implements OnInit {
                 handler: () => {
                   console.log('Confirm Okay');
 
-                  this.promptFixtureConfig('open',this.cparticipants);
+                  this.promptFixtureConfig('open', this.cparticipants);
 
                 }
               }
             ]
           });
-      
+
           await alert.present();
 
-
-
-
-
-
-
-
-
-
-
-         
         }
         else {
           this.disablepaid = false;
@@ -514,20 +484,6 @@ export class ManageTournamentsPage implements OnInit {
           console.log('current Participants = ', this.acceptednum)
         })
       })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       this.generatefixtures(tournament);
       let num = 0;
@@ -614,8 +570,8 @@ export class ManageTournamentsPage implements OnInit {
 
 
           })
-          console.log('line 586',this.acceptedSearchResults);
-          
+          console.log('line 586', this.acceptedSearchResults);
+
           this.accepted = this.acceptedSearchResults
         })
         this.db.collection('newTournaments').doc(tournament.docid).collection('vendorApplications').where('status', '==', 'accepted').onSnapshot(val => {
@@ -632,7 +588,7 @@ export class ManageTournamentsPage implements OnInit {
 
     }
   }
-  
+
   toggleTournamentForm(state) {
     switch (state) {
       case 'open':
@@ -658,13 +614,36 @@ export class ManageTournamentsPage implements OnInit {
   // }
   // selects sponsor Image
 
+  // searches for location
+  getLocation(ev: any) {
+    // Reset items back to all of the items
+    // set val to the value of the searchbar
+    const val = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    console.log(val);
+    if (val && val.trim() != "") {
+      this.searchResults = this.gauteng.filter(item => {
+        return item.toLowerCase().indexOf(val.toLowerCase()) > -1;
+      });
+      console.log('Results = ', this.searchResults);
+    } else if (val != " ") {
+      this.searchResults = this.gauteng.filter(item => {
+        return item.toLowerCase().indexOf(val.toLowerCase()) > -1;
+      });
+    } else if (val == "") {
+      this.searchResults = [];
+    }
+
+  }
+  // searches ref number
   getItems(ev: any) {
     // Reset items back to all of the items
     // set val to the value of the searchbar
     console.log(ev);
     const val = ev.target.value;
     // if the value is an empty string don't filter the items
-    
+
     if (val && val.trim() != '') {
       this.acceptedSearchResults = this.accepted.filter(item => {
         return item.refNumber.toLowerCase().indexOf(val.toLowerCase()) > -1;
@@ -677,8 +656,8 @@ export class ManageTournamentsPage implements OnInit {
     } else if (!val) {
       this.accepted = this.acceptedSearchResults
     }
-    console.log('line 649',this.acceptedSearchResults);
-    
+    console.log('line 649', this.acceptedSearchResults);
+
   }
   selectLocation(location) {
     this.userLocation = location;
@@ -736,9 +715,9 @@ export class ManageTournamentsPage implements OnInit {
 
             let newSponsor = {
               image: downUrl,
-
               name: image.item(0).name
             }
+            this.progressOfImage = 0
             // console.log(downUrl)
             // this.tournamentObj.sponsors.push(newSponsor)
             // console.log(this.tournamentObj.sponsors);
@@ -768,11 +747,13 @@ export class ManageTournamentsPage implements OnInit {
     console.log('today', date);
     console.log('past date', startDat)
 
+
+
     if (date > startDat) {
 
       const alert = await this.alertController.create({
         header: 'Warning!',
-        subHeader: 'Invalid Tournament start Date',
+        subHeader: 'Invalid Tournament Start Date',
         message: 'Please select date from today onwards',
         buttons: ['OK']
       });
@@ -784,7 +765,7 @@ export class ManageTournamentsPage implements OnInit {
       console.log('tournament end invalid');
       const alert = await this.alertController.create({
         header: 'Warning!',
-        subHeader: 'Invalid Tournament end Date',
+        subHeader: 'Invalid Tournament End Date',
         message: 'Please select date from tournament start onwards',
         buttons: ['OK']
       });
@@ -792,12 +773,12 @@ export class ManageTournamentsPage implements OnInit {
       await alert.present();
 
     }
-    else if ( startDat < applicDate || applicDate == startDat ) {
+    else if (startDat < applicDate || applicDate == startDat) {
       console.log('application date invalid');
       const alert = await this.alertController.create({
         header: 'Warning!',
-        subHeader: 'Invalid Application application Date',
-        message: 'Please select date before the tournament start date, preferrably one-two days before',
+        subHeader: 'Invalid Application Closing Date',
+        message: 'The closing date must be before the closing date or the same date.',
         buttons: ['OK']
       });
 
@@ -836,6 +817,7 @@ export class ManageTournamentsPage implements OnInit {
               text: 'Okay',
               handler: () => {
                 this.newTournForm.reset()
+                this.tournamentObj.sponsors = []
                 this.toggleTournamentForm('close')
               }
             }
@@ -902,7 +884,7 @@ export class ManageTournamentsPage implements OnInit {
                 hasApplications: false
               }
             }
-  
+
           })
         }
       })
@@ -976,7 +958,7 @@ export class ManageTournamentsPage implements OnInit {
     this.fixtureSetUp('open');
 
   }
-  makechanges =true;
+  makechanges = true;
   promptFixtureConfig(state, x) {
     console.log(state)
     // this.presentModal();
@@ -989,7 +971,7 @@ export class ManageTournamentsPage implements OnInit {
         break;
       case 'close':
         this.chooseConfigOption = false;
-        this.cparticipants =[];
+        this.cparticipants = [];
 
         setTimeout(() => {
           // this.renderer.setStyle(this.setUpFixturesDiv[0],'display','flex');
@@ -1059,9 +1041,6 @@ export class ManageTournamentsPage implements OnInit {
     })
   }
 
-
-
-
   paid(c, pos) {
     // console.log(Math.ceil(Math.random() * 10))
     console.log(pos)
@@ -1106,7 +1085,7 @@ export class ManageTournamentsPage implements OnInit {
     let q1 = this.fixture;
 
     console.log(this.fixture)
-    this.makechanges =false; 
+    this.makechanges = false;
 
     console.log(q1)
     for (let r = 0; r < q1.length; r++) {
@@ -1120,7 +1099,7 @@ export class ManageTournamentsPage implements OnInit {
         });
         toast.present();
 
-        return this.makechanges =true;
+        return this.makechanges = true;
       }
       else {
 
@@ -1220,8 +1199,8 @@ export class ManageTournamentsPage implements OnInit {
     console.log('Tourney', tournament)
     let num = 0;
     firebase.firestore().collection('participants').where('tournid', '==', tournament.docid).onSnapshot(res => {
-      this.fixture= []
-      this.serve.fixture =[];
+      this.fixture = []
+      this.serve.fixture = [];
       res.forEach(val => {
 
         this.participantdocids.push({ id: val.id });
@@ -1275,12 +1254,6 @@ export class ManageTournamentsPage implements OnInit {
   tournid = null;
 
   refnum;
-  search() {
-
-
-
-  }
-
 
 
 
@@ -1295,21 +1268,6 @@ export class ManageTournamentsPage implements OnInit {
 
 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   async moredetails(t) {
 

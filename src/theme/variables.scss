@@ -1,8 +1,3 @@
-// Ionic Variables and Theming. For more info, please see:
-// http://ionicframework.com/docs/theming/
-
-/** Ionic CSS Variables **/
-
 /* width */
 ::-webkit-scrollbar {
   width: 5px;
@@ -37,7 +32,9 @@ h1,h2,h3,h4,h5 {
 a,span {
   font-family: 'Reem Kufi', sans-serif;
 }
-
+.has-focus {
+  color: white !important;
+}
 :root {
   --ion-color-primary: #012615;
   --ion-color-primary-rgb: 1,38,21;
