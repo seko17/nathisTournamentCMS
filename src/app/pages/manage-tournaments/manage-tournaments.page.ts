@@ -490,15 +490,6 @@ export class ManageTournamentsPage implements OnInit {
           await alert.present();
 
 
-
-
-
-
-
-
-
-
-
          
         }
         else {

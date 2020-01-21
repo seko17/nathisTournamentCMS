@@ -917,7 +917,7 @@ else
                       ":" + this.secs.toString(), playerName: data
                   })
                 })
-                console.log("yellow")
+                
 
                 // firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.userUID).collection('Players').doc(this.id).update({yellow:1});
 
@@ -926,7 +926,7 @@ else
                   res.data();
                   let obj = res.data();
                   obj.ayellow = obj.ayellow + 1;
-
+                  console.log(obj)
                   this.currmatch.push(obj);
                   firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ ayellow: obj.ayellow });
 
@@ -945,9 +945,9 @@ else
                     let obj = res.data();
                     obj.ared = res.data().ared + 1;
                     this.currmatch.push(obj);
+                    console.log(res.data().ared +1)
 
-
-                    firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ red: obj.ared });
+                    firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ ared: obj.ared });
 
                   })
                   firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({
@@ -961,17 +961,18 @@ else
                 else
                   if (x == "offsides") {
 
-
+                    this.currmatch = [];
 
                     firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res => {
                       res.data();
                       let obj = res.data();
                       obj.aoffsides = res.data().aoffsides + 1;
+                      console.log(obj)
                       this.currmatch.push(obj);
                       firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ aoffsides: obj.aoffsides });
                     })
 
-                    this.currmatch = [];
+                  
                     firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({
                       stats: firebase.firestore.FieldValue.arrayUnion({
                         aoffsides: this.mins.toString() +
@@ -995,7 +996,10 @@ else
                       firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res => {
                         res.data();
                         let obj = res.data();
+
                         obj.acorners = res.data().acorners + 1;
+
+console.log(obj)
 
                         this.currmatch.push(obj);
                         firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ acorners: obj.acorners });
