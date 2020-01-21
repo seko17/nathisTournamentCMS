@@ -473,6 +473,16 @@ export class ManageTournamentsPage implements OnInit {
         }
         else {
           this.disablepaid = false;
+
+          firebase.firestore().collection('MatchFixtures').where('tournid', '==', tournament.docid).get().then(res=>{
+            console.log("Current Fixtures",res.size)
+  
+  if(res.size>0)
+  {
+  this.disablepaid =true;  
+  }
+  
+          })
         }
 
         val.forEach(res => {
