@@ -19,16 +19,6 @@ export class HomePage {
     tournaments: false,
     members: false
   }
-
-  // form for creating new tournament
-
-  //  state of the above form
-
-
-  //  show screen for acceptiong or declining applications
-
-
-  //  capture applications to accept or decline
   openProfile = false;
   adminProfile = {
     formInfo: {
@@ -36,8 +26,20 @@ export class HomePage {
       number: null
     },
     image: null
+    
+  } as PROFILE
+  editProfile = {
+    formInfo: {
+      fullName: null,
+      number: null
+    },
+    image: null
   } as PROFILE
   profileDiv = document.getElementsByClassName('profile-more')
+  editDiv = document.getElementsByClassName('editProfile')
+  editMode = false
+  creatingProfile = false
+  uploadProgress = 0
   // BEGIN BACKEND HERE______________________________
 
 
@@ -134,6 +136,93 @@ export class HomePage {
 
 
   }
+  edit(state) {
+    this.editProfile = this.adminProfile
+    switch (state) {
+      case 'open':
+        console.log('profile open', this.profileDiv[0]);
+        this.profile('close')
+        this.editMode = true;
+        this.renderer.setStyle(this.editDiv[0], 'display', 'block')
+        break;
+      case 'close':
+        this.editMode = false;
+        setTimeout(() => {
+          this.renderer.setStyle(this.editDiv[0], 'display', 'none')
+        }, 500);
+        break;
+    }
+  }
+  doneEdit() {
+      this.creatingProfile= true
+      this.db.collection('CMS_Profile').doc(firebase.auth().currentUser.uid).set(this.editProfile).then(res => {
+        this.creatingProfile= false
+        this.edit('close')
+        this.creatingProfile= false
+        this.editProfile = {
+          formInfo: {
+            fullName: null,
+            number: null
+          },
+          image: null
+        }
+      }).catch(async err => {
+        let alerter = await this.alertCtrl.create({
+          header: 'ERROR',
+          message: err.message,
+          buttons: [{text: 'Okay',role:'cancel'}]
+        })
+        this.creatingProfile= false
+        this.uploadProgress = 0
+      })
+  }
+  async selectimage(image) {
+
+    console.log(image.name)
+    let imagetosend = image.item(0);
+    console.log(imagetosend);
+
+    if (!imagetosend) {
+      const imgalert = await this.alertCtrl.create({
+        message: 'Select image to upload',
+        buttons: [{
+          text: 'Okay',
+          role: 'cancel'
+        }]
+      });
+      imgalert.present();
+    } else {
+      if (imagetosend.type.split('/')[0] !== 'image') {
+        const imgalert = await this.alertCtrl.create({
+          message: 'Unsupported file type.',
+          buttons: [{
+            text: 'Okay',
+            role: 'cancel'
+          }]
+        });
+        imgalert.present();
+        imagetosend = '';
+        return;
+      } else {
+        const upload = this.storage.child(image.item(0).name).put(imagetosend);
+        upload.on('state_changed', snapshot => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          this.uploadProgress = progress
+          console.log(progress);
+
+          if (progress > 0) {
+            // this.imageState = 'uploading'
+          }
+        }, error => {
+        }, () => {
+          upload.snapshot.ref.getDownloadURL().then(downUrl => {
+            this.editProfile.image = downUrl;
+            this.uploadProgress = 0;
+          });
+        });
+      }
+    }
+  }
   signout() {
     firebase.auth().signOut().then(res => {
       this.navCtrl.navigateRoot('login')
@@ -203,14 +292,12 @@ export class HomePage {
   async getCMSUserProfile() {
     setTimeout(() => {
       firebase.auth().onAuthStateChanged(user => {
-        this.db.collection('CMS_Profile').doc(user.uid).get().then(res => {
+        this.db.collection('CMS_Profile').doc(user.uid).onSnapshot(res => {
           
           this.adminProfile.image = res.data().image;
           this.adminProfile.formInfo.fullName = res.data().formInfo.fullName
           this.adminProfile.formInfo.number = res.data().formInfo.number
 console.log(this.adminProfile);
-        }).catch(err => {
-
         })
       })
     }, 1000);

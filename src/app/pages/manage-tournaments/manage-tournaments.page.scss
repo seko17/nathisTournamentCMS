@@ -370,17 +370,43 @@
     overflow: hidden;
     width: 80%;
     height: 80%;
-    background: white;
+    background: radial-gradient(#000d06a3, #000d06) ,linear-gradient(-45deg, #05A66B 26%, transparent 20%), linear-gradient(45deg, #387336 50%, transparent 50%),linear-gradient(45deg, #012615 70%, transparent 70%),linear-gradient(-45deg, #387336 50%, #05a66b 50%);
     border-radius: 10px;
-    margin: 7% auto 0px auto;
+    margin: auto ;
     // transform: translateY(-70vh);
     box-shadow: 0px 0px 7px #17171769;
     position: relative;
     display: flex;
-
+    ion-item {
+      --background: none !important;
+      --color: white !important;
+      font-family: 'Didact Gothic' !important;
+    }
+    ion-label {
+      --color: white !important;
+      font-family: 'Didact Gothic' !important;
+    }
+    ion-input {
+      --color: white !important;
+    }
+    ion-select {
+      --color: white !important;
+    }
+    ion-select-option {
+      --color: white !important;
+    }
+    .select-text {
+      color: white !important;
+    }
     form {
       flex-basis: 50%;
       overflow-y: auto;
+      border-right: solid 1px white;
+      .header {
+        ion-label {
+          font-size: 1.8em;
+        }
+      }
       padding-bottom: 82px;
     }
 
@@ -402,22 +428,25 @@
   .sponsors {
     flex-basis: 50%;
     height: 100%;
-    background: rgb(255, 255, 255);
+    // background: rgb(255, 255, 255);
 
     .buttons {
       height: 149px;
-      background: white;
+      // background: white;
       text-align: center;
     }
 
     .arrSponsors {
       height: 60%;
-      background: white;
+      // background: white;
       padding: 4px;
       display: flex;
       flex-wrap: wrap;
       overflow-y: auto;
-
+      .noSponsors {
+        display: flex;
+        align-items: center;
+      }
       .card {
         width: 120px;
         height: 30%;
@@ -426,7 +455,7 @@
         border-radius: 8px;
         overflow: hidden;
         text-align: center;
-
+        background: white;
         .image {
           width: 100%;
           height: 80%;
@@ -483,9 +512,9 @@
     .tournamentList {
       position: absolute;
       bottom: 0;
-      left: 1vw;
+      left: 0vw;
       right: 30vw;
-      top: 10px;
+      top: 0px;
       overflow-y: auto;
       background:#ffffffbd;
       border-radius: 5px;
@@ -609,8 +638,8 @@
 
           .card {
             position: relative;
-            background: url(../../../assets/cardSVG/SVG/createdSVG.svg), white;
-            background-position: 136px 3px;
+            background: url(../../../assets/cardSVG/SVG/createdSVG.svg),linear-gradient(40deg, transparent 50%, #000d06 50%),linear-gradient(50deg, transparent 50%, #012616 50%),linear-gradient(60deg, transparent 50%, #387335 50%),linear-gradient(70deg, transparent 50%, #05a66b 50%),linear-gradient(80deg, transparent 50%, #012615 50%), white;
+            background-position: 151px 0px;
             background-repeat: no-repeat;
             color: rgb(27, 27, 27);
             background-size: 100% 100%;
