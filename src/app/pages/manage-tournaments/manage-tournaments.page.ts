@@ -458,6 +458,12 @@ export class ManageTournamentsPage implements OnInit {
       firebase.firestore().collection('participants').where('tournid', '==', tournament.docid).onSnapshot(async val => {
         this.cparticipants = []
         this.acceptednum  = 0
+
+   
+
+
+
+
         if(val.size ==parseFloat(this.tourney.doc.formInfo.type))
         {
           this.disablepaid =true;
@@ -494,6 +500,16 @@ export class ManageTournamentsPage implements OnInit {
         }
         else {
           this.disablepaid = false;
+
+          firebase.firestore().collection('MatchFixtures').where('tournid', '==', tournament.docid).get().then(res=>{
+            console.log("Current Fixtures",res.size)
+  
+  if(res.size>0)
+  {
+  this.disablepaid =true;  
+  }
+  
+          })
         }
 
         val.forEach(res => {
