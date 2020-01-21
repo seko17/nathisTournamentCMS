@@ -47,7 +47,7 @@ export class LandingPagePage implements OnInit {
   // switches between lineup and summary
   matchView = 'lineup'
   playing
-  filterBy = 'newTournament'
+  filterBy = 'inprogress'
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // BEGGIN BACKEND HERE
 
@@ -61,13 +61,55 @@ export class LandingPagePage implements OnInit {
   input = { data: [] };
   ainput = { data: [] };
   tempCardGen = [] // temporary card generator, used for ngFor
+  
+  clicked = [];
+
+  fixture = [];
+  
+  blocker = this.allserve.blocker;
+  timer;
+  docid;
+  mins: number = 0;
+  secs: number = 0;
+  sub: Subscription;
+  btntxt1 = "start";
+  btntxt2 = "start";
+  btn1 = false;
+  btn2 = true;
+  currentmatch = [];
+  position = null;
+  matchobject: any = {};
+  currmatch = [];
+    // keep in mind, the playerObj will pass null if were closing the panel
+    playerobj = [];
+    aplayerobj = [];
+    
+  team1 = [];
+  team2 = [];
+
+  fixtureid;
+
+
+  btn3 = true;
+  
+  score;
+  ascore;
+  tourname;
+  id;
+  matchstats = [];
+  goals = [];
+  agoals;
+  pastMatchCat = null
+  match = {
+    type1:[],// 1
+    type2: [],// 2
+    type4: [], // 8
+    type8: [], // 16
+    type16: [], // 32
+    winner: {}
+  }
+  activeTourn = {} as any
   constructor(public modalController: ModalController, public game2: Match2Service, public loadingController: LoadingController, public allserve: AllserveService, public alertController: AlertController, public serve: AllserveService, public zone: NgZone, public renderer: Renderer2) {
-
-
-
-
-
-
 
     let tourn = {
       docid: null,
@@ -88,48 +130,22 @@ export class LandingPagePage implements OnInit {
       console.log("Menu = ", tourn)
     })
 
-
-
-
-    // this.db.collection('newTournaments').where('approved', '==', true).where("state", "==", "newTournament").get().then(res => {
-
-    //   res.forEach(doc => {
-    //     console.log(doc.data())
-    //     this.tournament.push({ ...{ docid: doc.id }, ...doc.data() })
-
-    //   })
-
-    //   this.serve.firstdoc = this.tournament;
-    //   console.log("Menu = ", tourn)
-    // })
-
-    // 
   }
-
-
-  blocker = this.allserve.blocker;
-  timer;
-  docid;
-  mins: number = 0;
-  secs: number = 0;
-  sub: Subscription;
-  btntxt1 = "start";
-  btntxt2 = "start";
-  btn1 = false;
-  btn2 = true;
-  currentmatch = [];
-
 
   ngOnInit() {
     // this.game2.firsthalf('start');
   }
+  async ionViewWillLeave() {
+    const alert = await this.alertController.create({
+      header: 'Alert',
+      subHeader: 'Warning!',
+      message: 'Leaving this page during a match will pause any ongoing matches!',
+      buttons: ['OK']
+    });
 
-  position = null;
+    await alert.present();
 
-
-
-  matchobject: any = {};
-  currmatch = [];
+  }
   async viewmatch(state, item, a) {
     console.log('item = ', item);
     if (item != null) {
@@ -247,6 +263,7 @@ export class LandingPagePage implements OnInit {
         break;
     }
   }
+
   segmentChanged(state) {
     this.zone.run(() => {
       let summaryORlineup = state.target.value;
@@ -265,9 +282,6 @@ export class LandingPagePage implements OnInit {
     })
   }
 
-  // keep in mind, the playerObj will pass null if were closing the panel
-  playerobj = [];
-  aplayerobj = [];
   viewPlayer(state, side, playerObj, val) {
     console.log("player obj", this.playerobj)
 
@@ -378,43 +392,100 @@ export class LandingPagePage implements OnInit {
     }
   }
 
-
-  clicked = [];
-
-  fixture = [];
   viewdetails(x) {
 
     // this.game2.firsthalf('stop');
 
-
-
     this.clicked = [];
-
-    console.log(x)
+    this.fixture = [];
+    
+    this.activeTourn = x
     this.clicked.push(x);
+    console.log('line 404',this.activeTourn)
     console.log(parseFloat(this.clicked[0].formInfo.type))
 
-    this.db.collection('MatchFixtures').where('tournid', '==', x.docid).onSnapshot(val => {
-      this.fixture = [];
-      val.forEach(res => {
 
-        this.fixtureid = res.id;
-        this.fixture.push({ ...{ fixtureid: res.id }, ...res.data() });
-        console.log("Fixture Id = ", this.fixtureid)
+    if(x.state=='finished') {
+      // finnished matches
+      this.db.collection('PlayedMatches').where('tournid','==',x.docid).orderBy("matchdate", "desc").get().then(res => {
+    
+        this.match = {
+          type1:[],// 1
+          type2: [],// 2
+          type4: [], // 8
+          type8: [], // 16
+          type16: [], // 32
+          winner: {}
+        }
+        res.forEach(doc => {
+          // CHECK WICH MATCH TYPE IS WHICH AND PUSH IT INTO THE RESPECTIVE ARRAY
+          if(doc.data().type=='16') {
+            this.match.type16.push({ ...{ fixtureid: doc.id }, ...doc.data() })
+          } else if (doc.data().type=='8') {
+            this.match.type8.push({ ...{ fixtureid: doc.id }, ...doc.data() })
+          } else if (doc.data().type=='4') {
+            this.match.type4.push({ ...{ fixtureid: doc.id }, ...doc.data() })
+          } else if (doc.data().type=='2') {
+            this.match.type2.push({ ...{ fixtureid: doc.id }, ...doc.data() })
+          } else if (doc.data().type=='1') {
+            this.match.type1.push({ ...{ fixtureid: doc.id }, ...doc.data() })
+            if(doc.data().score>=1) {
+              this.match.winner = doc.data().TeamObject
+            } else {
+              this.match.winner = doc.data().aTeamObject
+            }
+          }
+        })
+        this.checkMatches()
+        console.log(this.match);
 
-
+      }).catch(err => {console.log(err);})
+    } else {
+      // these are upcoming ur inplay matches
+      this.db.collection('MatchFixtures').where('tournid', '==', x.docid).onSnapshot(val => {
+        this.fixture = [];
+        val.forEach(res => {
+          this.fixtureid = res.id;
+          this.fixture.push({ ...{ fixtureid: res.id }, ...res.data() });
+          console.log("Fixture Id = ", this.fixtureid)
+          
+  
+        })
       })
-    })
-
+    }
   }
-
-  team1 = [];
-  team2 = [];
-
-  fixtureid;
-
-
-  btn3 = true;
+  checkMatches() {
+    if (this.match.type16.length>0) {
+      this.fixture = this.match.type16
+      this.pastMatchCat = 'top32'
+    } else if (this.match.type8.length>0) {
+      this.fixture = this.match.type8
+      this.pastMatchCat = 'top16'
+    } else {
+      this.fixture = this.match.type4
+      this.pastMatchCat = 'top8'
+    }
+  }
+  finnishedMatchSegment(ev) {
+    let event = ev.detail.value;
+    switch (event) {
+      case 'top32':
+        this.fixture = this.match.type16
+        break;
+        case 'top16':
+          this.fixture = this.match.type8
+          break;
+          case 'top8':
+            this.fixture = this.match.type4
+        break;
+        case 'top4':
+          this.fixture = this.match.type2
+        break;
+        case 'top1':
+          this.fixture = this.match.type1
+        break;
+    }
+  }
   async stop() {
 
     this.btn2 = false;
@@ -535,14 +606,6 @@ export class LandingPagePage implements OnInit {
       });
   }
 
-
-
-  score;
-  ascore;
-  tourname;
-  id;
-  matchstats = [];
-  goals = [];
   async goal1() {
 
     {
@@ -605,7 +668,7 @@ export class LandingPagePage implements OnInit {
       await alert.present();
     }
   }
-  agoals;
+
   async goal2() {
     {
       this.currentmatch = [];
@@ -929,21 +992,6 @@ console.log(obj)
     }
   }
 
-
-
-
-  async ionViewWillLeave() {
-    const alert = await this.alertController.create({
-      header: 'Alert',
-      subHeader: 'Warning!',
-      message: 'Leaving this page during a match will pause any ongoing matches!',
-      buttons: ['OK']
-    });
-
-    await alert.present();
-
-  }
-
   changeview(clickedbutton) {
     this.clicked = [];
     this.fixture = [];
@@ -1002,8 +1050,6 @@ console.log(obj)
     }
   }
 
-
-
   async alterminutes() {
     const alert = await this.alertController.create({
       header: 'Time Adjustment!',
@@ -1034,6 +1080,4 @@ console.log(obj)
 
     await alert.present();
   }
-
-
 }

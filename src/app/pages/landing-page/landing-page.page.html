@@ -90,7 +90,7 @@
             <div class="scores">
               <div class="homeScore" >
                 <p>{{item.TeamObject.teamName}} <br>
-                <sub *ngIf="clicked[0].state!=='finished'||clicked[0].state!=='upcoming'"  (click)="matchAction('open', 'home')" style="background: white; color: black; padding: 3px 5px; border-radius: 3px 10px;"><i>Action</i></sub></p>
+                <sub *ngIf="activeTourn.state=='inprogress'"  (click)="matchAction('open', 'home')" style="background: white; color: black; padding: 3px 5px; border-radius: 3px 10px;"><i>Action</i></sub></p>
 
               </div>
               <div class="points">
@@ -104,13 +104,14 @@
               </div>
               <div class="awayScore">
                 <p>{{item.aTeamObject.teamName}} <br>
-                  <sub (click)="matchAction('open', 'away')" style="background: white; color: black; padding: 3px 5px; border-radius: 10px 3px;"><i>Action</i></sub></p>
+                  <sub *ngIf="activeTourn.state=='inprogress'" (click)="matchAction('open', 'away')" style="background: white; color: black; padding: 3px 5px; border-radius: 10px 3px;"><i>Action</i></sub></p>
               </div>
             </div>
             <div class="upComingData">
               <h5></h5>
               <p>Starts {{item.startDate | date}}</p>
-              <p>Food and Beverage Sold</p>
+              <p *ngIf="activeTourn.approvedVendors.length>0&&activeTourn.state!='finished'" >Food will be sold</p>
+              <p *ngIf="activeTourn.approvedVendors.length==0&&activeTourn.state!='finished'" >No Food Sold</p>
             </div>
           </div>
           <div class="awayImage">
@@ -138,7 +139,8 @@
             </div>
           </div>
         </div>
-        <ion-segment [(ngModel)]="matchView" (ionChange)="segmentChanged($event)">
+        <!-- *ngIf="clicked[0].state=='finished'"  -->
+        <ion-segment  [(ngModel)]="matchView" (ionChange)="segmentChanged($event)">
           <ion-segment-button value="lineup">
             <ion-label>LineUps</ion-label>
           </ion-segment-button>
@@ -340,6 +342,7 @@
       <div class="details">
         <div>
          <h1 style="font-size: 1em;">Click on the Tournament to view it's details</h1>
+         
         </div>
 
       </div>
@@ -362,9 +365,27 @@
           <!-- <p style="font-size: 1.3vw;">{{item.formInfo.startDate | date}} to {{item.formInfo.endDate  | date}}</p> -->
           <hr>
           <p style="    font-size: 1.1vw;">Application Closing Date <br> {{item.formInfo.applicationClosing  | date}}</p>
+          <br>
+          <ion-segment scrollable="true" *ngIf="activeTourn.state=='finished'" [(ngModel)]="pastMatchCat" (ionChange)="finnishedMatchSegment($event)">
+            <ion-segment-button *ngIf="match.type16.length>0"  mode="ios" value="top32" color="primary">
+              <ion-label>Top 32</ion-label>
+            </ion-segment-button>
+            <ion-segment-button  *ngIf="match.type8.length>0"   mode="ios" value="top16">
+              <ion-label>Top 16</ion-label>
+            </ion-segment-button>
+            <ion-segment-button  mode="ios" value="top8">
+              <ion-label>Top 8</ion-label>
+            </ion-segment-button>
+            <ion-segment-button mode="ios" value="top4">
+              <ion-label>Semi-Final</ion-label>
+            </ion-segment-button>
+            <ion-segment-button mode="ios" value="top1">
+              <ion-label>Final</ion-label>
+            </ion-segment-button>
+          </ion-segment>
         </div>
-
-      </div>
+        </div> <br>
+       
       <div class="matchList">
         <div class="loadingList" *ngIf="fixture.length==0" >
           

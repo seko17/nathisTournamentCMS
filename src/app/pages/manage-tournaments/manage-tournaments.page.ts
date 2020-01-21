@@ -323,16 +323,35 @@ export class ManageTournamentsPage implements OnInit {
   btntxt2 = 'Second Half';
   btn1 = false;
   btn2 = true;
+  
+  tournid = null;
+
+  refnum;
+
+  // tslint:disable-next-line:member-ordering
+  q1 = [];
+  // tslint:disable-next-line:member-ordering
+  q2 = [];
+  // tslint:disable-next-line:member-ordering
+  fixture = [];
+  makechanges = true;
+  approvednum: number = 0;
+  acceptednum: number = 0;
+  applicationsnum: number = 0;
+  tourndetails = [];
+  disablefixtures = true;
+  disablepaid = false;
+  lengthparticipents: number = 0;
+  tourntype = {};
+  type: number;
+  torntype;
+  fixtures;
+  participantdocids = [];
   constructor(public alertController: AlertController, public serve: AllserveService, public loadingController: LoadingController, public toastController: ToastController, public modalController: ModalController, public dragulaService: DragulaService, public renderer: Renderer2, public alertCtrl: AlertController, public formBuilder: FormBuilder) {
 
     let num = 0;
-
-
-
   }
 
-  type: number;
-  torntype;
   ngOnInit() {
     let t = new Date().toJSON().split('T')[0];
     this.tournToday = t
@@ -357,12 +376,6 @@ export class ManageTournamentsPage implements OnInit {
     // Motus
   }
 
-
-  tourndetails = [];
-  disablefixtures = true;
-  disablepaid = false;
-  lengthparticipents: number = 0;
-  tourntype = {};
   async finnishSetup(tournament, state) {
     // please keep this switch statement at the top
     switch (state) {
@@ -618,11 +631,6 @@ export class ManageTournamentsPage implements OnInit {
         break;
     }
   }
-  //check tournaments vendors application
-  // checkVendorApp(){
-  //   this.db.collection('newTournaments').
-  // }
-  // selects sponsor Image
 
   // searches for location
   getLocation(ev: any) {
@@ -961,14 +969,12 @@ export class ManageTournamentsPage implements OnInit {
         break;
     }
   }
-  approvednum: number = 0;
-  acceptednum: number = 0;
-  applicationsnum: number = 0;
+
   generate() {
     this.fixtureSetUp('open');
 
   }
-  makechanges = true;
+
   promptFixtureConfig(state, x) {
     console.log(state)
     // this.presentModal();
@@ -1084,12 +1090,6 @@ export class ManageTournamentsPage implements OnInit {
       }
     }
   }
-  // tslint:disable-next-line:member-ordering
-  q1 = [];
-  // tslint:disable-next-line:member-ordering
-  q2 = [];
-  // tslint:disable-next-line:member-ordering
-  fixture = [];
 
   async savefixture() {
     let q1 = this.fixture;
@@ -1130,6 +1130,7 @@ export class ManageTournamentsPage implements OnInit {
     }
 
   }
+
   async presentLoading() {
     const loading = await this.loadingController.create({
       message: 'Setting Fixtures',
@@ -1144,14 +1145,17 @@ export class ManageTournamentsPage implements OnInit {
     })
 
   }
+
   ionViewWillEnter() {
 
     this.presentLoading();
   }
+
   showSideEvent(v) {
     this.TournSelectedObj = v
     console.log('click', this.TournSelectedObj);
   }
+
   async createfixture() {
     let q1 = this.fixtures;
 
@@ -1195,13 +1199,14 @@ export class ManageTournamentsPage implements OnInit {
       }
     }
   }
+
   deldocs() {
     for (let x = 0; x < this.participantdocids.length; x++) {
       console.log('Delete HERE!')
       firebase.firestore().collection('participants').doc(this.participantdocids[x].id).delete();
     }
   }
-  participantdocids = [];
+
   generatefixtures(tournament) {
     let temp = [];
     let temp2 = [];
@@ -1237,6 +1242,7 @@ export class ManageTournamentsPage implements OnInit {
       })
     })
   }
+
   acceptVendorApplication(v) {
     console.log('aaaaa', v);
     this.db.collection('newTournaments').doc(this.tourney.docid).collection('vendorApplications').doc(v.docid).update({ status: 'accepted' }).then(doc => {
@@ -1246,6 +1252,7 @@ export class ManageTournamentsPage implements OnInit {
     })
 
   }
+
   declineVendorApplication(v) {
     this.db.collection('newTournaments').doc(this.tourney.docid).collection('vendorApplications').doc(v.docid).update({ status: 'declined' }).then(doc => {
       this.db.collection('newTournaments').doc(this.tourney.docid).update({
@@ -1253,19 +1260,13 @@ export class ManageTournamentsPage implements OnInit {
       })
     })
   }
-  fixtures;
+
   editfixture() {
     console.log('This is where you edit fixtures');
 
     this.fixture = this.fixtures;
     this.fixtures = [];
   }
-
-  tournid = null;
-
-  refnum;
-
-
 
   test() {
 
