@@ -345,7 +345,7 @@ button[ion-fab] {
               .homePlayerCards,
               .awayPlayerCards {
                 width: 50%;
-                height: 50%;
+                height: 27%;
                 border-left: solid 1px rgb(223, 223, 223);
                 display: flex;
                 flex-wrap: wrap;
@@ -355,7 +355,7 @@ button[ion-fab] {
                   margin: 5px auto;
                   border-radius: 10px;
                   box-shadow: 0px 3px 3px #1717173d;
-                  padding: 10px;
+                  padding: 0px 5px;
                   display: flex;
                   align-content: center;
                   align-items: center;
@@ -376,10 +376,11 @@ button[ion-fab] {
                   }
 
                   .details {
-                    padding: 5px;
+                    padding: 0px;
 
                     p {
                       font-size: .8rem;
+                      margin: 0;
                     }
                   }
                 }
@@ -795,7 +796,7 @@ button[ion-fab] {
           }
 
           .versus {
-            flex-basis: 10%;
+            flex-basis: 15%;
           }
 
           .away {
