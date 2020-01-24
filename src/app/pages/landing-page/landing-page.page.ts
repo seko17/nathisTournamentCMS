@@ -79,6 +79,7 @@ export class LandingPagePage implements OnInit {
   currentmatch = [];
   position = null;
   matchobject: any = {};
+  viewedMatch = null
   currmatch = [];
     // keep in mind, the playerObj will pass null if were closing the panel
     playerobj = [];
@@ -117,7 +118,6 @@ export class LandingPagePage implements OnInit {
       hasApplications: false
     }
     this.serve.tournaments = [];
-
     this.db.collection('newTournaments').where('approved', '==', true).where("state", "==", "inprogress").get().then(res => {
       this.tournament = [];
       res.forEach(doc => {
@@ -129,12 +129,9 @@ export class LandingPagePage implements OnInit {
       this.serve.firstdoc = this.tournament;
       console.log("Menu = ", tourn)
     })
-
   }
 
-  ngOnInit() {
-    // this.game2.firsthalf('start');
-  }
+  ngOnInit() {}
   async ionViewWillLeave() {
     const alert = await this.alertController.create({
       header: 'Alert',
@@ -205,8 +202,7 @@ export class LandingPagePage implements OnInit {
         this.currmatch = [];
         this.matchobject = item;
         this.currmatch.push(item);
-
-
+console.log('line 205 ', this.matchobject);
 
 
         firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(val => {
@@ -518,6 +514,7 @@ export class LandingPagePage implements OnInit {
               }, {
                 text: 'Yes',
                 handler: () => {
+                  this.matchAction('close', 'away')
                   console.log('Confirm Okay');
 
                   // this.viewmatch('close', null,null);
