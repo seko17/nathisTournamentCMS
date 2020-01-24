@@ -71,11 +71,6 @@ export class LoginPage implements OnInit {
           let alerter = await this.alertCtrl.create({
             header: 'Password Reset',
             message: "Please check you inbox for the reset link.",
-            inputs: [{
-              placeholder: 'youremail@mail.com',
-              type: 'email',
-              name: 'email'
-            }],
             buttons: [ {
               text: 'Okay',
               role: 'cancel'
