@@ -55,7 +55,7 @@
   <app-auth-form #loginForm (formSubmitted)="loginUser($event)" [actionButtonText]="'Login'"></app-auth-form>
 <div class="forgot">
   
-  <ion-button expand="block" fill="clear" routerLink="/reset-password">
+  <ion-button expand="block" fill="clear" (click)="updatePassword()">
     I forgot my password
   </ion-button>
 </div>

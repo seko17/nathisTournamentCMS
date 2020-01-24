@@ -48,7 +48,9 @@ export class AuthFormComponent implements OnInit {
   }
 
   hideLoading(): Promise<boolean> {
+    this.authForm.reset()
     return this.loading.dismiss();
+    
   }
 
   async handleError(error): Promise<void> {

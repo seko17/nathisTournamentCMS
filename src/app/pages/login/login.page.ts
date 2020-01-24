@@ -67,12 +67,32 @@ export class LoginPage implements OnInit {
         text: 'Change',
         handler: (data) => {
           
-         this.authService.resetPassword(data.email).then(res => {
-          console.log('password reset');
-          
-         }).catch(err => {
+         this.authService.resetPassword(data.email).then( async res => {
+          let alerter = await this.alertCtrl.create({
+            header: 'Password Reset',
+            message: "Please check you inbox for the reset link.",
+            inputs: [{
+              placeholder: 'youremail@mail.com',
+              type: 'email',
+              name: 'email'
+            }],
+            buttons: [ {
+              text: 'Okay',
+              role: 'cancel'
+            }]
+          })
+          alerter.present()
+         }).catch(async err => {
           console.log('pass res err', err);
-          
+          let alerter = await this.alertCtrl.create({
+            header: 'Reset Error',
+            message: err.message,
+            buttons: [{
+              text: 'Okay',
+              role: 'cancel'
+            }]
+          })
+          alerter.present()
          })
         }
       }, {
