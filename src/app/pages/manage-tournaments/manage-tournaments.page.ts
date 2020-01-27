@@ -772,12 +772,12 @@ export class ManageTournamentsPage implements OnInit {
       await alert.present();
 
     }
-    else if (startDat !< applicDate) {
+    else if (applicDate > startDat && today < applicDate) {
       console.log('application date invalid');
       const alert = await this.alertController.create({
         header: 'Warning!',
         subHeader: 'Invalid Application Closing Date',
-        message: 'The closing date must be before the closing date or the same date.',
+        message: 'The closing date cannot be after the tournament start date',
         buttons: ['OK']
       });
 
