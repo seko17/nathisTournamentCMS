@@ -1005,12 +1005,13 @@
     .verificationScreen {
       height: 70%;
       display: flex;
-      background: green;
+      background: #387336;
       color: white;
+      border-radius: 10px 10px 0px 0px;
 
       .acceptedApplications {
         flex-basis: 50%;
-        background: rgba(255, 255, 255, 0.151);
+        border-right: dashed 1px rgba(255, 255, 255, 0.719);
 
         .head {
           text-align: center;

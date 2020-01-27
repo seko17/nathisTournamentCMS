@@ -23,37 +23,7 @@ export class ManageTournamentsPage implements OnInit {
   ainput = { data: [] };
 
   modal
-  async presentModal() {
 
-    this.fixture = [];
-    this.fixtures = [];
-    console.log("drop = ", this.fixture)
-
-
-    this.setUpTimeLine('close', null);
-    this.modal = await this.modalController.create({
-      component: DragdropPage,
-      backdropDismiss: false,
-      showBackdrop: true
-    });
-
-
-
-    this.modal.onDidDismiss().then(res => {
-
-      this.fixture = [];
-      this.fixtures = [];
-
-      this.fixtureSetUp('open');
-
-
-      this.fixture = this.serve.dropfixture;
-      this.presentLoading();
-    });
-    this.promptFixtureConfig('close', null);
-    return await this.modal.present();
-
-  }
   userLocation = null;
   searchQuery: string = '';
   searchResults = [];
@@ -210,6 +180,7 @@ export class ManageTournamentsPage implements OnInit {
   setUpApplications = false;
   sponsorImage = ''
   sponsorName: string
+  sponsorUploaded = false
   creatingTournament = false;
   validationMessages = {
     valid: [
@@ -259,9 +230,12 @@ export class ManageTournamentsPage implements OnInit {
       state: '',
       AcceptedApplications: 0,
       ApprovedApplications: 0,
+      ApprovedVendorApplications: 0,
       DeclinedVendorApplications: 0,
+      AcceptedVendorApplications: 0,
       DeclinedApplications: 0,
       totalApplications: 0,
+      vendorTotalApplications: 0,
       formInfo: {
         tournamentName: '',
         location: '',
@@ -323,7 +297,7 @@ export class ManageTournamentsPage implements OnInit {
   btntxt2 = 'Second Half';
   btn1 = false;
   btn2 = true;
-  
+
   tournid = null;
 
   refnum;
@@ -338,6 +312,7 @@ export class ManageTournamentsPage implements OnInit {
   approvednum: number = 0;
   acceptednum: number = 0;
   applicationsnum: number = 0;
+
   tourndetails = [];
   disablefixtures = true;
   disablepaid = false;
@@ -366,6 +341,9 @@ export class ManageTournamentsPage implements OnInit {
     })
     this.db.collection('newTournaments').onSnapshot(res => {
       this.getApprovedTournaments()
+      setTimeout(() => {
+        this.getApprovedTournaments()
+      }, 1000);
       this.getUnapprovedTournaments()
     })
     while (this.tempCardGen.length < 20) {
@@ -459,6 +437,7 @@ export class ManageTournamentsPage implements OnInit {
 
           const alert = await this.alertController.create({
             header: 'Good news:-)',
+            backdropDismiss: false,
             subHeader: "Fixtures are ready to be set.",
             message: 'Would you like to set match fixtures?',
             buttons: [
@@ -473,7 +452,7 @@ export class ManageTournamentsPage implements OnInit {
                 text: 'Okay',
                 handler: () => {
                   console.log('Confirm Okay');
-
+                  this.finnishSetup(null,'close')
                   this.promptFixtureConfig('open', this.cparticipants);
 
                 }
@@ -487,14 +466,13 @@ export class ManageTournamentsPage implements OnInit {
         else {
           this.disablepaid = false;
 
-          firebase.firestore().collection('MatchFixtures').where('tournid', '==', tournament.docid).get().then(res=>{
-            console.log("Current Fixtures",res.size)
-  
-  if(res.size>0)
-  {
-  this.disablepaid =true;  
-  }
-  
+          firebase.firestore().collection('MatchFixtures').where('tournid', '==', tournament.docid).get().then(res => {
+            console.log("Current Fixtures", res.size)
+
+            if (res.size > 0) {
+              this.disablepaid = true;
+            }
+
           })
         }
 
@@ -692,6 +670,7 @@ export class ManageTournamentsPage implements OnInit {
     this.sponsorName = ''
     this.sponsorImage = ''
     this.progressOfImage = 0
+    this.sponsorUploaded = false
   }
 
   async selectimage(image) {
@@ -730,12 +709,14 @@ export class ManageTournamentsPage implements OnInit {
         }, () => {
           upload.snapshot.ref.getDownloadURL().then(downUrl => {
             this.sponsorImage = downUrl
-
+            setTimeout(() => {
+              this.sponsorUploaded = true
+            }, 1000);
             let newSponsor = {
               image: downUrl,
               name: image.item(0).name
             }
-            this.progressOfImage = 0
+            // this.progressOfImage = 0
             // console.log(downUrl)
             // this.tournamentObj.sponsors.push(newSponsor)
             // console.log(this.tournamentObj.sponsors);
@@ -791,7 +772,7 @@ export class ManageTournamentsPage implements OnInit {
       await alert.present();
 
     }
-    else if (startDat < applicDate || applicDate == startDat) {
+    else if (startDat !< applicDate) {
       console.log('application date invalid');
       const alert = await this.alertController.create({
         header: 'Warning!',
@@ -873,7 +854,8 @@ export class ManageTournamentsPage implements OnInit {
     this.serve.tournaments = [];
     this.approvedTournaments = []
     this.db.collection('newTournaments').where('approved', '==', true).get().then(res => {
-
+      this.serve.tournaments = [];
+      this.approvedTournaments = []
       res.forEach(doc => {
         if (doc.data().state !== 'finished') {
           this.db.collection('newTournaments').doc(doc.id).collection('teamApplications').get().then(res => {
@@ -946,6 +928,7 @@ export class ManageTournamentsPage implements OnInit {
         this.presentModal();
         console.log('participants = ')
         console.log('participants = ', this.hparticipants)
+        this.promptFixtureConfig('close', null)
         // this.promptFixtureConfig('close',this.hparticipants)
         // this.timeLineSetup = true;
         // this.renderer.setStyle(this.setUpTimelineDiv[0], 'display', 'block');
@@ -971,8 +954,9 @@ export class ManageTournamentsPage implements OnInit {
   }
 
   generate() {
+    this.promptFixtureConfig('close', null)
     this.fixtureSetUp('open');
-
+    
   }
 
   promptFixtureConfig(state, x) {
@@ -1061,7 +1045,6 @@ export class ManageTournamentsPage implements OnInit {
     // console.log(Math.ceil(Math.random() * 10))
     console.log(pos)
     if (this.disablepaid == true) {
-
     }
     else {
       if (pos % 2 == 0) {
@@ -1090,7 +1073,23 @@ export class ManageTournamentsPage implements OnInit {
       }
     }
   }
+  paidVendor(c) {
+    // console.log(Math.ceil(Math.random() * 10))
+    console.log(c)
+    if (this.disablepaid == true) {
+    }
+    else {
+      this.db.collection('newTournaments').doc(c.tournid).collection('vendorApplications').doc(c.id).update({ status: 'paid' }).then(res => {
+          // this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress => {
+          this.db.collection('participants').add({ ...c, ...{ whr: 'home' } });
 
+          this.db.collection('newTournaments').doc(c.tournid).update({
+            ApprovedVendorApplications: firebase.firestore.FieldValue.increment(1)
+          })
+          // })
+        })
+    }
+  }
   async savefixture() {
     let q1 = this.fixture;
 
@@ -1269,17 +1268,33 @@ export class ManageTournamentsPage implements OnInit {
   }
 
   test() {
-
-
     console.log(this.refnum)
-
-
-
-
-
-
   }
 
+  async presentModal() {
+
+    this.fixture = [];
+    this.fixtures = [];
+    console.log("drop = ", this.fixture)
+
+
+    this.setUpTimeLine('close', null);
+    this.modal = await this.modalController.create({
+      component: DragdropPage,
+      backdropDismiss: false,
+      showBackdrop: true
+    });
+    this.modal.onDidDismiss().then(res => {
+      this.fixture = [];
+      this.fixtures = [];
+      this.fixtureSetUp('open');
+      this.fixture = this.serve.dropfixture;
+      this.presentLoading();
+    });
+    this.promptFixtureConfig('close', null);
+    return await this.modal.present();
+
+  }
   async moredetails(t) {
 
 

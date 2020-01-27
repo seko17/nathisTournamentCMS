@@ -25,8 +25,6 @@
     </div>
   </div>
 
-
-
   <!-- shows when you have to construct a match from the list of teams -->
   <div class="setUpTimeline animated" [ngClass]="{'fadeInUp':timeLineSetup,'fadeOutDown fast':!timeLineSetup}">
     <div class="closebutton">
@@ -88,8 +86,6 @@
       </div>
     </div>
   </div>
-
-
 
   <!-- shows when you have to select the date, time of the matches -->
   <div class="setupFixtures animated" [ngClass]="{'fadeInUp':setUpFixtures,'fadeOutDown fast':!setUpFixtures}">
@@ -171,7 +167,6 @@
       </div>
     </div>
   </div>
-
 
   <!-- shows when you have to accept or decline applications, search for references and conform team payment -->
   <div class="setUpApplications animated" [ngClass]="{'fadeInUp':setUpApplications,'fadeOutDown':!setUpApplications}">
@@ -328,7 +323,7 @@
                 <div *ngFor="let i of acceptedVendor ">
                   <p>{{i.refNumber}}</p>
                 </div>
-                <ion-button (click)="paid(item)">PAID</ion-button>
+                <ion-button (click)="paidVendor(item)">PAID</ion-button>
               </div>
             </div>
           </div>
@@ -358,7 +353,6 @@
       </div>
     </div>
   </div>
-
 
   <!-- shows when you click create tournament button -->
   <div class="newTournamentForm animated" [ngClass]="{'flipInX': creatingTournament,'flipOutX': !creatingTournament}">
@@ -441,7 +435,7 @@
             <ion-input [(ngModel)]="sponsorName"> </ion-input>
           </ion-item>
 
-          <ion-button shape="round" size="small" (click)="saveSponsor()" [disabled]="progressOfImage<100">
+          <ion-button shape="round" size="small" (click)="saveSponsor()" [disabled]="!sponsorUploaded">
             Add Sponsor
           </ion-button>
 
@@ -471,7 +465,6 @@
       </div>
     </div>
   </div>
-
 
   <!-- main screen for displaying all information -->
   <div class="cmsContentTourns">
@@ -601,7 +594,7 @@
                 <p>Accepted Applications</p>
               </div>
               <div class="number">
-                <h3>{{TournSelectedObj.doc.AcceptedApplications}}</h3>
+                <h3>{{TournSelectedObj.doc.AcceptedVendorApplications}}</h3>
               </div>
             </div>
             <div class="card">
@@ -609,7 +602,7 @@
                 <p>Approved Applications</p>
               </div>
               <div class="number">
-                <h3>{{TournSelectedObj.doc.ApprovedApplications}}</h3>
+                <h3>{{TournSelectedObj.doc.ApprovedVendorApplications}}</h3>
               </div>
             </div>
             <div class="card">
@@ -625,7 +618,7 @@
                 <p>Total Applications</p>
               </div>
               <div class="number">
-                <h3>{{TournSelectedObj.doc.totalApplications}}</h3>
+                <h3>{{TournSelectedObj.doc.vendorTotalApplications}}</h3>
               </div>
             </div>
           </div>
