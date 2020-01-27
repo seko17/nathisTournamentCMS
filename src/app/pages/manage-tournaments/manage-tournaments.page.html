@@ -302,10 +302,10 @@
               <h1>Vendor Applications <sub>Still to pay</sub></h1>
             </div>
             <div class="vendorApplications">
-              <div class="card" *ngFor="let item of vendorsapplicationArray">
+              <div class="card" *ngFor="let v of vendorssearchArray">
                 <div class="details">
-                  <h5 style="margin: 0;">{{item.TeamObject.coachName}}</h5>
-                  <p style="margin: 0;">Coach: <b>{{item.TeamObject.coachName}}</b></p>
+                  <p><b>{{v.doc.vendorobject.form.fullName}}</b></p>
+                  <p>{{v.doc.vendorobject.form.phoneNumber}}</p>
                 </div>
                 <div class="stillToPayList">
                   <!-- <div class="card" *ngFor="let item of accepted,let i = index">
@@ -321,9 +321,8 @@
                 </div> -->
                 </div>
                 <div *ngFor="let i of acceptedVendor ">
-                  <p>{{i.refNumber}}</p>
                 </div>
-                <ion-button (click)="paidVendor(item)">PAID</ion-button>
+                <ion-button (click)="paidVendor(v)">{{v.doc.refNumber}}</ion-button>
               </div>
             </div>
           </div>
@@ -418,27 +417,21 @@
           </ion-fab-button>
         </div>
       </form>
-
       <div class="sponsors">
         <div class="buttons">
           <ion-item>
             <ion-label>Sponsor Logo</ion-label>
             <ion-input type="file" accept="image/*" multiple="false" (change)="selectimage($event.target.files)">
             </ion-input>
-
           </ion-item>
- 
             <ion-progress-bar value="{{progressOfImage/100}}"></ion-progress-bar>
-
           <ion-item>
             <ion-label>Sponsor Name</ion-label>
             <ion-input [(ngModel)]="sponsorName"> </ion-input>
           </ion-item>
-
           <ion-button shape="round" size="small" (click)="saveSponsor()" [disabled]="!sponsorUploaded">
             Add Sponsor
           </ion-button>
-
         </div>
         <div class="arrSponsors">
           <div class="card noSponsors" style="margin: auto;" *ngIf="tournamentObj.sponsors.length==0" >
@@ -452,15 +445,6 @@
               {{i.sponsorName}}
             </div>
           </div>
-          <!-- <div class="card">
-            <div class="image">
-              <img src="https://www.htxt.co.za/wp-content/uploads/2019/01/nedbank-logo-header.jpg">
-            </div>
-            <div class="name">
-              Nedbank
-            </div>
-          </div> -->
-
         </div>
       </div>
     </div>

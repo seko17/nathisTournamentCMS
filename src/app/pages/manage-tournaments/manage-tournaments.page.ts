@@ -214,9 +214,12 @@ export class ManageTournamentsPage implements OnInit {
     state: 'newTournament',
     AcceptedApplications: 0,
     ApprovedApplications: 0,
-    totalApplications: 0,
-    DeclinedApplications: 0,
+    ApprovedVendorApplications: 0,
     DeclinedVendorApplications: 0,
+    AcceptedVendorApplications: 0,
+    DeclinedApplications: 0,
+    totalApplications: 0,
+    vendorTotalApplications: 0,
     notifyUser: 'yes'
   };
   tempCardGen = []
@@ -259,6 +262,8 @@ export class ManageTournamentsPage implements OnInit {
   acceptedSearchResults = [] // filter and search
 
   vendorsapplicationArray = [] // VENDOR TO PAY APPLICATIONS
+  vendorssearchArray = []
+  acceptedvendorsArray = []
   declined = [];
   parti = [];
   progressOfImage = 0
@@ -267,9 +272,12 @@ export class ManageTournamentsPage implements OnInit {
       state: '',
       AcceptedApplications: 0,
       ApprovedApplications: 0,
+      ApprovedVendorApplications: 0,
       DeclinedVendorApplications: 0,
+      AcceptedVendorApplications: 0,
       DeclinedApplications: 0,
       totalApplications: 0,
+      vendorTotalApplications: 0,
       formInfo: {
         tournamentName: '',
         location: '',
@@ -373,13 +381,13 @@ export class ManageTournamentsPage implements OnInit {
     if (tournament != null) {
       this.serve.tournid = tournament.docid;
     }
-    console.log("Rose", tournament.docid)
+    console.log("Rose", tournament)
 
 
     console.log(state, tournament)
 
 
-    if (tournament.docid == null) {
+    if (tournament == null) {
 
     }
     else {
@@ -391,6 +399,7 @@ export class ManageTournamentsPage implements OnInit {
         docid: null,
         doc: null
       }
+      // acceptedvendorsArray
       firebase.firestore().collection('newTournaments').doc(tournament.docid).collection('vendorApplications').where('status', '==', 'awaiting').onSnapshot(res => {
         this.vendorsapplicationArray = []
         res.forEach(doc => {
@@ -405,7 +414,21 @@ export class ManageTournamentsPage implements OnInit {
         })
         console.log('vendor application', this.vendorsapplicationArray)
       })
+      firebase.firestore().collection('newTournaments').doc(tournament.docid).collection('vendorApplications').where('status', '==', 'accepted').onSnapshot(res => {
+        this.acceptedvendorsArray = []
+        res.forEach(doc => {
 
+          // this.vendorsapplicationArray.push(doc.data())
+          vendorObj = {
+            docid: doc.id,
+            doc: doc.data()
+          }
+          this.acceptedvendorsArray.push(vendorObj)
+
+        })
+        this.vendorssearchArray = this.acceptedvendorsArray
+        console.log('vendor application', this.vendorssearchArray)
+      })
 
 
       console.log('finish setup')
@@ -644,13 +667,20 @@ export class ManageTournamentsPage implements OnInit {
       this.acceptedSearchResults = this.accepted.filter(item => {
         return item.refNumber.toLowerCase().indexOf(val.toLowerCase()) > -1;
       });
+      this.vendorssearchArray = this.acceptedvendorsArray.filter(item => {
+        return item.doc.refNumber.toLowerCase().indexOf(val.toLowerCase()) > -1
+      })
       console.log('Results = ', this.searchResults);
     } else if (val != ' ') {
       this.acceptedSearchResults = this.accepted.filter(item => {
         return item.refNumber.toLowerCase().indexOf(val.toLowerCase()) > -1;
       });
+      this.vendorssearchArray = this.acceptedvendorsArray.filter(item => {
+        return item.doc.refNumber.toLowerCase().indexOf(val.toLowerCase()) > -1
+      })
     } else if (!val) {
       this.accepted = this.acceptedSearchResults
+      this.vendorssearchArray = this.acceptedvendorsArray
     }
     console.log('line 649', this.acceptedSearchResults);
 
@@ -801,9 +831,12 @@ export class ManageTournamentsPage implements OnInit {
         state: 'newTournament',
         AcceptedApplications: 0,
         ApprovedApplications: 0,
-        totalApplications: 0,
+        ApprovedVendorApplications: 0,
+        DeclinedVendorApplications: 0,
+        AcceptedVendorApplications: 0,
         DeclinedApplications: 0,
-        DeclinedVendorApplications: 0
+        totalApplications: 0,
+        vendorTotalApplications: 0,
       }
       this.db.collection('newTournaments').add(this.tournamentObj).then(async res => {
         loader.dismiss()
@@ -841,9 +874,6 @@ export class ManageTournamentsPage implements OnInit {
         alerter.present()
       })
     }
-
-
-
   }
   getApprovedTournaments() {
     let tourn = {
@@ -1074,16 +1104,13 @@ export class ManageTournamentsPage implements OnInit {
     }
   }
   paidVendor(c) {
-    // console.log(Math.ceil(Math.random() * 10))
     console.log(c)
     if (this.disablepaid == true) {
     }
     else {
-      this.db.collection('newTournaments').doc(c.tournid).collection('vendorApplications').doc(c.id).update({ status: 'paid' }).then(res => {
-          // this.db.collection('newTournaments').doc(c.tournid).collection('teamApplications').doc(c.id).delete().then(ress => {
-          this.db.collection('participants').add({ ...c, ...{ whr: 'home' } });
+      this.db.collection('newTournaments').doc(c.doc.TournamentID).collection('vendorApplications').doc(c.docid).update({ status: 'paid' }).then(res => {
 
-          this.db.collection('newTournaments').doc(c.tournid).update({
+          this.db.collection('newTournaments').doc(c.doc.TournamentID).update({
             ApprovedVendorApplications: firebase.firestore.FieldValue.increment(1)
           })
           // })
