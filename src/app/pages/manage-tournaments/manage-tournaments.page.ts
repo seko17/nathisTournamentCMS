@@ -361,7 +361,7 @@ export class ManageTournamentsPage implements OnInit {
     }
     // Motus
   }
-
+partslength =0;
   async finnishSetup(tournament, state) {
     // please keep this switch statement at the top
     switch (state) {
@@ -458,32 +458,8 @@ export class ManageTournamentsPage implements OnInit {
         if (val.size == parseFloat(this.tourney.doc.formInfo.type)) {
           this.disablepaid = true;
 
-          const alert = await this.alertController.create({
-            header: 'Good news:-)',
-            backdropDismiss: false,
-            subHeader: "Fixtures are ready to be set.",
-            message: 'Would you like to set match fixtures?',
-            buttons: [
-              {
-                text: 'Cancel',
-                role: 'cancel',
-                cssClass: 'secondary',
-                handler: (blah) => {
-                  console.log('Confirm Cancel: blah');
-                }
-              }, {
-                text: 'Okay',
-                handler: () => {
-                  console.log('Confirm Okay');
-                  this.finnishSetup(null,'close')
-                  this.promptFixtureConfig('open', this.cparticipants);
-
-                }
-              }
-            ]
-          });
-
-          await alert.present();
+          this.partslength =val.size
+          
 
         }
         else {
@@ -611,6 +587,47 @@ export class ManageTournamentsPage implements OnInit {
 
 
     }
+
+
+
+
+
+
+if(this.partslength== parseFloat(this.tourney.doc.formInfo.type))
+{
+
+  const alert = await this.alertController.create({
+    header: 'Good news:-)',
+    backdropDismiss: false,
+    subHeader: "Fixtures are ready to be set.",
+    message: 'Would you like to set match fixtures?',
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+          console.log('Confirm Cancel: blah');
+        }
+      }, {
+        text: 'Okay',
+        handler: () => {
+          console.log('Confirm Okay');
+          this.finnishSetup(null, 'close')
+          this.promptFixtureConfig('open', this.cparticipants);
+
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
+
+
+
+
+
   }
 
   toggleTournamentForm(state) {
@@ -802,7 +819,7 @@ export class ManageTournamentsPage implements OnInit {
       await alert.present();
 
     }
-    else if (startDat !< applicDate) {
+    else if (startDat! < applicDate) {
       console.log('application date invalid');
       const alert = await this.alertController.create({
         header: 'Warning!',
@@ -986,7 +1003,7 @@ export class ManageTournamentsPage implements OnInit {
   generate() {
     this.promptFixtureConfig('close', null)
     this.fixtureSetUp('open');
-    
+
   }
 
   promptFixtureConfig(state, x) {
@@ -1071,11 +1088,45 @@ export class ManageTournamentsPage implements OnInit {
     })
   }
 
-  paid(c, pos) {
+  async paid(c, pos) {
     // console.log(Math.ceil(Math.random() * 10))
-    console.log(pos)
-    if (this.disablepaid == true) {
-    }
+    console.log(c)
+
+ firebase.firestore().collection('participants').where("tournid","==",c.tournid).get().then(async res=>{
+  console.log(res.size ==parseFloat(this.tourney.doc.formInfo.type))
+   if(res.size ==parseFloat(this.tourney.doc.formInfo.type))
+   {
+     console.log(res.size)
+     
+    const alert = await this.alertController.create({
+      header: 'Good news:-)',
+      backdropDismiss: false,
+      subHeader: "Fixtures are ready to be set.",
+      message: 'Would you like to set match fixtures?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            console.log('Confirm Okay');
+            this.finnishSetup(null, 'close')
+            this.promptFixtureConfig('open', this.cparticipants);
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
+   }
+ })
+
+    if (this.disablepaid == true) {}
     else {
       if (pos % 2 == 0) {
         // tslint:disable-next-line:max-line-length
@@ -1110,11 +1161,11 @@ export class ManageTournamentsPage implements OnInit {
     else {
       this.db.collection('newTournaments').doc(c.doc.TournamentID).collection('vendorApplications').doc(c.docid).update({ status: 'paid' }).then(res => {
 
-          this.db.collection('newTournaments').doc(c.doc.TournamentID).update({
-            ApprovedVendorApplications: firebase.firestore.FieldValue.increment(1)
-          })
-          // })
+        this.db.collection('newTournaments').doc(c.doc.TournamentID).update({
+          ApprovedVendorApplications: firebase.firestore.FieldValue.increment(1)
         })
+        // })
+      })
     }
   }
   async savefixture() {

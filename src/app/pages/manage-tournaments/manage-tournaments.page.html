@@ -215,12 +215,12 @@
       <!-- NEW TEAM APPLICATIONS -->
       <div class="applicationList">
         <div class="card" *ngIf="tournamentApplications.length == 0" >
-          <h3 style="text-align: center;margin: auto;">No Applications</h3>
+          <p style="text-align: center;margin: 10px auto;">No Applications</p>
         </div>
         <div class="card" *ngFor="let team of tournamentApplications">
           <div class="teamInfo">
             <p><b>{{team.doc.TeamObject.teamName}}</b></p>
-            <p>Manager: Manager Name</p>
+            <p>Manager: {{team.doc.TeamObject.managerName}}</p>
           </div>
           <div class="buttons">
             <ion-button shape="round" size="small" color="success" (click)="accept(team)"   [disabled]="disablepaid">
@@ -241,17 +241,19 @@
         letter-spacing: 10px;">{{x.doc.formInfo.tournamentName}}</h1>
         <div class="splitter">
           <div class="one">
-            <p>{{x.doc.formInfo.type}} Participants</p>
+            <p>{{x.doc.formInfo.type}} Participants | {{TournSelectedObj.doc.ApprovedVendorApplications}} Vendor(s)</p>
             <hr>
-            <p>From {{x.doc.formInfo.startDate | date}} <b>to</b> {{x.doc.formInfo.endDate | date}}</p>
-            <p>Fee - R{{x.doc.formInfo.joiningFee}}</p>
+            <p>Starts {{x.doc.formInfo.startDate | date}} Ends {{x.doc.formInfo.endDate | date}}</p>
+            <p style="color: orangered;">Fee - R{{x.doc.formInfo.joiningFee}}</p>
           </div>
           <div class="two">
-            <p>Closing Date {{x.doc.formInfo.applicationClosing | date}}</p>
+            <p><b>Applications Close {{x.doc.formInfo.applicationClosing | date}}</b></p>
             
             <hr>
-            <p>Sponsors</p>
+            <div class="spnors">
+              <p>Sponsors</p>
             <span *ngFor="let i of x.doc.sponsors"><img src="{{i.sponsorImage}}"></span>
+            </div>
           </div>
         </div>
       </div>
@@ -279,17 +281,6 @@
                   <p style="margin: 0;">Coach <b>{{item.TeamObject.coachName}}</b></p>
                 </div>
                 <div class="stillToPayList">
-                  <!-- <div class="card" *ngFor="let item of accepted,let i = index">
-                  <div class="details">
-                    <h5 style="margin: 0;">{{item.TeamObject.coachName}}</h5>
-                    <p style="margin: 0;">Coach <b>{{item.TeamObject.coachName}}</b></p>
-                  </div>
-                  <div class="refNumber">
-
-                    <p> <sub style="font-size: 10px;margin: 0;padding: 0;">Reference.No </sub> <br> RTY75G</p>
-                  </div>
-                  <ion-button (click)="paid(item,i)">PAID</ion-button>
-                </div> -->
                 </div>
                 <div *ngFor="let i of acceptedVendor ">
                   <p>{{i.refNumber}}</p>
@@ -302,23 +293,15 @@
               <h1>Vendor Applications <sub>Still to pay</sub></h1>
             </div>
             <div class="vendorApplications">
+              <div class="card" *ngIf="vendorssearchArray.length==0" >
+                <p style="margin: auto;text-align: center;">No Applications</p>
+              </div>
               <div class="card" *ngFor="let v of vendorssearchArray">
                 <div class="details">
                   <p><b>{{v.doc.vendorobject.form.fullName}}</b></p>
                   <p>{{v.doc.vendorobject.form.phoneNumber}}</p>
                 </div>
                 <div class="stillToPayList">
-                  <!-- <div class="card" *ngFor="let item of accepted,let i = index">
-                  <div class="details">
-                    <h5 style="margin: 0;">{{item.TeamObject.coachName}}</h5>
-                    <p style="margin: 0;">Coach <b>{{item.TeamObject.coachName}}</b></p>
-                  </div>
-                  <div class="refNumber">
-
-                    <p> <sub style="font-size: 10px;margin: 0;padding: 0;">Reference.No </sub> <br> RTY75G</p>
-                  </div>
-                  <ion-button (click)="paid(item,i)">PAID</ion-button>
-                </div> -->
                 </div>
                 <div *ngFor="let i of acceptedVendor ">
                 </div>
@@ -334,12 +317,13 @@
           <h1>Participating Teams <sub>Paid</sub><ion-badge mode="ios">{{cparticipants.length}}</ion-badge> </h1>
           </div>
           <div class="paidList" >
+            <div class="card" *ngIf="cparticipants.length==0" ><p style="margin: auto; text-align: center;">No Applications</p></div>
             <div class="card" *ngFor="let item of cparticipants" >
               <div class="details">
                 <h5 style="margin: 0px ;
                 font-size: 2em;">Kasi Team</h5>
                 <p style="margin: 0px 0px 0px 10px;
-                font-size: 0.8em;">{{item.TeamObject.coachName}}</p>
+                font-size: 0.8em;">{{item.TeamObject.coachName}}
                 <p style="margin: 0px 0px 0px 10px;
                 font-weight: bold;">{{item.TeamObject.teamName}}</p>
                 <p style="margin: 0px 0px 0px 10px;
