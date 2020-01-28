@@ -609,7 +609,7 @@ partslength =0;
 
 
 
-if(this.partslength== parseFloat(this.tourney.doc.formInfo.type))
+if(this.partslength== parseFloat(this.tourney.doc.formInfo.type) && state =='open')
 {
   this.disablefixtures =false;
 
@@ -1115,7 +1115,7 @@ else
 
  firebase.firestore().collection('participants').where("tournid","==",c.tournid).get().then(async res=>{
   console.log(res.size ==parseFloat(this.tourney.doc.formInfo.type))
-   if(res.size ==parseFloat(this.tourney.doc.formInfo.type))
+   if(res.size ==parseFloat(this.tourney.doc.formInfo.type) )
    {
      console.log(res.size)
      
