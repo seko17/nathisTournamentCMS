@@ -21,7 +21,7 @@ export class ManageTournamentsPage implements OnInit {
 
   input = { data: [] };
   ainput = { data: [] };
-
+blockfixture:boolean =true;
   modal
 
   userLocation = null;
@@ -600,8 +600,6 @@ partslength =0;
           });
         });
       });
-
-
     }
 
 
@@ -650,7 +648,11 @@ else
 
 
   }
-
+  complete() {
+    console.log('Confirm Okay');
+    this.finnishSetup(null, 'close')
+    this.promptFixtureConfig('open', this.cparticipants);
+  }
   toggleTournamentForm(state) {
     switch (state) {
       case 'open':
