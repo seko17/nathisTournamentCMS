@@ -455,15 +455,31 @@ partslength =0;
       firebase.firestore().collection('participants').where('tournid', '==', tournament.docid).onSnapshot(async val => {
         this.cparticipants = []
         this.acceptednum = 0
+
+
+        if(this.partslength== parseFloat(this.tourney.doc.formInfo.type))
+        {
+          this.disablefixtures =false;
+        }
+        else
+        {
+          this.disablefixtures =true; 
+        }
+
+
         if (val.size == parseFloat(this.tourney.doc.formInfo.type)) {
           this.disablepaid = true;
 
-          this.partslength =val.size
-          
+          this.partslength =val.size 
 
         }
         else {
           this.disablepaid = false;
+
+
+
+
+
 
           firebase.firestore().collection('MatchFixtures').where('tournid', '==', tournament.docid).get().then(res => {
             console.log("Current Fixtures", res.size)
@@ -595,6 +611,7 @@ partslength =0;
 
 if(this.partslength== parseFloat(this.tourney.doc.formInfo.type))
 {
+  this.disablefixtures =false;
 
   const alert = await this.alertController.create({
     header: 'Good news:-)',
@@ -622,6 +639,10 @@ if(this.partslength== parseFloat(this.tourney.doc.formInfo.type))
   });
 
   await alert.present();
+}
+else
+{
+  this.disablefixtures =true;
 }
 
 
