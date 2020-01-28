@@ -455,15 +455,31 @@ partslength =0;
       firebase.firestore().collection('participants').where('tournid', '==', tournament.docid).onSnapshot(async val => {
         this.cparticipants = []
         this.acceptednum = 0
+
+
+        if(this.partslength== parseFloat(this.tourney.doc.formInfo.type))
+        {
+          this.disablefixtures =false;
+        }
+        else
+        {
+          this.disablefixtures =true; 
+        }
+
+
         if (val.size == parseFloat(this.tourney.doc.formInfo.type)) {
           this.disablepaid = true;
-this.blockfixture=false;
-          this.partslength =val.size
-          
+
+          this.partslength =val.size 
 
         }
         else {
           this.disablepaid = false;
+
+
+
+
+
 
           firebase.firestore().collection('MatchFixtures').where('tournid', '==', tournament.docid).get().then(res => {
             console.log("Current Fixtures", res.size)
@@ -586,7 +602,14 @@ this.blockfixture=false;
       });
     }
 
-if(this.partslength== parseFloat(this.tourney.doc.formInfo.type) && state =='open') {
+
+
+
+
+
+if(this.partslength== parseFloat(this.tourney.doc.formInfo.type))
+{
+  this.disablefixtures =false;
 
   const alert = await this.alertController.create({
     header: 'Good news:-)',
@@ -614,6 +637,10 @@ if(this.partslength== parseFloat(this.tourney.doc.formInfo.type) && state =='ope
   });
 
   await alert.present();
+}
+else
+{
+  this.disablefixtures =true;
 }
 
 
@@ -815,12 +842,12 @@ if(this.partslength== parseFloat(this.tourney.doc.formInfo.type) && state =='ope
       await alert.present();
 
     }
-    else if (startDat! < applicDate) {
+    else if (applicDate > startDat && today < applicDate) {
       console.log('application date invalid');
       const alert = await this.alertController.create({
         header: 'Warning!',
         subHeader: 'Invalid Application Closing Date',
-        message: 'The closing date must be before the closing date or the same date.',
+        message: 'The closing date cannot be after the tournament start date',
         buttons: ['OK']
       });
 
