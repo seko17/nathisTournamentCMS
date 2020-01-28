@@ -21,7 +21,7 @@ export class ManageTournamentsPage implements OnInit {
 
   input = { data: [] };
   ainput = { data: [] };
-
+blockfixture:boolean =true;
   modal
 
   userLocation = null;
@@ -457,7 +457,7 @@ partslength =0;
         this.acceptednum = 0
         if (val.size == parseFloat(this.tourney.doc.formInfo.type)) {
           this.disablepaid = true;
-
+this.blockfixture=false;
           this.partslength =val.size
           
 
@@ -584,17 +584,9 @@ partslength =0;
           });
         });
       });
-
-
     }
 
-
-
-
-
-
-if(this.partslength== parseFloat(this.tourney.doc.formInfo.type))
-{
+if(this.partslength== parseFloat(this.tourney.doc.formInfo.type) && state =='open') {
 
   const alert = await this.alertController.create({
     header: 'Good news:-)',
@@ -629,7 +621,11 @@ if(this.partslength== parseFloat(this.tourney.doc.formInfo.type))
 
 
   }
-
+  complete() {
+    console.log('Confirm Okay');
+    this.finnishSetup(null, 'close')
+    this.promptFixtureConfig('open', this.cparticipants);
+  }
   toggleTournamentForm(state) {
     switch (state) {
       case 'open':

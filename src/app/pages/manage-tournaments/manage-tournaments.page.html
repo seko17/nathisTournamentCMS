@@ -317,11 +317,16 @@
           <h1>Participating Teams <sub>Paid</sub><ion-badge mode="ios">{{cparticipants.length}}</ion-badge> </h1>
           </div>
           <div class="paidList" >
+            <div class="complete" *ngIf="!blockfixture">
+              <ion-button style="margin: auto;"   (click)="complete()">
+                Complete
+              </ion-button>
+            </div>
             <div class="card" *ngIf="cparticipants.length==0" ><p style="margin: auto; text-align: center;">No Applications</p></div>
             <div class="card" *ngFor="let item of cparticipants" >
               <div class="details">
                 <h5 style="margin: 0px ;
-                font-size: 2em;">Kasi Team</h5>
+                font-size: 2em;">{{item.TeamObject.teamNamme}}</h5>
                 <p style="margin: 0px 0px 0px 10px;
                 font-size: 0.8em;">{{item.TeamObject.coachName}}
                 <p style="margin: 0px 0px 0px 10px;
