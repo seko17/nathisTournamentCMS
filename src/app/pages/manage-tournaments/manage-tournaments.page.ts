@@ -456,21 +456,22 @@ partslength =0;
         this.cparticipants = []
         this.acceptednum = 0
 
+        this.partslength =val.size 
 
         if(this.partslength== parseFloat(this.tourney.doc.formInfo.type))
         {
-          this.disablefixtures =false;
+          this.blockfixture =false;
         }
         else
         {
-          this.disablefixtures =true; 
+          this.blockfixture =true; 
         }
 
 
         if (val.size == parseFloat(this.tourney.doc.formInfo.type)) {
           this.disablepaid = true;
 
-          this.partslength =val.size 
+          
 
         }
         else {
@@ -602,9 +603,14 @@ partslength =0;
       });
     }
 
-if(this.partslength== parseFloat(this.tourney.doc.formInfo.type))
+
+
+
+
+
+if(this.partslength== parseFloat(this.tourney.doc.formInfo.type) && state =='open')
 {
-  this.disablefixtures =false;
+  this.blockfixture =false;
 
   const alert = await this.alertController.create({
     header: 'Good news:-)',
@@ -635,7 +641,7 @@ if(this.partslength== parseFloat(this.tourney.doc.formInfo.type))
 }
 else
 {
-  this.disablefixtures =true;
+  this.blockfixture =true;
 }
 
 
@@ -1110,39 +1116,7 @@ else
     // console.log(Math.ceil(Math.random() * 10))
     console.log(c)
 
- firebase.firestore().collection('participants').where("tournid","==",c.tournid).get().then(async res=>{
-  console.log(res.size ==parseFloat(this.tourney.doc.formInfo.type))
-   if(res.size ==parseFloat(this.tourney.doc.formInfo.type))
-   {
-     console.log(res.size)
-     
-    const alert = await this.alertController.create({
-      header: 'Good news:-)',
-      backdropDismiss: false,
-      subHeader: "Fixtures are ready to be set.",
-      message: 'Would you like to set match fixtures?',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          }
-        }, {
-          text: 'Okay',
-          handler: () => {
-            console.log('Confirm Okay');
-            this.finnishSetup(null, 'close')
-            this.promptFixtureConfig('open', this.cparticipants);
-          }
-        }
-      ]
-    });
-  
-    await alert.present();
-   }
- })
+ 
 
     if (this.disablepaid == true) {}
     else {
