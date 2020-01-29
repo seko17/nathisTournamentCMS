@@ -72,8 +72,9 @@ export class LandingPagePage implements OnInit {
   mins: number = 0;
   secs: number = 0;
   sub: Subscription;
-  btntxt1 = "start";
-  btntxt2 = "start";
+  btntxt1 = "First half";
+  btntxt2 = "Second half";
+  btntxt3="Start"
   btn1 = false;
   btn2 = true;
   currentmatch = [];
@@ -144,7 +145,8 @@ export class LandingPagePage implements OnInit {
 
   }
   async viewmatch(state, item, a) {
-    
+    this.serve.matchstatus = '';
+    this.cick =0;
  this.zone.run(()=>{
   console.log('item = ', item);
   if (item != null) {
@@ -468,7 +470,38 @@ export class LandingPagePage implements OnInit {
     await loading.present();
 
     loading.onDidDismiss().then(async val => {
+      if(this.serve.matchstatus != 'Second Half')
+      {
+        const alert = await this.alertController.create({
+          subHeader:'The match can not be complete if it is not in the \'Second Half\'.',
+          message: 'Would you like to update?',
+          buttons: [
+            {
+              text: 'Cancel',
+              role: 'cancel',
+              cssClass: 'secondary',
+              handler: (blah) => {
+                console.log('Confirm Cancel: blah');
+              }
+            }, {
+              text: 'Yes',
+              handler: () => {
+                console.log('Confirm Okay');
+                
 
+
+this.serve.matchstatus='Second Half';
+
+this.stop()
+
+              }
+            }
+          ]
+        });
+    
+        await alert.present();
+      }
+else
       if (this.btn3 == true) {
 
         const alert = await this.alertController.create({
@@ -1044,4 +1077,76 @@ export class LandingPagePage implements OnInit {
 
     await alert.present();
   }
+
+
+cick =0;
+  async radio()
+  {
+console.log(this.allserve.matchstatus)
+
+
+
+console.log(this.cick)
+
+this.cick =this.cick+1;
+if(this.serve.matchstatus == '' || this.cick%2 ==1)
+{
+
+  
+if(this.serve.matchstatus != 'Second Half')
+{
+const alert = await this.alertController.create({
+  header: 'Pick one division.',
+  backdropDismiss:false,
+  inputs: [
+    {
+      name: 'fh',
+      type: 'radio',
+      label: 'First Half',
+      value: 'First Half',
+      checked: true
+    },
+    {
+      name: 'sh',
+      type: 'radio',
+      label: 'Second Half',
+      value: 'Second Half'
+    }
+  ],
+  buttons: [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      cssClass: 'secondary',
+      handler: () => {
+        console.log('Confirm Cancel');
+      }
+    }, {
+      text: 'Ok',
+      handler: (data) => {
+        console.log('Confirm Ok',data);
+
+        firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
+        
+        
+          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({half:data });
+          this.serve.matchstatus =data;
+        
+        })
+
+
+
+        
+      }
+    }
+  ]
+});
+
+await alert.present();
+}
+  }
+}
+
+
+
 }

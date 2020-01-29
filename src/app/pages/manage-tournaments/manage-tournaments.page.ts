@@ -819,7 +819,35 @@ else
 
 
 
-    if (date > startDat) {
+    if (startDat == applicDate) {
+      console.log('application date invalid');
+      const alert = await this.alertController.create({
+        header: 'Warning!',
+        subHeader: 'Invalid start date',
+        message: 'The start date can not be equal to the closing date',
+        buttons: ['OK']
+      });
+
+      await alert.present();
+    }
+else
+    if (endDate == startDat) {
+      console.log('tournament end invalid');
+      const alert = await this.alertController.create({
+        header: 'Warning!',
+        subHeader: 'Invalid Tournament Date',
+        message: 'The start date and the end date can not be the same',
+        buttons: ['OK']
+      });
+
+      await alert.present();
+
+    }
+
+
+   else
+   
+   if (date > startDat) {
 
       const alert = await this.alertController.create({
         header: 'Warning!',

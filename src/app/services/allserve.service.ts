@@ -14,6 +14,7 @@ tournid;
 blocker =true;
 firsthalf =false;
 secondhalf =false;
+matchstatus ='';
   constructor() { }
 
 firstdoc ={};

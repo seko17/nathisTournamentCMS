@@ -90,7 +90,7 @@
             <div class="scores">
               <div class="homeScore" >
                 <p>{{item.TeamObject.teamName}} <br>
-                <sub *ngIf="activeTourn.state=='inprogress'"  (click)="matchAction('open', 'home')" style="background: white; color: black; padding: 3px 5px; border-radius: 3px 10px;"><i>Action</i></sub></p>
+                <sub *ngIf="activeTourn.state=='inprogress'"   (click)="radio()"  (click)="matchAction('open', 'home')" style="background: white; color: black; padding: 3px 5px; border-radius: 3px 10px;"><i>Action</i></sub></p>
 
               </div>
               <div class="points">
@@ -101,10 +101,11 @@
                 
                 </div>
                 <p>{{score}} : {{ascore}}</p>
+                <p>{{serve.matchstatus}}</p>
               </div>
               <div class="awayScore">
                 <p>{{item.aTeamObject.teamName}} <br>
-                  <sub *ngIf="activeTourn.state=='inprogress'" (click)="matchAction('open', 'away')" style="background: white; color: black; padding: 3px 5px; border-radius: 10px 3px;"><i>Action</i></sub></p>
+                  <sub *ngIf="activeTourn.state=='inprogress'" (click)="matchAction('open', 'away')"  (click)="radio()"  style="background: white; color: black; padding: 3px 5px; border-radius: 10px 3px;"><i>Action</i></sub></p>
               </div>
             </div>
             <div class="upComingData">
