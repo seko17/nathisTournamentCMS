@@ -814,12 +814,12 @@ else
     let startDat = new Date(formData.startDate);
     let endDate = new Date(formData.endDate);
     let applicDate = new Date(formData.applicationClosing)
-    console.log('today', date);
-    console.log('past date', startDat)
+    console.log('today', date.getDate());
+    console.log('past date', startDat.getDate())
 
 
 
-    if (startDat == applicDate) {
+    if (startDat.getDate() == applicDate.getDate()) {
       console.log('application date invalid');
       const alert = await this.alertController.create({
         header: 'Warning!',
@@ -831,7 +831,7 @@ else
       await alert.present();
     }
 else
-    if (endDate == startDat) {
+    if (endDate.getDate() == startDat.getDate()) {
       console.log('tournament end invalid');
       const alert = await this.alertController.create({
         header: 'Warning!',
