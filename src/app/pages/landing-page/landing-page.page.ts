@@ -521,7 +521,8 @@ else
             }, {
               text: 'Yes',
               handler: () => {
-                this.matchAction('close', 'away')
+                this.viewmatch('close', null, null)
+                // this.matchAction('close', 'away')
                 console.log('Confirm Okay');
 
                 // this.viewmatch('close', null,null);
@@ -640,7 +641,7 @@ else
 
               console.log(this.matchobject)
               firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
-                this.viewmatch('close', null, null)
+                
 
                 console.log(val.data())
                 let obj = val.data();
@@ -694,7 +695,7 @@ else
             handler: (data) => {
               console.log(data);
               firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res => {
-                this.viewmatch('close', null, null)
+                
                 console.log(res.data())
                 let obj = res.data();
                 obj.ascore = parseFloat(obj.ascore) + 1;

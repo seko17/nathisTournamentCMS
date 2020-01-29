@@ -619,19 +619,19 @@ if(this.partslength== parseFloat(this.tourney.doc.formInfo.type) && state =='ope
     message: 'Would you like to set match fixtures?',
     buttons: [
       {
-        text: 'Cancel',
-        role: 'cancel',
-        cssClass: 'secondary',
-        handler: (blah) => {
-          console.log('Confirm Cancel: blah');
-        }
-      }, {
         text: 'Okay',
         handler: () => {
           console.log('Confirm Okay');
           this.finnishSetup(null, 'close')
           this.promptFixtureConfig('open', this.cparticipants);
-
+        }
+      },
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+          console.log('Confirm Cancel: blah');
         }
       }
     ]

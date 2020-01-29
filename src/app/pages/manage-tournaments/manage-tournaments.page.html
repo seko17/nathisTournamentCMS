@@ -277,7 +277,7 @@
               </div>
               <div class="card" *ngFor="let item of acceptedSearchResults">
                 <div class="details">
-                  <h5 style="margin: 0;">{{item.TeamObject.coachName}}</h5>
+                  <h5 style="margin: 0;">{{item.TeamObject.teamName}}</h5>
                   <p style="margin: 0;">Coach <b>{{item.TeamObject.coachName}}</b></p>
                 </div>
                 <div class="stillToPayList">
@@ -313,15 +313,16 @@
 
         <!-- PAID APPLICATIONS -->
         <div class="participatingTeams">
+          <div class="complete" *ngIf="!blockfixture">
+            <ion-button shape="round" style="margin: auto;"   (click)="complete()">
+              Complete
+            </ion-button>
+          </div>
           <div class="head">
           <h1>Participating Teams <sub>Paid</sub><ion-badge mode="ios">{{cparticipants.length}}</ion-badge> </h1>
           </div>
           <div class="paidList" >
-            <div class="complete" *ngIf="!blockfixture">
-              <ion-button style="margin: auto;"   (click)="complete()">
-                Complete
-              </ion-button>
-            </div>
+            
             <div class="card" *ngIf="cparticipants.length==0" ><p style="margin: auto; text-align: center;">No Applications</p></div>
             <div class="card" *ngFor="let item of cparticipants" >
               <div class="details">
