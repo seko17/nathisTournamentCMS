@@ -488,7 +488,9 @@
                 <h5 style="margin: auto">No Tournaments</h5>
               
             </div>
-            <div class="card" *ngFor="let t of unapprovedTournaments">
+            <div class="card" *ngFor="let t of unapprovedTournaments" >
+              <ion-button (click)="deltourn(t)">DELETE</ion-button>
+              <ion-button  (click)="editourn(t)">EDTT</ion-button>
               <div class="tTitle">
                 <h5>{{t.doc.formInfo.tournamentName}}</h5>
               </div>

@@ -364,7 +364,7 @@ export class LandingPagePage implements OnInit {
     }
   }
 
-  viewdetails(x) {
+  async viewdetails(x) {
 
     // this.game2.firsthalf('stop');
 
@@ -378,6 +378,41 @@ export class LandingPagePage implements OnInit {
 
 
     if (x.state == 'finished') {
+
+      const alert = await this.alertController.create({
+        header: 'Confirm!',
+        message: 'Do you want to restore this tournament so that it can be played again?',
+        buttons: [
+          {
+            text: 'No',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: (blah) => {
+              console.log('Confirm Cancel: blah');
+            }
+          }, {
+            text: 'Yes',
+            handler: () => {
+              console.log('Confirm Okay');
+              firebase.firestore().collection('newTournaments').doc(this.activeTourn.docid).update({"state":'newTournament',"approved":true});
+            }
+          }
+        ]
+      });
+  
+      await alert.present();
+
+
+
+
+
+
+
+
+
+
+
+
       // finnished matches
       this.db.collection('PlayedMatches').where('tournid', '==', x.docid).orderBy("matchdate", "desc").get().then(res => {
 
