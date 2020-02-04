@@ -42,11 +42,12 @@
                 </div>
                 <div class="card" *ngFor="let item of approvedManagers" >
                    
-                    <div class="details">
+                    <div class="details" (click) ="block(item)">
                         <div>
                             <p id="name"><b>{{item.form.fullName}}</b></p>
                         <p class="dim">{{item.form.phoneNumber}}</p>
                         <p ><sup>{{item.form.email}}</sup></p>
+                  
                         </div>
                     </div>
                 </div>

@@ -8,6 +8,7 @@ import { LoadingController } from '@ionic/angular';
 import { Match2Service } from '../../services/match2.service';
 import { ModalController } from '@ionic/angular';
 import { Match2woPage } from '../match2wo/match2wo.page';
+import { ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.page.html',
@@ -72,11 +73,8 @@ export class LandingPagePage implements OnInit {
   mins: number = 0;
   secs: number = 0;
   sub: Subscription;
-  btntxt1 = "First half";
-  btntxt2 = "Second half";
-  btntxt3="Start"
-  btn1 = false;
-  btn2 = true;
+
+ 
   currentmatch = [];
   position = null;
   matchobject: any = {};
@@ -92,7 +90,7 @@ export class LandingPagePage implements OnInit {
   fixtureid;
 
 
-  btn3 = true;
+
 
   score;
   ascore;
@@ -111,7 +109,7 @@ export class LandingPagePage implements OnInit {
     winner: {}
   }
   activeTourn = {} as any
-  constructor(public modalController: ModalController, public game2: Match2Service, public loadingController: LoadingController, public allserve: AllserveService, public alertController: AlertController, public serve: AllserveService, public zone: NgZone, public renderer: Renderer2) {
+  constructor(public toastController: ToastController,public modalController: ModalController, public game2: Match2Service, public loadingController: LoadingController, public allserve: AllserveService, public alertController: AlertController, public serve: AllserveService, public zone: NgZone, public renderer: Renderer2) {
 
     let tourn = {
       docid: null,
@@ -133,6 +131,17 @@ export class LandingPagePage implements OnInit {
   }
 
   ngOnInit() { }
+btn1 
+btntxt
+btn2
+btntxt2
+btn3
+btntxt3
+btn4
+btntxt4
+
+
+
   async ionViewWillLeave() {
     const alert = await this.alertController.create({
       header: 'Alert',
@@ -145,36 +154,53 @@ export class LandingPagePage implements OnInit {
 
   }
   async viewmatch(state, item, a) {
-    this.serve.matchstatus = '';
-    this.cick =0;
- this.zone.run(()=>{
-  console.log('item = ', item);
-  if (item != null) {
-    this.position = a;
-    this.currentmatch = [];
-    this.currentmatch.push(item);
-    this.score = item.score;
-    this.ascore = item.ascore;
+    
 
-    this.mins = item.mins;
-    this.secs = item.secs;
-    this.score = item.score;
-    this.ascore = item.ascore;
-    if (item.mins > 0 && item.mins <= 46) {
-      this.btntxt1 = "start";
-      this.btn1 = false;
-      this.btn2 = true;
-      this.btn3 = true;
-    }
-    else if (item.mins > 45 && item.mins <= 90) {
-      this.btn1 = true;
-      this.btn2 = false;
-      this.btn3 = true;
-      this.btntxt2 = "start";
-    }
+ this.zone.run(()=>{
+  
+  if(item ==null)
+  {
+
+  }
+  else
+
+
+  if(item.half==undefined)
+  {
+
+this.ascore=item.ascore;
+this.score =item.score;
+
+    this.btn1 =false;
+    this.btn2=true;
+    this.btntxt ="";
+    this.serve.matchstatus ="First Half";
+  }
+  else if(item.half == "First Half")
+  {
+
+    this.ascore=item.ascore;
+    this.score =item.score;
+
+
+this.btn1 =false;
+this.btn2=true;
+this.serve.matchstatus ="Second Half";
+this.btntxt ="Second Half";
+  }
+  else if(item.half== "Second Half")
+  {
+
+    this.ascore=item.ascore;
+    this.score =item.score;
+    console.log('Someting')
+
+    this.serve.matchstatus ="Second Half";
+this.btntxt ="Second Half";
+this.btn1 =true;
+this.btn2=false;
   }
 
-  
 
   if (item == null) {
 
@@ -495,8 +521,7 @@ export class LandingPagePage implements OnInit {
   }
   async stop() {
 
-    this.btn2 = false;
-    this.btn3 = true;
+   
 
     const loading = await this.loadingController.create({
       spinner: 'bubbles',
@@ -505,7 +530,7 @@ export class LandingPagePage implements OnInit {
     await loading.present();
 
     loading.onDidDismiss().then(async val => {
-      if(this.serve.matchstatus != 'Second Half')
+      if(this.serve.matchstatus != "Second Half")
       {
         const alert = await this.alertController.create({
           subHeader:'The match can not be complete if it is not in the \'Second Half\'.',
@@ -525,7 +550,7 @@ export class LandingPagePage implements OnInit {
                 
 
 
-this.serve.matchstatus='Second Half';
+this.serve.matchstatus="Second Half";
 
 this.stop()
 
@@ -537,7 +562,7 @@ this.stop()
         await alert.present();
       }
 else
-      if (this.btn3 == true) {
+      if (this.btn2 == false) {
 
         const alert = await this.alertController.create({
           header: 'Confirm!',
@@ -556,11 +581,19 @@ else
             }, {
               text: 'Yes',
               handler: () => {
-                this.viewmatch('close', null, null)
+                
                 // this.matchAction('close', 'away')
                 console.log('Confirm Okay');
 
                 // this.viewmatch('close', null,null);
+
+               
+
+
+
+
+
+
 
                 firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ matchstate: 'complete' });
 
@@ -570,7 +603,7 @@ else
 
                   if (rez.data().score == rez.data().ascore) {
 
-
+                   
                     const alert = await this.alertController.create({
                       header: 'Alert!',
                       message: 'The match can not be finished without a winner.',
@@ -582,6 +615,12 @@ else
                   else
                     if (parseFloat(rez.data().type) / 2 == 0.5) {
                       console.log("TRUE", this.clicked[0].formInfo)
+                      this.viewmatch('close', null, null)
+                      firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
+                        firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({half:'Match Over' });
+                      
+                        
+                        })
 
                       this.db.collection('newTournaments').doc(this.clicked[0].docid).update({ state: 'finished' });
                       firebase.firestore().collection('newTournaments').doc(this.clicked[0].docid).update({ formInfo: { applicationClosing: this.clicked[0].formInfo.applicationClosing, tournamentName: this.clicked[0].formInfo.tournamentName, location: this.clicked[0].formInfo.location, joiningFee: this.clicked[0].formInfo.joiningFee, endDate: this.clicked[0].formInfo.endDate, startDate: this.clicked[0].formInfo.startDate, type: "0" } });
@@ -600,6 +639,12 @@ else
                       }
                       else if (rez.data().score > rez.data().ascore) {
                         console.log("HOMESCORE WON")
+                        this.viewmatch('close', null, null)
+                        firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
+                          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({half:'Match Over' });
+                        
+                          
+                          })
 
                         firebase.firestore().collection('PlayedMatches').add(rez.data());
 
@@ -613,7 +658,12 @@ else
                     else
                       if (rez.data().ascore > rez.data().score) {
                         console.log("AWAYSCORE WON")
-
+                        this.viewmatch('close', null, null)
+                        firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
+                          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({half:'Match Over' });
+                        
+                          
+                          })
                         firebase.firestore().collection('PlayedMatches').add(rez.data());
 
                         firebase.firestore().collection('participants').add({ tournid: this.clicked[0].docid, TeamObject: { ...rez.data().aTeamObject, ...{ type: (parseFloat(rez.data().type)).toString() } } });
@@ -623,7 +673,12 @@ else
                       }
                       else if (rez.data().score > rez.data().ascore) {
                         console.log("HOMESCORE WON")
-
+                        this.viewmatch('close', null, null)
+                        firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
+                          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({half:'Match Over' });
+                        
+                          
+                          })
                         firebase.firestore().collection('PlayedMatches').add(rez.data());
 
 
@@ -1118,70 +1173,87 @@ else
 cick =0;
   async radio()
   {
-console.log(this.allserve.matchstatus)
+console.log(this.serve.matchstatus)
 
 
 
-console.log(this.cick)
-
-this.cick =this.cick+1;
-if(this.serve.matchstatus == '' || this.cick%2 ==1)
+ if(this.serve.matchstatus == "First Half")
 {
+this.btn1 =false;
+this.btn2=true;
+
+
+firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
+  firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({half:this.serve.matchstatus });
 
   
-if(this.serve.matchstatus != 'Second Half')
-{
-const alert = await this.alertController.create({
-  header: 'Pick one division.',
-  backdropDismiss:false,
-  inputs: [
-    {
-      name: 'fh',
-      type: 'radio',
-      label: 'First Half',
-      value: 'First Half',
-      checked: true
-    },
-    {
-      name: 'sh',
-      type: 'radio',
-      label: 'Second Half',
-      value: 'Second Half'
-    }
-  ],
-  buttons: [
-    {
-      text: 'Cancel',
-      role: 'cancel',
-      cssClass: 'secondary',
-      handler: () => {
-        console.log('Confirm Cancel');
-      }
-    }, {
-      text: 'Ok',
-      handler: (data) => {
-        console.log('Confirm Ok',data);
+  })
 
-        firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
-        
-        
-          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({half:data });
-          this.serve.matchstatus =data;
-        
-        })
-
-
-
-        
-      }
-    }
-  ]
+const loading = await this.loadingController.create({
+  message: 'Updating match division...',
+  duration: 4000
 });
+await loading.present();
 
-await alert.present();
+const { role, data } = await loading.onDidDismiss();
+
+
+  
+
+
+
+console.log('Loading dismissed!');
+const toast = await this.toastController.create({
+  message: 'This match is now in the '+this.serve.matchstatus,
+  duration: 4000
+});
+toast.present();
+
+this.btn1 =false;
+this.btn2=true;
+this.btntxt ='First Half';
+this.serve.matchstatus ="Second Half";
+
+
 }
-  }
+else
+if(this.serve.matchstatus == "Second Half")
+{
+this.btn1 =false;
+this.btn2=true;
+this.btntxt ='Second Half';
+
+const loading = await this.loadingController.create({
+  message: 'Updating match division...',
+  duration: 4000
+});
+await loading.present();
+
+const { role, data } = await loading.onDidDismiss();
+
+console.log('Loading dismissed!');
+const toast = await this.toastController.create({
+  message: 'This match is now in the '+this.serve.matchstatus,
+  duration: 4000
+});
+toast.present();
+
+firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
+firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({half:this.serve.matchstatus });
+
+})
+this.btn1 =true;
+this.btn2=false;
+
 }
+
+
+
+
+
+}
+  
+
 
 
 
