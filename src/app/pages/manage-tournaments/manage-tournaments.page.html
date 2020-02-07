@@ -467,6 +467,9 @@
               <h5>No Tournaments</h5>
             </div>
             <div class="card " *ngFor="let t of approvedTournaments" (click)="showSideEvent(t)">
+            <ion-fab-button *ngIf="t.state=='trash'" id="tr" size="small" (click)="deltourn(t)" color="danger">
+                <ion-icon name="trash"></ion-icon>
+              </ion-fab-button>
               <div class="tTitle">
                 <h5>{{t.doc.formInfo.tournamentName}}</h5>
               </div>
@@ -497,8 +500,12 @@
               
             </div>
             <div class="card" *ngFor="let t of unapprovedTournaments" >
-              <ion-button (click)="deltourn(t)">DELETE</ion-button>
-              <ion-button  (click)="editourn(t)">EDTT</ion-button>
+              <ion-fab-button id="cr" size="small" (click)="editourn(t)" color="success">
+                <ion-icon name="create"></ion-icon>
+              </ion-fab-button>
+              <ion-fab-button id="tr" size="small" (click)="deltourn(t)" color="danger">
+                <ion-icon name="trash"></ion-icon>
+              </ion-fab-button>
               <div class="tTitle">
                 <h5>{{t.doc.formInfo.tournamentName}}</h5>
               </div>

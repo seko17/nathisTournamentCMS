@@ -950,19 +950,31 @@ else
       })
       loader.present()
       let date = new Date();
-if(this.edit == true && formData.currentdoc!=undefined)
-{
+if(this.edit == true && formData.currentdoc!=undefined) {
   this.edit=false;
   console.log("edit") 
-  firebase.firestore().collection('newTournaments').doc(formData.currentdoc).update({'formInfo':formData});
+  firebase.firestore().collection('newTournaments').doc(formData.currentdoc).update({'formInfo':formData}).then(async ()=>{
+    loader.dismiss()
+    let alerter = await this.alertCtrl.create({
+      header: 'Success',
+      subHeader: 'Tournament Updated',
+      buttons: [
+        {
+          text: 'Okay',
+          handler: () => {
+            this.newTournForm.reset()
+            this.tournamentObj.sponsors = []
+            this.toggleTournamentForm('close')
+          }
+        }
+      ]
+    })
+    alerter.present()
+  })
 }
-else
-if(formData.parentdoc!=undefined)
-{
+else if(formData.parentdoc!=undefined) {
  console.log('undefined')
  firebase.firestore().collection('newTournaments').doc(formData.parentdoc).update({'state':'finished'}); 
-
-
 
   this.tournamentObj = {
     formInfo: formData,
@@ -1016,11 +1028,6 @@ if(formData.parentdoc!=undefined)
     })
     alerter.present()
   })
-
-
-
-
-
 
 }
 else{
@@ -1552,11 +1559,12 @@ const alert = await this.alertController.create({
           location: [t.doc.formInfo.location, []],
           startDate: [t.doc.formInfo.startDate, Validators.required],
           endDate: [t.doc.formInfo.endDate, Validators.required],
-          joiningFee: [t.doc.joiningFee, [Validators.required, Validators.minLength(3)]],
+          joiningFee: [t.doc.formInfo.joiningFee, [Validators.required, Validators.minLength(3)]],
           applicationClosing: [t.doc.formInfo.applicationClosing, Validators.required],
+          bio: [t.doc.formInfo.bio, Validators.required],
           currentdoc:[t.docid]
         })
-
+        this.tournamentObj.sponsors = t.doc.sponsors
 
     
         this.toggleTournamentForm('open');
