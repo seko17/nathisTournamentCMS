@@ -345,6 +345,7 @@ blockfixture:boolean =true;
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       joiningFee: ['', [Validators.required, Validators.minLength(3)]],
+      bio: ['', [Validators.required]],
       applicationClosing: ['', Validators.required]
     })
     this.db.collection('newTournaments').onSnapshot(res => {
@@ -773,9 +774,14 @@ else
         const upload = this.storage.child(image.item(0).name).put(imagetosend);
         upload.on('state_changed', snapshot => {
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          this.progressOfImage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          
           console.log(progress);
-
+          if (progress <= 90) {
+            this.progressOfImage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            
+          }else {
+            this.progressOfImage = 90
+          }
         }, error => {
         }, () => {
           upload.snapshot.ref.getDownloadURL().then(downUrl => {
@@ -787,7 +793,9 @@ else
               image: downUrl,
               name: image.item(0).name
             }
-            // this.progressOfImage = 0
+            setTimeout(() => {
+              this.progressOfImage = 100
+            }, 1000);
             // console.log(downUrl)
             // this.tournamentObj.sponsors.push(newSponsor)
             // console.log(this.tournamentObj.sponsors);

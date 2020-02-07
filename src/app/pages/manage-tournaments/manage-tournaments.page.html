@@ -387,6 +387,11 @@
             <ion-input type="number" formControlName="joiningFee"></ion-input>
           </ion-item>
           <ion-item>
+            <!--  -->
+  <ion-label position="floating">Description</ion-label>
+  <ion-textarea maxlength="150" formControlName="bio"  autoGrow="true" spellcheck="true"></ion-textarea>
+</ion-item>
+          <ion-item>
             <ion-label position="floating">Application Closing Date</ion-label>
             <ion-datetime displayFormat="DD MMMM YYYY" min="{{tournToday}}" formControlName="applicationClosing"></ion-datetime>
           </ion-item>
@@ -419,7 +424,10 @@
             <ion-label>Sponsor Name</ion-label>
             <ion-input [(ngModel)]="sponsorName"> </ion-input>
           </ion-item>
-          <ion-button shape="round" size="small" (click)="saveSponsor()" [disabled]="!sponsorUploaded">
+          <ion-button shape="round" size="small" disabled="true" *ngIf="!sponsorUploaded||!sponsorName">
+            Add Sponsor
+          </ion-button>
+          <ion-button shape="round" size="small" (click)="saveSponsor()" *ngIf="sponsorUploaded&&sponsorName">
             Add Sponsor
           </ion-button>
         </div>
