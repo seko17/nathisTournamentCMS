@@ -1382,7 +1382,7 @@ await alert.present();
         });
         toast.present();
         toast.onDidDismiss().then(val => {
-
+          
         })
       }
     }
@@ -1450,10 +1450,15 @@ await alert.present();
         console.log(this.fixtures)
         const toast = await this.toastController.create({
           message: 'Fixture created successfully.',
-          duration: 2000
+          duration: 5000
         });
         toast.present();
-        this.deldocs();
+
+        toast.onDidDismiss().then(val=>{
+          this.makechanges = true;
+          this.deldocs();
+        })
+        
       }
     }
   }
@@ -1524,6 +1529,7 @@ await alert.present();
 
     this.fixture = this.fixtures;
     this.fixtures = [];
+    this.makechanges=true;
   }
 
   test() {
