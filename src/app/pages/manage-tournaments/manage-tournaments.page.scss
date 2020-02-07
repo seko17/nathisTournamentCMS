@@ -404,7 +404,7 @@
       border-right: solid 1px white;
       .header {
         ion-label {
-          font-size: 1.8em;
+          // font-size: 1.8em;
         }
       }
       padding-bottom: 82px;
@@ -658,7 +658,18 @@
             box-shadow: 0px 3px 3px #17171717;
             display: flex;
             overflow: hidden;
-
+            #cr {
+              position: absolute;
+              top: 0px;
+              right: 0px;
+              z-index: 10;
+            }
+            #tr {
+              position: absolute;
+              top: 0px;
+              left: 0px;
+              z-index: 10;
+            }
             .tTitle {
               border-radius: 10px;
               text-align: center;

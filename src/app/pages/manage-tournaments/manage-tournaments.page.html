@@ -387,6 +387,11 @@
             <ion-input type="number" formControlName="joiningFee"></ion-input>
           </ion-item>
           <ion-item>
+            <!--  -->
+  <ion-label position="floating">Description</ion-label>
+  <ion-textarea maxlength="150" formControlName="bio"  autoGrow="true" spellcheck="true"></ion-textarea>
+</ion-item>
+          <ion-item>
             <ion-label position="floating">Application Closing Date</ion-label>
             <ion-datetime displayFormat="DD MMMM YYYY" min="{{tournToday}}" formControlName="applicationClosing"></ion-datetime>
           </ion-item>
@@ -419,7 +424,10 @@
             <ion-label>Sponsor Name</ion-label>
             <ion-input [(ngModel)]="sponsorName"> </ion-input>
           </ion-item>
-          <ion-button shape="round" size="small" (click)="saveSponsor()" [disabled]="!sponsorUploaded">
+          <ion-button shape="round" size="small" disabled="true" *ngIf="!sponsorUploaded||!sponsorName">
+            Add Sponsor
+          </ion-button>
+          <ion-button shape="round" size="small" (click)="saveSponsor()" *ngIf="sponsorUploaded&&sponsorName">
             Add Sponsor
           </ion-button>
         </div>
@@ -459,6 +467,9 @@
               <h5>No Tournaments</h5>
             </div>
             <div class="card " *ngFor="let t of approvedTournaments" (click)="showSideEvent(t)">
+            <ion-fab-button *ngIf="t.state=='trash'" id="tr" size="small" (click)="deltourn(t)" color="danger">
+                <ion-icon name="trash"></ion-icon>
+              </ion-fab-button>
               <div class="tTitle">
                 <h5>{{t.doc.formInfo.tournamentName}}</h5>
               </div>
@@ -489,8 +500,12 @@
               
             </div>
             <div class="card" *ngFor="let t of unapprovedTournaments" >
-              <ion-button (click)="deltourn(t)">DELETE</ion-button>
-              <ion-button  (click)="editourn(t)">EDTT</ion-button>
+              <ion-fab-button id="cr" size="small" (click)="editourn(t)" color="success">
+                <ion-icon name="create"></ion-icon>
+              </ion-fab-button>
+              <ion-fab-button id="tr" size="small" (click)="deltourn(t)" color="danger">
+                <ion-icon name="trash"></ion-icon>
+              </ion-fab-button>
               <div class="tTitle">
                 <h5>{{t.doc.formInfo.tournamentName}}</h5>
               </div>
