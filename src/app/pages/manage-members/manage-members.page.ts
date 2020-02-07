@@ -139,7 +139,7 @@ getApprovedMembers(){
     res.forEach(doc =>{
       // console.log('data', doc.data().form.role);
       if(doc.data().form.role =='teamManager'){
-        this.approvedManagers.push(doc.data())
+        this.approvedManagers.push({...{docid:doc.id},...doc.data()})
         console.log('approvedManagers', this.approvedManagers);
       }else if (doc.data().form.role =='vendor'){
         this.approvedVendor.push(doc.data())
@@ -155,4 +155,54 @@ save(){
   this.db.collection('test').doc().set({obj});
   
 }
+
+
+async block(item)
+{
+ console.log(item) 
+
+
+
+const alert = await this.alertController.create({
+  header:'Block or Unblock ?',
+  subHeader: item.form.fullName,
+  inputs: [
+    {
+      name: 'radio1',
+      type: 'radio',
+      label: 'Unblock',
+      value: 'Unblock',
+      checked: true
+    },
+    {
+      name: 'radio2',
+      type: 'radio',
+      label: 'Block',
+      value: 'Block'
+    }
+  ],
+  buttons: [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      cssClass: 'secondary',
+      handler: () => {
+        console.log('Confirm Cancel');
+      }
+    }, {
+      text: 'Ok',
+      handler: (data) => {
+        console.log(data);
+        firebase.firestore().collection('members').doc(item.docid).update({status:data});
+      }
+    }
+  ]
+});
+
+await alert.present();
+
+
+}
+
+
 }

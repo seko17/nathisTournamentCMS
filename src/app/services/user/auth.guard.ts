@@ -3,12 +3,13 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivate, Rout
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
+import { NavController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private navc: NavController) {}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -18,10 +19,13 @@ export class AuthGuard implements CanActivate {
         if (user) {
           // resolve(true);
           console.log('User is logged in');
-          this.router.navigate(['/home']);
+          // this.router.navigate(['/home']);
+          this.navc.navigateRoot('home')
+          return true;
         } else {
           console.log('User is not logged in');
-          this.router.navigate(['/login']);
+          this.navc.navigateRoot('login')
+          // this.router.navigate(['/login']);
           resolve(false);
         }
       });

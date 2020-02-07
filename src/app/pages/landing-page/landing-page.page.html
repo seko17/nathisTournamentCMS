@@ -90,21 +90,27 @@
             <div class="scores">
               <div class="homeScore" >
                 <p>{{item.TeamObject.teamName}} <br>
-                <sub *ngIf="activeTourn.state=='inprogress'"  (click)="matchAction('open', 'home')" style="background: white; color: black; padding: 3px 5px; border-radius: 3px 10px;"><i>Action</i></sub></p>
+                <sub *ngIf="activeTourn.state=='inprogress'"   (click)="matchAction('open', 'home')" style="background: white; color: black; padding: 3px 5px; border-radius: 3px 10px;"><i>Action</i></sub></p>
 
               </div>
               <div class="points">
                 <div class="butns" *ngIf="activeTourn.state=='inprogress'" >
-                  <ion-button size="small" shape="round" (click)="stop()" >
-                Finished
+
+                  <ion-button size="small" shape="round" (click)="radio()" [hidden] ='btn1'>
+                    {{serve.matchstatus}}
+                    </ion-button>
+
+                  <ion-button size="small" shape="round" (click)="stop()" [hidden] ='btn2'>
+                Finish
                 </ion-button>
                 
                 </div>
                 <p>{{score}} : {{ascore}}</p>
+                <p>{{btntxt}}</p>
               </div>
               <div class="awayScore">
                 <p>{{item.aTeamObject.teamName}} <br>
-                  <sub *ngIf="activeTourn.state=='inprogress'" (click)="matchAction('open', 'away')" style="background: white; color: black; padding: 3px 5px; border-radius: 10px 3px;"><i>Action</i></sub></p>
+                  <sub *ngIf="activeTourn.state=='inprogress'" (click)="matchAction('open', 'away')"   style="background: white; color: black; padding: 3px 5px; border-radius: 10px 3px;"><i>Action</i></sub></p>
               </div>
             </div>
             <div class="upComingData">

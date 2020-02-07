@@ -605,9 +605,60 @@ partslength =0;
     }
 
 
+    if(parseFloat(this.tourney.doc.formInfo.type)==0 && tournament != null)
+{
+
+  this.blockfixture=true;
+
+  const alert = await this.alertController.create({
+    header: 'Confirm!',
+    message: 'This tournament looks outdated. Would you like to edit its details?',
+    backdropDismiss:false,
+    buttons: [
+      {
+        text: 'No',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+          console.log('Confirm Cancel: blah');
+          this.blockfixture=true;
+        }
+      }, {
+        text: 'Yes',
+        handler: () => {
+          console.log('Confirm Okay');
+
+console.log(tournament)
+
+          this.finnishSetup(null, 'close')
+         this.toggleTournamentForm('open');
+
+
+         this.newTournForm = this.formBuilder.group({
+          tournamentName: [tournament.doc.formInfo.tournamentName, [Validators.required, Validators.minLength((4))]],
+          type: [tournament.doc.formInfo.type, Validators.required],
+          location: [tournament.doc.formInfo.location, []],
+          startDate: [tournament.doc.formInfo.startDate, Validators.required],
+          endDate: [tournament.doc.formInfo.endDate, Validators.required],
+          joiningFee: [tournament.doc.joiningFee, [Validators.required, Validators.minLength(3)]],
+          applicationClosing: [tournament.doc.formInfo.applicationClosing, Validators.required],
+          parentdoc:[tournament.docid]
+        })
 
 
 
+
+
+
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
+
+else
 
 if(this.partslength== parseFloat(this.tourney.doc.formInfo.type) && state =='open')
 {
@@ -656,6 +707,7 @@ else
     this.promptFixtureConfig('open', this.cparticipants);
   }
   toggleTournamentForm(state) {
+    
     switch (state) {
       case 'open':
         this.renderer.setStyle(this.newTournFormCont[0], 'display', 'flex')
@@ -665,6 +717,7 @@ else
         break;
       case 'close':
         this.creatingTournament = false;
+        this.newTournForm.reset();
         setTimeout(() => {
           this.renderer.setStyle(this.newTournFormCont[0], 'display', 'none')
         }, 500);
@@ -822,12 +875,40 @@ else
     let startDat = new Date(formData.startDate);
     let endDate = new Date(formData.endDate);
     let applicDate = new Date(formData.applicationClosing)
-    console.log('today', date);
-    console.log('past date', startDat)
+    console.log('today', date.getDate());
+    console.log('past date', startDat.getDate())
+
+console.log(formData.parentdoc)
+
+    if (startDat.getDate() == applicDate.getDate()) {
+      console.log('application date invalid');
+      const alert = await this.alertController.create({
+        header: 'Warning!',
+        subHeader: 'Invalid start date',
+        message: 'The start date can not be equal to the closing date',
+        buttons: ['OK']
+      });
+
+      await alert.present();
+    }
+else
+    if (endDate.getDate() == startDat.getDate()) {
+      console.log('tournament end invalid');
+      const alert = await this.alertController.create({
+        header: 'Warning!',
+        subHeader: 'Invalid Tournament Date',
+        message: 'The start date and the end date can not be the same',
+        buttons: ['OK']
+      });
+
+      await alert.present();
+
+    }
 
 
-
-    if (date > startDat) {
+   else
+   
+   if (date > startDat) {
 
       const alert = await this.alertController.create({
         header: 'Warning!',
@@ -869,6 +950,80 @@ else
       })
       loader.present()
       let date = new Date();
+if(this.edit == true && formData.currentdoc!=undefined)
+{
+  this.edit=false;
+  console.log("edit") 
+  firebase.firestore().collection('newTournaments').doc(formData.currentdoc).update({'formInfo':formData});
+}
+else
+if(formData.parentdoc!=undefined)
+{
+ console.log('undefined')
+ firebase.firestore().collection('newTournaments').doc(formData.parentdoc).update({'state':'finished'}); 
+
+
+
+  this.tournamentObj = {
+    formInfo: formData,
+    approved: false,
+    notifyUser: 'yes',
+    approvedVendors: this.tournamentObj.approvedVendors,
+    dateCreated: date.toDateString(),
+    sponsors: this.tournamentObj.sponsors,
+    state: 'newTournament',
+    AcceptedApplications: 0,
+    ApprovedApplications: 0,
+    ApprovedVendorApplications: 0,
+    DeclinedVendorApplications: 0,
+    AcceptedVendorApplications: 0,
+    DeclinedApplications: 0,
+    totalApplications: 0,
+    vendorTotalApplications: 0,
+  }
+  this.db.collection('newTournaments').add(this.tournamentObj).then(async res => {
+    loader.dismiss()
+    let alerter = await this.alertCtrl.create({
+      header: 'Success',
+      subHeader: 'Tournament Created',
+      message: 'Please wait for it\'s approval from the Admin. It will be submitted immediately after the approval.',
+      buttons: [
+        {
+          text: 'Okay',
+          handler: () => {
+            this.newTournForm.reset()
+            this.tournamentObj.sponsors = []
+            this.toggleTournamentForm('close')
+          }
+        }
+      ]
+    })
+    alerter.present()
+  }).catch(async err => {
+    let alerter = await this.alertCtrl.create({
+      header: 'Oops!',
+      subHeader: 'Something went wrong.',
+      message: 'It might be the server but please check if your network is connected.',
+      buttons: [
+        {
+          text: 'Okay',
+          handler: () => {
+            this.newTournForm.reset()
+            this.toggleTournamentForm('close')
+          }
+        }
+      ]
+    })
+    alerter.present()
+  })
+
+
+
+
+
+
+}
+else{
 
       this.tournamentObj = {
         formInfo: formData,
@@ -923,6 +1078,7 @@ else
         alerter.present()
       })
     }
+    }
   }
   getApprovedTournaments() {
     let tourn = {
@@ -971,10 +1127,28 @@ else
       this.serve.tournaments = this.approvedTournaments;
     })
   }
-  getUnapprovedTournaments() {
-    this.db.collection('newTournaments').where('approved', '==', false).onSnapshot(res => {
+ async getUnapprovedTournaments() {
+    this.db.collection('newTournaments').where('approved', '==', false).where('state', '==', 'newTournament').onSnapshot( async res => {
       this.unapprovedTournaments = []
-      res.forEach(doc => {
+      res.forEach(async doc => {
+
+console.log(new Date(doc.data().formInfo.startDate)< new Date())
+
+
+if(new Date(doc.data().formInfo.startDate)< new Date())
+{
+ firebase.firestore().collection('newTournaments').doc(doc.id).update({state:'trash'}) 
+ const alert = await this.alertController.create({
+  header: 'Alert',
+  message: 'There is a tournament that has elapsed and was ont approved. Open the trashed tournaments to view it.',
+  buttons: ['Cancel', 'Open Modal', 'Delete']
+});
+
+await alert.present();
+}
+
+
+
         let tourn = {
           docid: doc.id,
           doc: doc.data()
@@ -1349,6 +1523,54 @@ else
     console.log(this.refnum)
   }
 
+edit =false;
+  async editourn(t)
+  {
+console.log(t)
+
+this.edit=false;
+const alert = await this.alertController.create({
+  header: 'Confirm!',
+  message: 'Do you want to edit the details of this tournament?',
+  buttons: [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      cssClass: 'secondary',
+      handler: (blah) => {
+        console.log('Confirm Cancel: blah');
+      }
+    }, {
+      text: 'Okay',
+      handler: () => {
+        console.log('Confirm Okay');
+        this.edit=true;
+
+        this.newTournForm = this.formBuilder.group({
+          tournamentName: [t.doc.formInfo.tournamentName, [Validators.required, Validators.minLength((4))]],
+          type: [t.doc.formInfo.type, Validators.required],
+          location: [t.doc.formInfo.location, []],
+          startDate: [t.doc.formInfo.startDate, Validators.required],
+          endDate: [t.doc.formInfo.endDate, Validators.required],
+          joiningFee: [t.doc.joiningFee, [Validators.required, Validators.minLength(3)]],
+          applicationClosing: [t.doc.formInfo.applicationClosing, Validators.required],
+          currentdoc:[t.docid]
+        })
+
+
+    
+        this.toggleTournamentForm('open');
+      }
+    }
+  ]
+});
+
+await alert.present();
+
+  }
+
+
+
   async presentModal() {
 
     this.fixture = [];
@@ -1373,6 +1595,40 @@ else
     return await this.modal.present();
 
   }
+
+  async deltourn(t)
+  {
+console.log(t)
+
+
+
+const alert = await this.alertController.create({
+  header: 'Confirm!',
+  message: 'Do you want to delete '+t.doc.formInfo.tournamentName+'?',
+  buttons: [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      cssClass: 'secondary',
+      handler: (blah) => {
+        console.log('Confirm Cancel: blah');
+      }
+    }, {
+      text: 'Okay',
+      handler: () => {
+        console.log('Confirm Okay');
+
+        firebase.firestore().collection('newTournaments').doc(t.docid).delete();
+      }
+    }
+  ]
+});
+
+await alert.present();
+  }
+
+
+
   async moredetails(t) {
 
 
@@ -1426,6 +1682,10 @@ else
     }
   }
 }
+
+
+
+
 
 export interface TOURN {
   doc: {

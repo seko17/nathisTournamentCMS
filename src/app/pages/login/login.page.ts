@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { UserCredential } from 'src/app/model/user';
 import { NavController, AlertController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {Location} from '@angular/common'
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -26,7 +27,13 @@ export class LoginPage implements OnInit {
   profileState = false
   setUpProfileDiv = document.getElementsByClassName('setUpProfile')
   creatingProfile = false
-  constructor(private authService: AuthService, public renderer: Renderer2, private router: Router, public navCtrl: NavController, public formBuilder: FormBuilder, public alertCtrl: AlertController) { }
+  constructor(private authService: AuthService,
+     public renderer: Renderer2, 
+     private router: Router, 
+     public navCtrl: NavController, 
+     public formBuilder: FormBuilder, 
+     public alertCtrl: AlertController,
+     public location : Location) { }
 
   ngOnInit() {
     this.profileForm = this.formBuilder.group({
@@ -109,6 +116,7 @@ export class LoginPage implements OnInit {
         console.log('login res', res);
         
         if (res.exists) {
+          this.location.back()
           this.navCtrl.navigateRoot('home')
           console.log('exists');
           await this.loginForm.hideLoading();
