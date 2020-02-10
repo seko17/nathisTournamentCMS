@@ -420,7 +420,7 @@ this.btn2=false;
             text: 'Yes',
             handler: () => {
               console.log('Confirm Okay');
-              firebase.firestore().collection('newTournaments').doc(this.activeTourn.docid).update({"state":'newTournament',"approved":true,'message':'Previously Played'});
+              firebase.firestore().collection('newTournaments').doc(this.activeTourn.docid).update({"state":'newTournament',"approved":true,'message':'Previously Played!'});
             }
           }
         ]
