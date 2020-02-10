@@ -205,7 +205,7 @@ blockfixture:boolean =true;
   storage = firebase.storage().ref()
   // form for new tournament
   newTournForm: FormGroup;
-  tournamentObj = {
+  tournamentObj:any = {
     formInfo: null,
     approved: false,
     approvedVendors: [],
@@ -220,7 +220,8 @@ blockfixture:boolean =true;
     DeclinedApplications: 0,
     totalApplications: 0,
     vendorTotalApplications: 0,
-    notifyUser: 'yes'
+    notifyUser: 'yes',
+    parent:'yes'
   };
   tempCardGen = []
   acceptedVendor = []
@@ -861,16 +862,6 @@ else
     }
   }
 
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'Alert',
-      subHeader: 'Subtitle',
-      message: 'This is an alert message.',
-      buttons: ['OK']
-    });
-
-    await alert.present();
-  }
   async newTournament(formData) {
     let today = new Date();
     let date = new Date(today.toDateString());
@@ -994,6 +985,7 @@ else if(formData.parentdoc!=undefined) {
     DeclinedApplications: 0,
     totalApplications: 0,
     vendorTotalApplications: 0,
+    parent:'no'
   }
   this.db.collection('newTournaments').add(this.tournamentObj).then(async res => {
     loader.dismiss()
