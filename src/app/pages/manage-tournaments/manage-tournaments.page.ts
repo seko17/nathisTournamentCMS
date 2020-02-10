@@ -638,9 +638,10 @@ console.log(tournament)
           tournamentName: [tournament.doc.formInfo.tournamentName, [Validators.required, Validators.minLength((4))]],
           type: [tournament.doc.formInfo.type, Validators.required],
           location: [tournament.doc.formInfo.location, []],
+          bio: [tournament.doc.formInfo.bio, []],
           startDate: [tournament.doc.formInfo.startDate, Validators.required],
           endDate: [tournament.doc.formInfo.endDate, Validators.required],
-          joiningFee: [tournament.doc.joiningFee, [Validators.required, Validators.minLength(3)]],
+          joiningFee: [tournament.doc.formInfo.joiningFee, [Validators.required, Validators.minLength(3)]],
           applicationClosing: [tournament.doc.formInfo.applicationClosing, Validators.required],
           parentdoc:[tournament.docid]
         })
