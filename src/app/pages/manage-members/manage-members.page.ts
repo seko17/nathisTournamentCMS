@@ -170,8 +170,8 @@ const alert = await this.alertController.create({
     {
       name: 'radio1',
       type: 'radio',
-      label: 'Unblocked',
-      value: 'Unblock',
+      label: 'Unblock',
+      value: 'Unblocked',
       checked: true
     },
     {
