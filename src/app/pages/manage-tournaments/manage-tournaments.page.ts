@@ -345,7 +345,7 @@ blockfixture:boolean =true;
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       joiningFee: ['', [Validators.required, Validators.minLength(3)]],
-      bio: ['', [Validators.required]],
+      bio: ['', [Validators.required, Validators.minLength(10)]],
       applicationClosing: ['', Validators.required]
     })
     this.db.collection('newTournaments').onSnapshot(res => {
@@ -1363,9 +1363,14 @@ await alert.present();
       if (z.matchdate == undefined || z.matchdate == 'Invalid Date') {
         const toast = await this.toastController.create({
           message: 'Enter the time and date for all the matches.',
-          duration: 2000
+          duration: 3000
         });
         toast.present();
+
+        toast.onDidDismiss().then(res=>{
+          this.fixtures = [];
+        this.fixture = q1;
+        })
 
         return this.makechanges = true;
       }
