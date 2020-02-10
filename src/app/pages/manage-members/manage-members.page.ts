@@ -171,14 +171,14 @@ const alert = await this.alertController.create({
       name: 'radio1',
       type: 'radio',
       label: 'Unblock',
-      value: 'Unblock',
+      value: 'Unblocked',
       checked: true
     },
     {
       name: 'radio2',
       type: 'radio',
       label: 'Block',
-      value: 'Block'
+      value: 'Blocked'
     }
   ],
   buttons: [
@@ -193,7 +193,7 @@ const alert = await this.alertController.create({
       text: 'Ok',
       handler: (data) => {
         console.log(data);
-        firebase.firestore().collection('members').doc(item.docid).update({status:data});
+        firebase.firestore().collection('members').doc(item.docid).update({status2:data});
       }
     }
   ]

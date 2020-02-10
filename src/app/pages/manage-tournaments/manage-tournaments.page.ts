@@ -638,9 +638,10 @@ console.log(tournament)
           tournamentName: [tournament.doc.formInfo.tournamentName, [Validators.required, Validators.minLength((4))]],
           type: [tournament.doc.formInfo.type, Validators.required],
           location: [tournament.doc.formInfo.location, []],
+          bio: [tournament.doc.formInfo.bio, []],
           startDate: [tournament.doc.formInfo.startDate, Validators.required],
           endDate: [tournament.doc.formInfo.endDate, Validators.required],
-          joiningFee: [tournament.doc.joiningFee, [Validators.required, Validators.minLength(3)]],
+          joiningFee: [tournament.doc.formInfo.joiningFee, [Validators.required, Validators.minLength(3)]],
           applicationClosing: [tournament.doc.formInfo.applicationClosing, Validators.required],
           parentdoc:[tournament.docid]
         })
@@ -1382,7 +1383,7 @@ await alert.present();
         });
         toast.present();
         toast.onDidDismiss().then(val => {
-
+          
         })
       }
     }
@@ -1450,10 +1451,15 @@ await alert.present();
         console.log(this.fixtures)
         const toast = await this.toastController.create({
           message: 'Fixture created successfully.',
-          duration: 2000
+          duration: 5000
         });
         toast.present();
-        this.deldocs();
+
+        toast.onDidDismiss().then(val=>{
+          this.makechanges = true;
+          this.deldocs();
+        })
+        
       }
     }
   }
@@ -1524,6 +1530,7 @@ await alert.present();
 
     this.fixture = this.fixtures;
     this.fixtures = [];
+    this.makechanges=true;
   }
 
   test() {
