@@ -423,9 +423,15 @@ this.btn2=false;
             }
           }, {
             text: 'Yes',
-            handler: () => {
+            handler:async () => {
               console.log('Confirm Okay');
               firebase.firestore().collection('newTournaments').doc(this.activeTourn.docid).update({"state":'newTournament',"approved":true,'message':'Previously Played!'});
+              const toast = await this.toastController.create({
+                message: 'Tournament restored succesfully.',
+                duration: 4000
+              });
+              toast.present();
+           
             }
           }
         ]
