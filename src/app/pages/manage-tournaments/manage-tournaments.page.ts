@@ -622,6 +622,7 @@ partslength =0;
         handler: (blah) => {
           console.log('Confirm Cancel: blah');
           this.blockfixture=true;
+          this.finnishSetup(null,'close')
         }
       }, {
         text: 'Yes',
