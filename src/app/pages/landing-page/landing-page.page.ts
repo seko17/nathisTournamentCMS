@@ -110,6 +110,7 @@ export class LandingPagePage implements OnInit {
   }
   activeTourn = {} as any
   selectedTorun = null
+  timeLineIndx = null
   constructor(public toastController: ToastController,public modalController: ModalController, public game2: Match2Service, public loadingController: LoadingController, public allserve: AllserveService, public alertController: AlertController, public serve: AllserveService, public zone: NgZone, public renderer: Renderer2) {
 
     let tourn = {
@@ -397,8 +398,86 @@ this.btn2=false;
   }
 
 
- 
+  viewchildren(x, ind) {
+    this.selectedTorun = ind
+
+    // this.clicked = [];
+    // this.fixture = [];
+    if (this.timeLineIndx==ind) {
+      this.timeLineIndx = null
+    } else {
+      this.timeLineIndx = ind
+    }
+    this.activeTourn = x
+    // console.log(this.activeTourn.docid)
+    // this.clicked.push(x);
+    // console.log('line 404', this.activeTourn)
+    // console.log(parseFloat(this.clicked[0].formInfo.type))
+this.childrenarray =[]
+    firebase.firestore().collection('newTournaments').where('formInfo.tournamentName','==',this.activeTourn.formInfo.tournamentName).where('parent','==','no').get().then(res=>{
+      res.forEach(val=>{
+        this.childrenarray.push({...{docid:val.id},...val.data()})
+        console.log("Weee = ", this.childrenarray)
+      })
+    }) 
+  }
+  childreDetails(det, ind) {
+    this.clicked = []
+    this.selectedTorun = ind
+    this.activeTourn = det
+    console.log(this.activeTourn);
+    this.clicked.push(det);
+    if (det.state == 'finished') {
+      // finnished matches
+      this.db.collection('PlayedMatches').where('tournid', '==', det.docid).orderBy("matchdate", "desc").get().then(res => {
+
+        this.match = {
+          type1: [],// 1
+          type2: [],// 2
+          type4: [], // 8
+          type8: [], // 16
+          type16: [], // 32
+          winner: {}
+        }
+        res.forEach(doc => {
+          // CHECK WICH MATCH TYPE IS WHICH AND PUSH IT INTO THE RESPECTIVE ARRAY
+          if (doc.data().type == '16') {
+            this.match.type16.push({ ...{ fixtureid: doc.id }, ...doc.data() })
+          } else if (doc.data().type == '8') {
+            this.match.type8.push({ ...{ fixtureid: doc.id }, ...doc.data() })
+          } else if (doc.data().type == '4') {
+            this.match.type4.push({ ...{ fixtureid: doc.id }, ...doc.data() })
+          } else if (doc.data().type == '2') {
+            this.match.type2.push({ ...{ fixtureid: doc.id }, ...doc.data() })
+          } else if (doc.data().type == '1') {
+            this.match.type1.push({ ...{ fixtureid: doc.id }, ...doc.data() })
+            if (doc.data().score >= 1) {
+              this.match.winner = doc.data().TeamObject
+            } else {
+              this.match.winner = doc.data().aTeamObject
+            }
+          }
+        })
+        this.checkMatches()
+        console.log(this.match);
+
+      }).catch(err => { console.log(err); })
+    } else {
+      // these are upcoming ur inplay matches
+      this.db.collection('MatchFixtures').where('tournid', '==', det.docid).onSnapshot(val => {
+        this.fixture = [];
+        val.forEach(res => {
+          this.fixtureid = res.id;
+          this.fixture.push({ ...{ fixtureid: res.id }, ...res.data() });
+          console.log("Fixture Id = ", this.fixtureid)
+
+
+        })
+      })
+    }
+  }
   async viewdetails(x, ind) {
+    this.timeLineIndx = null
     this.selectedTorun = ind
 
 
@@ -449,17 +528,6 @@ this.childrenarray =[]
       });
   
       await alert.present();
-
-
-
-
-
-
-
-
-
-
-
 
       // finnished matches
       this.db.collection('PlayedMatches').where('tournid', '==', x.docid).orderBy("matchdate", "desc").get().then(res => {
@@ -1106,6 +1174,7 @@ else
     this.selectedTorun = null
     this.clicked = [];
     this.fixture = [];
+    this.timeLineIndx = null
     console.log(clickedbutton)
     switch (clickedbutton) {
       // gets all approved tournaments tournaments

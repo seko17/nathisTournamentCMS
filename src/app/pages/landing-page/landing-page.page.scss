@@ -93,7 +93,7 @@ button[ion-fab] {
         display: flex;
         justify-items: center;
         justify-content: space-between;
-
+        height: 27%;
         .homeImage,
         .awayImage,
         .image {
@@ -104,11 +104,15 @@ button[ion-fab] {
           position: relative;
 
           // overflow: hidden;
-          img {
+          div {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            border-radius: 200px;
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              border-radius: 200px;
+            }
           }
         }
 
@@ -158,7 +162,7 @@ button[ion-fab] {
             justify-content: center;
 
             .points {
-              width: 35%;
+              flex-basis: 10%;
               position: relative;
               padding: 24px 1px 1px 1px;
 
@@ -181,10 +185,12 @@ button[ion-fab] {
             .awayScore {
               padding: 6px;
               display: flex;
-              align-items: baseline;
-
+              align-items: center;
+              flex-basis: 90%;
+              text-align: center;
               p {
-                margin-top: 10px;
+                margin: 10px auto 0px auto;
+                text-align: center;
                 padding: 0;
               }
 
@@ -230,7 +236,7 @@ button[ion-fab] {
         bottom: 0;
         right: 0;
         left: 0;
-        top: 247px;
+        top: 39%;
         display: flex;
 
         .dummydiv {
@@ -315,7 +321,10 @@ button[ion-fab] {
               }
             }
           }
-
+          .home {
+            border-left: dashed 1px #0000004d;
+            
+          }
           .summary {
             background: white;
             width: 100%;
@@ -323,35 +332,41 @@ button[ion-fab] {
 
             .stats {
               display: flex;
-
+              height: 50%;
               // justify-content: center;
               .labels {
                 width: 80%;
                 text-align: center;
+                p {
+                  margin: 2% 0px;
+                }
               }
 
               .homeSummary,
               .awaySummary {
                 width: 10%;
                 text-align: center;
+                p {
+                  margin: 2% 0px;
+                }
               }
             }
 
             .playerCards {
               width: 100%;
-              height: 100%;
+              height: 50%;
               display: flex;
               border-top: solid 1px rgb(223, 223, 223);
 
               .homePlayerCards,
               .awayPlayerCards {
                 width: 50%;
-                height: 27%;
+                height: 100%;
                 border-left: solid 1px rgb(223, 223, 223);
                 display: flex;
                 flex-wrap: wrap;
                 overflow-y: auto;
-
+                align-content: space-evenly;
                 .card {
                   margin: 5px auto;
                   border-radius: 10px;
@@ -639,22 +654,25 @@ button[ion-fab] {
           margin: 0;
         }
         .viewTimeline {
-          position: absolute; top: 100%;
-          left: 0;
+          position: absolute; top: 105%;
+          left: 20%;
           right: 0;
-          height: 200px;
-          background: #efeeee;
+          height: 0;
+          background: #f9f9f9;
           border-radius: 10px;
           overflow-y: auto;
+          overflow-x: hidden;
           box-shadow: 0px 3px 2px #17171723;
-          z-index: 9000;
-          display: none;
-          padding: 5px;
+          z-index: 40;
+          // display: none;
+          padding: 0px;
+          transition: 0.4s;
+          transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
           /* Import */
           .timeline {
-            --uiTimelineMainColor: var(--timelineMainColor, #1E1F28);
-            --uiTimelineSecondaryColor: var(--timelineSecondaryColor, #efeeee);
-            --neu: -6px -6px 8px #fff, 6px 6px 8px #d1cdc7;
+            --uiTimelineMainColor: #0BBB72;
+            --uiTimelineSecondaryColor: #FAFAFA;
+            --neu: -6px -6px 8px #fff, 6px 6px 8px #f0f0f0;
             position: relative;
             // padding-top: 3rem;
             // padding-bottom: 3rem;
@@ -669,7 +687,7 @@ button[ion-fab] {
             width: 4px;
             height: 100%;
             background-color: var(--uiTimelineMainColor);
-          
+            border-radius: 200px;
             position: absolute;
             top: 0;
           }
@@ -683,12 +701,12 @@ button[ion-fab] {
           }
           
           .timeline__year {
-            padding: 0.5rem 1.5rem;
+            padding: 5px 10px;
             color: var(--uiTimelineSecondaryColor);
             background-color: var(--uiTimelineMainColor);
             border-radius: 20px;
             position: absolute;
-            left: 0;
+            left: 3px;
             top: 0;
           }
           
@@ -737,7 +755,7 @@ button[ion-fab] {
           }
           
           .timeline__post {
-            padding: 1.5rem 2rem;
+            padding: 15px;
             border-radius: 2px;
             border-left: 3px solid var(--uiTimelineMainColor);
             box-shadow: var(--neu);
@@ -831,6 +849,18 @@ button[ion-fab] {
           
           
         }
+        .timelineHeight__o {
+          height: 300%;
+          padding: 5px;
+          transition: 0.4s;
+          transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .timelineheight__c {
+          height: 0px;
+          padding: 0px;
+          transition: 0.4s;
+          transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+        }
         .selectedT {
           transform: scale(.9);
           transition: 0.3s;
@@ -857,16 +887,32 @@ button[ion-fab] {
         .details {
           padding-left: 1.5%;
           flex-basis: 90%;
-
+          position: relative;
+          .recuring {
+            position: absolute;
+            top: -13px;
+            right: -80px;
+          }
           #title {
             font-size: 1.5rem;
+            position: relative;
+            
           }
         }
 
         .more {
           display: flex;
           align-items: center;
-
+          position: relative;
+          .childre {
+            position: absolute;
+            bottom: -20px;
+            right: -7px;
+            z-index: 50;
+          }
+          .timelineInd {
+            z-index: 30 !important;
+          }
           p {
             font-size: .9rem;
           }
