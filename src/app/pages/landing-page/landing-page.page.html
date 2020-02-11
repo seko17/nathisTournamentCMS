@@ -3,7 +3,7 @@
     <div class="close" (click)="viewmatch('close', null, null)">
       <ion-icon name="close"></ion-icon>
     </div>
-    <div class="matchDiv"> 
+    <div class="matchDiv">
       <div class="playerHome animated"
         [ngClass]="{'slideInRight':viewingPlayer.home,'slideOutRight faster':!viewingPlayer.home}">
         <div class="image">
@@ -12,16 +12,14 @@
               <ion-icon name="close"></ion-icon>
             </ion-fab-button>
           </div>
-          <div *ngFor ="let x of playerobj">
-          <img 
-            [src]='x.palyerImage'
-            alt="No Image">
+          <div *ngFor="let x of playerobj">
+            <img [src]='x.palyerImage' alt="No Image">
           </div>
-          <div class="name" *ngFor ="let x of playerobj">
+          <div class="name" *ngFor="let x of playerobj">
             <p>{{x.fullName}}</p>
           </div>
         </div>
-        <div class="details"  *ngFor ="let x of playerobj">
+        <div class="details" *ngFor="let x of playerobj">
           <p>{{x.playerPosition}}</p>
           <span>{{x.height}}m</span>
           <br>
@@ -30,23 +28,22 @@
           <br>
           <hr>
         </div>
-      </div> 
+      </div>
       <div class="teamHome animated"
         [ngClass]="{'slideInRight':viewingTeam.home,'slideOutRight faster':!viewingTeam.home}">
-        <div class="title" *ngFor ="let item of currmatch">
+        <div class="title" *ngFor="let item of currmatch">
           <h1>{{item.TeamObject.teamName}}</h1>
         </div>
 
-        <div class="image" *ngFor ="let item of currmatch">
-          <img src="{{item.TeamObject.teamLogo}}"
-            alt="">
+        <div class="image" *ngFor="let item of currmatch">
+          <img src="{{item.TeamObject.teamLogo}}" alt="">
         </div>
-        <div class="details" *ngFor ="let item of currmatch">
+        <div class="details" *ngFor="let item of currmatch">
           <p>Coach</p>
           <h4>{{item.TeamObject.coachName}}</h4>
           <p>Region</p>
           <h4>{{item.TeamObject.region}}</h4>
-           <p>Phone</p>
+          <p>Phone</p>
           <h4>{{item.TeamObject.tel}}</h4>
         </div>
         <div class="teamClose">
@@ -68,56 +65,60 @@
                 src="{{item.TeamObject.teamLogo}}"
                 alt="">
                 <div class="homeButton animated" [ngClass]="{'bounceInLeft':matchActionState.home,'bounceOutLeft':!matchActionState.home}" *ngIf="activeTourn.state=='inprogress'" >
-                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'home')" (click)="goal1()">
+                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'home')" (click)="goal1()" [disabled]="disableall">
                     Goal
                   </ion-button>
-                  <ion-button size="small" shape="round" color="danger" (click)="homestats('red')"  >
+                  <ion-button size="small" shape="round" color="danger" (click)="homestats('red')"  [disabled]="disableall">
                     Red Card
                   </ion-button>
-                  <ion-button size="small" shape="round" color="warning" (click)="homestats('yellow')"  >
+                  <ion-button size="small" shape="round" color="warning" (click)="homestats('yellow')"  [disabled]="disableall">
                     Yellow Card
                   </ion-button>
-                  <ion-button size="small" shape="round" color="light" (click)="homestats('offsides')"  >
+                  <ion-button size="small" shape="round" color="light" (click)="homestats('offsides')" [disabled]="disableall" >
                     Off Side
                   </ion-button>
-                  <ion-button size="small" shape="round" color="light" (click)="homestats('corners')">
+                  <ion-button size="small" shape="round" color="light" (click)="homestats('corners')" [disabled]="disableall">
                     Corner Kick
                   </ion-button>
                 </div>
             </div>
           </div>
-          <div class="match"  *ngFor ="let item of currmatch">
+          <div class="match" *ngFor="let item of currmatch">
             <div class="scores">
-              <div class="homeScore" >
+              <div class="homeScore">
                 <p>{{item.TeamObject.teamName}} <br>
-                <sub *ngIf="activeTourn.state=='inprogress'"   (click)="matchAction('open', 'home')" style="background: white; color: black; padding: 3px 5px; border-radius: 3px 10px;"><i>Action</i></sub></p>
+                  <sub *ngIf="activeTourn.state=='inprogress'" (click)="matchAction('open', 'home')"
+                    style="background: white; color: black; padding: 3px 5px; border-radius: 3px 10px;"><i>Action</i></sub>
+                </p>
 
               </div>
               <div class="points">
-                <div class="butns" *ngIf="activeTourn.state=='inprogress'" >
+                <div class="butns" *ngIf="activeTourn.state=='inprogress'">
 
-                  <ion-button size="small" shape="round" (click)="radio()" [hidden] ='btn1'>
+                  <ion-button size="small" shape="round" (click)="radio()" [hidden]='btn1'>
                     {{serve.matchstatus}}
-                    </ion-button>
+                  </ion-button>
 
-                  <ion-button size="small" shape="round" (click)="stop()" [hidden] ='btn2'>
-                Finish
-                </ion-button>
-                
+                  <ion-button size="small" shape="round" (click)="stop()" [hidden]='btn2'>
+                    Finish
+                  </ion-button>
+
                 </div>
                 <p>{{score}} : {{ascore}}</p>
                 <p>{{btntxt}}</p>
               </div>
               <div class="awayScore">
                 <p>{{item.aTeamObject.teamName}} <br>
-                  <sub *ngIf="activeTourn.state=='inprogress'" (click)="matchAction('open', 'away')"   style="background: white; color: black; padding: 3px 5px; border-radius: 10px 3px;"><i>Action</i></sub></p>
+                  <sub *ngIf="activeTourn.state=='inprogress'" (click)="matchAction('open', 'away')"
+                    style="background: white; color: black; padding: 3px 5px; border-radius: 10px 3px;"><i>Action</i></sub>
+                </p>
               </div>
             </div>
             <div class="upComingData">
               <h5></h5>
               <p>Starts {{item.startDate | date}}</p>
-              <p *ngIf="activeTourn.approvedVendors.length>0&&activeTourn.state!='finished'" >Food will be sold</p>
-              <p *ngIf="activeTourn.approvedVendors.length==0&&activeTourn.state!='finished'" >No Food Sold</p>
+              <p *ngIf="activeTourn.approvedVendors.length>0&&activeTourn.state!='finished'">Food will be sold</p>
+              <p *ngIf="activeTourn.approvedVendors.length==0&&activeTourn.state!='finished'">No Food Sold</p>
             </div>
           </div>
           <div class="awayImage">
@@ -126,19 +127,19 @@
               src="{{item.aTeamObject.teamLogo}}"
               alt="">
                 <div class="awayButton animated" [ngClass]="{'bounceInRight':matchActionState.away,'bounceOutRight':!matchActionState.away}" *ngIf="activeTourn.state=='inprogress'" >
-                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'away')"  (click)="goal2()" >
+                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'away')"  (click)="goal2()"  [disabled]="disableall">
                     Goal
                   </ion-button>
-                  <ion-button size="small" shape="round" color="danger" (click)=" awaystats('red')" >
+                  <ion-button size="small" shape="round" color="danger" (click)=" awaystats('red')" [disabled]="disableall">
                     Red Card
                   </ion-button>
-                  <ion-button size="small" shape="round" color="warning" (click)=" awaystats('yellow')" >
+                  <ion-button size="small" shape="round" color="warning" (click)=" awaystats('yellow')" [disabled]="disableall">
                     Yellow Card
                   </ion-button>
-                  <ion-button size="small" shape="round" color="light"  (click)=" awaystats('offsides')">
+                  <ion-button size="small" shape="round" color="light"  (click)=" awaystats('offsides')" [disabled]="disableall">
                     Off Side
                   </ion-button>
-                  <ion-button size="small" shape="round" color="light" (click)=" awaystats('corners')" >
+                  <ion-button size="small" shape="round" color="light" (click)=" awaystats('corners')"  [disabled]="disableall">
                     Corner Kick
                   </ion-button>
                 </div>
@@ -146,7 +147,7 @@
           </div>
         </div>
         <!-- *ngIf="clicked[0].state=='finished'"  -->
-        <ion-segment  [(ngModel)]="matchView" (ionChange)="segmentChanged($event)">
+        <ion-segment [(ngModel)]="matchView" (ionChange)="segmentChanged($event)">
           <ion-segment-button value="lineup">
             <ion-label>LineUps</ion-label>
           </ion-segment-button>
@@ -158,11 +159,12 @@
 
         <div class="list-cont">
           <div class="dummydiv">
-            <div class="lineUps animated" [ngClass]="{'slideInLeft':matchView=='lineup','slideOutLeft':matchView=='summary'}">
+            <div class="lineUps animated"
+              [ngClass]="{'slideInLeft':matchView=='lineup','slideOutLeft':matchView=='summary'}">
               <div class="away">
                 <div class="card" *ngFor="let a of team1;let i = index" (click)="viewPlayer('open', 'home',a,0)">
                   <div class="number">
-                  <p style="margin: 0 auto;">{{i}}</p>
+                    <p style="margin: 0 auto;">{{i}}</p>
                   </div>
                   <div class="name">
                     <p>{{a.fullName}}</p>
@@ -190,43 +192,43 @@
               [ngClass]="{'slideInRight':matchView=='summary','slideOutRight':matchView=='lineup'}">
               <div class="stats" *ngFor="let item of currmatch">
                 <div class="homeSummary">
-                
+
                   <p>{{item.corners}}</p>
                   <p>{{item.red}}</p>
                   <p>{{item.yellow}}</p>
                   <p>{{item.offsides}}</p>
-               
+
                 </div>
                 <div class="labels">
-                
+
                   <p>Corners</p>
                   <p>Red Cards</p>
                   <p>Yellow Cards</p>
-                   <p>Off Side</p>
-                
+                  <p>Off Side</p>
+
                 </div>
                 <div class="awaySummary">
-               
-                
+
+
                   <p>{{item.acorners}}</p>
                   <p>{{item.ared}}</p>
                   <p>{{item.ayellow}}</p>
                   <p>{{item.aoffsides}}</p>
-                 
+
                 </div>
               </div>
               <div class="playerCards">
                 <div class="homePlayerCards">
                   <div class="card" *ngFor="let g of matchobject.goal">
                     <div class="details">
-                      <p  >{{g.goalscorer}} - {{g.scoretime}}</p>
+                      <p>{{g.goalscorer}} - {{g.scoretime}}</p>
                     </div>
                   </div>
                 </div>
                 <div class="awayPlayerCards">
                   <div class="card" *ngFor="let g of matchobject.agoal">
                     <div class="details">
-                      <p  >{{g.goalscorer}}</p>
+                      <p>{{g.goalscorer}}</p>
                     </div>
                   </div>
                 </div>
@@ -247,10 +249,8 @@
             </ion-fab-button>
           </div>
           <div *ngFor="let x of aplayerobj">
-            <img 
-              [src]='x.palyerImage'
-              alt="No Image">
-            </div>
+            <img [src]='x.palyerImage' alt="No Image">
+          </div>
           <div class="name" *ngFor="let x of aplayerobj">
             <p>{{x.fullName}}</p>
           </div>
@@ -265,10 +265,10 @@
           <hr>
           <p>Acievements</p>
           <span>Best Defender</span> <br>
-          <span>Best face maker</span> 
-       </div> 
-       </div>
-       
+          <span>Best face maker</span>
+        </div>
+      </div>
+
       <div class="teamAway animated"
         [ngClass]="{'slideInLeft':viewingTeam.away,'slideOutLeft faster':!viewingTeam.away}">
         <div class="title" *ngFor="let item of currmatch">
@@ -282,7 +282,7 @@
           <h4>{{item.aTeamObject.coachName}}</h4>
           <p>Region</p>
           <h4>{{item.aTeamObject.region}}</h4>
-           <p>Phone</p>
+          <p>Phone</p>
           <h4>{{item.aTeamObject.tel}}</h4>
         </div>
         <div class="teamClose">
@@ -296,7 +296,7 @@
   <div class="cmsContentMain">
     <div class="tournaments">
       <div class="links">
-        <button (click)="changeview('all')" [ngClass]="{'activeFilter':filterBy=='all'}" >
+        <button (click)="changeview('all')" [ngClass]="{'activeFilter':filterBy=='all'}">
           All
         </button>
         <button (click)="changeview('newTournament')" [ngClass]="{'activeFilter':filterBy=='newTournament'}">
@@ -309,12 +309,39 @@
           History
         </button>
       </div>
-      <div class="tournamentList">
-        <div class="card empty" *ngIf="tournament.length == 0"  >
+      <div class="tournamentList animated">
+        <div class="card empty" *ngIf="tournament.length == 0">
           <h2>There's nothing in this section yet.</h2>
         </div>
-        <div class="card" *ngFor="let item of tournament" [ngClass]="{'newTorunament':item.state=='newTournament','inProgress':item.state=='inprogress','finnishedTournament':item.state=='finished'}" (click) ='viewdetails(item)'>
-          <div class="color">
+        <div class="card" *ngFor="let item of tournament; let i=index"
+          [ngClass]="{'newTorunament':item.state=='newTournament','inProgress':item.state=='inprogress','finnishedTournament':item.state=='finished'}"
+          (click)='viewdetails(item, i)'>
+          <div class="color" [ngClass]="{'selectedT':selectedTorun==i,'selectedT-cl':selectedTorun!=i}">
+
+          </div>
+          <div class="viewTimeline">
+            <div class="page">
+              <div class="timeline">
+                <div class="timeline__group">
+                  <span class="timeline__year">2008</span>
+                  <div class="timeline__box">
+                    <div class="timeline__date">
+                      <span class="timeline__day">2</span>
+                      <span class="timeline__month">Feb</span>
+                    </div>
+                    <div class="timeline__post">
+                      <div class="timeline__content">
+                        <h1>Premier League</h1>
+                        <p>While the Premier League consists of solely English teams, it is the most-watched soccer tournament in the world, attracting an average of 4.7 billion people. Despite there being much competition, only six soccer clubs have managed to win the Premier League.</p>
+                        <ion-button fill="outline" size="small">Details</ion-button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
 
           </div>
           <div class="details">
@@ -325,49 +352,52 @@
           </div>
           <div class="more">
             <div>
-              <p>{{item.formInfo.type}} Match(s)</p>
-     
+              <p *ngIf="item.formInfo.type>=1">{{item.formInfo.type}} Match(s) Left</p>
+              <p *ngIf="item.formInfo.type==0">No Matches</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="noTournamentDetails tournamentDetails" *ngIf="clicked.length==0" >
+    <div class="noTournamentDetails tournamentDetails" *ngIf="clicked.length==0">
       <div class="details">
         <div>
-         <h1 style="font-size: 1em;">Click on the Tournament to view it's details</h1>
-         
+          <h1 style="font-size: 1em;">Click on the Tournament to view it's details</h1>
+
         </div>
 
       </div>
       <div class="matchList">
-        <div class="loadingList" >
-          
-            <div class="card">
-              <h5>Matches will list here</h5>
-            </div>
+        <div class="loadingList">
+
+          <div class="card">
+            <h5>Matches will list here</h5>
+          </div>
         </div>
       </div>
     </div>
     <div class="tournamentDetails" *ngFor="let item of clicked">
       <div class="details">
         <div>
-          <h4 style="font-size:4.4vw; letter-spacing: 5px;"> {{item.formInfo.tournamentName}}</h4>
+          <h4 style="font-size:2em; letter-spacing: 5px;"> {{item.formInfo.tournamentName}}</h4>
           <p style="color: gray;">Top {{item.formInfo.type}}</p>
           <hr>
-          <p style="font-size: 1.7vw;">{{item.formInfo.type}} Match(s)</p>
+          <p style="font-size: 1.7vw;" *ngIf="item.formInfo.type>=1">{{item.formInfo.type}} Match(s) Left</p>
+          <p *ngIf="item.formInfo.type==0">No Matches</p>
           <!-- <p style="font-size: 1.3vw;">{{item.formInfo.startDate | date}} to {{item.formInfo.endDate  | date}}</p> -->
           <hr>
-          <p style="    font-size: 1.1vw;">Application Closing Date <br> {{item.formInfo.applicationClosing  | date}}</p>
+          <p style="    font-size: 1.1vw;">Application Closing Date <br> {{item.formInfo.applicationClosing  | date}}
+          </p>
           <br>
-          <ion-segment scrollable="true" *ngIf="activeTourn.state=='finished'" [(ngModel)]="pastMatchCat" (ionChange)="finnishedMatchSegment($event)">
-            <ion-segment-button *ngIf="match.type16.length>0"  mode="ios" value="top32" color="primary">
+          <ion-segment scrollable="true" *ngIf="activeTourn.state=='finished'" [(ngModel)]="pastMatchCat"
+            (ionChange)="finnishedMatchSegment($event)">
+            <ion-segment-button *ngIf="match.type16.length>0" mode="ios" value="top32" color="primary">
               <ion-label>Top 32</ion-label>
             </ion-segment-button>
-            <ion-segment-button  *ngIf="match.type8.length>0"   mode="ios" value="top16">
+            <ion-segment-button *ngIf="match.type8.length>0" mode="ios" value="top16">
               <ion-label>Top 16</ion-label>
             </ion-segment-button>
-            <ion-segment-button  mode="ios" value="top8">
+            <ion-segment-button mode="ios" value="top8">
               <ion-label>Top 8</ion-label>
             </ion-segment-button>
             <ion-segment-button mode="ios" value="top4">
@@ -378,15 +408,15 @@
             </ion-segment-button>
           </ion-segment>
         </div>
-        </div> <br>
-       
+      </div> <br>
+
       <div class="matchList">
-        <div class="loadingList" *ngIf="fixture.length==0" >
-          
-            <div class="card">
-              <h5>No Matches</h5>
-            </div>
-          
+        <div class="loadingList" *ngIf="fixture.length==0">
+
+          <div class="card">
+            <h5>No Matches</h5>
+          </div>
+
         </div>
         <div class="card" *ngFor="let item of fixture; let a = index" (click)="viewmatch('open', item,a)">
           <div class="date">
@@ -397,7 +427,7 @@
               <p>{{ item.TeamObject.teamName }}</p>
             </div>
             <div class="versus">
-              <p *ngIf="activeTourn.state=='finished'" >{{item.score}} FT {{item.ascore}}</p>
+              <p *ngIf="activeTourn.state=='finished'">{{item.score}} FT {{item.ascore}}</p>
               <p *ngIf="activeTourn.state!='finished'">v</p>
             </div>
             <div class="away">

@@ -89,7 +89,7 @@ export class LandingPagePage implements OnInit {
 
   fixtureid;
 
-
+  childrenarray =[];
 
 
   score;
@@ -109,6 +109,7 @@ export class LandingPagePage implements OnInit {
     winner: {}
   }
   activeTourn = {} as any
+  selectedTorun = null
   constructor(public toastController: ToastController,public modalController: ModalController, public game2: Match2Service, public loadingController: LoadingController, public allserve: AllserveService, public alertController: AlertController, public serve: AllserveService, public zone: NgZone, public renderer: Renderer2) {
 
     let tourn = {
@@ -117,7 +118,7 @@ export class LandingPagePage implements OnInit {
       hasApplications: false
     }
     this.serve.tournaments = [];
-    this.db.collection('newTournaments').where('approved', '==', true).where("state", "==", "inprogress").get().then(res => {
+    this.db.collection('newTournaments').where('approved', '==', true).where("state", "==", "inprogress").where('parent','==','yes').get().then(res => {
       this.tournament = [];
       res.forEach(doc => {
         console.log(doc.data())
@@ -153,9 +154,14 @@ btntxt4
     await alert.present();
 
   }
+
+
+disableall:boolean;
+
+
   async viewmatch(state, item, a) {
     
-
+    
  this.zone.run(()=>{
   
   if(item ==null)
@@ -170,7 +176,7 @@ btntxt4
 
 this.ascore=item.ascore;
 this.score =item.score;
-
+this.disableall =true;
     this.btn1 =false;
     this.btn2=true;
     this.btntxt ="";
@@ -182,15 +188,15 @@ this.score =item.score;
     this.ascore=item.ascore;
     this.score =item.score;
 
-
+    this.disableall =false
 this.btn1 =false;
 this.btn2=true;
 this.serve.matchstatus ="Second Half";
-this.btntxt ="Second Half";
+this.btntxt ="First Half";
   }
   else if(item.half== "Second Half")
   {
-
+    this.disableall =false
     this.ascore=item.ascore;
     this.score =item.score;
     console.log('Someting')
@@ -390,17 +396,27 @@ this.btn2=false;
     }
   }
 
-  async viewdetails(x) {
 
-    // this.game2.firsthalf('stop');
+ 
+  async viewdetails(x, ind) {
+    this.selectedTorun = ind
+
 
     this.clicked = [];
     this.fixture = [];
 
     this.activeTourn = x
+    console.log(this.activeTourn.docid)
     this.clicked.push(x);
     console.log('line 404', this.activeTourn)
     console.log(parseFloat(this.clicked[0].formInfo.type))
+this.childrenarray =[]
+    firebase.firestore().collection('newTournaments').where('formInfo.tournamentName','==',this.activeTourn.formInfo.tournamentName).where('parent','==','no').get().then(res=>{
+      res.forEach(val=>{
+        this.childrenarray.push(val.data())
+        console.log("Weee = ", this.childrenarray)
+      })
+    }) 
 
 
     if (x.state == 'finished') {
@@ -418,9 +434,15 @@ this.btn2=false;
             }
           }, {
             text: 'Yes',
-            handler: () => {
+            handler:async () => {
               console.log('Confirm Okay');
               firebase.firestore().collection('newTournaments').doc(this.activeTourn.docid).update({"state":'newTournament',"approved":true,'message':'Previously Played!'});
+              const toast = await this.toastController.create({
+                message: 'Tournament restored succesfully.',
+                duration: 4000
+              });
+              toast.present();
+           
             }
           }
         ]
@@ -1081,6 +1103,7 @@ else
   }
 
   changeview(clickedbutton) {
+    this.selectedTorun = null
     this.clicked = [];
     this.fixture = [];
     console.log(clickedbutton)
@@ -1088,7 +1111,7 @@ else
       // gets all approved tournaments tournaments
       case 'all':
         this.filterBy = clickedbutton
-        this.db.collection('newTournaments').where('approved', '==', true).orderBy('state', 'desc').get().then(res => {
+        this.db.collection('newTournaments').where('approved', '==', true).where('parent','==','yes').orderBy('state', 'desc').get().then(res => {
           this.tournament = [];
           res.forEach(doc => {
             console.log(doc.data())
@@ -1126,7 +1149,7 @@ else
       // gets all tournaments with a state of finnished
       case 'finished':
         this.filterBy = clickedbutton
-        this.db.collection('newTournaments').where('approved', '==', true).where("state", "==", clickedbutton).get().then(res => {
+        this.db.collection('newTournaments').where('approved', '==', true).where("state", "==", clickedbutton).where('parent','==','yes').get().then(res => {
           this.tournament = [];
           res.forEach(doc => {
             console.log(doc.data())
@@ -1175,7 +1198,7 @@ cick =0;
   {
 console.log(this.serve.matchstatus)
 
-
+this.disableall =false;
 
  if(this.serve.matchstatus == "First Half")
 {
