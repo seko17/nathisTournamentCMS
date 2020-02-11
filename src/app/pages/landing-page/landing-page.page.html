@@ -61,27 +61,26 @@
         <div class="topData">
           <div class="homeImage">
             <div class="image" (click)="viewTeam('open', 'home', 'object')">
-              <img *ngFor="let item of currmatch" src="{{item.TeamObject.teamLogo}}" alt="">
-              <div class="homeButton animated"
-                [ngClass]="{'bounceInLeft':matchActionState.home,'bounceOutLeft':!matchActionState.home}"
-                *ngIf="activeTourn.state=='inprogress'">
-                <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'home')"
-                  (click)="goal1()">
-                  Goal
-                </ion-button>
-                <ion-button size="small" shape="round" color="danger" (click)="homestats('red')">
-                  Red Card
-                </ion-button>
-                <ion-button size="small" shape="round" color="warning" (click)="homestats('yellow')">
-                  Yellow Card
-                </ion-button>
-                <ion-button size="small" shape="round" color="light" (click)="homestats('offsides')">
-                  Off Side
-                </ion-button>
-                <ion-button size="small" shape="round" color="light" (click)="homestats('corners')">
-                  Corner Kick
-                </ion-button>
-              </div>
+              <img  *ngFor ="let item of currmatch"
+                src="{{item.TeamObject.teamLogo}}"
+                alt="">
+                <div class="homeButton animated" [ngClass]="{'bounceInLeft':matchActionState.home,'bounceOutLeft':!matchActionState.home}" *ngIf="activeTourn.state=='inprogress'" >
+                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'home')" (click)="goal1()" [disabled]="disableall">
+                    Goal
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="danger" (click)="homestats('red')"  [disabled]="disableall">
+                    Red Card
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="warning" (click)="homestats('yellow')"  [disabled]="disableall">
+                    Yellow Card
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="light" (click)="homestats('offsides')" [disabled]="disableall" >
+                    Off Side
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="light" (click)="homestats('corners')" [disabled]="disableall">
+                    Corner Kick
+                  </ion-button>
+                </div>
             </div>
           </div>
           <div class="match" *ngFor="let item of currmatch">
@@ -124,27 +123,26 @@
           </div>
           <div class="awayImage">
             <div class="image" (click)="viewTeam('open', 'away', 'object')">
-              <img *ngFor="let item of currmatch" src="{{item.aTeamObject.teamLogo}}" alt="">
-              <div class="awayButton animated"
-                [ngClass]="{'bounceInRight':matchActionState.away,'bounceOutRight':!matchActionState.away}"
-                *ngIf="activeTourn.state=='inprogress'">
-                <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'away')"
-                  (click)="goal2()">
-                  Goal
-                </ion-button>
-                <ion-button size="small" shape="round" color="danger" (click)=" awaystats('red')">
-                  Red Card
-                </ion-button>
-                <ion-button size="small" shape="round" color="warning" (click)=" awaystats('yellow')">
-                  Yellow Card
-                </ion-button>
-                <ion-button size="small" shape="round" color="light" (click)=" awaystats('offsides')">
-                  Off Side
-                </ion-button>
-                <ion-button size="small" shape="round" color="light" (click)=" awaystats('corners')">
-                  Corner Kick
-                </ion-button>
-              </div>
+              <img  *ngFor ="let item of currmatch"
+              src="{{item.aTeamObject.teamLogo}}"
+              alt="">
+                <div class="awayButton animated" [ngClass]="{'bounceInRight':matchActionState.away,'bounceOutRight':!matchActionState.away}" *ngIf="activeTourn.state=='inprogress'" >
+                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'away')"  (click)="goal2()"  [disabled]="disableall">
+                    Goal
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="danger" (click)=" awaystats('red')" [disabled]="disableall">
+                    Red Card
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="warning" (click)=" awaystats('yellow')" [disabled]="disableall">
+                    Yellow Card
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="light"  (click)=" awaystats('offsides')" [disabled]="disableall">
+                    Off Side
+                  </ion-button>
+                  <ion-button size="small" shape="round" color="light" (click)=" awaystats('corners')"  [disabled]="disableall">
+                    Corner Kick
+                  </ion-button>
+                </div>
             </div>
           </div>
         </div>

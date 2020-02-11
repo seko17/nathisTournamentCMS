@@ -154,9 +154,14 @@ btntxt4
     await alert.present();
 
   }
+
+
+disableall:boolean;
+
+
   async viewmatch(state, item, a) {
     
-
+    
  this.zone.run(()=>{
   
   if(item ==null)
@@ -171,7 +176,7 @@ btntxt4
 
 this.ascore=item.ascore;
 this.score =item.score;
-
+this.disableall =true;
     this.btn1 =false;
     this.btn2=true;
     this.btntxt ="";
@@ -183,15 +188,15 @@ this.score =item.score;
     this.ascore=item.ascore;
     this.score =item.score;
 
-
+    this.disableall =false
 this.btn1 =false;
 this.btn2=true;
 this.serve.matchstatus ="Second Half";
-this.btntxt ="Second Half";
+this.btntxt ="First Half";
   }
   else if(item.half== "Second Half")
   {
-
+    this.disableall =false
     this.ascore=item.ascore;
     this.score =item.score;
     console.log('Someting')
@@ -420,9 +425,15 @@ this.btn2=false;
             }
           }, {
             text: 'Yes',
-            handler: () => {
+            handler:async () => {
               console.log('Confirm Okay');
               firebase.firestore().collection('newTournaments').doc(this.activeTourn.docid).update({"state":'newTournament',"approved":true,'message':'Previously Played!'});
+              const toast = await this.toastController.create({
+                message: 'Tournament restored succesfully.',
+                duration: 4000
+              });
+              toast.present();
+           
             }
           }
         ]
@@ -1178,7 +1189,7 @@ cick =0;
   {
 console.log(this.serve.matchstatus)
 
-
+this.disableall =false;
 
  if(this.serve.matchstatus == "First Half")
 {

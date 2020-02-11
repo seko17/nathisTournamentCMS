@@ -205,7 +205,7 @@ blockfixture:boolean =true;
   storage = firebase.storage().ref()
   // form for new tournament
   newTournForm: FormGroup;
-  tournamentObj = {
+  tournamentObj:any = {
     formInfo: null,
     approved: false,
     approvedVendors: [],
@@ -220,7 +220,8 @@ blockfixture:boolean =true;
     DeclinedApplications: 0,
     totalApplications: 0,
     vendorTotalApplications: 0,
-    notifyUser: 'yes'
+    notifyUser: 'yes',
+    parent:'yes'
   };
   tempCardGen = []
   acceptedVendor = []
@@ -345,7 +346,7 @@ blockfixture:boolean =true;
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       joiningFee: ['', [Validators.required, Validators.minLength(3)]],
-      bio: ['', [Validators.required]],
+      bio: ['', [Validators.required, Validators.minLength(10)]],
       applicationClosing: ['', Validators.required]
     })
     this.db.collection('newTournaments').onSnapshot(res => {
@@ -622,6 +623,7 @@ partslength =0;
         handler: (blah) => {
           console.log('Confirm Cancel: blah');
           this.blockfixture=true;
+          this.finnishSetup(null,'close')
         }
       }, {
         text: 'Yes',
@@ -860,16 +862,6 @@ else
     }
   }
 
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'Alert',
-      subHeader: 'Subtitle',
-      message: 'This is an alert message.',
-      buttons: ['OK']
-    });
-
-    await alert.present();
-  }
   async newTournament(formData) {
     let today = new Date();
     let date = new Date(today.toDateString());
@@ -993,6 +985,7 @@ else if(formData.parentdoc!=undefined) {
     DeclinedApplications: 0,
     totalApplications: 0,
     vendorTotalApplications: 0,
+    parent:'no'
   }
   this.db.collection('newTournaments').add(this.tournamentObj).then(async res => {
     loader.dismiss()
@@ -1364,9 +1357,14 @@ await alert.present();
       if (z.matchdate == undefined || z.matchdate == 'Invalid Date') {
         const toast = await this.toastController.create({
           message: 'Enter the time and date for all the matches.',
-          duration: 2000
+          duration: 3000
         });
         toast.present();
+
+        toast.onDidDismiss().then(res=>{
+          this.fixtures = [];
+        this.fixture = q1;
+        })
 
         return this.makechanges = true;
       }
