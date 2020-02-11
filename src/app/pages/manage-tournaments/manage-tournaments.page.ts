@@ -637,7 +637,7 @@ console.log(tournament)
 
 
          this.newTournForm = this.formBuilder.group({
-          tournamentName: [tournament.doc.formInfo.tournamentName, [Validators.required, Validators.minLength((4))]],
+          tournamentName: [tournament.doc.formInfo.tournamentName , [Validators.required, Validators.minLength((4))]],
           type: [tournament.doc.formInfo.type, Validators.required],
           location: [tournament.doc.formInfo.location, []],
           bio: [tournament.doc.formInfo.bio, []],
@@ -648,7 +648,7 @@ console.log(tournament)
           parentdoc:[tournament.docid]
         })
 
-
+        this.reading =true;
 
 
 
@@ -704,6 +704,8 @@ else
 
 
   }
+
+  reading =false;
   complete() {
     console.log('Confirm Okay');
     this.finnishSetup(null, 'close')
@@ -720,6 +722,7 @@ else
         break;
       case 'close':
         this.creatingTournament = false;
+        this.reading =false
         this.newTournForm.reset();
         setTimeout(() => {
           this.renderer.setStyle(this.newTournFormCont[0], 'display', 'none')
@@ -937,6 +940,9 @@ else
       await alert.present();
     }
     else {
+
+
+
       console.log('se', formData.startDate)
       let loader = await this.loadingController.create({
         message: 'Creating Tournament'
@@ -957,6 +963,7 @@ if(this.edit == true && formData.currentdoc!=undefined) {
           handler: () => {
             this.newTournForm.reset()
             this.tournamentObj.sponsors = []
+           
             this.toggleTournamentForm('close')
           }
         }

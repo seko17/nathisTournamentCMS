@@ -89,7 +89,7 @@ export class LandingPagePage implements OnInit {
 
   fixtureid;
 
-
+  childrenarray =[];
 
 
   score;
@@ -397,7 +397,7 @@ this.btn2=false;
   }
 
 
-  childrenarray =[];
+ 
   async viewdetails(x, ind) {
     this.selectedTorun = ind
 
@@ -411,9 +411,10 @@ this.btn2=false;
     console.log('line 404', this.activeTourn)
     console.log(parseFloat(this.clicked[0].formInfo.type))
 this.childrenarray =[]
-    firebase.firestore().collection('newTournaments').where('formInfo.tournamentName','==',this.activeTourn.formInfo.tournamentName).get().then(res=>{
+    firebase.firestore().collection('newTournaments').where('formInfo.tournamentName','==',this.activeTourn.formInfo.tournamentName).where('parent','==','no').get().then(res=>{
       res.forEach(val=>{
-        console.log("Weee = ",this.childrenarray.push(val.data()))
+        this.childrenarray.push(val.data())
+        console.log("Weee = ", this.childrenarray)
       })
     }) 
 
