@@ -109,6 +109,7 @@ export class LandingPagePage implements OnInit {
     winner: {}
   }
   activeTourn = {} as any
+  selectedTorun = null
   constructor(public toastController: ToastController,public modalController: ModalController, public game2: Match2Service, public loadingController: LoadingController, public allserve: AllserveService, public alertController: AlertController, public serve: AllserveService, public zone: NgZone, public renderer: Renderer2) {
 
     let tourn = {
@@ -390,7 +391,8 @@ this.btn2=false;
     }
   }
 
-  async viewdetails(x) {
+  async viewdetails(x, ind) {
+    this.selectedTorun = ind
 
     // this.game2.firsthalf('stop');
 
@@ -1081,6 +1083,7 @@ else
   }
 
   changeview(clickedbutton) {
+    this.selectedTorun = null
     this.clicked = [];
     this.fixture = [];
     console.log(clickedbutton)
