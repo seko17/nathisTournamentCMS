@@ -583,13 +583,13 @@ button[ion-fab] {
         color: #000D06;
         box-shadow: 0px 3px 3px #17171717;
         transition: 0.4s;
-        font-size: .5em;
+        font-size: .7em;
       }
 
       .activeFilter {
         transition: 0.4s;
         // border: solid 1px green;
-        background: green;
+        background: #0BBB72;
         color: white;
         transform: scale(1.05);
       }
@@ -609,7 +609,7 @@ button[ion-fab] {
         cursor: pointer;
         display: flex;
         position: relative;
-        width: 100%;
+        width: 97%;
         // max-height: 60px;
         background: #ffffffbd;
         margin: 8px auto;
@@ -836,6 +836,7 @@ button[ion-fab] {
           transition: 0.3s;
           transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
           background: #1E1F28 !important;
+          // box-shadow: 0px 0px 10px rgba(30, 31, 40, 0.623), 0px 0px 8px rgba(30, 31, 40, 0.623);
         }
         .selectedT-cl {
           transform: scale(1);
