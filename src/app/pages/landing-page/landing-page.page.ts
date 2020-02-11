@@ -89,7 +89,7 @@ export class LandingPagePage implements OnInit {
 
   fixtureid;
 
-
+  childrenarray =[];
 
 
   score;
@@ -118,7 +118,7 @@ export class LandingPagePage implements OnInit {
       hasApplications: false
     }
     this.serve.tournaments = [];
-    this.db.collection('newTournaments').where('approved', '==', true).where("state", "==", "inprogress").get().then(res => {
+    this.db.collection('newTournaments').where('approved', '==', true).where("state", "==", "inprogress").where('parent','==','yes').get().then(res => {
       this.tournament = [];
       res.forEach(doc => {
         console.log(doc.data())
@@ -395,18 +395,28 @@ this.btn2=false;
         break;
     }
   }
+
+
+ 
   async viewdetails(x, ind) {
     this.selectedTorun = ind
 
-    // this.game2.firsthalf('stop');
 
     this.clicked = [];
     this.fixture = [];
 
     this.activeTourn = x
+    console.log(this.activeTourn.docid)
     this.clicked.push(x);
     console.log('line 404', this.activeTourn)
     console.log(parseFloat(this.clicked[0].formInfo.type))
+this.childrenarray =[]
+    firebase.firestore().collection('newTournaments').where('formInfo.tournamentName','==',this.activeTourn.formInfo.tournamentName).where('parent','==','no').get().then(res=>{
+      res.forEach(val=>{
+        this.childrenarray.push(val.data())
+        console.log("Weee = ", this.childrenarray)
+      })
+    }) 
 
 
     if (x.state == 'finished') {
@@ -1101,7 +1111,7 @@ else
       // gets all approved tournaments tournaments
       case 'all':
         this.filterBy = clickedbutton
-        this.db.collection('newTournaments').where('approved', '==', true).orderBy('state', 'desc').get().then(res => {
+        this.db.collection('newTournaments').where('approved', '==', true).where('parent','==','yes').orderBy('state', 'desc').get().then(res => {
           this.tournament = [];
           res.forEach(doc => {
             console.log(doc.data())
@@ -1139,7 +1149,7 @@ else
       // gets all tournaments with a state of finnished
       case 'finished':
         this.filterBy = clickedbutton
-        this.db.collection('newTournaments').where('approved', '==', true).where("state", "==", clickedbutton).get().then(res => {
+        this.db.collection('newTournaments').where('approved', '==', true).where("state", "==", clickedbutton).where('parent','==','yes').get().then(res => {
           this.tournament = [];
           res.forEach(doc => {
             console.log(doc.data())
