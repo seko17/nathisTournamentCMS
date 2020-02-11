@@ -1,6 +1,6 @@
 
 import { AlertController, LoadingController, ToastController, ModalController } from '@ionic/angular';
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2, ViewChild } from '@angular/core';
 import * as firebase from 'firebase';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DragulaService } from 'ng2-dragula';
@@ -11,14 +11,20 @@ import { AllserveService } from 'src/app/services/allserve.service';
 import { Subscription, Observable, observable, timer } from 'rxjs';
 import { Motus } from 'motus';
 import { DragdropPage } from '../dragdrop/dragdrop.page';
-
+import { GooglePlaceModule, GooglePlaceDirective } from "ngx-google-places-autocomplete";
+import { Address } from 'ngx-google-places-autocomplete/objects/address';
+declare var google;
 @Component({
   selector: 'app-manage-tournaments',
   templateUrl: './manage-tournaments.page.html',
   styleUrls: ['./manage-tournaments.page.scss'],
 })
 export class ManageTournamentsPage implements OnInit {
-
+  @ViewChild("placesRef", {static: true}) placesRef: GooglePlaceDirective;
+   options= {
+    types: [],
+    componentRestrictions: { country: 'ZA' }
+    }
   input = { data: [] };
   ainput = { data: [] };
 blockfixture:boolean =true;
@@ -220,7 +226,11 @@ blockfixture:boolean =true;
     DeclinedApplications: 0,
     totalApplications: 0,
     vendorTotalApplications: 0,
-    notifyUser: 'yes'
+    notifyUser: 'yes',
+    address : {
+      placeID : '',
+      address : ''
+    }
   };
   tempCardGen = []
   acceptedVendor = []
@@ -278,6 +288,10 @@ blockfixture:boolean =true;
       DeclinedApplications: 0,
       totalApplications: 0,
       vendorTotalApplications: 0,
+      Address :  {
+        placeID : '',
+        address :''
+      },
       formInfo: {
         tournamentName: '',
         location: '',
@@ -330,12 +344,20 @@ blockfixture:boolean =true;
   torntype;
   fixtures;
   participantdocids = [];
+  partslength =0;
+  geocoder = new google.maps.Geocoder;
+  autoCompSearch = document.getElementsByClassName('search');
+  autocom
+
+  placeID
+  address
   constructor(public alertController: AlertController, public serve: AllserveService, public loadingController: LoadingController, public toastController: ToastController, public modalController: ModalController, public dragulaService: DragulaService, public renderer: Renderer2, public alertCtrl: AlertController, public formBuilder: FormBuilder) {
 
     let num = 0;
   }
 
   ngOnInit() {
+    this.autoComplete();
     let t = new Date().toJSON().split('T')[0];
     this.tournToday = t
     this.newTournForm = this.formBuilder.group({
@@ -362,7 +384,36 @@ blockfixture:boolean =true;
     }
     // Motus
   }
-partslength =0;
+
+  public handleAddressChange(address: Address) {
+    // Do some stuff
+    console.log(address);
+
+}
+autoComplete(){
+  console.log('loc in',this.autoCompSearch);
+  
+  this.autocom = new google.maps.places.Autocomplete(this.autoCompSearch[0], { types: ['geocode'] });
+  // google.maps.event.addListener(this.autocom, 'place_changed', ()=>{
+  //   let place = this.autocom.getPlace();
+  //   console.log('place',place);
+  // })
+  this.autocom.addListener('place_changed', () => {
+    let place = this.autocom.getPlace();
+    console.log('place',place);
+
+    this.tournamentObj.address.address = place.formatted_address
+    this.tournamentObj.address.placeID = place.place_id;
+    this.placeID =  place.place_id;
+
+    console.log('form',place.formatted_address);
+    
+    // this.searchResults.push(place)
+  })  
+  console.log('aaaaa',this.placeID);
+  
+}
+
   async finnishSetup(tournament, state) {
     // please keep this switch statement at the top
     switch (state) {
@@ -871,6 +922,7 @@ else
     await alert.present();
   }
   async newTournament(formData) {
+    this.autoComplete()
     let today = new Date();
     let date = new Date(today.toDateString());
     let startDat = new Date(formData.startDate);
@@ -993,6 +1045,10 @@ else if(formData.parentdoc!=undefined) {
     DeclinedApplications: 0,
     totalApplications: 0,
     vendorTotalApplications: 0,
+    address : {
+      placeID : this.tournamentObj.address.address,
+      address : this.tournamentObj.address.placeID
+    }
   }
   this.db.collection('newTournaments').add(this.tournamentObj).then(async res => {
     loader.dismiss()
@@ -1049,6 +1105,10 @@ else{
         DeclinedApplications: 0,
         totalApplications: 0,
         vendorTotalApplications: 0,
+        address : {
+          address : this.tournamentObj.address.address,
+          placeID : this.tournamentObj.address.placeID
+        }
       }
       this.db.collection('newTournaments').add(this.tournamentObj).then(async res => {
         loader.dismiss()
