@@ -395,7 +395,6 @@ this.btn2=false;
         break;
     }
   }
-
   async viewdetails(x, ind) {
     this.selectedTorun = ind
 
