@@ -14,13 +14,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { SetfixturesPage } from './pages/setfixtures/setfixtures.page';
 import { SetfixturePage } from './setfixture/setfixture.page';
 import { DragdropPage } from './pages/dragdrop/dragdrop.page';
-import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+
 // import {SharedModule} from './shared/shared.module'
 
 @NgModule({
   declarations: [AppComponent,SetfixturesPage,DragdropPage,Match2woPage],
   entryComponents: [SetfixturesPage,DragdropPage,Match2woPage],
-  imports: [GooglePlaceModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule,
+  imports: [ BrowserModule, IonicModule.forRoot(), AppRoutingModule,
     DragulaModule.forRoot()],
   providers: [
     StatusBar,
