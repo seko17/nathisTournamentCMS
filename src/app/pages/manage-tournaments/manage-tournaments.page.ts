@@ -229,7 +229,8 @@ blockfixture:boolean =true;
     notifyUser: 'yes',
     address : {
       placeID : '',
-      address : ''
+      address : '',
+      staduimName : ''
     }
   };
   tempCardGen = []
@@ -290,7 +291,8 @@ blockfixture:boolean =true;
       vendorTotalApplications: 0,
       Address :  {
         placeID : '',
-        address :''
+        address :'',
+        staduimName: ''
       },
       formInfo: {
         tournamentName: '',
@@ -368,6 +370,7 @@ blockfixture:boolean =true;
       endDate: ['', Validators.required],
       joiningFee: ['', [Validators.required, Validators.minLength(3)]],
       bio: ['', [Validators.required, Validators.minLength(10)]],
+      staduimName : [' ', [Validators.required]],
       applicationClosing: ['', Validators.required]
     })
     this.db.collection('newTournaments').onSnapshot(res => {
@@ -388,12 +391,7 @@ blockfixture:boolean =true;
 
 autoComplete(){
   console.log('loc in',this.autoCompSearch);
-  
   this.autocom = new google.maps.places.Autocomplete(this.autoCompSearch[0], { types: ['geocode'] });
-  // google.maps.event.addListener(this.autocom, 'place_changed', ()=>{
-  //   let place = this.autocom.getPlace();
-  //   console.log('place',place);
-  // })
   this.autocom.addListener('place_changed', () => {
     let place = this.autocom.getPlace();
     console.log('place',place);
@@ -691,6 +689,7 @@ console.log(tournament)
           endDate: [tournament.doc.formInfo.endDate, Validators.required],
           joiningFee: [tournament.doc.formInfo.joiningFee, [Validators.required, Validators.minLength(3)]],
           applicationClosing: [tournament.doc.formInfo.applicationClosing, Validators.required],
+
           parentdoc:[tournament.docid]
         })
 
@@ -1041,7 +1040,8 @@ else if(formData.parentdoc!=undefined) {
     vendorTotalApplications: 0,
     address : {
       placeID : this.tournamentObj.address.address,
-      address : this.tournamentObj.address.placeID
+      address : this.tournamentObj.address.placeID,
+      staduimName: this.tournamentObj.address.staduimName
     }
   }
   this.db.collection('newTournaments').add(this.tournamentObj).then(async res => {
@@ -1116,6 +1116,7 @@ else{
               handler: () => {
                 this.newTournForm.reset()
                 this.tournamentObj.sponsors = []
+                this.autoCompSearch 
                 this.toggleTournamentForm('close')
               }
             }
