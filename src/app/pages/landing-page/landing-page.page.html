@@ -13,8 +13,8 @@
             </ion-fab-button>
           </div>
           <div *ngFor="let x of playerobj">
-            <img *ngIf="x.palyerImage"  src='{{x.palyerImage}}' alt="No Image">
-            <img *ngIf="!x.palyerImage"  src="../../../assets/nathi_noImage.png" alt="">
+            <img *ngIf="x.palyerImage" src='{{x.palyerImage}}' alt="No Image">
+            <img *ngIf="!x.palyerImage" src="../../../assets/nathi_noImage.png" alt="">
           </div>
           <div class="name" *ngFor="let x of playerobj">
             <p>{{x.fullName}}</p>
@@ -62,32 +62,38 @@
         <div class="topData">
           <div class="homeImage">
             <div class="image" (click)="viewTeam('open', 'home', 'object')">
-              <div *ngFor ="let item of currmatch"  >
-                <img  *ngIf="item.TeamObject.teamLogo" src="{{item.TeamObject.teamLogo}}"
-                alt="">
-                <img  *ngIf="!item.TeamObject.teamLogo" src="../../../assets/nathi_noImage.png" alt="">
+              <div *ngFor="let item of currmatch">
+                <img *ngIf="item.TeamObject.teamLogo" src="{{item.TeamObject.teamLogo}}" alt="">
+                <img *ngIf="!item.TeamObject.teamLogo" src="../../../assets/nathi_noImage.png" alt="">
               </div>
               <div>
-                
+
               </div>
-                
-                <div class="homeButton animated" [ngClass]="{'bounceInLeft':matchActionState.home,'bounceOutLeft':!matchActionState.home}" *ngIf="activeTourn.state=='inprogress'" >
-                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'home')" (click)="goal1()" [disabled]="disableall">
-                    Goal
-                  </ion-button>
-                  <ion-button size="small" shape="round" color="danger" (click)="homestats('red')"  [disabled]="disableall">
-                    Red Card
-                  </ion-button>
-                  <ion-button size="small" shape="round" color="warning" (click)="homestats('yellow')"  [disabled]="disableall">
-                    Yellow Card
-                  </ion-button>
-                  <ion-button size="small" shape="round" color="light" (click)="homestats('offsides')" [disabled]="disableall" >
-                    Off Side
-                  </ion-button>
-                  <ion-button size="small" shape="round" color="light" (click)="homestats('corners')" [disabled]="disableall">
-                    Corner Kick
-                  </ion-button>
-                </div>
+
+              <div class="homeButton animated"
+                [ngClass]="{'bounceInLeft':matchActionState.home,'bounceOutLeft':!matchActionState.home}"
+                *ngIf="activeTourn.state=='inprogress'">
+                <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'home')"
+                  (click)="goal1()" [disabled]="disableall">
+                  Goal
+                </ion-button>
+                <ion-button size="small" shape="round" color="danger" (click)="homestats('red')"
+                  [disabled]="disableall">
+                  Red Card
+                </ion-button>
+                <ion-button size="small" shape="round" color="warning" (click)="homestats('yellow')"
+                  [disabled]="disableall">
+                  Yellow Card
+                </ion-button>
+                <ion-button size="small" shape="round" color="light" (click)="homestats('offsides')"
+                  [disabled]="disableall">
+                  Off Side
+                </ion-button>
+                <ion-button size="small" shape="round" color="light" (click)="homestats('corners')"
+                  [disabled]="disableall">
+                  Corner Kick
+                </ion-button>
+              </div>
             </div>
           </div>
           <div class="match" *ngFor="let item of currmatch">
@@ -111,9 +117,8 @@
                   </ion-button>
 
                 </div>
-                <p>{{score}} : {{ascore}}</p>
-                <p style="    font-size: 0.9em;
-                color: red;">{{btntxt}}</p>
+                <p>{{score}}&nbsp;&nbsp;:&nbsp;&nbsp;{{ascore}}</p>
+                <p style="color: #05a66b; font-size: 11px;">{{btntxt}}</p>
               </div>
               <div class="awayScore">
                 <p>{{item.aTeamObject.teamName}} <br>
@@ -124,35 +129,43 @@
             </div>
             <div class="upComingData">
               <h5></h5>
-              <p>Starts {{item.startDate | date}}</p>
+              <p *ngIf="activeTourn.state=='finished'" >Played {{item.startDate | date}}</p>
+              <p *ngIf="activeTourn.state!='finished'">Starts {{item.startDate | date}}</p>
               <p *ngIf="activeTourn.approvedVendors.length>0&&activeTourn.state!='finished'">Food will be sold</p>
               <p *ngIf="activeTourn.approvedVendors.length==0&&activeTourn.state!='finished'">No Food Sold</p>
             </div>
           </div>
           <div class="awayImage">
             <div class="image" (click)="viewTeam('open', 'away', 'object')">
-              <div *ngFor ="let item of currmatch">
-<img *ngIf="item.aTeamObject.teamLogo"  src="{{item.aTeamObject.teamLogo}}" alt="">
-<img *ngIf="!item.aTeamObject.teamLogo"  src="../../../assets/nathi_noImage.png" alt="">
+              <div *ngFor="let item of currmatch">
+                <img *ngIf="item.aTeamObject.teamLogo" src="{{item.aTeamObject.teamLogo}}" alt="">
+                <img *ngIf="!item.aTeamObject.teamLogo" src="../../../assets/nathi_noImage.png" alt="">
               </div>
-              
-                <div class="awayButton animated" [ngClass]="{'bounceInRight':matchActionState.away,'bounceOutRight':!matchActionState.away}" *ngIf="activeTourn.state=='inprogress'" >
-                  <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'away')"  (click)="goal2()"  [disabled]="disableall">
-                    Goal
-                  </ion-button>
-                  <ion-button size="small" shape="round" color="danger" (click)=" awaystats('red')" [disabled]="disableall">
-                    Red Card
-                  </ion-button>
-                  <ion-button size="small" shape="round" color="warning" (click)=" awaystats('yellow')" [disabled]="disableall">
-                    Yellow Card
-                  </ion-button>
-                  <ion-button size="small" shape="round" color="light"  (click)=" awaystats('offsides')" [disabled]="disableall">
-                    Off Side
-                  </ion-button>
-                  <ion-button size="small" shape="round" color="light" (click)=" awaystats('corners')"  [disabled]="disableall">
-                    Corner Kick
-                  </ion-button>
-                </div>
+
+              <div class="awayButton animated"
+                [ngClass]="{'bounceInRight':matchActionState.away,'bounceOutRight':!matchActionState.away}"
+                *ngIf="activeTourn.state=='inprogress'">
+                <ion-button size="small" shape="round" color="light" (click)="matchAction('close', 'away')"
+                  (click)="goal2()" [disabled]="disableall">
+                  Goal
+                </ion-button>
+                <ion-button size="small" shape="round" color="danger" (click)=" awaystats('red')"
+                  [disabled]="disableall">
+                  Red Card
+                </ion-button>
+                <ion-button size="small" shape="round" color="warning" (click)=" awaystats('yellow')"
+                  [disabled]="disableall">
+                  Yellow Card
+                </ion-button>
+                <ion-button size="small" shape="round" color="light" (click)=" awaystats('offsides')"
+                  [disabled]="disableall">
+                  Off Side
+                </ion-button>
+                <ion-button size="small" shape="round" color="light" (click)=" awaystats('corners')"
+                  [disabled]="disableall">
+                  Corner Kick
+                </ion-button>
+              </div>
             </div>
           </div>
         </div>
@@ -172,7 +185,7 @@
             <div class="lineUps animated"
               [ngClass]="{'slideInLeft':matchView=='lineup','slideOutLeft':matchView=='summary'}">
               <div class="away">
-                
+
                 <div class="card" *ngFor="let a of team1;let i = index" (click)="viewPlayer('open', 'home',a,0)">
                   <div class="number">
                     <p style="margin: 0 auto;">{{i}}</p>
@@ -322,14 +335,17 @@
         </button>
       </div>
       <div class="tournamentList animated">
-        <div class="card empty" *ngIf="tournament.length == 0">
+        <div class="card empty animated fadeIn" *ngIf="tournament.length == 0">
           <h2>There's nothing in this section yet.</h2>
         </div>
-        <div class="card" *ngFor="let item of tournament; let i=index"  [ngClass]="{'newTorunament':item.state=='newTournament','inProgress':item.state=='inprogress','finnishedTournament':item.state=='finished'}">
+        <!-- selectedTourn -->
+        <div class="card" *ngFor="let item of tournament; let i=index"
+          [ngClass]="{'newTorunament':item.state=='newTournament','inProgress':item.state=='inprogress','finnishedTournament':item.state=='finished','selectedTourn':selectedTorun==i}">
           <div class="color" [ngClass]="{'selectedT':selectedTorun==i,'selectedT-cl':selectedTorun!=i}">
 
           </div>
-          <div class="viewTimeline animated" [ngClass]="{'timelineHeight__o':timeLineIndx==i,'timelineHeight__c':timeLineIndx!=i}">
+          <div class="viewTimeline animated fadeIn"
+            [ngClass]="{'timelineHeight__o':timeLineIndx==i,'timelineHeight__c':timeLineIndx!=i}">
             <div class="page">
               <div class="timeline">
                 <div class="timeline__group" *ngFor="let c of childrenarray">
@@ -343,7 +359,8 @@
                       <div class="timeline__content">
                         <h1>{{c.formInfo.tournamentName}}</h1>
                         <p>{{c.formInfo.bio}}</p>
-                        <ion-button fill="outline" shape="round" color="success" size="small" (click)="childreDetails(c, i)">Details</ion-button>
+                        <ion-button fill="outline" shape="round" color="success" size="small"
+                          (click)="childreDetails(c, i)">Details</ion-button>
                       </div>
                     </div>
                   </div>
@@ -355,15 +372,12 @@
 
           </div>
           <div class="details" (click)='viewdetails(item, i)'>
-            <div class="recuring" *ngIf="item.message">
-              <ion-chip size="small" color="danger">
-  <ion-label>{{item.message}}</ion-label>
-</ion-chip>
-              </div>
+
             <p id="title"><b>{{item.formInfo.tournamentName}}</b> </p>
             <hr>
             <p id="date">{{item.formInfo.startDate | date}} to {{item.formInfo.endDate | date}}</p>
             <p id="location">{{item.formInfo.location}}</p>
+
           </div>
           <div class="more">
             <div>
@@ -371,14 +385,23 @@
               <p *ngIf="item.formInfo.type==0">No Matches</p>
             </div>
             <!-- -->
-            <div class="childre"  *ngIf="item.message" [ngClass]="{'timelineInd':timeLineIndx!=i}">
-              <ion-button color="light" size="small" shape="round" (click)="viewchildren(item,i)">History</ion-button>
-              </div>
+
+          </div>
+          <div class="recuring" *ngIf="item.message">
+            <ion-chip size="small" fill="clear" color="danger">
+              <ion-label>
+                <ion-icon name="refresh"></ion-icon>
+              </ion-label>
+            </ion-chip>
+          </div>
+          <div class="childre" *ngIf="item.message" [ngClass]="{'timelineInd':timeLineIndx!=i}">
+            <ion-button color="dark" size="small" fill="clear" shape="round" (click)="viewchildren(item,i)">History
+            </ion-button>
           </div>
         </div>
       </div>
     </div>
-    <div class="noTournamentDetails tournamentDetails" *ngIf="clicked.length==0">
+    <div class="noTournamentDetails tournamentDetails animated fadeIn" *ngIf="clicked.length==0">
       <div class="details">
         <div>
           <h1 style="font-size: 1em;">Click on the Tournament to view it's details</h1>
@@ -427,12 +450,12 @@
             </ion-segment-button>
           </ion-segment>
         </div>
-      </div> <br>
+      </div>
 
       <div class="matchList">
         <div class="loadingList" *ngIf="fixture.length==0">
 
-          <div class="card">
+          <div class="card animated fadeIn">
             <h5>No Matches</h5>
           </div>
 

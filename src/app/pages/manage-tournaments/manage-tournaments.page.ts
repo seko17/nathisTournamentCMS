@@ -11,8 +11,8 @@ import { AllserveService } from 'src/app/services/allserve.service';
 import { Subscription, Observable, observable, timer } from 'rxjs';
 import { Motus } from 'motus';
 import { DragdropPage } from '../dragdrop/dragdrop.page';
-import { GooglePlaceModule, GooglePlaceDirective } from "ngx-google-places-autocomplete";
-import { Address } from 'ngx-google-places-autocomplete/objects/address';
+// import { GooglePlaceModule, GooglePlaceDirective } from "ngx-google-places-autocomplete";
+// import { Address } from 'ngx-google-places-autocomplete/objects/address';
 declare var google;
 @Component({
   selector: 'app-manage-tournaments',
@@ -20,7 +20,7 @@ declare var google;
   styleUrls: ['./manage-tournaments.page.scss'],
 })
 export class ManageTournamentsPage implements OnInit {
-  @ViewChild("placesRef", {static: true}) placesRef: GooglePlaceDirective;
+  // @ViewChild("placesRef", {static: true}) placesRef: GooglePlaceDirective;
    options= {
     types: [],
     componentRestrictions: { country: 'ZA' }
@@ -238,6 +238,7 @@ blockfixture:boolean =true;
   approvedTournaments = []
   // tslint:disable-next-line:member-ordering
   X
+  tournIndex = null
   TournSelectedObj = {
     doc: {
       state: '',
@@ -385,7 +386,7 @@ blockfixture:boolean =true;
     // Motus
   }
 
-  public handleAddressChange(address: Address) {
+  public handleAddressChange(address) {
     // Do some stuff
     console.log(address);
 
@@ -1473,7 +1474,9 @@ await alert.present();
     this.presentLoading();
   }
 
-  showSideEvent(v) {
+  showSideEvent(v, i) {
+    console.log(i)
+    this.tournIndex = i
     this.TournSelectedObj = v
     console.log('click', this.TournSelectedObj);
   }

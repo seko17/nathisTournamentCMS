@@ -237,8 +237,8 @@
     <!-- TOURNAMENT DETAILS -->
     <div class="management">
       <div class="tournamentData" *ngFor="let x of tourndetails">
-        <h1 style="font-size: 5vw;
-        letter-spacing: 10px;">{{x.doc.formInfo.tournamentName}}</h1>
+        <h1 style="font-size: 90%;
+        letter-spacing: 2px;">{{x.doc.formInfo.tournamentName}}</h1>
         <div class="splitter">
           <div class="one">
             <p>{{x.doc.formInfo.type}} Participants | {{TournSelectedObj.doc.ApprovedVendorApplications}} Vendor(s)</p>
@@ -369,11 +369,11 @@
             </div>
           </div>
           <ion-item>
-            <!-- <ion-label position="floating">Location</ion-label>
-          <ion-input  type="text"  class="search" formControlName="location"></ion-input> -->
+            <!-- <ion-label position="floating">Location</ion-label> -->
+         <!--  <ion-input  type="text"  class="search" formControlName="location"></ion-input> -->
          
             <!-- <ion-input type="text" formControlName="location"></ion-input> -->
-            <input type="text " class="search" style="color: black !important;">
+            <input type="text " class="search" style="">
           </ion-item>
           <ion-item>
             <ion-label position="floating">Tournament Starts</ion-label>
@@ -467,7 +467,7 @@
             <div class="card noTourns" *ngIf="approvedTournaments.length==0" >
               <h5>No Tournaments</h5>
             </div>
-            <div class="card " *ngFor="let t of approvedTournaments" (click)="showSideEvent(t)">
+            <div class="card animated" *ngFor="let t of approvedTournaments;let i = index" (click)="showSideEvent(t, i)" [ngClass]="{'pulse infinite':tournIndex==i}" >
             <ion-fab-button *ngIf="t.state=='trash'" id="tr" size="small" (click)="deltourn(t)" color="danger">
                 <ion-icon name="trash"></ion-icon>
               </ion-fab-button>
@@ -478,7 +478,11 @@
                 <div>
                   <p>Starts {{t.doc.formInfo.startDate | date}} <br> Ends {{t.doc.formInfo.endDate | date}}</p>
                   <p style="    font-size: 0.7em; font-weight: bold;">Application open until - {{t.doc.formInfo.applicationClosing | date}}</p>
-                  <b><p style ="color:red">{{t.doc.message}}</p></b>
+                  <!-- <p><p style ="color:red">{{t.doc.message}}</p></b> -->
+                  <ion-chip *ngIf="t.doc.message" outline="true" fill="clear" color="danger" style="pointer-events: none !important;">
+                    <ion-icon name="refresh"></ion-icon>
+                    <ion-label>Recuring Tournament</ion-label>
+                  </ion-chip>
                   <!-- <p>{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p> -->
                 </div>
               </div>

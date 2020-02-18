@@ -354,6 +354,11 @@
   }
 }
 
+.selectedT {
+  transition: 0.3s;
+transform: translateY(-10px);
+}
+
 .newTournamentForm {
   position: absolute;
   top: 0;
@@ -370,44 +375,60 @@
     overflow: hidden;
     width: 80%;
     height: 80%;
-    background: radial-gradient(#000d06a3, #000d06) ,linear-gradient(-45deg, #05A66B 26%, transparent 20%), linear-gradient(45deg, #387336 50%, transparent 50%),linear-gradient(45deg, #012615 70%, transparent 70%),linear-gradient(-45deg, #387336 50%, #05a66b 50%);
+    background: radial-gradient(#000d06a3, #000d06), linear-gradient(-45deg, #05A66B 26%, transparent 20%), linear-gradient(45deg, #387336 50%, transparent 50%), linear-gradient(45deg, #012615 70%, transparent 70%), linear-gradient(-45deg, #387336 50%, #05a66b 50%);
     border-radius: 10px;
-    margin: auto ;
+    margin: auto;
     // transform: translateY(-70vh);
     box-shadow: 0px 0px 7px #17171769;
     position: relative;
     display: flex;
+
     ion-item {
       --background: none !important;
       --color: white !important;
       font-family: 'Didact Gothic' !important;
     }
+
     ion-label {
       --color: white !important;
       font-family: 'Didact Gothic' !important;
     }
+
     ion-input {
       --color: white !important;
     }
+
     ion-select {
       --color: white !important;
     }
+
     ion-select-option {
       --color: white !important;
     }
+
     .select-text {
       color: white !important;
     }
+
     form {
       flex-basis: 50%;
       overflow-y: auto;
       border-right: solid 1px white;
+      padding-bottom: 82px;
+
+      input {
+        width: 100%;
+        border: none;
+        background: none;
+        color: rgb(250, 250, 250) !important;
+      }
+
       .header {
         ion-label {
           // font-size: 1.8em;
         }
       }
-      padding-bottom: 82px;
+
     }
 
     .sButton {
@@ -443,10 +464,12 @@
       display: flex;
       flex-wrap: wrap;
       overflow-y: auto;
+
       .noSponsors {
         display: flex;
         align-items: center;
       }
+
       .card {
         width: 120px;
         height: 30%;
@@ -456,6 +479,7 @@
         overflow: hidden;
         text-align: center;
         background: white;
+
         .image {
           width: 100%;
           height: 80%;
@@ -516,7 +540,7 @@
       right: 30vw;
       top: 0px;
       overflow-y: auto;
-      background:#ffffffbd;
+      background: #ffffffbd;
       border-radius: 5px;
       padding: 10px;
 
@@ -528,7 +552,7 @@
       .approvedTournaments {
         width: 100%;
         height: 50%;
-        
+
         // background: red;
         // display: flex;
         .title {
@@ -613,9 +637,11 @@
         }
 
       }
+
       .noTourns {
         display: flex !important;
         align-items: center !important;
+
         h5 {
           margin: auto !important;
         }
@@ -645,7 +671,7 @@
 
           .card {
             position: relative;
-            background: url(../../../assets/cardSVG/SVG/createdSVG.svg),linear-gradient(40deg, transparent 50%, #000d06 50%),linear-gradient(50deg, transparent 50%, #012616 50%),linear-gradient(60deg, transparent 50%, #387335 50%),linear-gradient(70deg, transparent 50%, #05a66b 50%),linear-gradient(80deg, transparent 50%, #012615 50%), white;
+            background: url(../../../assets/cardSVG/SVG/createdSVG.svg), linear-gradient(40deg, transparent 50%, #000d06 50%), linear-gradient(50deg, transparent 50%, #012616 50%), linear-gradient(60deg, transparent 50%, #387335 50%), linear-gradient(70deg, transparent 50%, #05a66b 50%), linear-gradient(80deg, transparent 50%, #012615 50%), white;
             background-position: 151px 0px;
             background-repeat: no-repeat;
             color: rgb(27, 27, 27);
@@ -658,18 +684,21 @@
             box-shadow: 0px 3px 3px #17171717;
             display: flex;
             overflow: hidden;
+
             #cr {
               position: absolute;
               top: 0px;
               right: 0px;
               z-index: 10;
             }
+
             #tr {
               position: absolute;
               top: 0px;
               left: 0px;
               z-index: 10;
             }
+
             .tTitle {
               border-radius: 10px;
               text-align: center;
@@ -734,21 +763,24 @@
       display: flex;
       -webkit-box-align: center;
       align-items: center;
-      background: linear-gradient(rgba(255, 255, 255, 0.432)),url(../../../assets/SVG/statsbg.svg), white;
+      background: linear-gradient(rgba(255, 255, 255, 0.432)), url(../../../assets/SVG/statsbg.svg), white;
       background-size: cover;
+
       h4 {
         margin: 0;
         padding: 0;
         font-size: 1em;
         // letter-spacing: 5px;
       }
+
       h1 {
         margin: 0;
         padding: 0;
         font-size: 4vw;
         letter-spacing: 7px;
-        
+
       }
+
       p {
         margin: 0;
         padding: 0;
@@ -781,6 +813,7 @@
         justify-content: center;
         overflow-y: auto;
         padding-top: 37px;
+
         .h {
           position: absolute;
           top: 0;
@@ -789,11 +822,13 @@
           background: #012615;
           color: white;
           text-align: center;
+
           p {
             margin: 5px auto;
             font-size: .8em;
           }
         }
+
         .card {
           min-width: 30%;
           max-width: 90%;
@@ -827,7 +862,7 @@
           }
         }
       }
-      
+
     }
 
   }
@@ -878,10 +913,12 @@
         box-shadow: 0px 3px 3px #17171728;
         border-radius: 5px;
         z-index: 300;
+
         // height: 35%;
         div {
           text-align: center;
         }
+
         .card {
           display: flex;
           min-width: 96%;
@@ -900,6 +937,7 @@
               margin: 0;
             }
           }
+
           .buttons {
             text-align: center;
           }
@@ -920,9 +958,11 @@
         border-radius: 5px;
         z-index: 300;
         height: 35%;
+
         div {
           text-align: center;
         }
+
         .card {
           display: flex;
           min-width: 96%;
@@ -982,9 +1022,11 @@
       background: white;
       padding: 10px;
       overflow: hidden;
+
       hr {
         margin: 3px 0px;
       }
+
       h1 {
         margin: 0;
       }
@@ -996,11 +1038,13 @@
         .one,
         .two {
           flex-basis: 50%;
+
           .spnors {
             display: flex;
             flex-wrap: nowrap;
             align-items: center;
           }
+
           p {
             margin: 0;
           }
@@ -1033,6 +1077,7 @@
         .head {
           text-align: center;
           height: 10%;
+
           h1 {
             font-size: 20px;
           }
@@ -1054,11 +1099,13 @@
           height: 80%;
           overflow-x: hidden;
           overflow-y: auto;
+
           .managerApplications {
             display: flex;
             overflow-x: auto;
             width: 100%;
             height: 35%;
+
             .card {
               padding: 10px;
               border-radius: 10px;
@@ -1070,11 +1117,11 @@
               color: black;
               display: flex;
               align-items: center;
-  
+
               .details {
                 flex-basis: 100%;
               }
-  
+
               .refNumber {
                 p {
                   opacity: 0.7;
@@ -1084,14 +1131,17 @@
               }
             }
           }
+
           .head {
             height: 10%;
           }
+
           .vendorApplications {
             display: flex;
             overflow-x: auto;
             height: 35%;
             width: 100%;
+
             .card {
               padding: 10px;
               border-radius: 10px;
@@ -1103,11 +1153,11 @@
               color: black;
               display: flex;
               align-items: center;
-  
+
               .details {
                 flex-basis: 100%;
               }
-  
+
               .refNumber {
                 p {
                   opacity: 0.7;
@@ -1117,13 +1167,14 @@
               }
             }
           }
-          
+
         }
       }
 
       .participatingTeams {
         flex-basis: 50%;
         position: relative;
+
         .complete {
           top: 58px;
           right: 0;
@@ -1136,6 +1187,7 @@
           text-align: center;
           z-index: 70;
         }
+
         .head {
           text-align: center;
 
@@ -1181,6 +1233,7 @@
     }
   }
 }
+
 .results {
   position: absolute;
   color: rgb(255, 255, 255);
@@ -1193,15 +1246,17 @@
   overflow-y: auto;
   justify-content: left;
   border-radius: 3px;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+
   p {
     margin: 3px;
     padding: 3px;
     color: #ffffff;
     border-radius: 3px;
     background:
-    linear-gradient(45deg, #05a66b 80%, transparent 20%), linear-gradient(45deg, #012615 85%, transparent 15%), linear-gradient(45deg, #02734a 90%, transparent 10%);
+      linear-gradient(45deg, #05a66b 80%, transparent 20%), linear-gradient(45deg, #012615 85%, transparent 15%), linear-gradient(45deg, #02734a 90%, transparent 10%);
   }
+
   .count {
     display: none;
     pointer-events: none;

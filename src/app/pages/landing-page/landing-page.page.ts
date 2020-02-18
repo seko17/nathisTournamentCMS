@@ -220,7 +220,11 @@ this.btn2=false;
       this.currmatch = [];
       this.matchobject = item;
       this.currmatch.push(item);
-      console.log('line 205 ', this.matchobject);
+      console.log('line 205 ', this.matchobject.matchstate);
+      if(this.matchobject.matchstate=="complete")
+      {
+        this.btntxt ="Full Time";
+      }
 
       firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(val => {
         this.team1 = [];
