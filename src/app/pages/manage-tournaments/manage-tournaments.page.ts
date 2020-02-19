@@ -357,10 +357,12 @@ blockfixture:boolean =true;
   constructor(public alertController: AlertController, public serve: AllserveService, public loadingController: LoadingController, public toastController: ToastController, public modalController: ModalController, public dragulaService: DragulaService, public renderer: Renderer2, public alertCtrl: AlertController, public formBuilder: FormBuilder) {
 
     let num = 0;
+    
   }
 
   ngOnInit() {
     this.autoComplete();
+    this.scroll()
     let t = new Date().toJSON().split('T')[0];
     this.tournToday = t
     this.newTournForm = this.formBuilder.group({
@@ -371,7 +373,7 @@ blockfixture:boolean =true;
       endDate: ['', Validators.required],
       joiningFee: ['', [Validators.required, Validators.minLength(3)]],
       bio: ['', [Validators.required, Validators.minLength(10)]],
-      staduimName : [' ', [Validators.required]],
+      stadiumName : ['', [Validators.required]],
       applicationClosing: ['', Validators.required]
     })
     this.db.collection('newTournaments').onSnapshot(res => {
@@ -388,8 +390,40 @@ blockfixture:boolean =true;
     }
     // Motus
   }
+// should help scroll horizontally using mouse wheel
+  scroll() {
+    console.log('FIRED')
+    function scrollHorizontally(e) {
+        e = window.event || e;
+        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+        document.getElementsByClassName('managerApplications')[0].scrollLeft -= (delta*40); // Multiplied by 40
+        e.preventDefault();
+        e = window.event || e;
+        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+        document.getElementsByClassName('vendorApplications')[0].scrollLeft -= (delta*40); // Multiplied by 40
+        e.preventDefault();
+    }
+    if (document.getElementsByClassName('managerApplications')[0].addEventListener) {
+        // IE9, Chrome, Safari, Opera
+        document.getElementsByClassName('managerApplications')[0].addEventListener("mousewheel", scrollHorizontally, false);
+        // Firefox
+        document.getElementsByClassName('managerApplications')[0].addEventListener("DOMMouseScroll", scrollHorizontally, false);
+    } else {
+        // IE 6/7/8
+        document.getElementsByClassName('managerApplications')[0].addEventListener("onmousewheel", scrollHorizontally);
+    }
 
 
+    if (document.getElementsByClassName('vendorApplications')[0].addEventListener) {
+      // IE9, Chrome, Safari, Opera
+      document.getElementsByClassName('vendorApplications')[0].addEventListener("mousewheel", scrollHorizontally, false);
+      // Firefox
+      document.getElementsByClassName('vendorApplications')[0].addEventListener("DOMMouseScroll", scrollHorizontally, false);
+  } else {
+      // IE 6/7/8
+      document.getElementsByClassName('vendorApplications')[0].addEventListener("onmousewheel", scrollHorizontally);
+  }
+};
 autoComplete(){
   console.log('loc in',this.autoCompSearch);
   this.autocom = new google.maps.places.Autocomplete(this.autoCompSearch[0], { types: ['geocode'] });
