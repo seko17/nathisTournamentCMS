@@ -15,11 +15,11 @@
 
       <hr>
 
-      <ion-button color="success" shape="round"  (click)="generate()">
+      <ion-button color="success" shape="round" (click)="generate()">
         Generate it
       </ion-button>
       <br>
-      <ion-button  fill="clear" color="light" (click)="setUpTimeLine('open',null)">
+      <ion-button fill="clear" color="light" (click)="setUpTimeLine('open',null)">
         I'll do it
       </ion-button>
     </div>
@@ -118,8 +118,8 @@
           </div>
           <div class="inputs">
             <!--    [(ngModel)] =item.matchdate -->
-            <ion-datetime displayFormat="D MMM, YY - HH:mm a" min="{{tournToday}}"  max="2020-12-31" placeholder="Date, Time"
-              [(ngModel)]=item.matchdate></ion-datetime>
+            <ion-datetime displayFormat="D MMM, YY - HH:mm a" min="{{tournToday}}" max="2020-12-31"
+              placeholder="Date, Time" [(ngModel)]=item.matchdate></ion-datetime>
           </div>
         </div>
       </div>
@@ -128,11 +128,11 @@
       <div class="header">
         <div class="title">
           <h1>Fixture</h1>
-          <ion-button shape="round" color="success" size="small" (click)="editfixture()" [disabled] ="makechanges">
+          <ion-button shape="round" color="success" size="small" (click)="editfixture()" [disabled]="makechanges">
             Make Changes
           </ion-button>
           <ion-button shape="round" color="success" size="small" (click)="fixtureSetUp('close')"
-            (click)="createfixture()"  [disabled] ="makechanges">
+            (click)="createfixture()" [disabled]="makechanges">
             Create Fixture
           </ion-button>
         </div>
@@ -170,7 +170,7 @@
 
   <!-- shows when you have to accept or decline applications, search for references and conform team payment -->
   <div class="setUpApplications animated" [ngClass]="{'fadeInUp':setUpApplications,'fadeOutDown':!setUpApplications}">
-    
+
     <!-- CLOSE BUTTON -->
     <div class="closebutton">
       <ion-fab-button size="small" color="success" (click)="finnishSetup(null, 'close')">
@@ -197,7 +197,7 @@
               <ion-button (click)="acceptVendorApplication(v)" shape="round" size="small" color="success">
                 Accept
               </ion-button>
-              <ion-button (click)="declineVendorApplication(v)" shape="round" size="small" color="danger" >
+              <ion-button (click)="declineVendorApplication(v)" shape="round" size="small" color="danger">
                 Decline
               </ion-button>
             </div>
@@ -214,7 +214,7 @@
 
       <!-- NEW TEAM APPLICATIONS -->
       <div class="applicationList">
-        <div class="card" *ngIf="tournamentApplications.length == 0" >
+        <div class="card" *ngIf="tournamentApplications.length == 0">
           <p style="text-align: center;margin: 10px auto;">No Applications</p>
         </div>
         <div class="card" *ngFor="let team of tournamentApplications">
@@ -223,7 +223,7 @@
             <p>Manager: {{team.doc.TeamObject.managerName}}</p>
           </div>
           <div class="buttons">
-            <ion-button shape="round" size="small" color="success" (click)="accept(team)"   [disabled]="disablepaid">
+            <ion-button shape="round" size="small" color="success" (click)="accept(team)" [disabled]="disablepaid">
               Accept
             </ion-button>
             <ion-button shape="round" size="small" color="danger" (click)="decline(team)" [disabled]="disablepaid">
@@ -233,7 +233,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- TOURNAMENT DETAILS -->
     <div class="management">
       <div class="tournamentData" *ngFor="let x of tourndetails">
@@ -248,11 +248,11 @@
           </div>
           <div class="two">
             <p><b>Applications Close {{x.doc.formInfo.applicationClosing | date}}</b></p>
-            
+
             <hr>
             <div class="spnors">
               <p>Sponsors</p>
-            <span *ngFor="let i of x.doc.sponsors"><img src="{{i.sponsorImage}}"></span>
+              <span *ngFor="let i of x.doc.sponsors"><img src="{{i.sponsorImage}}"></span>
             </div>
           </div>
         </div>
@@ -261,18 +261,19 @@
 
         <!-- ACCEPTED APPLICATIONS -->
         <div class="acceptedApplications">
+          <div class="searcher">
+            <ion-input type="text" placeholder="Search Reference Number" (keyup)="getItems($event)"></ion-input>
+          </div>
           <div class="head">
             <h1>Accepted Applications <sub>Still to pay</sub></h1>
           </div>
 
           <!-- SEARCH INPUT -->
-          <div class="searcher">
-            <ion-input type="text" placeholder="Search Reference Number"     (keyup)="getItems($event)"  ></ion-input>
-          </div>
+
           <!-- TEAM APPLICATIONS STILL TO PAY -->
           <div class="stillToPayList">
-            <div class="managerApplications">
-              <div class="card" *ngIf="acceptedSearchResults.length==0" >
+            <div id="managerApplications" class="managerApplications">
+              <div class="card" *ngIf="acceptedSearchResults.length==0">
                 <p style="margin: auto;text-align: center;">No Applications</p>
               </div>
               <div class="card" *ngFor="let item of acceptedSearchResults">
@@ -292,8 +293,8 @@
             <div class="head">
               <h1>Vendor Applications <sub>Still to pay</sub></h1>
             </div>
-            <div class="vendorApplications">
-              <div class="card" *ngIf="vendorssearchArray.length==0" >
+            <div id="vendorApplications" class="vendorApplications">
+              <div class="card" *ngIf="vendorssearchArray.length==0">
                 <p style="margin: auto;text-align: center;">No Applications</p>
               </div>
               <div class="card" *ngFor="let v of vendorssearchArray">
@@ -314,27 +315,31 @@
         <!-- PAID APPLICATIONS -->
         <div class="participatingTeams">
           <div class="complete" *ngIf="!blockfixture">
-            <ion-button shape="round" style="margin: auto;"   (click)="complete()">
+            <ion-button shape="round" style="margin: auto;" (click)="complete()">
               Complete
             </ion-button>
           </div>
           <div class="head">
-          <h1>Participating Teams <sub>Paid</sub><ion-badge mode="ios">{{cparticipants.length}}</ion-badge> </h1>
+            <h1>Participating Teams <sub>Paid</sub>
+              <ion-badge mode="ios">{{cparticipants.length}}</ion-badge>
+            </h1>
           </div>
-          <div class="paidList" >
-            
-            <div class="card" *ngIf="cparticipants.length==0" ><p style="margin: auto; text-align: center;">No Applications</p></div>
-            <div class="card" *ngFor="let item of cparticipants" >
+          <div class="paidList">
+
+            <div class="card" *ngIf="cparticipants.length==0">
+              <p style="margin: auto; text-align: center;">No Applications</p>
+            </div>
+            <div class="card" *ngFor="let item of cparticipants">
               <div class="details">
                 <h5 style="margin: 0px ;
                 font-size: 2em;">{{item.TeamObject.teamNamme}}</h5>
                 <p style="margin: 0px 0px 0px 10px;
                 font-size: 0.8em;">{{item.TeamObject.coachName}}
-                <p style="margin: 0px 0px 0px 10px;
+                  <p style="margin: 0px 0px 0px 10px;
                 font-weight: bold;">{{item.TeamObject.teamName}}</p>
-                <p style="margin: 0px 0px 0px 10px;
+                  <p style="margin: 0px 0px 0px 10px;
                 color: gray;">{{item.tournamentName}}</p>
-                <!-- <p style="margin: 0;">Manager <b>Name Surname</b></p> -->
+                  <!-- <p style="margin: 0;">Manager <b>Name Surname</b></p> -->
               </div>
             </div>
           </div>
@@ -368,22 +373,27 @@
               {{searchResults.length}}
             </div>
           </div>
+          <!-- <ion-label position="floating">Location</ion-label>
+         <ion-input  type="text"  class="search" formControlName="location"></ion-input>
+            <ion-input type="text" formControlName="location"></ion-input> -->
+          <!-- <ion-item>
+            <ion-label position="floating">Stadium Name</ion-label>
+            <ion-input type="text" formControlName="staduimName"></ion-input>
+          </ion-item> -->
           <ion-item>
-            <!-- <ion-label position="floating">Location</ion-label> -->
-         <!--  <ion-input  type="text"  class="search" formControlName="location"></ion-input> -->
-         
-            <!-- <ion-input type="text" formControlName="location"></ion-input> -->
-
-            <ion-item>
-              <ion-label position="floating">Staduim Name</ion-label>
-              <ion-input type="text" formControlName="staduimName" ></ion-input>
-            </ion-item>
-            <!-- staduim location -->
-            <input type="text " class="search" style="color: black !important;">
+            <ion-label position="floating">Stadium Name</ion-label>
+            <ion-input type="text" formControlName="stadiumName"></ion-input>
           </ion-item>
           <ion-item>
+            <ion-label position="stacked">Stadium Address</ion-label>
+            <input type="text " placeholder=" " class="search"
+            style="color: rgb(255, 255, 255) !important;width: 50%;">
+          </ion-item>
+          <!-- staduim location -->
+         
+          <ion-item>
             <ion-label position="floating">Tournament Starts</ion-label>
-          <ion-datetime displayFormat="DD MMMM YYYY" min="{{tournToday}}" formControlName="startDate"></ion-datetime>
+            <ion-datetime displayFormat="DD MMMM YYYY" min="{{tournToday}}" formControlName="startDate"></ion-datetime>
           </ion-item>
           <ion-item>
             <ion-label position="floating">Tournament Ends</ion-label>
@@ -395,12 +405,13 @@
           </ion-item>
           <ion-item>
             <!--  -->
-  <ion-label position="floating">Description</ion-label>
-  <ion-textarea maxlength="150" formControlName="bio"  autoGrow="true" spellcheck="true"></ion-textarea>
-</ion-item>
+            <ion-label position="floating">Description</ion-label>
+            <ion-textarea maxlength="150" formControlName="bio" autoGrow="true" spellcheck="true"></ion-textarea>
+          </ion-item>
           <ion-item>
             <ion-label position="floating">Application Closing Date</ion-label>
-            <ion-datetime displayFormat="DD MMMM YYYY" min="{{tournToday}}" formControlName="applicationClosing"></ion-datetime>
+            <ion-datetime displayFormat="DD MMMM YYYY" min="{{tournToday}}" formControlName="applicationClosing">
+            </ion-datetime>
           </ion-item>
         </div>
         <div class="sButton">
@@ -426,7 +437,7 @@
             <ion-input type="file" accept="image/*" multiple="false" (change)="selectimage($event.target.files)">
             </ion-input>
           </ion-item>
-            <ion-progress-bar value="{{progressOfImage/100}}"></ion-progress-bar>
+          <ion-progress-bar value="{{progressOfImage/100}}"></ion-progress-bar>
           <ion-item>
             <ion-label>Sponsor Name</ion-label>
             <ion-input [(ngModel)]="sponsorName"> </ion-input>
@@ -439,7 +450,7 @@
           </ion-button>
         </div>
         <div class="arrSponsors">
-          <div class="card noSponsors" style="margin: auto;" *ngIf="tournamentObj.sponsors.length==0" >
+          <div class="card noSponsors" style="margin: auto;" *ngIf="tournamentObj.sponsors.length==0">
             <p style="font-size: .8em;"><b>You need to add sponsors before submitting (Optional)</b></p>
           </div>
           <div class="card" *ngFor="let i of tournamentObj.sponsors">
@@ -470,11 +481,12 @@
             <h4>Approved Tournaments</h4>
           </div>
           <div class="approvedList">
-            <div class="card noTourns" *ngIf="approvedTournaments.length==0" >
+            <div class="card noTourns" *ngIf="approvedTournaments.length==0">
               <h5>No Tournaments</h5>
             </div>
-            <div class="card animated" *ngFor="let t of approvedTournaments;let i = index" (click)="showSideEvent(t, i)" [ngClass]="{'pulse infinite':tournIndex==i}" >
-            <ion-fab-button *ngIf="t.state=='trash'" id="tr" size="small" (click)="deltourn(t)" color="danger">
+            <div class="card animated" *ngFor="let t of approvedTournaments;let i = index" (click)="showSideEvent(t, i)"
+              [ngClass]="{'pulse infinite':tournIndex==i}">
+              <ion-fab-button *ngIf="t.state=='trash'" id="tr" size="small" (click)="deltourn(t)" color="danger">
                 <ion-icon name="trash"></ion-icon>
               </ion-fab-button>
               <div class="tTitle">
@@ -483,9 +495,11 @@
               <div class="tDetails">
                 <div>
                   <p>Starts {{t.doc.formInfo.startDate | date}} <br> Ends {{t.doc.formInfo.endDate | date}}</p>
-                  <p style="    font-size: 0.7em; font-weight: bold;">Application open until - {{t.doc.formInfo.applicationClosing | date}}</p>
+                  <p style="    font-size: 0.7em; font-weight: bold;">Application open until -
+                    {{t.doc.formInfo.applicationClosing | date}}</p>
                   <!-- <p><p style ="color:red">{{t.doc.message}}</p></b> -->
-                  <ion-chip *ngIf="t.doc.message" outline="true" fill="clear" color="danger" style="pointer-events: none !important;">
+                  <ion-chip *ngIf="t.doc.message" outline="true" fill="clear" color="danger"
+                    style="pointer-events: none !important;">
                     <ion-icon name="refresh"></ion-icon>
                     <ion-label>Recuring Tournament</ion-label>
                   </ion-chip>
@@ -506,12 +520,13 @@
             <h4>Created Tournaments</h4>
           </div>
           <div class="unapprovedList">
-            <div class="card" style="display: flex; align-items: center; opacity: 1;" *ngIf="unapprovedTournaments.length==0" >
-              
-                <h5 style="margin: auto">No Tournaments</h5>
-              
+            <div class="card" style="display: flex; align-items: center; opacity: 1;"
+              *ngIf="unapprovedTournaments.length==0">
+
+              <h5 style="margin: auto">No Tournaments</h5>
+
             </div>
-            <div class="card" *ngFor="let t of unapprovedTournaments" >
+            <div class="card" *ngFor="let t of unapprovedTournaments">
               <ion-fab-button id="cr" size="small" (click)="editourn(t)" color="success">
                 <ion-icon name="create"></ion-icon>
               </ion-fab-button>
@@ -537,16 +552,20 @@
 
       <div class="tournamentDetails">
         <div class="details">
-          <div *ngIf="TournSelectedObj.doc.formInfo.tournamentName==''" > <h4>Click on a tournament to see its full info here.</h4></div>
+          <div *ngIf="TournSelectedObj.doc.formInfo.tournamentName==''">
+            <h4>Click on a tournament to see its full info here.</h4>
+          </div>
           <div *ngIf="TournSelectedObj.doc.formInfo.tournamentName!=''">
-           
+
             <h1>{{TournSelectedObj.doc.formInfo.tournamentName}}</h1>
             <p style="color: gray;">Top {{TournSelectedObj.doc.formInfo.type}}</p>
             <hr>
             <p style="font-size: 1.2vw;">{{TournSelectedObj.doc.formInfo.type}} Participants</p>
-            <p style="font-size: 1.2vw;">From {{TournSelectedObj.doc.formInfo.startDate|date}} to {{TournSelectedObj.doc.formInfo.endDate|date}}</p>
+            <p style="font-size: 1.2vw;">From {{TournSelectedObj.doc.formInfo.startDate|date}} to
+              {{TournSelectedObj.doc.formInfo.endDate|date}}</p>
             <hr>
-            <p style="font-weight: bold;">Application Closing Date <br> {{TournSelectedObj.doc.formInfo.applicationClosing|date}}</p>
+            <p style="font-weight: bold;">Application Closing Date <br>
+              {{TournSelectedObj.doc.formInfo.applicationClosing|date}}</p>
           </div>
         </div>
         <!-- DISPLAYS INFORMATION OF APPLICATIONS -->
