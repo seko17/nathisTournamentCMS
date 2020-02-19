@@ -400,13 +400,7 @@ autoComplete(){
     this.tournamentObj.address.address = place.formatted_address
     this.tournamentObj.address.placeID = place.place_id;
     this.placeID =  place.place_id;
-
-    console.log('form',place.formatted_address);
-    
-    // this.searchResults.push(place)
-  })  
-  console.log('aaaaa',this.placeID);
-  
+  })    
 }
 
   async finnishSetup(tournament, state) {
