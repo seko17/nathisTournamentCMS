@@ -119,11 +119,13 @@ button[ion-fab] {
           }
         }
         .homeImage:hover {
-          box-shadow:  2px 2px 6px #696969, -2px -2px 7px #ffffff;
+          box-shadow:  5px 5px 0px #c0c0c0, 
+             -5px -5px 0px #f4f4f4;
           transition: 0.3s;
         }
         .awayImage:hover {
-          box-shadow:  2px 2px 6px #696969, -2px -2px 7px #ffffff;
+          box-shadow:  5px 5px 0px #c0c0c0, 
+             -5px -5px 0px #f4f4f4;
           transition: 0.3s;
         }
         .homeImage {
@@ -273,7 +275,7 @@ button[ion-fab] {
                 padding: 10px 5px;
                 border-bottom: solid 2px rgba(0, 0, 0, 0.103);
                 position: relative;
-                margin: 15px 0px 10px 45px;
+                margin: 15px 15px 10px 45px;
                 background: rgba(39, 44, 66, 0.021);
 
                 .number {
@@ -329,6 +331,11 @@ button[ion-fab] {
                     font-size: .6rem;
                   }
                 }
+              }
+              .card:hover {
+                transition: 0.3s;
+                box-shadow:  5px 5px 0px #c0c0c0, 
+             -5px -5px 0px #f4f4f4;
               }
             }
           }
