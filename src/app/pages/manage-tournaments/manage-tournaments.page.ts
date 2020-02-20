@@ -218,6 +218,7 @@ blockfixture:boolean =true;
     dateCreated: null,
     sponsors: [],
     state: 'newTournament',
+    parent:"yes",
     AcceptedApplications: 0,
     ApprovedApplications: 0,
     ApprovedVendorApplications: 0,
@@ -717,6 +718,7 @@ console.log(tournament)
           startDate: [tournament.doc.formInfo.startDate, Validators.required],
           endDate: [tournament.doc.formInfo.endDate, Validators.required],
           joiningFee: [tournament.doc.formInfo.joiningFee, [Validators.required, Validators.minLength(3)]],
+          stadiumName: [tournament.doc.stadiumName, [Validators.required, Validators.minLength(3)]],
           applicationClosing: [tournament.doc.formInfo.applicationClosing, Validators.required],
 
           parentdoc:[tournament.docid]
@@ -1067,6 +1069,7 @@ else if(formData.parentdoc!=undefined) {
     DeclinedApplications: 0,
     totalApplications: 0,
     vendorTotalApplications: 0,
+    parent:"no",
     address : {
       placeID : this.tournamentObj.address.address,
       address : this.tournamentObj.address.placeID,
@@ -1127,6 +1130,7 @@ else{
         AcceptedVendorApplications: 0,
         DeclinedApplications: 0,
         totalApplications: 0,
+        parent:"yes",
         vendorTotalApplications: 0,
         address : {
           address : this.tournamentObj.address.address,

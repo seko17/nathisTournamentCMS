@@ -158,7 +158,7 @@ btntxt4
 
 
 disableall:boolean;
-
+stats =[];
 
   async viewmatch(state, item, a) {
     
@@ -225,15 +225,69 @@ this.btn2=false;
       {
         this.btntxt ="Full Time";
       }
-
+this.stats =[];
       firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(val => {
         this.team1 = [];
         this.input.data = [];
         val.forEach(res => {
           this.team1.push(res.data())
           console.log("147= ", this.team1)
-          this.input.data.push({ name: "radio", type: 'radio', label: res.data().fullName, value: res.data().fullName })
+          let ress =res.data()
+         
+let num = 0
+
+
+firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res=>{
+ 
+console.log(res.data().stats)
+let x =res.data().stats;
+this.stats.push(x)
+console.log(this.stats)
+ 
+  })
+
+  
+
+console.log(this.stats) 
+  if(this.stats[0]!=undefined)
+{
+
+  console.log('254 true')
+          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res=>{
+            console.log('238',res.data().stats)
+
+            
+            
+
+             
+
+              if(res.data().stats[num].playerName==ress.fullName && res.data().stats[num].red =="0:0")
+              {
+
+console.log('246 true')
+              }
+              else
+              {
+                this.input.data.push({ name: "radio", type: 'radio', label: ress.fullName, value: ress.fullName })
+              }
+              num = num+1
+
+              console.log(num)
+            
+
+           
+          })
+        }
+
+      else
+      {
+
+        this.input.data.push({ name: "radio", type: 'radio', label: ress.fullName, value: ress.fullName })
+
+
+      }  
         })
+            
       })
 
       firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').get().then(val => {
