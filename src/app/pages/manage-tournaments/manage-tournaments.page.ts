@@ -13,7 +13,7 @@ import { Motus } from 'motus';
 import { DragdropPage } from '../dragdrop/dragdrop.page';
 
 
-declare var google;
+declare var google : any;
 @Component({
   selector: 'app-manage-tournaments',
   templateUrl: './manage-tournaments.page.html',
