@@ -161,7 +161,35 @@ disableall:boolean;
 stats =[];
 
   async viewmatch(state, item, a) {
+
+    console.log(item)
+    if(item ==null)
+  {
+
+  }
+  else{
+    firebase.firestore().collection('MatchFixtures').doc(item.fixtureid).get().then(async res=>{
+ 
+
+      let x=[]
+      this.stats.push(res.data().stats);
+      
+      console.log(this.stats[0])
+      
+        })
     
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+      duration: 2000
+    });
+    await loading.present();
+    const { role, data } = await loading.onDidDismiss();
+  
+  }
+       
+
+
+
     
  this.zone.run(()=>{
   
@@ -225,8 +253,8 @@ this.btn2=false;
       {
         this.btntxt ="Full Time";
       }
-this.stats =[];
-      firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(val => {
+
+      firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(async val => {
         this.team1 = [];
         this.input.data = [];
         val.forEach(res => {
@@ -237,18 +265,9 @@ this.stats =[];
 let num = 0
 
 
-firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res=>{
- 
-console.log(res.data().stats)
-let x =res.data().stats;
-this.stats.push(x)
-console.log(this.stats)
- 
-  })
 
-  
 
-console.log(this.stats) 
+console.log(this.stats[0]) 
   if(this.stats[0]!=undefined)
 {
 
