@@ -944,7 +944,105 @@ else
 
                
 
-if(true)
+
+
+
+
+
+
+                firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ matchstate: 'complete' });
+
+                firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(async rez => {
+                  console.log(rez.data().aTeamObject.teamName)
+
+
+                  if (rez.data().score == rez.data().ascore) {
+
+                   
+                    const alert = await this.alertController.create({
+                      header: 'Alert!',
+                      message: 'The match can not be finished without a winner.',
+                      buttons: ['OK']
+                    });
+
+                    await alert.present();
+                  }
+                  else
+                    if (parseFloat(rez.data().type) / 2 == 0.5) {
+
+
+                      if(true)
+                      {
+                      
+                      
+                        console.log('Teams',this.currmatch[0].aTeamObject.uid,this.currmatch[0].TeamObject.uid)
+                        firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').get().then(val => {
+                          val.forEach(res => {
+                            
+                      firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').doc(res.id).update({status:'not available'})
+                      
+                            
+                          })
+                      
+                         
+                        })
+                      
+                      
+                      
+                        firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(val => {
+                          val.forEach(res => {
+                            
+                      firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').doc(res.id).update({status:'not available'}).then(res=>{
+                      console.log(res,'Done')
+                      })
+                      
+                            
+                          })
+                      
+                         
+                        })
+                      
+                      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      console.log("TRUE", this.clicked[0].formInfo)
+                      this.viewmatch('close', null, null)
+                      firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
+                        firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({half:'Match Over' });
+                      
+                        
+                        })
+
+                      this.db.collection('newTournaments').doc(this.clicked[0].docid).update({ state: 'finished' });
+                      firebase.firestore().collection('newTournaments').doc(this.clicked[0].docid).update({ formInfo: { applicationClosing: this.clicked[0].formInfo.applicationClosing, tournamentName: this.clicked[0].formInfo.tournamentName, location: this.clicked[0].formInfo.location, joiningFee: this.clicked[0].formInfo.joiningFee, endDate: this.clicked[0].formInfo.endDate, startDate: this.clicked[0].formInfo.startDate, type: "0" } });
+
+                      if (rez.data().ascore > rez.data().score) {
+
+
+                        firebase.firestore().collection('PlayedMatches').add(rez.data());
+
+
+                        firebase.firestore().collection('TournamentWinners').add({ tournid: this.clicked[0].docid, TeamObject: { ...rez.data().aTeamObject } });
+
+
+                        firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).delete();
+
+                      }
+                      else if (rez.data().score > rez.data().ascore) {
+                        
+                        if(true)
 {
 
 
@@ -976,54 +1074,8 @@ console.log(res,'Done')
   })
 
 }
-
-
-
-
-
-                firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ matchstate: 'complete' });
-
-                firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(async rez => {
-                  console.log(rez.data().aTeamObject.teamName)
-
-
-                  if (rez.data().score == rez.data().ascore) {
-
-                   
-                    const alert = await this.alertController.create({
-                      header: 'Alert!',
-                      message: 'The match can not be finished without a winner.',
-                      buttons: ['OK']
-                    });
-
-                    await alert.present();
-                  }
-                  else
-                    if (parseFloat(rez.data().type) / 2 == 0.5) {
-                      console.log("TRUE", this.clicked[0].formInfo)
-                      this.viewmatch('close', null, null)
-                      firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
-                        firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({half:'Match Over' });
-                      
                         
-                        })
-
-                      this.db.collection('newTournaments').doc(this.clicked[0].docid).update({ state: 'finished' });
-                      firebase.firestore().collection('newTournaments').doc(this.clicked[0].docid).update({ formInfo: { applicationClosing: this.clicked[0].formInfo.applicationClosing, tournamentName: this.clicked[0].formInfo.tournamentName, location: this.clicked[0].formInfo.location, joiningFee: this.clicked[0].formInfo.joiningFee, endDate: this.clicked[0].formInfo.endDate, startDate: this.clicked[0].formInfo.startDate, type: "0" } });
-
-                      if (rez.data().ascore > rez.data().score) {
-
-
-                        firebase.firestore().collection('PlayedMatches').add(rez.data());
-
-
-                        firebase.firestore().collection('TournamentWinners').add({ tournid: this.clicked[0].docid, TeamObject: { ...rez.data().aTeamObject } });
-
-
-                        firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).delete();
-
-                      }
-                      else if (rez.data().score > rez.data().ascore) {
+                        
                         console.log("HOMESCORE WON")
                         this.viewmatch('close', null, null)
                         firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
@@ -1044,6 +1096,54 @@ console.log(res,'Done')
                     else
                       if (rez.data().ascore > rez.data().score) {
                         console.log("AWAYSCORE WON")
+
+
+
+
+                        if(true)
+                        {
+                        
+                        
+                          console.log('Teams',this.currmatch[0].aTeamObject.uid,this.currmatch[0].TeamObject.uid)
+                          firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').get().then(val => {
+                            val.forEach(res => {
+                              
+                        firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').doc(res.id).update({status:'not available'})
+                        
+                              
+                            })
+                        
+                           
+                          })
+                        
+                        
+                        
+                          firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(val => {
+                            val.forEach(res => {
+                              
+                        firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').doc(res.id).update({status:'not available'}).then(res=>{
+                        console.log(res,'Done')
+                        })
+                        
+                              
+                            })
+                        
+                           
+                          })
+                        
+                        }
+
+
+
+
+
+
+
+
+
+
+
+
                         this.viewmatch('close', null, null)
                         firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
                           firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({half:'Match Over' });
@@ -1058,6 +1158,55 @@ console.log(res,'Done')
 
                       }
                       else if (rez.data().score > rez.data().ascore) {
+                        
+                        
+                        
+                        
+                        if(true)
+{
+
+
+  console.log('Teams',this.currmatch[0].aTeamObject.uid,this.currmatch[0].TeamObject.uid)
+  firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').get().then(val => {
+    val.forEach(res => {
+      
+firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').doc(res.id).update({status:'not available'})
+
+      
+    })
+
+   
+  })
+
+
+
+  firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(val => {
+    val.forEach(res => {
+      
+firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').doc(res.id).update({status:'not available'}).then(res=>{
+console.log(res,'Done')
+})
+
+      
+    })
+
+   
+  })
+
+}
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         console.log("HOMESCORE WON")
                         this.viewmatch('close', null, null)
                         firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
@@ -1086,6 +1235,9 @@ console.log(res,'Done')
       }
     });
   }
+
+
+
 
   async goal1() {
 
