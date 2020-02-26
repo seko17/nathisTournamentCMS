@@ -12,10 +12,10 @@
           </div>
           <div class="teams">
             <div class="h">
-              <p>Lorem Ipsum  <ion-badge color="primary" mode="ios">{{penalties.home.total}}</ion-badge></p>
+              <p>Home  <ion-badge color="primary" mode="ios">{{hgv}}</ion-badge></p>
             </div>
             <div class="a">
-              <p><ion-badge color="primary" mode="ios">{{penalties.away.total}}</ion-badge> Dolor Somet</p>
+              <p><ion-badge color="primary" mode="ios">{{agv}}</ion-badge> Away </p>
             </div>
           </div>
         </div>
@@ -23,7 +23,7 @@
           <div class="pHome">
             <div class="pButtons">
               <div class="c">
-                <ion-button (click)="goal('home')" color="success" shape="round">
+                <ion-button (click)="goal('home')" (click)='hg()' color="success" shape="round">
                   Goal
                 </ion-button>
                 <ion-button (click)="missed('home')" color="danger" shape="round">
@@ -69,7 +69,7 @@
             </div>
             <div class="pButtons">
               <div class="c">
-                <ion-button (click)="goal('away')" color="success" shape="round">
+                <ion-button (click)="goal('away')" (click)='ag()' color="success" shape="round">
                   Goal
                 </ion-button>
                 <ion-button (click)="missed('away')" color="danger" shape="round">
@@ -80,7 +80,7 @@
           </div>
         </div>
         <div class="finnisher">
-          <ion-button (click)="onClick()" expand="block" shape="round">
+          <ion-button (click)="endpenalty()" expand="block" shape="round">
             End Penalties
           </ion-button>
         </div>
@@ -228,9 +228,9 @@
               <p *ngIf="activeTourn.state!='finished'">Starts {{item.startDate | date}}</p>
               <p *ngIf="activeTourn.approvedVendors.length>0&&activeTourn.state!='finished'">Food will be sold</p>
               <p *ngIf="activeTourn.approvedVendors.length==0&&activeTourn.state!='finished'">No Food Sold</p>
-              <ion-button (click)="penaltiesPanel('open')"  color="light" shape="round">
+              <!-- <ion-button (click)="penaltiesPanel('open')"  color="light" shape="round">
                 Penalties
-              </ion-button>
+              </ion-button> -->
             </div>
           </div>
           <div class="awayImage">
@@ -576,10 +576,10 @@
             </div>
           </div>
           <div class="teamHome">
-            <p>Home</p>
+            <p>Away</p>
           </div>
           <div class="teamAway">
-            <p>Away</p>
+            <p>Home</p>
           </div>
         </div>
       </div>
