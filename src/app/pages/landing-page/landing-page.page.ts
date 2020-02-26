@@ -192,6 +192,21 @@ penaltiesPanel(cmd) {
         break;
   }
 }
+agv =0;
+hgv =0
+ag()
+{
+this.agv =this.agv+1;
+console.log(this.agv)
+}
+
+hg()
+{
+  this.hgv =this.hgv+1;
+  console.log(this.hgv)
+}
+
+
   // operates the penalties indicators view
 goal(side) {
   switch (side) {
@@ -349,7 +364,8 @@ missed(side) {
 }
 
   async viewmatch(state, item, a) {
-
+this.hgv =0;
+this.agv=0;
     console.log(item)
     if(item ==null)
   {

@@ -13,10 +13,10 @@
           </div>
           <div class="teams">
             <div class="h">
-              <p>Lorem Ipsum  <ion-badge color="primary" mode="ios">{{penalties.home.total}}</ion-badge></p>
+              <p>Home  <ion-badge color="primary" mode="ios">{{hgv}}</ion-badge></p>
             </div>
             <div class="a">
-              <p><ion-badge color="primary" mode="ios">{{penalties.away.total}}</ion-badge> Dolor Somet</p>
+              <p><ion-badge color="primary" mode="ios">{{agv}}</ion-badge> Away </p>
             </div>
           </div>
         </div>
@@ -24,7 +24,7 @@
           <div class="pHome">
             <div class="pButtons">
               <div class="c">
-                <ion-button (click)="goal('home')" color="success" shape="round">
+                <ion-button (click)="goal('home')" (click)='hg()' color="success" shape="round">
                   Goal
                 </ion-button>
                 <ion-button (click)="missed('home')" color="danger" shape="round">
@@ -70,7 +70,7 @@
             </div>
             <div class="pButtons">
               <div class="c">
-                <ion-button (click)="goal('away')" color="success" shape="round">
+                <ion-button (click)="goal('away')" (click)='ag()' color="success" shape="round">
                   Goal
                 </ion-button>
                 <ion-button (click)="missed('away')" color="danger" shape="round">
