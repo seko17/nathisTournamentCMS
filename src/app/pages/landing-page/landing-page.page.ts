@@ -366,6 +366,32 @@ missed(side) {
   async viewmatch(state, item, a) {
 this.hgv =0;
 this.agv=0;
+this.penalties = {
+  home: {
+    one: null,
+    two: null,
+    three: null,
+    four: null,
+    five: null,
+    total: 0,
+    reset: false
+  },
+  away: {
+    one: null,
+    two: null,
+    three: null,
+    four: null,
+    five: null,
+    total: 0,
+    reset: false
+  },
+  homeTotal: 0,
+  awayTotal: 0
+}
+
+
+
+
     console.log(item)
     if(item ==null)
   {
@@ -943,10 +969,46 @@ else
               text: 'No',
               role: 'cancel',
               cssClass: 'secondary',
-              handler: (blah) => {
+              handler: async (blah) => {
                 console.log('Confirm Cancel: blah');
 
                 firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ matchstate: 'incomplete' });
+
+                if (this.score == this.ascore) {
+
+                   
+                  const alert = await this.alertController.create({
+                    header: 'Alert!',
+                    message: 'The match can not be finished without a winner.',
+                    buttons: ['OK']
+                  });
+
+                  await alert.present();
+                  alert.onDidDismiss().then(res=>{
+                    this.penaltiesPanel('open')
+                  })
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
 
               }
             }, {
@@ -982,6 +1044,9 @@ else
                     });
 
                     await alert.present();
+                    alert.onDidDismiss().then(res=>{
+                      this.penaltiesPanel('open')
+                    })
                   }
                   else
                     if (parseFloat(rez.data().type) / 2 == 0.5) {
@@ -1810,7 +1875,11 @@ this.btn2=false;
 }
   
 
+endpenalty()
+{
+this.viewmatch('close', null, null);
 
+}
 
 
 }
