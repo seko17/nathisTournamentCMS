@@ -1,6 +1,12 @@
 <ion-content>
-    <div class="penalties">
+    <div class="penalties animated" [ngClass]="{'fadeIn':showPenalties,'fadeOut faster':!showPenalties}" >
+
       <div class="pCont">
+        <div class="pCloser">
+          <ion-fab-button (click)="penaltiesPanel('close')" size="small">
+            <ion-icon name="close"></ion-icon>
+          </ion-fab-button>
+        </div>
         <div class="titles">
           <div class="main">
             <h1>Penaltes</h1>
@@ -210,6 +216,9 @@
               <p *ngIf="activeTourn.state!='finished'">Starts {{item.startDate | date}}</p>
               <p *ngIf="activeTourn.approvedVendors.length>0&&activeTourn.state!='finished'">Food will be sold</p>
               <p *ngIf="activeTourn.approvedVendors.length==0&&activeTourn.state!='finished'">No Food Sold</p>
+              <ion-button (click)="penaltiesPanel('open')" expand="block" color="light" shape="round">
+                Penalties
+              </ion-button>
             </div>
           </div>
           <div class="awayImage">

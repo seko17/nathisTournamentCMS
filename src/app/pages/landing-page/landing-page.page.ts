@@ -74,7 +74,8 @@ penalties = {
   homeTotal: 0,
   awayTotal: 0
 }
-
+showPenalties = false
+penaltiesDiv = document.getElementsByClassName('penalties')
   tournament = [];
   toFilter = []
   adminProfile = {}
@@ -177,8 +178,21 @@ stats =[];
     await alert.present();
 
   }
-
-
+penaltiesPanel(cmd) {
+  switch (cmd) {
+    case 'open':
+      this.renderer.setStyle(this.penaltiesDiv[0],'display','flex');
+      this.showPenalties = true
+      break;
+      case 'close':
+        this.showPenalties = false
+      setTimeout(() => {
+        this.renderer.setStyle(this.penaltiesDiv[0],'display','none');
+      }, 500);
+        break;
+  }
+}
+  // operates the penalties indicators view
 goal(side) {
   switch (side) {
     case 'home':
