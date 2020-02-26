@@ -1,6 +1,5 @@
 <ion-content>
     <div class="penalties animated" [ngClass]="{'fadeIn':showPenalties,'fadeOut faster':!showPenalties}" >
-
       <div class="pCont">
         <div class="pCloser">
           <ion-fab-button (click)="penaltiesPanel('close')" size="small">
@@ -9,7 +8,7 @@
         </div>
         <div class="titles">
           <div class="main">
-            <h1>Penaltes</h1>
+            <h1 style="margin-top: 6px;">Penaltes</h1>
           </div>
           <div class="teams">
             <div class="h">
@@ -80,8 +79,14 @@
             </div>
           </div>
         </div>
+        <div class="finnisher">
+          <ion-button (click)="onClick()" expand="block" shape="round">
+            End Penalties
+          </ion-button>
+        </div>
       </div>
     </div>
+
   <div class="viewMatch animated" [ngClass]="{'zoomIn faster':viewingMatch,'zoomOut faster':!viewingMatch}">
     <div class="close" (click)="viewmatch('close', null, null)">
       <ion-icon name="close"></ion-icon>

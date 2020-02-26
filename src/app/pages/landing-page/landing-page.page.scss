@@ -25,6 +25,12 @@
       right: -15px;
       z-index: 200;
     }
+    .finnisher {
+      position: absolute;
+      bottom: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
     .titles {
       text-align: center;
       height: 20%;
