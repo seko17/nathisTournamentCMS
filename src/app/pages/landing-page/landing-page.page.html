@@ -1,9 +1,94 @@
 <ion-content>
+    <div class="penalties animated" [ngClass]="{'fadeIn':showPenalties,'fadeOut faster':!showPenalties}" >
+
+      <div class="pCont">
+        <div class="pCloser">
+          <ion-fab-button (click)="penaltiesPanel('close')" size="small">
+            <ion-icon name="close"></ion-icon>
+          </ion-fab-button>
+        </div>
+        <div class="titles">
+          <div class="main">
+            <h1>Penaltes</h1>
+          </div>
+          <div class="teams">
+            <div class="h">
+              <p>Lorem Ipsum  <ion-badge color="primary" mode="ios">{{penalties.home.total}}</ion-badge></p>
+            </div>
+            <div class="a">
+              <p><ion-badge color="primary" mode="ios">{{penalties.away.total}}</ion-badge> Dolor Somet</p>
+            </div>
+          </div>
+        </div>
+        <div class="interaction">
+          <div class="pHome">
+            <div class="pButtons">
+              <div class="c">
+                <ion-button (click)="goal('home')" color="success" shape="round">
+                  Goal
+                </ion-button>
+                <ion-button (click)="missed('home')" color="danger" shape="round">
+                  Missed
+                </ion-button>
+              </div>
+            </div>
+            <div class="pIndicatiors">
+              <div class="ind animated" [ngClass]="{'reset rubberBand':penalties.home.one==null,'goal bounce':penalties.home.one==true,'missed shake':penalties.home.one==false}">
+
+              </div>
+              <div class="ind animated" [ngClass]="{'reset rubberBand':penalties.home.two==null,'goal bounce':penalties.home.two==true,'missed shake':penalties.home.two==false}">
+                
+              </div>
+              <div class="ind animated" [ngClass]="{'reset rubberBand':penalties.home.three==null,'goal bounce':penalties.home.three==true,'missed shake':penalties.home.three==false}">
+                
+              </div>
+              <div class="ind animated" [ngClass]="{'reset rubberBand':penalties.home.four==null,'goal bounce':penalties.home.four==true,'missed shake':penalties.home.four==false}">
+                
+              </div>
+              <div class="ind animated" [ngClass]="{'reset rubberBand':penalties.home.five==null,'goal bounce':penalties.home.five==true,'missed shake':penalties.home.five==false}">
+                
+              </div>
+            </div>
+          </div>
+          <div class="pAway">
+            <div class="pIndicatiors">
+              <div class="ind animated" [ngClass]="{'reset rubberBand':penalties.away.one==null,'goal bounce':penalties.away.one==true,'missed shake':penalties.away.one==false}">
+
+              </div>
+              <div class="ind  animated" [ngClass]="{'reset rubberBand':penalties.away.two==null,'goal bounce':penalties.away.two==true,'missed shake':penalties.away.two==false}">
+                
+              </div>
+              <div class="ind animated" [ngClass]="{'reset rubberBand':penalties.away.three==null,'goal bounce':penalties.away.three==true,'missed shake':penalties.away.three==false}">
+                
+              </div>
+              <div class="ind animated" [ngClass]="{'reset rubberBand':penalties.away.four==null,'goal bounce':penalties.away.four==true,'missed shake':penalties.away.four==false}">
+                
+              </div>
+              <div class="ind animated" [ngClass]="{'reset rubberBand':penalties.away.five==null,'goal bounce':penalties.away.five==true,'missed shake':penalties.away.five==false}">
+                
+              </div>
+            </div>
+            <div class="pButtons">
+              <div class="c">
+                <ion-button (click)="goal('away')" color="success" shape="round">
+                  Goal
+                </ion-button>
+                <ion-button (click)="missed('away')" color="danger" shape="round">
+                  Missed
+                </ion-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   <div class="viewMatch animated" [ngClass]="{'zoomIn faster':viewingMatch,'zoomOut faster':!viewingMatch}">
     <div class="close" (click)="viewmatch('close', null, null)">
       <ion-icon name="close"></ion-icon>
     </div>
     <div class="matchDiv">
+
+      <!-- HOME PLAYER DIV -->
       <div class="playerHome animated"
         [ngClass]="{'slideInRight':viewingPlayer.home,'slideOutRight faster':!viewingPlayer.home}">
         <div class="image">
@@ -12,7 +97,7 @@
               <ion-icon name="close"></ion-icon>
             </ion-fab-button>
           </div>
-          <div *ngFor="let x of playerobj">
+          <div class="playerImage" *ngFor="let x of playerobj">
             <img *ngIf="x.palyerImage" src='{{x.palyerImage}}' alt="No Image">
             <img *ngIf="!x.palyerImage" src="../../../assets/nathi_noImage.png" alt="">
           </div>
@@ -28,8 +113,12 @@
           <span>{{x.previousTeam}}</span>
           <br>
           <hr>
+          <p>Acievements</p>
+          <span>{{x.Achievements}}</span> <br>
         </div>
       </div>
+
+      <!-- HOME TEAM DIV -->
       <div class="teamHome animated"
         [ngClass]="{'slideInRight':viewingTeam.home,'slideOutRight faster':!viewingTeam.home}">
         <div class="title" *ngFor="let item of currmatch">
@@ -37,7 +126,8 @@
         </div>
 
         <div class="image" *ngFor="let item of currmatch">
-          <img src="{{item.TeamObject.teamLogo}}" alt="">
+          <img *ngIf="item.TeamObject.teamLogo"  src="{{item.TeamObject.teamLogo}}" alt="">
+          <img *ngIf="!item.TeamObject.teamLogo" src="../../../assets/nathi_noImage.png" alt="">
         </div>
         <div class="details" *ngFor="let item of currmatch">
           <p>Coach</p>
@@ -62,7 +152,7 @@
         <div class="topData">
           <div class="homeImage">
             <div class="image" (click)="viewTeam('open', 'home', 'object')">
-              <div *ngFor="let item of currmatch">
+              <div class="tImg" *ngFor="let item of currmatch">
                 <img *ngIf="item.TeamObject.teamLogo" src="{{item.TeamObject.teamLogo}}" alt="">
                 <img *ngIf="!item.TeamObject.teamLogo" src="../../../assets/nathi_noImage.png" alt="">
               </div>
@@ -133,11 +223,14 @@
               <p *ngIf="activeTourn.state!='finished'">Starts {{item.startDate | date}}</p>
               <p *ngIf="activeTourn.approvedVendors.length>0&&activeTourn.state!='finished'">Food will be sold</p>
               <p *ngIf="activeTourn.approvedVendors.length==0&&activeTourn.state!='finished'">No Food Sold</p>
+              <ion-button (click)="penaltiesPanel('open')"  color="light" shape="round">
+                Penalties
+              </ion-button>
             </div>
           </div>
           <div class="awayImage">
             <div class="image" (click)="viewTeam('open', 'away', 'object')">
-              <div *ngFor="let item of currmatch">
+              <div class="tImg" *ngFor="let item of currmatch">
                 <img *ngIf="item.aTeamObject.teamLogo" src="{{item.aTeamObject.teamLogo}}" alt="">
                 <img *ngIf="!item.aTeamObject.teamLogo" src="../../../assets/nathi_noImage.png" alt="">
               </div>
@@ -188,7 +281,7 @@
 
                 <div class="card" *ngFor="let a of team1;let i = index" (click)="viewPlayer('open', 'home',a,0)">
                   <div class="number">
-                    <p style="margin: 0 auto;">{{i}}</p>
+                    <p style="margin: 0 auto;">{{a.playerNumber}}</p>
                   </div>
                   <div class="name">
                     <p>{{a.fullName}}</p>
@@ -202,7 +295,7 @@
               <div class="home">
                 <div class="card" *ngFor="let a of team2;let i = index" (click)="viewPlayer('open', 'away', a,1)">
                   <div class="number">
-                    <p style="margin: 0 auto;">{{i}}</p>
+                    <p style="margin: 0 auto;">{{a.playerNumber}}</p>
                   </div>
                   <div class="name">
                     <p>{{a.fullName}}</p>
@@ -273,8 +366,9 @@
               <ion-icon name="close"></ion-icon>
             </ion-fab-button>
           </div>
-          <div *ngFor="let x of aplayerobj">
-            <img [src]='x.palyerImage' alt="No Image">
+          <div class="playerImage"  *ngFor="let x of aplayerobj">
+            <img *ngIf="x.palyerImage" src='{{x.palyerImage}}' alt="No Image">
+            <img *ngIf="!x.palyerImage" src="../../../assets/nathi_noImage.png" alt="">
           </div>
           <div class="name" *ngFor="let x of aplayerobj">
             <p>{{x.fullName}}</p>
@@ -289,8 +383,7 @@
           <br>
           <hr>
           <p>Acievements</p>
-          <span>Best Defender</span> <br>
-          <span>Best face maker</span>
+          <span>{{x.Achievements}}</span>
         </div>
       </div>
 
@@ -300,7 +393,8 @@
           <h1>{{item.aTeamObject.teamName}}</h1>
         </div>
         <div class="image" *ngFor="let item of currmatch">
-          <img src="{{item.aTeamObject.teamLogo}}" alt="">
+          <img *ngIf="item.aTeamObject.teamLogo"  src="{{item.aTeamObject.teamLogo}}" alt="">
+          <img *ngIf="!item.aTeamObject.teamLogo" src="../../../assets/nathi_noImage.png" alt="">
         </div>
         <div class="details" *ngFor="let item of currmatch">
           <p>Coach</p>

@@ -52,8 +52,30 @@ export class LandingPagePage implements OnInit {
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // BEGGIN BACKEND HERE
 
-
-
+penalties = {
+  home: {
+    one: null,
+    two: null,
+    three: null,
+    four: null,
+    five: null,
+    total: 0,
+    reset: false
+  },
+  away: {
+    one: null,
+    two: null,
+    three: null,
+    four: null,
+    five: null,
+    total: 0,
+    reset: false
+  },
+  homeTotal: 0,
+  awayTotal: 0
+}
+showPenalties = false
+penaltiesDiv = document.getElementsByClassName('penalties')
   tournament = [];
   toFilter = []
   adminProfile = {}
@@ -142,7 +164,8 @@ btntxt3
 btn4
 btntxt4
 
-
+disableall:boolean;
+stats =[];
 
   async ionViewWillLeave() {
     const alert = await this.alertController.create({
@@ -155,10 +178,175 @@ btntxt4
     await alert.present();
 
   }
+penaltiesPanel(cmd) {
+  switch (cmd) {
+    case 'open':
+      this.renderer.setStyle(this.penaltiesDiv[0],'display','flex');
+      this.showPenalties = true
+      break;
+      case 'close':
+        this.showPenalties = false
+      setTimeout(() => {
+        this.renderer.setStyle(this.penaltiesDiv[0],'display','none');
+      }, 500);
+        break;
+  }
+}
+  // operates the penalties indicators view
+goal(side) {
+  switch (side) {
+    case 'home':
+      if (this.penalties.home.one==null) {
+        this.penalties.home.one = true
+        this.penalties.home.total = this.penalties.home.total + 1
 
+      } else if (this.penalties.home.two==null) {
+        this.penalties.home.two = true
+        this.penalties.home.total = this.penalties.home.total + 1
 
-disableall:boolean;
-stats =[];
+      } else if (this.penalties.home.three==null) {
+        this.penalties.home.three = true
+        this.penalties.home.total = this.penalties.home.total + 1
+
+      } else if (this.penalties.home.four==null) {
+        this.penalties.home.four = true
+        this.penalties.home.total = this.penalties.home.total + 1
+
+      } else if (this.penalties.home.five==null) {
+        this.penalties.home.five = true
+        this.penalties.home.total = this.penalties.home.total + 1
+        this.penalties.home.reset = true
+
+      } else {
+        this.penalties.home.one = null
+        this.penalties.home.two = null
+        this.penalties.home.three = null
+        this.penalties.home.four = null
+        this.penalties.home.five = null
+        if(this.penalties.away.reset) {
+          this.penalties.away.one = null
+          this.penalties.away.two = null
+          this.penalties.away.three = null
+          this.penalties.away.four = null
+          this.penalties.away.five = null
+          this.penalties.home.reset = false
+          this.penalties.away.reset = false
+        }
+      }
+      break;
+      case 'away':
+            if (this.penalties.away.one==null) {
+        this.penalties.away.one = true
+        this.penalties.away.total = this.penalties.away.total + 1
+
+      } else if (this.penalties.away.two==null) {
+        this.penalties.away.two = true
+        this.penalties.away.total = this.penalties.away.total + 1
+
+      } else if (this.penalties.away.three==null) {
+        this.penalties.away.three = true
+        this.penalties.away.total = this.penalties.away.total + 1
+
+      } else if (this.penalties.away.four==null) {
+        this.penalties.away.four = true
+        this.penalties.away.total = this.penalties.away.total + 1
+
+      } else if (this.penalties.away.five==null) {
+        this.penalties.away.five = true
+        this.penalties.away.total = this.penalties.away.total + 1
+        this.penalties.away.reset = true
+
+      } else {
+        this.penalties.away.one = null
+        this.penalties.away.two = null
+        this.penalties.away.three = null
+        this.penalties.away.four = null
+        this.penalties.away.five = null
+        if (this.penalties.home.reset) {
+          this.penalties.home.one = null
+          this.penalties.home.two = null
+          this.penalties.home.three = null
+          this.penalties.home.four = null
+          this.penalties.home.five = null
+          this.penalties.home.reset = false
+          this.penalties.away.reset = false
+        }
+      }
+        break;
+  }
+}
+missed(side) {
+  switch (side) {
+    case 'home':
+      if (this.penalties.home.one==null) {
+        this.penalties.home.one = false
+
+      } else if (this.penalties.home.two==null) {
+        this.penalties.home.two = false
+
+      } else if (this.penalties.home.three==null) {
+        this.penalties.home.three = false
+
+      } else if (this.penalties.home.four==null) {
+        this.penalties.home.four = false
+
+      } else if (this.penalties.home.five==null) {
+        this.penalties.home.five = false
+        this.penalties.home.reset = true
+
+      } else {
+        this.penalties.home.one = null
+        this.penalties.home.two = null
+        this.penalties.home.three = null
+        this.penalties.home.four = null
+        this.penalties.home.five = null
+        if(this.penalties.away.reset) {
+          this.penalties.away.one = null
+          this.penalties.away.two = null
+          this.penalties.away.three = null
+          this.penalties.away.four = null
+          this.penalties.away.five = null
+          this.penalties.home.reset = false
+          this.penalties.away.reset = false
+        }
+      }
+      break;
+      case 'away':
+            if (this.penalties.away.one==null) {
+        this.penalties.away.one = false
+
+      } else if (this.penalties.away.two==null) {
+        this.penalties.away.two = false
+
+      } else if (this.penalties.away.three==null) {
+        this.penalties.away.three = false
+
+      } else if (this.penalties.away.four==null) {
+        this.penalties.away.four = false
+        
+      } else if (this.penalties.away.five==null) {
+        this.penalties.away.five = false
+        this.penalties.away.reset = true
+
+      } else {
+        this.penalties.away.one = null
+        this.penalties.away.two = null
+        this.penalties.away.three = null
+        this.penalties.away.four = null
+        this.penalties.away.five = null
+        if(this.penalties.home.reset) {
+          this.penalties.home.one = null
+          this.penalties.home.two = null
+          this.penalties.home.three = null
+          this.penalties.home.four = null
+          this.penalties.home.five = null
+          this.penalties.home.reset = false
+          this.penalties.away.reset = false
+        }
+      }
+        break;
+  }
+}
 
   async viewmatch(state, item, a) {
 
