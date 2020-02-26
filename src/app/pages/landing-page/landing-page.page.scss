@@ -1,3 +1,95 @@
+.penalties {
+  z-index: 1000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  // backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.253);
+  display: flex;
+  align-items: center;
+
+  .pCont {
+    width: 500px;
+    height: 50%;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 2px 2px #17171754;
+    margin: auto;
+
+    .titles {
+      text-align: center;
+      height: 20%;
+
+      // background: red;
+      .teams {
+        display: flex;
+
+        .a,
+        .h {
+          width: 50%;
+        }
+      }
+    }
+
+    .interaction {
+      display: flex;
+
+      .pHome,
+      .pAway {
+        width: 50%;
+        height: 90%;
+        display: flex;
+
+        .pButtons {
+          display: flex;
+
+          flex-basis: 100%;
+          align-items: center;
+
+          .c {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            margin: auto;
+          }
+        }
+
+        .pIndicatiors {
+          display: flex;
+          flex-direction: column;
+          flex-basis: 10%;
+
+          .ind {
+            width: 20px;
+            height: 20px;
+            margin: 10px 5px;
+            border-radius: 200px;
+            border: solid 1px whitesmoke;
+          }
+          .reset {
+            transition: 0.7s;
+            background: rgb(196, 196, 196);
+          }
+          .goal {
+            transition: 0.7s;
+            background: green;
+          }
+          .missed {
+            transition: 0.7s;
+            background: red;
+          }
+        }
+      }
+
+      .pHome {
+        border-right: dashed 1px gray;
+      }
+    }
+  }
+}
+
 button[ion-fab] {
   overflow: visible;
   position: relative;
@@ -16,6 +108,7 @@ button[ion-fab] {
 
   contain: layout;
 }
+
 .inProgress {
   background-color: rgb(233, 245, 255) !important;
 }
@@ -23,12 +116,15 @@ button[ion-fab] {
 .newTorunament {
   background-color: rgb(230, 255, 233) !important;
 }
+
 .finnishedTournament {
   background-color: rgb(255, 233, 233) !important;
 }
+
 .selectedTourn {
   background-color: whitesmoke !important;
 }
+
 .container {
   position: absolute;
   top: 0;
@@ -97,6 +193,7 @@ button[ion-fab] {
         justify-items: center;
         justify-content: space-between;
         height: 27%;
+
         .homeImage,
         .awayImage,
         .image {
@@ -106,10 +203,12 @@ button[ion-fab] {
           border-radius: 200px;
           position: relative;
           cursor: pointer;
+
           // overflow: hidden;
           div {
             width: 100%;
             height: 100%;
+
             img {
               width: 100%;
               height: 100%;
@@ -118,16 +217,19 @@ button[ion-fab] {
             }
           }
         }
+
         .homeImage:hover {
-          box-shadow:  5px 5px 0px #c0c0c0, 
-             -5px -5px 0px #f4f4f4;
+          box-shadow: 5px 5px 0px #c0c0c0,
+            -5px -5px 0px #f4f4f4;
           transition: 0.3s;
         }
+
         .awayImage:hover {
-          box-shadow:  5px 5px 0px #c0c0c0, 
-             -5px -5px 0px #f4f4f4;
+          box-shadow: 5px 5px 0px #c0c0c0,
+            -5px -5px 0px #f4f4f4;
           transition: 0.3s;
         }
+
         .homeImage {
 
           .homeButton {
@@ -201,6 +303,7 @@ button[ion-fab] {
               align-items: center;
               flex-basis: 90%;
               text-align: center;
+
               p {
                 margin: 10px auto 0px auto;
                 text-align: center;
@@ -332,17 +435,20 @@ button[ion-fab] {
                   }
                 }
               }
+
               .card:hover {
                 transition: 0.3s;
-                box-shadow:  5px 5px 0px #c0c0c0, 
-             -5px -5px 0px #f4f4f4;
+                box-shadow: 5px 5px 0px #c0c0c0,
+                  -5px -5px 0px #f4f4f4;
               }
             }
           }
+
           .home {
             border-left: dashed 1px #0000004d;
-            
+
           }
+
           .summary {
             background: white;
             width: 100%;
@@ -351,10 +457,12 @@ button[ion-fab] {
             .stats {
               display: flex;
               height: 50%;
+
               // justify-content: center;
               .labels {
                 width: 80%;
                 text-align: center;
+
                 p {
                   margin: 2% 0px;
                 }
@@ -364,6 +472,7 @@ button[ion-fab] {
               .awaySummary {
                 width: 10%;
                 text-align: center;
+
                 p {
                   margin: 2% 0px;
                 }
@@ -385,6 +494,7 @@ button[ion-fab] {
                 flex-wrap: wrap;
                 overflow-y: auto;
                 align-content: space-between;
+
                 .card {
                   margin: 5px auto;
                   border-radius: 10px;
@@ -606,6 +716,7 @@ button[ion-fab] {
       // height: 10px;
       justify-content: center;
       width: 100%;
+
       button {
         cursor: pointer;
         outline: none !important;
@@ -672,6 +783,7 @@ button[ion-fab] {
           padding: 0;
           margin: 0;
         }
+
         .viewTimeline {
           position: absolute;
           top: 105%;
@@ -688,6 +800,7 @@ button[ion-fab] {
           padding: 0px;
           transition: 0.4s;
           transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+
           /* Import */
           .timeline {
             --uiTimelineMainColor: #0BBB72;
@@ -697,11 +810,13 @@ button[ion-fab] {
             // padding-top: 3rem;
             // padding-bottom: 3rem;
           }
+
           .timeline__content {
             p {
               font-size: .9em;
             }
           }
+
           .timeline:before {
             content: "";
             width: 4px;
@@ -711,15 +826,15 @@ button[ion-fab] {
             position: absolute;
             top: 0;
           }
-          
+
           .timeline__group {
             position: relative;
           }
-          
+
           .timeline__group:not(:first-of-type) {
             margin-top: 4rem;
           }
-          
+
           .timeline__year {
             padding: 5px 10px;
             color: var(--uiTimelineSecondaryColor);
@@ -729,51 +844,51 @@ button[ion-fab] {
             left: 3px;
             top: 0;
           }
-          
+
           .timeline__box {
             position: relative;
           }
-          
+
           .timeline__box:not(:last-of-type) {
             margin-bottom: 30px;
           }
-          
+
           .timeline__box:before {
             content: "";
             width: 100%;
             height: 2px;
             background-color: var(--uiTimelineMainColor);
-          
+
             position: absolute;
             left: 0;
             z-index: -1;
           }
-          
+
           .timeline__date {
             min-width: 65px;
             position: absolute;
             left: 0;
-          
+
             box-sizing: border-box;
             padding: 0.5rem 1.5rem;
             text-align: center;
-          
+
             background-color: var(--uiTimelineMainColor);
             color: var(--uiTimelineSecondaryColor);
           }
-          
+
           .timeline__day {
             font-size: .8em;
             font-weight: 700;
             display: block;
           }
-          
+
           .timeline__month {
             display: block;
             font-size: 0.8em;
             text-transform: uppercase;
           }
-          
+
           .timeline__post {
             padding: 15px;
             border-radius: 2px;
@@ -782,25 +897,25 @@ button[ion-fab] {
             border-radius: 10px;
             background-color: var(--uiTimelineSecondaryColor);
           }
-          
+
           @media screen and (min-width: 641px) {
             .timeline:before {
               left: 30px;
             }
-          
+
             .timeline__group {
               padding-top: 55px;
             }
-          
+
             .timeline__box {
               padding-left: 80px;
             }
-          
+
             .timeline__box:before {
               top: 50%;
               transform: translateY(-50%);
             }
-          
+
             .timeline__date {
               top: 50%;
               margin-top: -27px;
@@ -808,30 +923,30 @@ button[ion-fab] {
               border-radius: 10px;
             }
           }
-          
+
           @media screen and (max-width: 640px) {
             .timeline:before {
               left: 0;
             }
-          
+
             .timeline__group {
               padding-top: 40px;
             }
-          
+
             .timeline__box {
               padding-left: 20px;
               padding-top: 70px;
             }
-          
+
             .timeline__box:before {
               top: 90px;
             }
-          
+
             .timeline__date {
               top: 0;
             }
           }
-          
+
           .timeline {
             --timelineMainColor: #1E1F28;
             font-size: 16px;
@@ -842,23 +957,23 @@ button[ion-fab] {
               font-size: 62.5%;
             }
           }
-          
+
           @media (max-width: 767px) {
             html {
               font-size: 55%;
             }
           }
-          
+
           p {
             margin-top: 0;
             margin-bottom: 1.5rem;
             line-height: 1.5;
           }
-          
+
           p:last-child {
             margin-bottom: 0;
           }
-          
+
           .page {
             max-width: 800px;
             padding: 10px;
@@ -866,21 +981,24 @@ button[ion-fab] {
             margin-right: auto;
             order: 1;
           }
-          
-          
+
+
         }
+
         .timelineHeight__o {
           height: 300%;
           padding: 5px;
           transition: 0.4s;
           transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
         }
+
         .timelineheight__c {
           height: 0px;
           padding: 0px;
           transition: 0.4s;
           transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
         }
+
         .selectedT {
           transform: scale(.9);
           transition: 0.3s;
@@ -895,6 +1013,7 @@ button[ion-fab] {
           transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
           background: #2FD292 !important;
         }
+
         .color {
           position: absolute;
           top: 0;
@@ -913,7 +1032,7 @@ button[ion-fab] {
           #title {
             font-size: 1.5rem;
             position: relative;
-            
+
           }
         }
 
@@ -926,15 +1045,17 @@ button[ion-fab] {
             font-size: .9rem;
           }
         }
+
         .recuring {
           position: absolute;
-  top: -13px;
-  right: 0px;
-  z-index: 50;
-  background: white;
-  border-radius: 200px;
-  pointer-events: none;
+          top: -13px;
+          right: 0px;
+          z-index: 50;
+          background: white;
+          border-radius: 200px;
+          pointer-events: none;
         }
+
         .childre {
           position: absolute;
           top: -10px;
@@ -946,12 +1067,14 @@ button[ion-fab] {
           width: 40px;
           transition: .3s;
           overflow: hidden;
-          
+
         }
+
         .childre:hover {
           transition: .3s;
           width: 125px;
         }
+
         .timelineInd {
           z-index: 30 !important;
         }
@@ -969,7 +1092,7 @@ button[ion-fab] {
 
   .tournamentDetails {
     width: 50%;
-    background: linear-gradient(rgba(255, 255, 255, 0.432)),url(../../../assets/SVG/statsbg.svg), white;
+    background: linear-gradient(rgba(255, 255, 255, 0.432)), url(../../../assets/SVG/statsbg.svg), white;
     width: 50%;
     border-radius: 20px 0px 0px 20px;
     background-size: cover;
@@ -984,6 +1107,7 @@ button[ion-fab] {
       // align-items: center;
       background: rgba(255, 255, 255, 0);
       overflow-y: auto;
+
       h4 {
         margin: 0;
         padding: 0;
@@ -1134,7 +1258,7 @@ button[ion-fab] {
 
   .noTournamentDetails {
     width: 50%;
-    background: linear-gradient(rgba(255, 255, 255, 0.432)),url(../../../assets/SVG/statsbg.svg), white;
+    background: linear-gradient(rgba(255, 255, 255, 0.432)), url(../../../assets/SVG/statsbg.svg), white;
     width: 50%;
     border-radius: 20px 0px 0px 20px;
     background-size: cover;

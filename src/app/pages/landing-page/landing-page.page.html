@@ -1,4 +1,81 @@
 <ion-content>
+    <div class="penalties">
+      <div class="pCont">
+        <div class="titles">
+          <div class="main">
+            <h1>Penaltes</h1>
+          </div>
+          <div class="teams">
+            <div class="h">
+              <p>Lorem Ipsum  <ion-badge color="primary" mode="ios">{{penalties.home.total}}</ion-badge></p>
+            </div>
+            <div class="a">
+              <p><ion-badge color="primary" mode="ios">{{penalties.away.total}}</ion-badge> Dolor Somet</p>
+            </div>
+          </div>
+        </div>
+        <div class="interaction">
+          <div class="pHome">
+            <div class="pButtons">
+              <div class="c">
+                <ion-button (click)="goal('home')" color="success" shape="round">
+                  Goal
+                </ion-button>
+                <ion-button (click)="missed('home')" color="danger" shape="round">
+                  Missed
+                </ion-button>
+              </div>
+            </div>
+            <div class="pIndicatiors">
+              <div class="ind animated" [ngClass]="{'reset rubberBand':penalties.home.one==null,'goal bounce':penalties.home.one==true,'missed shake':penalties.home.one==false}">
+
+              </div>
+              <div class="ind animated" [ngClass]="{'reset rubberBand':penalties.home.two==null,'goal bounce':penalties.home.two==true,'missed shake':penalties.home.two==false}">
+                
+              </div>
+              <div class="ind animated" [ngClass]="{'reset rubberBand':penalties.home.three==null,'goal bounce':penalties.home.three==true,'missed shake':penalties.home.three==false}">
+                
+              </div>
+              <div class="ind animated" [ngClass]="{'reset rubberBand':penalties.home.four==null,'goal bounce':penalties.home.four==true,'missed shake':penalties.home.four==false}">
+                
+              </div>
+              <div class="ind animated" [ngClass]="{'reset rubberBand':penalties.home.five==null,'goal bounce':penalties.home.five==true,'missed shake':penalties.home.five==false}">
+                
+              </div>
+            </div>
+          </div>
+          <div class="pAway">
+            <div class="pIndicatiors">
+              <div class="ind animated" [ngClass]="{'reset rubberBand':penalties.away.one==null,'goal bounce':penalties.away.one==true,'missed shake':penalties.away.one==false}">
+
+              </div>
+              <div class="ind  animated" [ngClass]="{'reset rubberBand':penalties.away.two==null,'goal bounce':penalties.away.two==true,'missed shake':penalties.away.two==false}">
+                
+              </div>
+              <div class="ind animated" [ngClass]="{'reset rubberBand':penalties.away.three==null,'goal bounce':penalties.away.three==true,'missed shake':penalties.away.three==false}">
+                
+              </div>
+              <div class="ind animated" [ngClass]="{'reset rubberBand':penalties.away.four==null,'goal bounce':penalties.away.four==true,'missed shake':penalties.away.four==false}">
+                
+              </div>
+              <div class="ind animated" [ngClass]="{'reset rubberBand':penalties.away.five==null,'goal bounce':penalties.away.five==true,'missed shake':penalties.away.five==false}">
+                
+              </div>
+            </div>
+            <div class="pButtons">
+              <div class="c">
+                <ion-button (click)="goal('away')" color="success" shape="round">
+                  Goal
+                </ion-button>
+                <ion-button (click)="missed('away')" color="danger" shape="round">
+                  Missed
+                </ion-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   <div class="viewMatch animated" [ngClass]="{'zoomIn faster':viewingMatch,'zoomOut faster':!viewingMatch}">
     <div class="close" (click)="viewmatch('close', null, null)">
       <ion-icon name="close"></ion-icon>
@@ -202,7 +279,7 @@
               <div class="home">
                 <div class="card" *ngFor="let a of team2;let i = index" (click)="viewPlayer('open', 'away', a,1)">
                   <div class="number">
-                    <p style="margin: 0 auto;">{{i}}</p>
+                    <p style="margin: 0 auto;">{{a.playerNumber}}</p>
                   </div>
                   <div class="name">
                     <p>{{a.fullName}}</p>
