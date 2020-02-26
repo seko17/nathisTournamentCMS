@@ -1052,38 +1052,36 @@ else
                     if (parseFloat(rez.data().type) / 2 == 0.5) {
 
 
-                      if(true)
-                      {
-                      
-                      
-                        console.log('Teams',this.currmatch[0].aTeamObject.uid,this.currmatch[0].TeamObject.uid)
-                        firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').get().then(val => {
-                          val.forEach(res => {
+                   
+        
+                      //   console.log('Teams',this.currmatch[0].aTeamObject.uid,this.currmatch[0].TeamObject.uid)
+                      //   firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').get().then(val => {
+                      //     val.forEach(res => {
                             
-                      firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').doc(res.id).update({status:'not available'})
+                      // firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').doc(res.id).update({status:'not available'})
                       
                             
-                          })
+                      //     })
                       
                          
-                        })
+                      //   })
                       
                       
                       
-                        firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(val => {
-                          val.forEach(res => {
+                      //   firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(val => {
+                      //     val.forEach(res => {
                             
-                      firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').doc(res.id).update({status:'not available'}).then(res=>{
-                      console.log(res,'Done')
-                      })
+                      // firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').doc(res.id).update({status:'not available'}).then(res=>{
+                      // console.log(res,'Done')
+                      // })
                       
                             
-                          })
+                      //     })
                       
                          
-                        })
+                      //   })
                       
-                      }
+                      
 
 
 
@@ -1098,8 +1096,8 @@ else
 
 
 
-                      console.log("TRUE", this.clicked[0].formInfo)
-                      this.viewmatch('close', null, null)
+                    
+                      // this.viewmatch('close', null, null)
                       firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
                         firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({half:'Match Over' });
                       
@@ -1107,17 +1105,23 @@ else
                         })
 
                       this.db.collection('newTournaments').doc(this.clicked[0].docid).update({ state: 'finished' });
-                      firebase.firestore().collection('newTournaments').doc(this.clicked[0].docid).update({ formInfo: { applicationClosing: this.clicked[0].formInfo.applicationClosing, tournamentName: this.clicked[0].formInfo.tournamentName, location: this.clicked[0].formInfo.location, joiningFee: this.clicked[0].formInfo.joiningFee, endDate: this.clicked[0].formInfo.endDate, startDate: this.clicked[0].formInfo.startDate, type: "0" } });
+                      firebase.firestore().collection('newTournaments').doc(this.clicked[0].docid).update({ formInfo: { bio: this.clicked[0].formInfo.bio,applicationClosing: this.clicked[0].formInfo.applicationClosing, tournamentName: this.clicked[0].formInfo.tournamentName, location: this.clicked[0].formInfo.location, joiningFee: this.clicked[0].formInfo.joiningFee, endDate: this.clicked[0].formInfo.endDate, startDate: this.clicked[0].formInfo.startDate, type: "0" } });
 
                       if (rez.data().ascore+this.agv > rez.data().score +this.hgv) {
 
-                        if(this.hgv>0)
+                        if(this.hgv>0 || this.agv>0)
                         {
                           console.log('Penalties')
                           firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({hpenalties:this.hgv,apenalties:this.agv})
                         }else{ console.log('No Penalties')}
 
-
+                        console.log("Away hi There",rez.data().ascore+this.agv > rez.data().score +this.hgv)
+                        const alert = await this.alertController.create({
+                          header: 'Result.',
+                          message: 'Away team won the tournament!.',
+                          buttons: ['OK']
+                        });
+                        alert.present()
                         firebase.firestore().collection('PlayedMatches').add(rez.data());
 
 
@@ -1129,8 +1133,17 @@ else
                       }
                       else if (rez.data().score +this.hgv> rez.data().ascore+this.agv) {
                         
+                        console.log("Home hi There",rez.data().score +this.hgv> rez.data().ascore+this.agv)
 
-                        if(this.hgv>0)
+
+                        const alert = await this.alertController.create({
+                          header: 'Result.',
+                          message: 'Home team won the tournament!.',
+                          buttons: ['OK']
+                        });
+                        alert.present()
+
+                        if(this.hgv>0 || this.agv>0)
                         {
                           console.log('Penalties')
                           firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({hpenalties:this.hgv,apenalties:this.agv})
@@ -1138,8 +1151,8 @@ else
 
 
 
-                        if(true)
-{
+                     
+
 
 
   console.log('Teams',this.currmatch[0].aTeamObject.uid,this.currmatch[0].TeamObject.uid)
@@ -1169,10 +1182,10 @@ console.log(res,'Done')
    
   })
 
-}
+
                         
                         
-                        console.log("HOMESCORE WON")
+                        
                         this.viewmatch('close', null, null)
                         firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
                           firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({half:'Match Over' });
@@ -1270,7 +1283,7 @@ console.log(res,'Done')
                       }
                       else if (rez.data().score + this.hgv > rez.data().ascore +this.agv) {
                         
-                        if(this.hgv>0)
+                        if(this.hgv>0 || this.agv>0)
                         {
                           console.log('Penalties')
                           firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({hpenalties:this.hgv,apenalties:this.agv})
