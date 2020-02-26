@@ -192,8 +192,8 @@ penaltiesPanel(cmd) {
         break;
   }
 }
-agv =0;
-hgv =0
+agv:number =0;
+hgv:number =0
 ag()
 {
 this.agv =this.agv+1;
@@ -974,9 +974,9 @@ else
 
                 firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ matchstate: 'incomplete' });
 
-                if (this.score == this.ascore) {
+                if (this.score+this.hgv == this.ascore+this.agv) {
 
-                   
+                  console.log('This one')
                   const alert = await this.alertController.create({
                     header: 'Alert!',
                     message: 'The match can not be finished without a winner.',
@@ -1034,9 +1034,9 @@ else
                   console.log(rez.data().aTeamObject.teamName)
 
 
-                  if (rez.data().score == rez.data().ascore) {
-
-                   
+                  if (rez.data().score +this.hgv == rez.data().ascore+this.agv) {
+                    console.log('This one')
+                  
                     const alert = await this.alertController.create({
                       header: 'Alert!',
                       message: 'The match can not be finished without a winner.',
@@ -1109,7 +1109,13 @@ else
                       this.db.collection('newTournaments').doc(this.clicked[0].docid).update({ state: 'finished' });
                       firebase.firestore().collection('newTournaments').doc(this.clicked[0].docid).update({ formInfo: { applicationClosing: this.clicked[0].formInfo.applicationClosing, tournamentName: this.clicked[0].formInfo.tournamentName, location: this.clicked[0].formInfo.location, joiningFee: this.clicked[0].formInfo.joiningFee, endDate: this.clicked[0].formInfo.endDate, startDate: this.clicked[0].formInfo.startDate, type: "0" } });
 
-                      if (rez.data().ascore > rez.data().score) {
+                      if (rez.data().ascore+this.agv > rez.data().score +this.hgv) {
+
+                        if(this.hgv>0)
+                        {
+                          console.log('Penalties')
+                          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({hpenalties:this.hgv,apenalties:this.agv})
+                        }else{ console.log('No Penalties')}
 
 
                         firebase.firestore().collection('PlayedMatches').add(rez.data());
@@ -1121,8 +1127,17 @@ else
                         firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).delete();
 
                       }
-                      else if (rez.data().score > rez.data().ascore) {
+                      else if (rez.data().score +this.hgv> rez.data().ascore+this.agv) {
                         
+
+                        if(this.hgv>0)
+                        {
+                          console.log('Penalties')
+                          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({hpenalties:this.hgv,apenalties:this.agv})
+                        }else{ console.log('No Penalties')}
+
+
+
                         if(true)
 {
 
@@ -1175,8 +1190,23 @@ console.log(res,'Done')
 
                     }
                     else
-                      if (rez.data().ascore > rez.data().score) {
+                      if (rez.data().ascore +this.agv> rez.data().score+this.hgv) {
                         console.log("AWAYSCORE WON")
+                        if(this.hgv>0)
+                        {
+                          console.log('Penalties')
+                          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({hpenalties:this.hgv,apenalties:this.agv})
+                        }else{ console.log('No Penalties')}
+
+
+
+                                                const alert = await this.alertController.create({
+                          header: 'Result.',
+                          message: 'Away team won!.',
+                          buttons: ['OK']
+                        });
+                    
+                        await alert.present();
 
 
 
@@ -1238,9 +1268,13 @@ console.log(res,'Done')
                         firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).delete();
 
                       }
-                      else if (rez.data().score > rez.data().ascore) {
+                      else if (rez.data().score + this.hgv > rez.data().ascore +this.agv) {
                         
-                        
+                        if(this.hgv>0)
+                        {
+                          console.log('Penalties')
+                          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({hpenalties:this.hgv,apenalties:this.agv})
+                        }else{ console.log('No Penalties')}
                         
                         
                         if(true)
@@ -1289,6 +1323,17 @@ console.log(res,'Done')
                         
                         
                         console.log("HOMESCORE WON")
+
+                        const alert = await this.alertController.create({
+                          header: 'Result.',
+                          message: 'Home team won!.',
+                          buttons: ['OK']
+                        });
+                    
+                        await alert.present();
+
+
+
                         this.viewmatch('close', null, null)
                         firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
                           firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({half:'Match Over' });
@@ -1877,8 +1922,10 @@ this.btn2=false;
 
 endpenalty()
 {
-this.viewmatch('close', null, null);
+  this.stop()
+// this.viewmatch('close', null, null);
 
+this.penaltiesPanel('close')
 }
 
 
