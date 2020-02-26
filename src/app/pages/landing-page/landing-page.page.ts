@@ -930,7 +930,38 @@ else
 
                
 
+if(true)
+{
 
+
+  console.log('Teams',this.currmatch[0].aTeamObject.uid,this.currmatch[0].TeamObject.uid)
+  firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').get().then(val => {
+    val.forEach(res => {
+      
+firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').doc(res.id).update({status:'not available'})
+
+      
+    })
+
+   
+  })
+
+
+
+  firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(val => {
+    val.forEach(res => {
+      
+firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').doc(res.id).update({status:'not available'}).then(res=>{
+console.log(res,'Done')
+})
+
+      
+    })
+
+   
+  })
+
+}
 
 
 
