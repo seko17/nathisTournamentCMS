@@ -470,12 +470,18 @@ this.btn2=false;
           console.log("147= ", this.team1)
           let ress =res.data()
          
+console.log(this.currmatch[0].fixtureid,res.data().red)
+   if(this.currmatch[0].fixtureid ==res.data().red)
+   {
+     console.log('red card here')
+   }
+else{
 
-   
-
+  this.input.data.push({ name: "radio", type: 'radio', label: ress.fullName, value: num })
+}
          
              
-                this.input.data.push({ name: "radio", type: 'radio', label: ress.fullName, value: num })
+                
               
               num = num+1
 
@@ -497,7 +503,19 @@ this.btn2=false;
           this.team2.push({...{docid:res.id},...res.data()})
           console.log("385 = ", this.team2)
 
-          this.ainput.data.push({ name: "radio", type: 'radio', label: res.data().fullName, value: num })
+
+          if(this.currmatch[0].fixtureid ==res.data().red)
+          {
+            console.log('red card here')
+          }
+       else{
+       
+        this.ainput.data.push({ name: "radio", type: 'radio', label: res.data().fullName, value: num })
+       }
+                
+
+
+          
           num = num+1
         })
 
@@ -1493,8 +1511,6 @@ console.log(res,'Done')
                   console.log('currmatch id', this.currmatch);
 
 
-                  firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').doc(this.team1[data].doc.id).update({red:this.matchobject.fixtureid})
-
 
                   firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res => {
                     res.data();
@@ -1502,14 +1518,21 @@ console.log(res,'Done')
                     obj.red = res.data().red + 1;
                     this.currmatch.push(obj);
                     console.log(this.currentmatch)
-
+                    this.input.data.splice(data,1)
                     firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ red: obj.red });
+
+                    
+                  firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').doc(this.team1[data].docid).update({red:this.matchobject.fixtureid}).then(res=>{
+                  
+                    console.log(res,'check player for reds',this.team1[data].fullName)
+                  })
+
 
                   })
                   firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({
                     stats: firebase.firestore.FieldValue.arrayUnion({
                       red: this.mins.toString() +
-                        ":" + this.secs.toString(), playerName: data
+                        ":" + this.secs.toString(), playerName: this.team1[data].fullName
                     })
                   })
                 }
@@ -1634,14 +1657,22 @@ console.log(res,'Done')
                     obj.ared = res.data().ared + 1;
                     this.currmatch.push(obj);
                     console.log(res.data().ared + 1)
-
+                    this.ainput.data.splice(data,1)
                     firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ ared: obj.ared });
+
+
+                    firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').doc(this.team2[data].docid).update({red:this.matchobject.fixtureid}).then(res=>{
+                  
+                      console.log(res,'check player for reds',this.team2[data].fullName)
+                    })
+  
+  
 
                   })
                   firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({
                     stats: firebase.firestore.FieldValue.arrayUnion({
                       ared: this.mins.toString() +
-                        ":" + this.secs.toString(), playerName: data
+                        ":" + this.secs.toString(), playerName: this.team2[data].fullName
                     })
                   })
                 }
