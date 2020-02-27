@@ -200,9 +200,9 @@
             </div>
           </div>
         </div>
-        <p>Applications</p>
+        <p>Applications {{tournamentApplications.length}}</p>
         <ion-button shape="round" color="light" *ngIf="!vedorApplications" (click)="vendorApplications('open')">
-          Vendors
+          Vendors {{vendorsapplicationArray.length}}
         </ion-button>
         <ion-button shape="round" color="light" *ngIf="vedorApplications" (click)="vendorApplications('close')">
           Done
