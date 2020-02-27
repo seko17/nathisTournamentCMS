@@ -393,30 +393,7 @@ this.penalties = {
 
 
     console.log(item)
-    if(item ==null)
-  {
-
-  }
-  else{
-    firebase.firestore().collection('MatchFixtures').doc(item.fixtureid).get().then(async res=>{
- 
-
-      let x=[]
-      this.stats.push(res.data().stats);
-      
-      console.log(this.stats[0])
-      
-        })
-    
-    const loading = await this.loadingController.create({
-      message: 'Please wait...',
-      duration: 2000
-    });
-    await loading.present();
-    const { role, data } = await loading.onDidDismiss();
-  
-  }
-       
+   
 
 
 
@@ -487,66 +464,59 @@ this.btn2=false;
       firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(async val => {
         this.team1 = [];
         this.input.data = [];
+        let num = 0
         val.forEach(res => {
-          this.team1.push(res.data())
+          this.team1.push({...{docid:res.id},...res.data()})
           console.log("147= ", this.team1)
           let ress =res.data()
          
-let num = 0
+console.log(this.currmatch[0].fixtureid,res.data().red)
+   if(this.currmatch[0].fixtureid ==res.data().red)
+   {
+     console.log('red card here')
+   }
+else{
 
-
-
-
-console.log(this.stats[0]) 
-  if(this.stats[0]!=undefined)
-{
-
-  console.log('254 true')
-          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res=>{
-            console.log('238',res.data().stats)
-
-            
-            
-
+  this.input.data.push({ name: "radio", type: 'radio', label: ress.fullName, value: num })
+}
+         
              
-
-              if(res.data().stats[num].playerName==ress.fullName && res.data().stats[num].red =="0:0")
-              {
-
-console.log('246 true')
-              }
-              else
-              {
-                this.input.data.push({ name: "radio", type: 'radio', label: ress.fullName, value: ress.fullName })
-              }
+                
+              
               num = num+1
 
               console.log(num)
             
 
-           
-          })
-        }
+        
 
-      else
-      {
-
-        this.input.data.push({ name: "radio", type: 'radio', label: ress.fullName, value: ress.fullName })
-
-
-      }  
+ 
         })
-            
+        console.log("Hplayers = ", this.input.data)  
       })
 
       firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').get().then(val => {
         this.team2 = [];
         this.ainput.data = [];
+        let num = 0
         val.forEach(res => {
-          this.team2.push(res.data())
+          this.team2.push({...{docid:res.id},...res.data()})
           console.log("385 = ", this.team2)
 
-          this.ainput.data.push({ name: "radio", type: 'radio', label: res.data().fullName, value: res.data().fullName })
+
+          if(this.currmatch[0].fixtureid ==res.data().red)
+          {
+            console.log('red card here')
+          }
+       else{
+       
+        this.ainput.data.push({ name: "radio", type: 'radio', label: res.data().fullName, value: num })
+       }
+                
+
+
+          
+          num = num+1
         })
 
         console.log("Aplayers = ", this.ainput.data)
@@ -1054,7 +1024,7 @@ else
 
                    
         
-                      //   console.log('Teams',this.currmatch[0].aTeamObject.uid,this.currmatch[0].TeamObject.uid)
+                        console.log('Teams',this.currmatch[0].aTeamObject.uid,this.currmatch[0].TeamObject.uid)
                         firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').get().then(val => {
                           val.forEach(res => {
                             
@@ -1542,22 +1512,27 @@ console.log(res,'Done')
 
 
 
-
-
                   firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res => {
                     res.data();
                     let obj = res.data();
                     obj.red = res.data().red + 1;
                     this.currmatch.push(obj);
                     console.log(this.currentmatch)
-
+                    this.input.data.splice(data,1)
                     firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ red: obj.red });
+
+                    
+                  firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').doc(this.team1[data].docid).update({red:this.matchobject.fixtureid}).then(res=>{
+                  
+                    console.log(res,'check player for reds',this.team1[data].fullName)
+                  })
+
 
                   })
                   firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({
                     stats: firebase.firestore.FieldValue.arrayUnion({
                       red: this.mins.toString() +
-                        ":" + this.secs.toString(), playerName: data
+                        ":" + this.secs.toString(), playerName: this.team1[data].fullName
                     })
                   })
                 }
@@ -1682,14 +1657,22 @@ console.log(res,'Done')
                     obj.ared = res.data().ared + 1;
                     this.currmatch.push(obj);
                     console.log(res.data().ared + 1)
-
+                    this.ainput.data.splice(data,1)
                     firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ ared: obj.ared });
+
+
+                    firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').doc(this.team2[data].docid).update({red:this.matchobject.fixtureid}).then(res=>{
+                  
+                      console.log(res,'check player for reds',this.team2[data].fullName)
+                    })
+  
+  
 
                   })
                   firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({
                     stats: firebase.firestore.FieldValue.arrayUnion({
                       ared: this.mins.toString() +
-                        ":" + this.secs.toString(), playerName: data
+                        ":" + this.secs.toString(), playerName: this.team2[data].fullName
                     })
                   })
                 }
