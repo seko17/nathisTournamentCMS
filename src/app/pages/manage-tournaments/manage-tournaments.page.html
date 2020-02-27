@@ -182,7 +182,7 @@
         <!-- VENDOR APPLICATIONS -->
         <div [ngClass]="{'vendorApplications':vedorApplications,'vendorApplications-close':!vedorApplications}">
           <div *ngIf="vendorsapplicationArray.length==0">
-            <p>no vendor applications</p>
+            <p>No Applications</p>
           </div>
           <div class="card" *ngFor="let v of vendorsapplicationArray">
 
@@ -270,18 +270,13 @@
           <!-- TEAM APPLICATIONS STILL TO PAY -->
           <div class="stillToPayList">
             <div id="managerApplications" class="managerApplications">
-              <div class="card" *ngIf="acceptedSearchResults.length==0">
+              <div class="noApps" *ngIf="acceptedSearchResults.length==0">
                 <p style="margin: auto;text-align: center;">No Applications</p>
               </div>
               <div class="card" *ngFor="let item of acceptedSearchResults">
                 <div class="details">
                   <h5 style="margin: 0;">{{item.TeamObject.teamName}}</h5>
                   <p style="margin: 0;">Coach <b>{{item.TeamObject.coachName}}</b></p>
-                </div>
-                <div class="stillToPayList">
-                </div>
-                <div *ngFor="let i of acceptedVendor ">
-                  <p>{{i.refNumber}}</p>
                 </div>
                 <ion-button (click)="paid(item)" [disabled]="disablepaid">{{item.refNumber}}</ion-button>
               </div>
@@ -291,7 +286,7 @@
               <h1>Vendor Applications <sub>Still to pay</sub></h1>
             </div>
             <div id="vendorApplications" class="vendorApplications">
-              <div class="card" *ngIf="vendorssearchArray.length==0">
+              <div class="noApps" *ngIf="vendorssearchArray.length==0">
                 <p style="margin: auto;text-align: center;">No Applications</p>
               </div>
               <div class="card" *ngFor="let v of vendorssearchArray">
@@ -299,10 +294,7 @@
                   <p><b>{{v.doc.vendorobject.form.fullName}}</b></p>
                   <p>{{v.doc.vendorobject.form.phoneNumber}}</p>
                 </div>
-                <div class="stillToPayList">
-                </div>
-                <div *ngFor="let i of acceptedVendor ">
-                </div>
+
                 <ion-button (click)="paidVendor(v)">{{v.doc.refNumber}}</ion-button>
               </div>
             </div>
