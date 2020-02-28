@@ -323,7 +323,7 @@ blockfixture:boolean =true;
   btntxt2 = 'Second Half';
   btn1 = false;
   btn2 = true;
-
+  decriptionCounter: any = 150
   tournid = null;
 
   refnum;
@@ -355,6 +355,7 @@ blockfixture:boolean =true;
 
   placeID
   address
+  textarea = document.getElementsByClassName("texto");
   constructor(public alertController: AlertController, public serve: AllserveService, public loadingController: LoadingController, public toastController: ToastController, public modalController: ModalController, public dragulaService: DragulaService, public renderer: Renderer2, public alertCtrl: AlertController, public formBuilder: FormBuilder) {
 
     let num = 0;
@@ -390,6 +391,29 @@ blockfixture:boolean =true;
       this.tempCardGen.push({ hasApplications: true })
     }
     // Motus
+  }
+  tournamentDescCounter(key) {
+    // console.log(key.target.value, key.target.value.length);
+    // this.decriptionCounter = this.decriptionCounter - key.target.value.length;
+    // console.log(this.decriptionCounter);
+    this.textarea[0].addEventListener("input", async function(){
+      var maxlength = this.getAttribute("maxlength");
+      var currentLength = this.value.length;
+      // console.log(maxlength);
+      
+      if( currentLength >= maxlength ){
+          console.log("You have reached the maximum number of characters.");
+          let toaster = await this.toastController.create({
+            message: 'You have reached the maximum number of characters.'
+          })
+          await toaster.present()
+      }else{
+        // this.decriptionCounter = null
+        let counter = maxlength - currentLength
+        this.decriptionCounter = counter
+          // console.log(counter + " chars left");
+      }
+  });
   }
 // should help scroll horizontally using mouse wheel
   scroll() {

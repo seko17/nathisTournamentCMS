@@ -109,10 +109,6 @@
       </div>
       <div class="teamList">
         <div class="card" *ngFor="let item of fixture">
-
-
-
-
           <div class="details">
             <h4>{{ item.TeamObject.teamName }} vs {{ item.aTeamObject.teamName }}</h4>
           </div>
@@ -120,6 +116,7 @@
             <!--    [(ngModel)] =item.matchdate -->
             <ion-datetime displayFormat="D MMM, YY - HH:mm a" min="{{tournToday}}" max="2020-12-31"
               placeholder="Date, Time" [(ngModel)]=item.matchdate></ion-datetime>
+              <ion-input type="text" placeholder="Location"></ion-input>
           </div>
         </div>
       </div>
@@ -185,7 +182,7 @@
         <!-- VENDOR APPLICATIONS -->
         <div [ngClass]="{'vendorApplications':vedorApplications,'vendorApplications-close':!vedorApplications}">
           <div *ngIf="vendorsapplicationArray.length==0">
-            <p>no vendor applications</p>
+            <p>No Applications</p>
           </div>
           <div class="card" *ngFor="let v of vendorsapplicationArray">
 
@@ -203,9 +200,9 @@
             </div>
           </div>
         </div>
-        <p>Applications</p>
+        <p>Applications {{tournamentApplications.length}}</p>
         <ion-button shape="round" color="light" *ngIf="!vedorApplications" (click)="vendorApplications('open')">
-          Vendors
+          Vendors {{vendorsapplicationArray.length}}
         </ion-button>
         <ion-button shape="round" color="light" *ngIf="vedorApplications" (click)="vendorApplications('close')">
           Done
@@ -237,7 +234,7 @@
     <!-- TOURNAMENT DETAILS -->
     <div class="management">
       <div class="tournamentData" *ngFor="let x of tourndetails">
-        <h1 style="font-size: 90%;
+        <h1 style="font-size: 4vw;
         letter-spacing: 2px;">{{x.doc.formInfo.tournamentName}}</h1>
         <div class="splitter">
           <div class="one">
@@ -273,18 +270,13 @@
           <!-- TEAM APPLICATIONS STILL TO PAY -->
           <div class="stillToPayList">
             <div id="managerApplications" class="managerApplications">
-              <div class="card" *ngIf="acceptedSearchResults.length==0">
+              <div class="noApps" *ngIf="acceptedSearchResults.length==0">
                 <p style="margin: auto;text-align: center;">No Applications</p>
               </div>
               <div class="card" *ngFor="let item of acceptedSearchResults">
                 <div class="details">
                   <h5 style="margin: 0;">{{item.TeamObject.teamName}}</h5>
                   <p style="margin: 0;">Coach <b>{{item.TeamObject.coachName}}</b></p>
-                </div>
-                <div class="stillToPayList">
-                </div>
-                <div *ngFor="let i of acceptedVendor ">
-                  <p>{{i.refNumber}}</p>
                 </div>
                 <ion-button (click)="paid(item)" [disabled]="disablepaid">{{item.refNumber}}</ion-button>
               </div>
@@ -294,7 +286,7 @@
               <h1>Vendor Applications <sub>Still to pay</sub></h1>
             </div>
             <div id="vendorApplications" class="vendorApplications">
-              <div class="card" *ngIf="vendorssearchArray.length==0">
+              <div class="noApps" *ngIf="vendorssearchArray.length==0">
                 <p style="margin: auto;text-align: center;">No Applications</p>
               </div>
               <div class="card" *ngFor="let v of vendorssearchArray">
@@ -302,10 +294,7 @@
                   <p><b>{{v.doc.vendorobject.form.fullName}}</b></p>
                   <p>{{v.doc.vendorobject.form.phoneNumber}}</p>
                 </div>
-                <div class="stillToPayList">
-                </div>
-                <div *ngFor="let i of acceptedVendor ">
-                </div>
+
                 <ion-button (click)="paidVendor(v)">{{v.doc.refNumber}}</ion-button>
               </div>
             </div>
@@ -360,6 +349,15 @@
         </div>
         <div class="inputs">
           <ion-item>
+            <!--  -->
+            <ion-label position="floating">Description</ion-label>
+            <ion-textarea maxlength="150" class="texto" formControlName="bio" autoGrow="true" spellcheck="true" (keyup)="tournamentDescCounter($event)"></ion-textarea>
+            <p style="    margin: 0;
+            font-size: 61%;
+            position: absolute;
+            top: 8px;right: 10px;">{{decriptionCounter}} Characters Max</p>
+          </ion-item>
+          <ion-item>
             <ion-label position="floating">Tournament Type</ion-label>
             <ion-select color="light" formControlName="type">
               <ion-select-option value="8">Top 8</ion-select-option>
@@ -380,15 +378,15 @@
             <ion-label position="floating">Stadium Name</ion-label>
             <ion-input type="text" formControlName="staduimName"></ion-input>
           </ion-item> -->
-          <ion-item>
+          <!-- <ion-item>
             <ion-label position="floating">Stadium Name</ion-label>
             <ion-input type="text" formControlName="stadiumName"></ion-input>
-          </ion-item>
-          <ion-item>
+          </ion-item> -->
+          <!-- <ion-item>
             <ion-label position="stacked">Stadium Address</ion-label>
             <input type="text " placeholder=" " class="search"
             style="color: rgb(255, 255, 255) !important;width: 50%;">
-          </ion-item>
+          </ion-item> -->
           <!-- staduim location -->
          
           <ion-item>
@@ -403,11 +401,7 @@
             <ion-label position="floating">Joining Fee</ion-label>
             <ion-input type="number" formControlName="joiningFee"></ion-input>
           </ion-item>
-          <ion-item>
-            <!--  -->
-            <ion-label position="floating">Description</ion-label>
-            <ion-textarea maxlength="150" formControlName="bio" autoGrow="true" spellcheck="true"></ion-textarea>
-          </ion-item>
+
           <ion-item>
             <ion-label position="floating">Application Closing Date</ion-label>
             <ion-datetime displayFormat="DD MMMM YYYY" min="{{tournToday}}" formControlName="applicationClosing">
@@ -433,13 +427,13 @@
       <div class="sponsors">
         <div class="buttons">
           <ion-item>
-            <ion-label>Sponsor Logo</ion-label>
+            <ion-label position="stacked">Sponsor Logo</ion-label>
             <ion-input type="file" accept="image/*" multiple="false" (change)="selectimage($event.target.files)">
             </ion-input>
           </ion-item>
           <ion-progress-bar value="{{progressOfImage/100}}"></ion-progress-bar>
           <ion-item>
-            <ion-label>Sponsor Name</ion-label>
+            <ion-label position="floating">Sponsor Name</ion-label>
             <ion-input [(ngModel)]="sponsorName"> </ion-input>
           </ion-item>
           <ion-button shape="round" size="small" disabled="true" *ngIf="!sponsorUploaded||!sponsorName">
@@ -485,7 +479,7 @@
               <h5>No Tournaments</h5>
             </div>
             <div class="card animated" *ngFor="let t of approvedTournaments;let i = index" (click)="showSideEvent(t, i)"
-              [ngClass]="{'pulse infinite':tournIndex==i}">
+              [ngClass]="{'pulse infinite ion-activated':tournIndex==i}">
               <ion-fab-button *ngIf="t.state=='trash'" id="tr" size="small" (click)="deltourn(t)" color="danger">
                 <ion-icon name="trash"></ion-icon>
               </ion-fab-button>

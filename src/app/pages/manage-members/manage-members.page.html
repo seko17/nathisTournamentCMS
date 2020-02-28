@@ -17,7 +17,7 @@
                 <h4>{{item.doc.form.fullName}}</h4>
                     <p class="dim">{{item.doc.form.phoneNumber}}</p>
                     <!-- <p class="dim"><sup>{{item.doc.form.email}}</sup></p> -->
-                    <p>Manages:<b> Team Name</b></p>
+                    <!-- <p>Manages:<b> Team Name</b></p> -->
                     <div class="buttons">
                         <ion-fab-button style="margin: 0;" size="small" fill="clear" (click)="approve(item)">
                             <ion-icon name="thumbs-up"></ion-icon>
@@ -34,7 +34,7 @@
     <div class="bottom">
         <div class="teamExistingApplications">
             <div class="title">
-                <h3>Managers</h3>
+                <h3>Managers <span style="color: orangered;">{{approvedManagers.length}}</span></h3>
             </div>
             <div class="teamList">
                 <div class="card" *ngIf="approvedManagers.length==0" >
@@ -55,7 +55,7 @@
                 </div>
             </div>
         </div>
-        <div class="vendors">
+        <div style="margin: 0px !important;" class="vendors">
             <div class="vendorNewApplications">
                 <div class="title">
                     <h5 style="margin: 0;">New Vendors</h5>
@@ -83,7 +83,7 @@
             </div>
             <div class="existingVendors">
                 <div class="title">
-                    <h5>Vendors</h5>
+                    <h5>Vendors <span style="color: orangered;">{{approvedVendor.length}}</span></h5>
                 </div>
                 <div class="list">
                     <div class="card" *ngIf="approvedVendor.length==0" >

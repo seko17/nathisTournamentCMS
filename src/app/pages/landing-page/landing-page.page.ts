@@ -52,8 +52,30 @@ export class LandingPagePage implements OnInit {
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // BEGGIN BACKEND HERE
 
-
-
+penalties = {
+  home: {
+    one: null,
+    two: null,
+    three: null,
+    four: null,
+    five: null,
+    total: 0,
+    reset: false
+  },
+  away: {
+    one: null,
+    two: null,
+    three: null,
+    four: null,
+    five: null,
+    total: 0,
+    reset: false
+  },
+  homeTotal: 0,
+  awayTotal: 0
+}
+showPenalties = false
+penaltiesDiv = document.getElementsByClassName('penalties')
   tournament = [];
   toFilter = []
   adminProfile = {}
@@ -142,7 +164,8 @@ btntxt3
 btn4
 btntxt4
 
-
+disableall:boolean;
+stats =[];
 
   async ionViewWillLeave() {
     const alert = await this.alertController.create({
@@ -155,38 +178,222 @@ btntxt4
     await alert.present();
 
   }
+penaltiesPanel(cmd) {
+  switch (cmd) {
+    case 'open':
+      this.renderer.setStyle(this.penaltiesDiv[0],'display','flex');
+      this.showPenalties = true
+      break;
+      case 'close':
+        this.showPenalties = false
+      setTimeout(() => {
+        this.renderer.setStyle(this.penaltiesDiv[0],'display','none');
+      }, 500);
+        break;
+  }
+}
+agv:number =0;
+hgv:number =0
+ag()
+{
+this.agv =this.agv+1;
+console.log(this.agv)
+}
+
+hg()
+{
+  this.hgv =this.hgv+1;
+  console.log(this.hgv)
+}
 
 
-disableall:boolean;
-stats =[];
+  // operates the penalties indicators view
+goal(side) {
+  switch (side) {
+    case 'home':
+      if (this.penalties.home.one==null) {
+        this.penalties.home.one = true
+        this.penalties.home.total = this.penalties.home.total + 1
+
+      } else if (this.penalties.home.two==null) {
+        this.penalties.home.two = true
+        this.penalties.home.total = this.penalties.home.total + 1
+
+      } else if (this.penalties.home.three==null) {
+        this.penalties.home.three = true
+        this.penalties.home.total = this.penalties.home.total + 1
+
+      } else if (this.penalties.home.four==null) {
+        this.penalties.home.four = true
+        this.penalties.home.total = this.penalties.home.total + 1
+
+      } else if (this.penalties.home.five==null) {
+        this.penalties.home.five = true
+        this.penalties.home.total = this.penalties.home.total + 1
+        this.penalties.home.reset = true
+
+      } else {
+        this.penalties.home.one = null
+        this.penalties.home.two = null
+        this.penalties.home.three = null
+        this.penalties.home.four = null
+        this.penalties.home.five = null
+        if(this.penalties.away.reset) {
+          this.penalties.away.one = null
+          this.penalties.away.two = null
+          this.penalties.away.three = null
+          this.penalties.away.four = null
+          this.penalties.away.five = null
+          this.penalties.home.reset = false
+          this.penalties.away.reset = false
+        }
+      }
+      break;
+      case 'away':
+            if (this.penalties.away.one==null) {
+        this.penalties.away.one = true
+        this.penalties.away.total = this.penalties.away.total + 1
+
+      } else if (this.penalties.away.two==null) {
+        this.penalties.away.two = true
+        this.penalties.away.total = this.penalties.away.total + 1
+
+      } else if (this.penalties.away.three==null) {
+        this.penalties.away.three = true
+        this.penalties.away.total = this.penalties.away.total + 1
+
+      } else if (this.penalties.away.four==null) {
+        this.penalties.away.four = true
+        this.penalties.away.total = this.penalties.away.total + 1
+
+      } else if (this.penalties.away.five==null) {
+        this.penalties.away.five = true
+        this.penalties.away.total = this.penalties.away.total + 1
+        this.penalties.away.reset = true
+
+      } else {
+        this.penalties.away.one = null
+        this.penalties.away.two = null
+        this.penalties.away.three = null
+        this.penalties.away.four = null
+        this.penalties.away.five = null
+        if (this.penalties.home.reset) {
+          this.penalties.home.one = null
+          this.penalties.home.two = null
+          this.penalties.home.three = null
+          this.penalties.home.four = null
+          this.penalties.home.five = null
+          this.penalties.home.reset = false
+          this.penalties.away.reset = false
+        }
+      }
+        break;
+  }
+}
+missed(side) {
+  switch (side) {
+    case 'home':
+      if (this.penalties.home.one==null) {
+        this.penalties.home.one = false
+
+      } else if (this.penalties.home.two==null) {
+        this.penalties.home.two = false
+
+      } else if (this.penalties.home.three==null) {
+        this.penalties.home.three = false
+
+      } else if (this.penalties.home.four==null) {
+        this.penalties.home.four = false
+
+      } else if (this.penalties.home.five==null) {
+        this.penalties.home.five = false
+        this.penalties.home.reset = true
+
+      } else {
+        this.penalties.home.one = null
+        this.penalties.home.two = null
+        this.penalties.home.three = null
+        this.penalties.home.four = null
+        this.penalties.home.five = null
+        if(this.penalties.away.reset) {
+          this.penalties.away.one = null
+          this.penalties.away.two = null
+          this.penalties.away.three = null
+          this.penalties.away.four = null
+          this.penalties.away.five = null
+          this.penalties.home.reset = false
+          this.penalties.away.reset = false
+        }
+      }
+      break;
+      case 'away':
+            if (this.penalties.away.one==null) {
+        this.penalties.away.one = false
+
+      } else if (this.penalties.away.two==null) {
+        this.penalties.away.two = false
+
+      } else if (this.penalties.away.three==null) {
+        this.penalties.away.three = false
+
+      } else if (this.penalties.away.four==null) {
+        this.penalties.away.four = false
+        
+      } else if (this.penalties.away.five==null) {
+        this.penalties.away.five = false
+        this.penalties.away.reset = true
+
+      } else {
+        this.penalties.away.one = null
+        this.penalties.away.two = null
+        this.penalties.away.three = null
+        this.penalties.away.four = null
+        this.penalties.away.five = null
+        if(this.penalties.home.reset) {
+          this.penalties.home.one = null
+          this.penalties.home.two = null
+          this.penalties.home.three = null
+          this.penalties.home.four = null
+          this.penalties.home.five = null
+          this.penalties.home.reset = false
+          this.penalties.away.reset = false
+        }
+      }
+        break;
+  }
+}
 
   async viewmatch(state, item, a) {
+this.hgv =0;
+this.agv=0;
+this.penalties = {
+  home: {
+    one: null,
+    two: null,
+    three: null,
+    four: null,
+    five: null,
+    total: 0,
+    reset: false
+  },
+  away: {
+    one: null,
+    two: null,
+    three: null,
+    four: null,
+    five: null,
+    total: 0,
+    reset: false
+  },
+  homeTotal: 0,
+  awayTotal: 0
+}
+
+
+
 
     console.log(item)
-    if(item ==null)
-  {
-
-  }
-  else{
-    firebase.firestore().collection('MatchFixtures').doc(item.fixtureid).get().then(async res=>{
- 
-
-      let x=[]
-      this.stats.push(res.data().stats);
-      
-      console.log(this.stats[0])
-      
-        })
-    
-    const loading = await this.loadingController.create({
-      message: 'Please wait...',
-      duration: 2000
-    });
-    await loading.present();
-    const { role, data } = await loading.onDidDismiss();
-  
-  }
-       
+   
 
 
 
@@ -257,66 +464,59 @@ this.btn2=false;
       firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(async val => {
         this.team1 = [];
         this.input.data = [];
+        let num = 0
         val.forEach(res => {
-          this.team1.push(res.data())
+          this.team1.push({...{docid:res.id},...res.data()})
           console.log("147= ", this.team1)
           let ress =res.data()
          
-let num = 0
+console.log(this.currmatch[0].fixtureid,res.data().red)
+   if(this.currmatch[0].fixtureid ==res.data().red)
+   {
+     console.log('red card here')
+   }
+else{
 
-
-
-
-console.log(this.stats[0]) 
-  if(this.stats[0]!=undefined)
-{
-
-  console.log('254 true')
-          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res=>{
-            console.log('238',res.data().stats)
-
-            
-            
-
+  this.input.data.push({ name: "radio", type: 'radio', label: ress.fullName, value: num })
+}
+         
              
-
-              if(res.data().stats[num].playerName==ress.fullName && res.data().stats[num].red =="0:0")
-              {
-
-console.log('246 true')
-              }
-              else
-              {
-                this.input.data.push({ name: "radio", type: 'radio', label: ress.fullName, value: ress.fullName })
-              }
+                
+              
               num = num+1
 
               console.log(num)
             
 
-           
-          })
-        }
+        
 
-      else
-      {
-
-        this.input.data.push({ name: "radio", type: 'radio', label: ress.fullName, value: ress.fullName })
-
-
-      }  
+ 
         })
-            
+        console.log("Hplayers = ", this.input.data)  
       })
 
       firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').get().then(val => {
         this.team2 = [];
         this.ainput.data = [];
+        let num = 0
         val.forEach(res => {
-          this.team2.push(res.data())
+          this.team2.push({...{docid:res.id},...res.data()})
           console.log("385 = ", this.team2)
 
-          this.ainput.data.push({ name: "radio", type: 'radio', label: res.data().fullName, value: res.data().fullName })
+
+          if(this.currmatch[0].fixtureid ==res.data().red)
+          {
+            console.log('red card here')
+          }
+       else{
+       
+        this.ainput.data.push({ name: "radio", type: 'radio', label: res.data().fullName, value: num })
+       }
+                
+
+
+          
+          num = num+1
         })
 
         console.log("Aplayers = ", this.ainput.data)
@@ -739,10 +939,46 @@ else
               text: 'No',
               role: 'cancel',
               cssClass: 'secondary',
-              handler: (blah) => {
+              handler: async (blah) => {
                 console.log('Confirm Cancel: blah');
 
                 firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ matchstate: 'incomplete' });
+
+                if (this.score+this.hgv == this.ascore+this.agv) {
+
+                  console.log('This one')
+                  const alert = await this.alertController.create({
+                    header: 'Alert!',
+                    message: 'The match can not be finished without a winner.',
+                    buttons: ['OK']
+                  });
+
+                  await alert.present();
+                  alert.onDidDismiss().then(res=>{
+                    this.penaltiesPanel('open')
+                  })
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
 
               }
             }, {
@@ -768,9 +1004,9 @@ else
                   console.log(rez.data().aTeamObject.teamName)
 
 
-                  if (rez.data().score == rez.data().ascore) {
-
-                   
+                  if (rez.data().score +this.hgv == rez.data().ascore+this.agv) {
+                    console.log('This one')
+                  
                     const alert = await this.alertController.create({
                       header: 'Alert!',
                       message: 'The match can not be finished without a winner.',
@@ -778,11 +1014,60 @@ else
                     });
 
                     await alert.present();
+                    alert.onDidDismiss().then(res=>{
+                      this.penaltiesPanel('open')
+                    })
                   }
                   else
                     if (parseFloat(rez.data().type) / 2 == 0.5) {
-                      console.log("TRUE", this.clicked[0].formInfo)
-                      this.viewmatch('close', null, null)
+
+
+                   
+        
+                        console.log('Teams',this.currmatch[0].aTeamObject.uid,this.currmatch[0].TeamObject.uid)
+                        firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').get().then(val => {
+                          val.forEach(res => {
+                            
+                      firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').doc(res.id).update({status:'not available'})
+                      
+                            
+                          })
+                      
+                         
+                        })
+                      
+                      
+                      
+                        firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(val => {
+                          val.forEach(res => {
+                            
+                      firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').doc(res.id).update({status:'not available'}).then(res=>{
+                      console.log(res,'Done')
+                      })
+                      
+                            
+                          })
+                      
+                         
+                        })
+                      
+                      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    
+                      // this.viewmatch('close', null, null)
                       firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
                         firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({half:'Match Over' });
                       
@@ -790,11 +1075,23 @@ else
                         })
 
                       this.db.collection('newTournaments').doc(this.clicked[0].docid).update({ state: 'finished' });
-                      firebase.firestore().collection('newTournaments').doc(this.clicked[0].docid).update({ formInfo: { applicationClosing: this.clicked[0].formInfo.applicationClosing, tournamentName: this.clicked[0].formInfo.tournamentName, location: this.clicked[0].formInfo.location, joiningFee: this.clicked[0].formInfo.joiningFee, endDate: this.clicked[0].formInfo.endDate, startDate: this.clicked[0].formInfo.startDate, type: "0" } });
+                      firebase.firestore().collection('newTournaments').doc(this.clicked[0].docid).update({ formInfo: { bio: this.clicked[0].formInfo.bio,applicationClosing: this.clicked[0].formInfo.applicationClosing, tournamentName: this.clicked[0].formInfo.tournamentName, location: this.clicked[0].formInfo.location, joiningFee: this.clicked[0].formInfo.joiningFee, endDate: this.clicked[0].formInfo.endDate, startDate: this.clicked[0].formInfo.startDate, type: "0" } });
 
-                      if (rez.data().ascore > rez.data().score) {
+                      if (rez.data().ascore+this.agv > rez.data().score +this.hgv) {
 
+                        if(this.hgv>0 || this.agv>0)
+                        {
+                          console.log('Penalties')
+                          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({hpenalties:this.hgv,apenalties:this.agv})
+                        }else{ console.log('No Penalties')}
 
+                        console.log("Away hi There",rez.data().ascore+this.agv > rez.data().score +this.hgv)
+                        const alert = await this.alertController.create({
+                          header: 'Result.',
+                          message: 'Away team won the tournament!.',
+                          buttons: ['OK']
+                        });
+                        alert.present()
                         firebase.firestore().collection('PlayedMatches').add(rez.data());
 
 
@@ -804,8 +1101,61 @@ else
                         firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).delete();
 
                       }
-                      else if (rez.data().score > rez.data().ascore) {
-                        console.log("HOMESCORE WON")
+                      else if (rez.data().score +this.hgv> rez.data().ascore+this.agv) {
+                        
+                        console.log("Home hi There",rez.data().score +this.hgv> rez.data().ascore+this.agv)
+
+
+                        const alert = await this.alertController.create({
+                          header: 'Result.',
+                          message: 'Home team won the tournament!.',
+                          buttons: ['OK']
+                        });
+                        alert.present()
+
+                        if(this.hgv>0 || this.agv>0)
+                        {
+                          console.log('Penalties')
+                          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({hpenalties:this.hgv,apenalties:this.agv})
+                        }else{ console.log('No Penalties')}
+
+
+
+                     
+
+
+
+  console.log('Teams',this.currmatch[0].aTeamObject.uid,this.currmatch[0].TeamObject.uid)
+  firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').get().then(val => {
+    val.forEach(res => {
+      
+firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').doc(res.id).update({status:'not available'})
+
+      
+    })
+
+   
+  })
+
+
+
+  firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(val => {
+    val.forEach(res => {
+      
+firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').doc(res.id).update({status:'not available'}).then(res=>{
+console.log(res,'Done')
+})
+
+      
+    })
+
+   
+  })
+
+
+                        
+                        
+                        
                         this.viewmatch('close', null, null)
                         firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
                           firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({half:'Match Over' });
@@ -823,8 +1173,71 @@ else
 
                     }
                     else
-                      if (rez.data().ascore > rez.data().score) {
+                      if (rez.data().ascore +this.agv> rez.data().score+this.hgv) {
                         console.log("AWAYSCORE WON")
+                        if(this.hgv>0)
+                        {
+                          console.log('Penalties')
+                          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({hpenalties:this.hgv,apenalties:this.agv})
+                        }else{ console.log('No Penalties')}
+
+
+
+                                                const alert = await this.alertController.create({
+                          header: 'Result.',
+                          message: 'Away team won!.',
+                          buttons: ['OK']
+                        });
+                    
+                        await alert.present();
+
+
+
+
+                        if(true)
+                        {
+                        
+                        
+                          console.log('Teams',this.currmatch[0].aTeamObject.uid,this.currmatch[0].TeamObject.uid)
+                          firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').get().then(val => {
+                            val.forEach(res => {
+                              
+                        firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').doc(res.id).update({status:'not available'})
+                        
+                              
+                            })
+                        
+                           
+                          })
+                        
+                        
+                        
+                          firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(val => {
+                            val.forEach(res => {
+                              
+                        firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').doc(res.id).update({status:'not available'}).then(res=>{
+                        console.log(res,'Done')
+                        })
+                        
+                              
+                            })
+                        
+                           
+                          })
+                        
+                        }
+
+
+
+
+
+
+
+
+
+
+
+
                         this.viewmatch('close', null, null)
                         firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
                           firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({half:'Match Over' });
@@ -838,8 +1251,72 @@ else
                         firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).delete();
 
                       }
-                      else if (rez.data().score > rez.data().ascore) {
+                      else if (rez.data().score + this.hgv > rez.data().ascore +this.agv) {
+                        
+                        if(this.hgv>0 || this.agv>0)
+                        {
+                          console.log('Penalties')
+                          firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({hpenalties:this.hgv,apenalties:this.agv})
+                        }else{ console.log('No Penalties')}
+                        
+                        
+                        if(true)
+{
+
+
+  console.log('Teams',this.currmatch[0].aTeamObject.uid,this.currmatch[0].TeamObject.uid)
+  firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').get().then(val => {
+    val.forEach(res => {
+      
+firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').doc(res.id).update({status:'not available'})
+
+      
+    })
+
+   
+  })
+
+
+
+  firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(val => {
+    val.forEach(res => {
+      
+firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').doc(res.id).update({status:'not available'}).then(res=>{
+console.log(res,'Done')
+})
+
+      
+    })
+
+   
+  })
+
+}
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         console.log("HOMESCORE WON")
+
+                        const alert = await this.alertController.create({
+                          header: 'Result.',
+                          message: 'Home team won!.',
+                          buttons: ['OK']
+                        });
+                    
+                        await alert.present();
+
+
+
                         this.viewmatch('close', null, null)
                         firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(val => {
                           firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({half:'Match Over' });
@@ -867,6 +1344,9 @@ else
       }
     });
   }
+
+
+
 
   async goal1() {
 
@@ -1032,22 +1512,27 @@ else
 
 
 
-
-
                   firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).get().then(res => {
                     res.data();
                     let obj = res.data();
                     obj.red = res.data().red + 1;
                     this.currmatch.push(obj);
                     console.log(this.currentmatch)
-
+                    this.input.data.splice(data,1)
                     firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ red: obj.red });
+
+                    
+                  firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').doc(this.team1[data].docid).update({red:this.matchobject.fixtureid}).then(res=>{
+                  
+                    console.log(res,'check player for reds',this.team1[data].fullName)
+                  })
+
 
                   })
                   firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({
                     stats: firebase.firestore.FieldValue.arrayUnion({
                       red: this.mins.toString() +
-                        ":" + this.secs.toString(), playerName: data
+                        ":" + this.secs.toString(), playerName: this.team1[data].fullName
                     })
                   })
                 }
@@ -1172,14 +1657,22 @@ else
                     obj.ared = res.data().ared + 1;
                     this.currmatch.push(obj);
                     console.log(res.data().ared + 1)
-
+                    this.ainput.data.splice(data,1)
                     firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ ared: obj.ared });
+
+
+                    firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').doc(this.team2[data].docid).update({red:this.matchobject.fixtureid}).then(res=>{
+                  
+                      console.log(res,'check player for reds',this.team2[data].fullName)
+                    })
+  
+  
 
                   })
                   firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({
                     stats: firebase.firestore.FieldValue.arrayUnion({
                       ared: this.mins.toString() +
-                        ":" + this.secs.toString(), playerName: data
+                        ":" + this.secs.toString(), playerName: this.team2[data].fullName
                     })
                   })
                 }
@@ -1423,7 +1916,13 @@ this.btn2=false;
 }
   
 
+endpenalty()
+{
+  this.stop()
+// this.viewmatch('close', null, null);
 
+this.penaltiesPanel('close')
+}
 
 
 }
