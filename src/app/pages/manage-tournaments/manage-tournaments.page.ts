@@ -370,12 +370,10 @@ blockfixture:boolean =true;
     this.newTournForm = this.formBuilder.group({
       tournamentName: ['', [Validators.required, Validators.minLength((4))]],
       type: ['', Validators.required],
-      location: [this.userLocation, []],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       joiningFee: ['', [Validators.required, Validators.minLength(3)]],
       bio: ['', [Validators.required, Validators.minLength(10)]],
-      stadiumName : ['', [Validators.required]],
       applicationClosing: ['', Validators.required]
     })
     this.db.collection('newTournaments').onSnapshot(res => {

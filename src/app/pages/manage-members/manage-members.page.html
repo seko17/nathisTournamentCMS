@@ -9,26 +9,40 @@
                 <p class="dim" style="margin: auto;
                 text-align: center;">No Information</p>
             </div>
-            <div class="card" *ngFor="let item of manager" >
+            <!-- <div class="card" *ngFor="let item of manager" >
                 <div class="img">
-                    <img src="../../../assets/nathi_noImage.png" alt="">
+                    <img *ngIf="!item.profileImage" src="../../../assets/nathi_noImage.png" alt="">
+                    <img *ngIf="item.profileImage"  src="{{item.profileImage}}" alt="">
                 </div>
                 <div class="details">
                 <h4>{{item.doc.form.fullName}}</h4>
                     <p class="dim">{{item.doc.form.phoneNumber}}</p>
-                    <!-- <p class="dim"><sup>{{item.doc.form.email}}</sup></p> -->
-                    <!-- <p>Manages:<b> Team Name</b></p> -->
                     <div class="buttons">
-                        <ion-fab-button style="margin: 0;" size="small" fill="clear" (click)="approve(item)">
-                            <ion-icon name="thumbs-up"></ion-icon>
-                        </ion-fab-button>
-                        <ion-fab-button style="margin: 0;" size="small" color="danger" fill="clear" (click)="decline(item)">
-                            <ion-icon name="thumbs-down"></ion-icon>
-                        </ion-fab-button>
+                      
+                      
                     </div>
                 </div>
                 
-            </div>
+            </div> -->
+            <div class="card"  *ngFor="let item of manager" (click) ="block(item)">
+                <div class="imgBx">
+                    <img *ngIf="item.profileImage"  src="{{item.profileImage}}" alt="images">
+                    <img *ngIf="!item.profileImage"  src="../../../assets/nathi_noImage.png" alt="">
+                </div>
+                <div class="details">
+                    <h2>{{item.doc.form.fullName}}<br><span style="text-transform: capitalize;">{{item.doc.form.phoneNumber}}</span></h2>
+                </div>
+                <div class="lkice">
+                    <ion-fab-button style="margin: 0;" size="small" fill="clear" (click)="approve(item)">
+                        <ion-icon name="thumbs-up"></ion-icon>
+                    </ion-fab-button>
+                </div>
+                <div class="dkice">
+                    <ion-fab-button style="margin: 0;" size="small" color="danger" fill="clear" (click)="decline(item)">
+                        <ion-icon name="thumbs-down"></ion-icon>
+                    </ion-fab-button>
+                </div>
+              </div>
         </div>
     </div>
     <div class="bottom">
@@ -41,7 +55,7 @@
                     <p class="dim" style="margin: auto;
                     text-align: center;">No Information</p>
                 </div>
-                <div class="card" *ngFor="let item of approvedManagers" >
+                <!-- <div class="card" *ngFor="let item of approvedManagers" >
                    
                     <div class="details" (click) ="block(item)">
                         <div>
@@ -52,7 +66,16 @@
                   
                         </div>
                     </div>
-                </div>
+                </div> -->
+                <div class="card"  *ngFor="let item of approvedManagers" (click) ="block(item)">
+                    <div class="imgBx">
+                        <img src="{{item.profileImage}}" alt="images">
+                    </div>
+                    <div class="details">
+                        <h2>{{item.form.fullName}}<br><span style="text-transform: capitalize;">{{item.form.role}}</span></h2>
+                    </div>
+                  </div>
+                
             </div>
         </div>
         <div style="margin: 0px !important;" class="vendors">

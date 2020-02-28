@@ -476,35 +476,35 @@
           </div>
           <div class="approvedList">
             <div class="card noTourns" *ngIf="approvedTournaments.length==0">
-              <h5>No Tournaments</h5>
+              <h5 style="color: white !important;">No Tournaments</h5>
             </div>
-            <div class="card animated" *ngFor="let t of approvedTournaments;let i = index" (click)="showSideEvent(t, i)"
-              [ngClass]="{'pulse infinite ion-activated':tournIndex==i}">
-              <ion-fab-button *ngIf="t.state=='trash'" id="tr" size="small" (click)="deltourn(t)" color="danger">
-                <ion-icon name="trash"></ion-icon>
-              </ion-fab-button>
-              <div class="tTitle">
-                <h5>{{t.doc.formInfo.tournamentName}}</h5>
+
+            <div class="card slideInLeft" *ngFor="let t of approvedTournaments;let i = index" (click)="showSideEvent(t, i)"
+            [ngClass]="{'bounce infinite ion-activated':tournIndex==i}">
+              <div class="apTitle">
+                <h3 >{{t.doc.formInfo.tournamentName}}</h3>
+                <p>Applications Open Until{{t.doc.formInfo.applicationClosing | date}}</p>
               </div>
-              <div class="tDetails">
-                <div>
-                  <p>Starts {{t.doc.formInfo.startDate | date}} <br> Ends {{t.doc.formInfo.endDate | date}}</p>
-                  <p style="    font-size: 0.7em; font-weight: bold;">Application open until -
-                    {{t.doc.formInfo.applicationClosing | date}}</p>
-                  <!-- <p><p style ="color:red">{{t.doc.message}}</p></b> -->
-                  <ion-chip *ngIf="t.doc.message" outline="true" fill="clear" color="danger"
-                    style="pointer-events: none !important;">
-                    <ion-icon name="refresh"></ion-icon>
-                    <ion-label>Recuring Tournament</ion-label>
-                  </ion-chip>
-                  <!-- <p>{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p> -->
-                </div>
+          
+              <div class="bar">
+                <div class="emptybar"></div>
+                <div class="filledbar"></div>
               </div>
-              <div class="setup">
-                <ion-button size="small" color="light" (click)="finnishSetup(t, 'open')">
+          <div class="description">
+                <p>{{t.doc.formInfo.bio}}</p>
+               <div class="btns">
+                <ion-fab-button *ngIf="t.state=='trash'" id="tr" size="small" (click)="deltourn(t)" color="danger">
+                  <ion-icon name="trash"></ion-icon>
+                </ion-fab-button>
+                <ion-button size="small" fill="outline" shape="round" color="light" (click)="finnishSetup(t, 'open')">
                   Finish Setup
                 </ion-button>
-
+                <ion-chip *ngIf="t.doc.message"   outline="true" fill="clear" color="light"
+                style="pointer-events: none !important;">
+                <ion-icon name="refresh"></ion-icon>
+                <ion-label>Recuring Tournament</ion-label>
+              </ion-chip>
+               </div>
               </div>
             </div>
           </div>
@@ -517,16 +517,11 @@
             <div class="card" style="display: flex; align-items: center; opacity: 1;"
               *ngIf="unapprovedTournaments.length==0">
 
-              <h5 style="margin: auto">No Tournaments</h5>
+              <h5 style="margin: auto; color: white;">No Tournaments</h5>
 
             </div>
-            <div class="card" *ngFor="let t of unapprovedTournaments">
-              <ion-fab-button id="cr" size="small" (click)="editourn(t)" color="success">
-                <ion-icon name="create"></ion-icon>
-              </ion-fab-button>
-              <ion-fab-button id="tr" size="small" (click)="deltourn(t)" color="danger">
-                <ion-icon name="trash"></ion-icon>
-              </ion-fab-button>
+            <!-- <div class="card" *ngFor="let t of unapprovedTournaments">
+              
               <div class="tTitle">
                 <h5>{{t.doc.formInfo.tournamentName}}</h5>
               </div>
@@ -536,8 +531,41 @@
                   <p> Starts {{t.doc.formInfo.startDate | date }} <br> Ends {{t.doc.formInfo.endDate | date }}</p>
                   <p style="font-size: 0.7em;
                   font-weight: bold;">Application open until - {{t.doc.formInfo.applicationClosing|date}}</p>
-                  <!-- <p>{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p> -->
                 </div>
+              </div>
+            </div> -->
+            <div class="card slideInLeft" *ngFor="let t of unapprovedTournaments;let i = index" (click)="showSideEvent(t, i)"
+            [ngClass]="{'bounce infinite ion-activated':tournIndex==i}">
+            <ion-fab-button id="cr" size="small" (click)="editourn(t)" color="success">
+              <ion-icon name="create"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button id="tr" size="small" (click)="deltourn(t)" color="danger">
+              <ion-icon name="trash"></ion-icon>
+            </ion-fab-button>
+              <div class="apTitle">
+                <h3 >{{t.doc.formInfo.tournamentName}}</h3>
+                <p>Applications Open Until{{t.doc.formInfo.applicationClosing | date}}</p>
+              </div>
+          
+              <div class="bar">
+                <div class="emptybar"></div>
+                <div class="filledbar"></div>
+              </div>
+          <div class="description">
+                <p>{{t.doc.formInfo.bio}}</p>
+               <div class="btns">
+                <ion-fab-button *ngIf="t.state=='trash'" id="tr" size="small" (click)="deltourn(t)" color="danger">
+                  <ion-icon name="trash"></ion-icon>
+                </ion-fab-button>
+                <ion-button size="small" fill="outline" shape="round" color="light" (click)="finnishSetup(t, 'open')">
+                  Finish Setup
+                </ion-button>
+                <ion-chip *ngIf="t.doc.message"   outline="true" fill="clear" color="light"
+                style="pointer-events: none !important;">
+                <ion-icon name="refresh"></ion-icon>
+                <ion-label>Recuring Tournament</ion-label>
+              </ion-chip>
+               </div>
               </div>
             </div>
           </div>
