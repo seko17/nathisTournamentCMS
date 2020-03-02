@@ -22,7 +22,7 @@ export class AuthFormComponent implements OnInit {
     private alertCtrl: AlertController
   ) {
     this.authForm = this.formBuilder.group({
-      email: ['', Validators.compose([Validators.required, Validators.email])],
+      email: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
       password: ['', Validators.compose([Validators.required,Validators.minLength(6)])]
     });
   }

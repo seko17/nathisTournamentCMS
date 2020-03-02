@@ -90,8 +90,8 @@
                     </div>
                     <div class="card" *ngFor="let item of vendors" >
                         <div class="details">
-                            <p><b>Name Surname</b></p>
-                        <p>0123654789</p>
+                            <p><b>{{item.doc.form.fullName}}</b></p>
+                        <p>{{item.doc.form.phoneNumber}}</p>
                         </div>
                         <div class="buttons">
                             <ion-fab-button style="margin: 0;" size="small" fill="clear" (click)="approve(item)">
@@ -103,6 +103,7 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
             <div class="existingVendors">
                 <div class="title">
