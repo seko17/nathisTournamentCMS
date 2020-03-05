@@ -13,21 +13,21 @@ import { Motus } from 'motus';
 import { DragdropPage } from '../dragdrop/dragdrop.page';
 
 
-declare var google : any;
+declare var google: any;
 @Component({
   selector: 'app-manage-tournaments',
   templateUrl: './manage-tournaments.page.html',
   styleUrls: ['./manage-tournaments.page.scss'],
 })
 export class ManageTournamentsPage implements OnInit {
-  
-   options= {
+
+  options = {
     types: [],
     componentRestrictions: { country: 'ZA' }
-    }
+  }
   input = { data: [] };
   ainput = { data: [] };
-blockfixture:boolean =true;
+  blockfixture: boolean = true;
   modal
 
   userLocation = null;
@@ -211,14 +211,14 @@ blockfixture:boolean =true;
   storage = firebase.storage().ref()
   // form for new tournament
   newTournForm: FormGroup;
-  tournamentObj:any = {
+  tournamentObj: any = {
     formInfo: null,
     approved: false,
     approvedVendors: [],
     dateCreated: null,
     sponsors: [],
     state: 'newTournament',
-    parent:"yes",
+    parent: "yes",
     AcceptedApplications: 0,
     ApprovedApplications: 0,
     ApprovedVendorApplications: 0,
@@ -228,10 +228,10 @@ blockfixture:boolean =true;
     totalApplications: 0,
     vendorTotalApplications: 0,
     notifyUser: 'yes',
-    address : {
-      placeID : '',
-      address : '',
-      staduimName : ''
+    address: {
+      placeID: '',
+      address: '',
+      staduimName: ''
     }
   };
   tempCardGen = []
@@ -291,9 +291,9 @@ blockfixture:boolean =true;
       DeclinedApplications: 0,
       totalApplications: 0,
       vendorTotalApplications: 0,
-      Address :  {
-        placeID : '',
-        address :'',
+      Address: {
+        placeID: '',
+        address: '',
         staduimName: ''
       },
       formInfo: {
@@ -348,7 +348,7 @@ blockfixture:boolean =true;
   torntype;
   fixtures;
   participantdocids = [];
-  partslength =0;
+  partslength = 0;
   geocoder = new google.maps.Geocoder;
   autoCompSearch = document.getElementsByClassName('search');
   autocom
@@ -359,10 +359,11 @@ blockfixture:boolean =true;
   constructor(public alertController: AlertController, public serve: AllserveService, public loadingController: LoadingController, public toastController: ToastController, public modalController: ModalController, public dragulaService: DragulaService, public renderer: Renderer2, public alertCtrl: AlertController, public formBuilder: FormBuilder) {
 
     let num = 0;
-    
+
   }
 
   ngOnInit() {
+
     this.autoComplete();
     this.scroll()
     let t = new Date().toJSON().split('T')[0];
@@ -394,46 +395,46 @@ blockfixture:boolean =true;
     // console.log(key.target.value, key.target.value.length);
     // this.decriptionCounter = this.decriptionCounter - key.target.value.length;
     // console.log(this.decriptionCounter);
-    this.textarea[0].addEventListener("input", async function(){
+    this.textarea[0].addEventListener("input", async function () {
       var maxlength = this.getAttribute("maxlength");
       var currentLength = this.value.length;
       // console.log(maxlength);
-      
-      if( currentLength >= maxlength ){
-          console.log("You have reached the maximum number of characters.");
-          let toaster = await this.toastController.create({
-            message: 'You have reached the maximum number of characters.'
-          })
-          await toaster.present()
-      }else{
+
+      if (currentLength >= maxlength) {
+        console.log("You have reached the maximum number of characters.");
+        let toaster = await this.toastController.create({
+          message: 'You have reached the maximum number of characters.'
+        })
+        await toaster.present()
+      } else {
         // this.decriptionCounter = null
         let counter = maxlength - currentLength
         this.decriptionCounter = counter
-          // console.log(counter + " chars left");
+        // console.log(counter + " chars left");
       }
-  });
+    });
   }
-// should help scroll horizontally using mouse wheel
+  // should help scroll horizontally using mouse wheel
   scroll() {
     console.log('FIRED')
     function scrollHorizontally(e) {
-        e = window.event || e;
-        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-        document.getElementsByClassName('managerApplications')[0].scrollLeft -= (delta*40); // Multiplied by 40
-        e.preventDefault();
-        e = window.event || e;
-        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-        document.getElementsByClassName('vendorApplications')[0].scrollLeft -= (delta*40); // Multiplied by 40
-        e.preventDefault();
+      e = window.event || e;
+      var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+      document.getElementsByClassName('managerApplications')[0].scrollLeft -= (delta * 40); // Multiplied by 40
+      e.preventDefault();
+      e = window.event || e;
+      var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+      document.getElementsByClassName('vendorApplications')[0].scrollLeft -= (delta * 40); // Multiplied by 40
+      e.preventDefault();
     }
     if (document.getElementsByClassName('managerApplications')[0].addEventListener) {
-        // IE9, Chrome, Safari, Opera
-        document.getElementsByClassName('managerApplications')[0].addEventListener("mousewheel", scrollHorizontally, false);
-        // Firefox
-        document.getElementsByClassName('managerApplications')[0].addEventListener("DOMMouseScroll", scrollHorizontally, false);
+      // IE9, Chrome, Safari, Opera
+      document.getElementsByClassName('managerApplications')[0].addEventListener("mousewheel", scrollHorizontally, false);
+      // Firefox
+      document.getElementsByClassName('managerApplications')[0].addEventListener("DOMMouseScroll", scrollHorizontally, false);
     } else {
-        // IE 6/7/8
-        document.getElementsByClassName('managerApplications')[0].addEventListener("onmousewheel", scrollHorizontally);
+      // IE 6/7/8
+      document.getElementsByClassName('managerApplications')[0].addEventListener("onmousewheel", scrollHorizontally);
     }
 
 
@@ -442,23 +443,23 @@ blockfixture:boolean =true;
       document.getElementsByClassName('vendorApplications')[0].addEventListener("mousewheel", scrollHorizontally, false);
       // Firefox
       document.getElementsByClassName('vendorApplications')[0].addEventListener("DOMMouseScroll", scrollHorizontally, false);
-  } else {
+    } else {
       // IE 6/7/8
       document.getElementsByClassName('vendorApplications')[0].addEventListener("onmousewheel", scrollHorizontally);
-  }
-};
-autoComplete(){
-  console.log('loc in',this.autoCompSearch);
-  this.autocom = new google.maps.places.Autocomplete(this.autoCompSearch[0], { types: ['geocode'] });
-  this.autocom.addListener('place_changed', () => {
-    let place = this.autocom.getPlace();
-    console.log('place',place);
+    }
+  };
+  autoComplete() {
+    console.log('loc in', this.autoCompSearch);
+    this.autocom = new google.maps.places.Autocomplete(this.autoCompSearch[0], { types: ['geocode'] });
+    this.autocom.addListener('place_changed', () => {
+      let place = this.autocom.getPlace();
+      console.log('place', place);
 
-    this.tournamentObj.address.address = place.formatted_address
-    this.tournamentObj.address.placeID = place.place_id;
-    this.placeID =  place.place_id;
-  })    
-}
+      this.tournamentObj.address.address = place.formatted_address
+      this.tournamentObj.address.placeID = place.place_id;
+      this.placeID = place.place_id;
+    })
+  }
 
   async finnishSetup(tournament, state) {
     // please keep this switch statement at the top
@@ -554,22 +555,20 @@ autoComplete(){
         this.cparticipants = []
         this.acceptednum = 0
 
-        this.partslength =val.size 
+        this.partslength = val.size
 
-        if(this.partslength== parseFloat(this.tourney.doc.formInfo.type))
-        {
-          this.blockfixture =false;
+        if (this.partslength == parseFloat(this.tourney.doc.formInfo.type)) {
+          this.blockfixture = false;
         }
-        else
-        {
-          this.blockfixture =true; 
+        else {
+          this.blockfixture = true;
         }
 
 
         if (val.size == parseFloat(this.tourney.doc.formInfo.type)) {
           this.disablepaid = true;
 
-          
+
 
         }
         else {
@@ -702,100 +701,97 @@ autoComplete(){
     }
 
 
-    if(parseFloat(this.tourney.doc.formInfo.type)==0 && tournament != null)
-{
+    if (parseFloat(this.tourney.doc.formInfo.type) == 0 && tournament != null) {
 
-  this.blockfixture=true;
+      this.blockfixture = true;
 
-  const alert = await this.alertController.create({
-    header: 'Confirm!',
-    message: 'This tournament looks outdated. Would you like to edit its details?',
-    backdropDismiss:false,
-    buttons: [
-      {
-        text: 'No',
-        role: 'cancel',
-        cssClass: 'secondary',
-        handler: (blah) => {
-          console.log('Confirm Cancel: blah');
-          this.blockfixture=true;
-          this.finnishSetup(null,'close')
-        }
-      }, {
-        text: 'Yes',
-        handler: () => {
-          console.log('Confirm Okay');
+      const alert = await this.alertController.create({
+        header: 'Confirm!',
+        message: 'This tournament looks outdated. Would you like to edit its details?',
+        backdropDismiss: false,
+        buttons: [
+          {
+            text: 'No',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: (blah) => {
+              console.log('Confirm Cancel: blah');
+              this.blockfixture = true;
+              this.finnishSetup(null, 'close')
+            }
+          }, {
+            text: 'Yes',
+            handler: () => {
+              console.log('Confirm Okay');
 
-console.log(tournament)
+              console.log(tournament)
 
-          this.finnishSetup(null, 'close')
-         this.toggleTournamentForm('open');
+              this.finnishSetup(null, 'close')
+              this.toggleTournamentForm('open');
 
 
-         this.newTournForm = this.formBuilder.group({
-          tournamentName: [tournament.doc.formInfo.tournamentName , [Validators.required, Validators.minLength((4))]],
-          type: [tournament.doc.formInfo.type, Validators.required],
-          location: [tournament.doc.formInfo.location, []],
-          bio: [tournament.doc.formInfo.bio, []],
-          startDate: [tournament.doc.formInfo.startDate, Validators.required],
-          endDate: [tournament.doc.formInfo.endDate, Validators.required],
-          joiningFee: [tournament.doc.formInfo.joiningFee, [Validators.required, Validators.minLength(3)]],
-          stadiumName: [tournament.doc.stadiumName, [Validators.required, Validators.minLength(3)]],
-          applicationClosing: [tournament.doc.formInfo.applicationClosing, Validators.required],
+              this.newTournForm = this.formBuilder.group({
+                tournamentName: [tournament.doc.formInfo.tournamentName, [Validators.required, Validators.minLength((4))]],
+                type: [tournament.doc.formInfo.type, Validators.required],
+                location: [tournament.doc.formInfo.location, []],
+                bio: [tournament.doc.formInfo.bio, []],
+                startDate: [tournament.doc.formInfo.startDate, Validators.required],
+                endDate: [tournament.doc.formInfo.endDate, Validators.required],
+                joiningFee: [tournament.doc.formInfo.joiningFee, [Validators.required, Validators.minLength(3)]],
+                stadiumName: [tournament.doc.stadiumName, [Validators.required, Validators.minLength(3)]],
+                applicationClosing: [tournament.doc.formInfo.applicationClosing, Validators.required],
 
-          parentdoc:[tournament.docid]
-        })
+                parentdoc: [tournament.docid]
+              })
 
-        this.reading =true;
-
+              this.reading = true;
 
 
 
-        }
+
+            }
+          }
+        ]
+      });
+
+      await alert.present();
+    }
+
+    else
+
+      if (this.partslength == parseFloat(this.tourney.doc.formInfo.type) && state == 'open') {
+        this.blockfixture = false;
+
+        const alert = await this.alertController.create({
+          header: 'Good news:-)',
+          backdropDismiss: false,
+          subHeader: "Fixtures are ready to be set.",
+          message: 'Would you like to set match fixtures?',
+          buttons: [
+            {
+              text: 'Okay',
+              handler: () => {
+                console.log('Confirm Okay');
+                this.finnishSetup(null, 'close')
+                this.promptFixtureConfig('open', this.cparticipants);
+              }
+            },
+            {
+              text: 'Cancel',
+              role: 'cancel',
+              cssClass: 'secondary',
+              handler: (blah) => {
+                console.log('Confirm Cancel: blah');
+              }
+            }
+          ]
+        });
+
+        await alert.present();
       }
-    ]
-  });
-
-  await alert.present();
-}
-
-else
-
-if(this.partslength== parseFloat(this.tourney.doc.formInfo.type) && state =='open')
-{
-  this.blockfixture =false;
-
-  const alert = await this.alertController.create({
-    header: 'Good news:-)',
-    backdropDismiss: false,
-    subHeader: "Fixtures are ready to be set.",
-    message: 'Would you like to set match fixtures?',
-    buttons: [
-      {
-        text: 'Okay',
-        handler: () => {
-          console.log('Confirm Okay');
-          this.finnishSetup(null, 'close')
-          this.promptFixtureConfig('open', this.cparticipants);
-        }
-      },
-      {
-        text: 'Cancel',
-        role: 'cancel',
-        cssClass: 'secondary',
-        handler: (blah) => {
-          console.log('Confirm Cancel: blah');
-        }
+      else {
+        this.blockfixture = true;
       }
-    ]
-  });
-
-  await alert.present();
-}
-else
-{
-  this.blockfixture =true;
-}
 
 
 
@@ -803,14 +799,14 @@ else
 
   }
 
-  reading =false;
+  reading = false;
   complete() {
     console.log('Confirm Okay');
     this.finnishSetup(null, 'close')
     this.promptFixtureConfig('open', this.cparticipants);
   }
   toggleTournamentForm(state) {
-    
+
     switch (state) {
       case 'open':
         this.renderer.setStyle(this.newTournFormCont[0], 'display', 'flex')
@@ -820,7 +816,7 @@ else
         break;
       case 'close':
         this.creatingTournament = false;
-        this.reading =false
+        this.reading = false
         this.newTournForm.reset();
         setTimeout(() => {
           this.renderer.setStyle(this.newTournFormCont[0], 'display', 'none')
@@ -931,12 +927,12 @@ else
         const upload = this.storage.child(image.item(0).name).put(imagetosend);
         upload.on('state_changed', snapshot => {
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          
+
           console.log(progress);
           if (progress <= 90) {
             this.progressOfImage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            
-          }else {
+
+          } else {
             this.progressOfImage = 90
           }
         }, error => {
@@ -973,7 +969,7 @@ else
     console.log('today', date.getDate());
     console.log('past date', startDat.getDate())
 
-console.log(formData.parentdoc)
+    console.log(formData.parentdoc)
 
     if (startDat.getDate() == applicDate.getDate()) {
       console.log('application date invalid');
@@ -986,217 +982,217 @@ console.log(formData.parentdoc)
 
       await alert.present();
     }
-else
-    if (endDate.getDate() == startDat.getDate()) {
-      console.log('tournament end invalid');
-      const alert = await this.alertController.create({
-        header: 'Warning!',
-        subHeader: 'Invalid Tournament Date',
-        message: 'The start date and the end date can not be the same',
-        buttons: ['OK']
-      });
+    else
+      if (endDate.getDate() == startDat.getDate()) {
+        console.log('tournament end invalid');
+        const alert = await this.alertController.create({
+          header: 'Warning!',
+          subHeader: 'Invalid Tournament Date',
+          message: 'The start date and the end date can not be the same',
+          buttons: ['OK']
+        });
 
-      await alert.present();
+        await alert.present();
 
-    }
-
-
-   else
-   
-   if (date > startDat) {
-
-      const alert = await this.alertController.create({
-        header: 'Warning!',
-        subHeader: 'Invalid Tournament Start Date',
-        message: 'Please select date from today onwards',
-        buttons: ['OK']
-      });
-
-      await alert.present();
-
-    }
-    else if (endDate < startDat) {
-      console.log('tournament end invalid');
-      const alert = await this.alertController.create({
-        header: 'Warning!',
-        subHeader: 'Invalid Tournament End Date',
-        message: 'Please select date from tournament start onwards',
-        buttons: ['OK']
-      });
-
-      await alert.present();
-
-    }
-    else if (applicDate > startDat && today < applicDate) {
-      console.log('application date invalid');
-      const alert = await this.alertController.create({
-        header: 'Warning!',
-        subHeader: 'Invalid Application Closing Date',
-        message: 'The closing date cannot be after the tournament start date',
-        buttons: ['OK']
-      });
-
-      await alert.present();
-    }
-    else {
-
-
-
-      console.log('se', formData.startDate)
-      let loader = await this.loadingController.create({
-        message: 'Creating Tournament'
-      })
-      loader.present()
-      let date = new Date();
-if(this.edit == true && formData.currentdoc!=undefined) {
-  this.edit=false;
-  console.log("edit") 
-  firebase.firestore().collection('newTournaments').doc(formData.currentdoc).update({'formInfo':formData}).then(async ()=>{
-    loader.dismiss()
-    let alerter = await this.alertCtrl.create({
-      header: 'Success',
-      subHeader: 'Tournament Updated',
-      buttons: [
-        {
-          text: 'Okay',
-          handler: () => {
-            this.newTournForm.reset()
-            this.tournamentObj.sponsors = []
-           
-            this.toggleTournamentForm('close')
-          }
-        }
-      ]
-    })
-    alerter.present()
-  })
-}
-else if(formData.parentdoc!=undefined) {
- console.log('undefined')
- firebase.firestore().collection('newTournaments').doc(formData.parentdoc).update({'state':'finished'}); 
-
-  this.tournamentObj = {
-    formInfo: formData,
-    approved: false,
-    notifyUser: 'yes',
-    approvedVendors: this.tournamentObj.approvedVendors,
-    dateCreated: date.toDateString(),
-    sponsors: this.tournamentObj.sponsors,
-    state: 'newTournament',
-    AcceptedApplications: 0,
-    ApprovedApplications: 0,
-    ApprovedVendorApplications: 0,
-    DeclinedVendorApplications: 0,
-    AcceptedVendorApplications: 0,
-    DeclinedApplications: 0,
-    totalApplications: 0,
-    vendorTotalApplications: 0,
-    parent:"no",
-    address : {
-      placeID : this.tournamentObj.address.address,
-      address : this.tournamentObj.address.placeID,
-      staduimName: this.tournamentObj.address.staduimName
-    }
-  }
-  this.db.collection('newTournaments').add(this.tournamentObj).then(async res => {
-    loader.dismiss()
-    let alerter = await this.alertCtrl.create({
-      header: 'Success',
-      subHeader: 'Tournament Created',
-      message: 'Please wait for it\'s approval from the Admin. It will be submitted immediately after the approval.',
-      buttons: [
-        {
-          text: 'Okay',
-          handler: () => {
-            this.newTournForm.reset()
-            this.tournamentObj.sponsors = []
-            this.toggleTournamentForm('close')
-          }
-        }
-      ]
-    })
-    alerter.present()
-  }).catch(async err => {
-    let alerter = await this.alertCtrl.create({
-      header: 'Oops!',
-      subHeader: 'Something went wrong.',
-      message: 'It might be the server but please check if your network is connected.',
-      buttons: [
-        {
-          text: 'Okay',
-          handler: () => {
-            this.newTournForm.reset()
-            this.toggleTournamentForm('close')
-          }
-        }
-      ]
-    })
-    alerter.present()
-  })
-
-}
-else{
-
-      this.tournamentObj = {
-        formInfo: formData,
-        approved: false,
-        notifyUser: 'yes',
-        approvedVendors: this.tournamentObj.approvedVendors,
-        dateCreated: date.toDateString(),
-        sponsors: this.tournamentObj.sponsors,
-        state: 'newTournament',
-        AcceptedApplications: 0,
-        ApprovedApplications: 0,
-        ApprovedVendorApplications: 0,
-        DeclinedVendorApplications: 0,
-        AcceptedVendorApplications: 0,
-        DeclinedApplications: 0,
-        totalApplications: 0,
-        parent:"yes",
-        vendorTotalApplications: 0,
-        address : {
-          address : this.tournamentObj.address.address,
-          placeID : this.tournamentObj.address.placeID
-        }
       }
-      this.db.collection('newTournaments').add(this.tournamentObj).then(async res => {
-        loader.dismiss()
-        let alerter = await this.alertCtrl.create({
-          header: 'Success',
-          subHeader: 'Tournament Created',
-          message: 'Please wait for it\'s approval from the Admin. It will be submitted immediately after the approval.',
-          buttons: [
-            {
-              text: 'Okay',
-              handler: () => {
-                this.newTournForm.reset()
-                this.tournamentObj.sponsors = []
-                this.autoCompSearch 
-                this.toggleTournamentForm('close')
+
+
+      else
+
+        if (date > startDat) {
+
+          const alert = await this.alertController.create({
+            header: 'Warning!',
+            subHeader: 'Invalid Tournament Start Date',
+            message: 'Please select date from today onwards',
+            buttons: ['OK']
+          });
+
+          await alert.present();
+
+        }
+        else if (endDate < startDat) {
+          console.log('tournament end invalid');
+          const alert = await this.alertController.create({
+            header: 'Warning!',
+            subHeader: 'Invalid Tournament End Date',
+            message: 'Please select date from tournament start onwards',
+            buttons: ['OK']
+          });
+
+          await alert.present();
+
+        }
+        else if (applicDate > startDat && today < applicDate) {
+          console.log('application date invalid');
+          const alert = await this.alertController.create({
+            header: 'Warning!',
+            subHeader: 'Invalid Application Closing Date',
+            message: 'The closing date cannot be after the tournament start date',
+            buttons: ['OK']
+          });
+
+          await alert.present();
+        }
+        else {
+
+
+
+          console.log('se', formData.startDate)
+          let loader = await this.loadingController.create({
+            message: 'Creating Tournament'
+          })
+          loader.present()
+          let date = new Date();
+          if (this.edit == true && formData.currentdoc != undefined) {
+            this.edit = false;
+            console.log("edit")
+            firebase.firestore().collection('newTournaments').doc(formData.currentdoc).update({ 'formInfo': formData }).then(async () => {
+              loader.dismiss()
+              let alerter = await this.alertCtrl.create({
+                header: 'Success',
+                subHeader: 'Tournament Updated',
+                buttons: [
+                  {
+                    text: 'Okay',
+                    handler: () => {
+                      this.newTournForm.reset()
+                      this.tournamentObj.sponsors = []
+
+                      this.toggleTournamentForm('close')
+                    }
+                  }
+                ]
+              })
+              alerter.present()
+            })
+          }
+          else if (formData.parentdoc != undefined) {
+            console.log('undefined')
+            firebase.firestore().collection('newTournaments').doc(formData.parentdoc).update({ 'state': 'finished' });
+
+            this.tournamentObj = {
+              formInfo: formData,
+              approved: false,
+              notifyUser: 'yes',
+              approvedVendors: this.tournamentObj.approvedVendors,
+              dateCreated: date.toDateString(),
+              sponsors: this.tournamentObj.sponsors,
+              state: 'newTournament',
+              AcceptedApplications: 0,
+              ApprovedApplications: 0,
+              ApprovedVendorApplications: 0,
+              DeclinedVendorApplications: 0,
+              AcceptedVendorApplications: 0,
+              DeclinedApplications: 0,
+              totalApplications: 0,
+              vendorTotalApplications: 0,
+              parent: "no",
+              address: {
+                placeID: this.tournamentObj.address.address,
+                address: this.tournamentObj.address.placeID,
+                staduimName: this.tournamentObj.address.staduimName
               }
             }
-          ]
-        })
-        alerter.present()
-      }).catch(async err => {
-        let alerter = await this.alertCtrl.create({
-          header: 'Oops!',
-          subHeader: 'Something went wrong.',
-          message: 'It might be the server but please check if your network is connected.',
-          buttons: [
-            {
-              text: 'Okay',
-              handler: () => {
-                this.newTournForm.reset()
-                this.toggleTournamentForm('close')
+            this.db.collection('newTournaments').add(this.tournamentObj).then(async res => {
+              loader.dismiss()
+              let alerter = await this.alertCtrl.create({
+                header: 'Success',
+                subHeader: 'Tournament Created',
+                message: 'Please wait for it\'s approval from the Admin. It will be submitted immediately after the approval.',
+                buttons: [
+                  {
+                    text: 'Okay',
+                    handler: () => {
+                      this.newTournForm.reset()
+                      this.tournamentObj.sponsors = []
+                      this.toggleTournamentForm('close')
+                    }
+                  }
+                ]
+              })
+              alerter.present()
+            }).catch(async err => {
+              let alerter = await this.alertCtrl.create({
+                header: 'Oops!',
+                subHeader: 'Something went wrong.',
+                message: 'It might be the server but please check if your network is connected.',
+                buttons: [
+                  {
+                    text: 'Okay',
+                    handler: () => {
+                      this.newTournForm.reset()
+                      this.toggleTournamentForm('close')
+                    }
+                  }
+                ]
+              })
+              alerter.present()
+            })
+
+          }
+          else {
+
+            this.tournamentObj = {
+              formInfo: formData,
+              approved: false,
+              notifyUser: 'yes',
+              approvedVendors: this.tournamentObj.approvedVendors,
+              dateCreated: date.toDateString(),
+              sponsors: this.tournamentObj.sponsors,
+              state: 'newTournament',
+              AcceptedApplications: 0,
+              ApprovedApplications: 0,
+              ApprovedVendorApplications: 0,
+              DeclinedVendorApplications: 0,
+              AcceptedVendorApplications: 0,
+              DeclinedApplications: 0,
+              totalApplications: 0,
+              parent: "yes",
+              vendorTotalApplications: 0,
+              address: {
+                address: this.tournamentObj.address.address,
+                placeID: this.tournamentObj.address.placeID
               }
             }
-          ]
-        })
-        alerter.present()
-      })
-    }
-    }
+            this.db.collection('newTournaments').add(this.tournamentObj).then(async res => {
+              loader.dismiss()
+              let alerter = await this.alertCtrl.create({
+                header: 'Success',
+                subHeader: 'Tournament Created',
+                message: 'Please wait for it\'s approval from the Admin. It will be submitted immediately after the approval.',
+                buttons: [
+                  {
+                    text: 'Okay',
+                    handler: () => {
+                      this.newTournForm.reset()
+                      this.tournamentObj.sponsors = []
+                      this.autoCompSearch
+                      this.toggleTournamentForm('close')
+                    }
+                  }
+                ]
+              })
+              alerter.present()
+            }).catch(async err => {
+              let alerter = await this.alertCtrl.create({
+                header: 'Oops!',
+                subHeader: 'Something went wrong.',
+                message: 'It might be the server but please check if your network is connected.',
+                buttons: [
+                  {
+                    text: 'Okay',
+                    handler: () => {
+                      this.newTournForm.reset()
+                      this.toggleTournamentForm('close')
+                    }
+                  }
+                ]
+              })
+              alerter.present()
+            })
+          }
+        }
   }
   getApprovedTournaments() {
     let tourn = {
@@ -1245,25 +1241,24 @@ else{
       this.serve.tournaments = this.approvedTournaments;
     })
   }
- async getUnapprovedTournaments() {
-    this.db.collection('newTournaments').where('approved', '==', false).where('state', '==', 'newTournament').onSnapshot( async res => {
+  async getUnapprovedTournaments() {
+    this.db.collection('newTournaments').where('approved', '==', false).where('state', '==', 'newTournament').onSnapshot(async res => {
       this.unapprovedTournaments = []
       res.forEach(async doc => {
 
-console.log(new Date(doc.data().formInfo.startDate)< new Date())
+        console.log(new Date(doc.data().formInfo.startDate) < new Date())
 
 
-if(new Date(doc.data().formInfo.startDate)< new Date())
-{
- firebase.firestore().collection('newTournaments').doc(doc.id).update({state:'trash'}) 
- const alert = await this.alertController.create({
-  header: 'Alert',
-  message: 'There is a tournament that has elapsed and was ont approved. Open the trashed tournaments to view it.',
-  buttons: ['Cancel', 'Open Modal', 'Delete']
-});
+        if (new Date(doc.data().formInfo.startDate) < new Date()) {
+          firebase.firestore().collection('newTournaments').doc(doc.id).update({ state: 'trash' })
+          const alert = await this.alertController.create({
+            header: 'Alert',
+            message: 'There is a tournament that has elapsed and was ont approved. Open the trashed tournaments to view it.',
+            buttons: ['Cancel', 'Open Modal', 'Delete']
+          });
 
-await alert.present();
-}
+          await alert.present();
+        }
 
 
 
@@ -1416,9 +1411,9 @@ await alert.present();
     // console.log(Math.ceil(Math.random() * 10))
     console.log(c)
 
- 
 
-    if (this.disablepaid == true) {}
+
+    if (this.disablepaid == true) { }
     else {
       if (pos % 2 == 0) {
         // tslint:disable-next-line:max-line-length
@@ -1478,9 +1473,9 @@ await alert.present();
         });
         toast.present();
 
-        toast.onDidDismiss().then(res=>{
+        toast.onDidDismiss().then(res => {
           this.fixtures = [];
-        this.fixture = q1;
+          this.fixture = q1;
         })
 
         return this.makechanges = true;
@@ -1498,7 +1493,7 @@ await alert.present();
         });
         toast.present();
         toast.onDidDismiss().then(val => {
-          
+
         })
       }
     }
@@ -1572,11 +1567,11 @@ await alert.present();
         });
         toast.present();
 
-        toast.onDidDismiss().then(val=>{
+        toast.onDidDismiss().then(val => {
           this.makechanges = true;
           this.deldocs();
         })
-        
+
       }
     }
   }
@@ -1647,57 +1642,56 @@ await alert.present();
 
     this.fixture = this.fixtures;
     this.fixtures = [];
-    this.makechanges=true;
+    this.makechanges = true;
   }
 
   test() {
     console.log(this.refnum)
   }
 
-edit =false;
-  async editourn(t)
-  {
-console.log(t)
+  edit = false;
+  async editourn(t) {
+    console.log(t)
 
-this.edit=false;
-const alert = await this.alertController.create({
-  header: 'Confirm!',
-  message: 'Do you want to edit the details of this tournament?',
-  buttons: [
-    {
-      text: 'Cancel',
-      role: 'cancel',
-      cssClass: 'secondary',
-      handler: (blah) => {
-        console.log('Confirm Cancel: blah');
-      }
-    }, {
-      text: 'Okay',
-      handler: () => {
-        console.log('Confirm Okay');
-        this.edit=true;
+    this.edit = false;
+    const alert = await this.alertController.create({
+      header: 'Confirm!',
+      message: 'Do you want to edit the details of this tournament?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            console.log('Confirm Okay');
+            this.edit = true;
 
-        this.newTournForm = this.formBuilder.group({
-          tournamentName: [t.doc.formInfo.tournamentName, [Validators.required, Validators.minLength((4))]],
-          type: [t.doc.formInfo.type, Validators.required],
-          location: [t.doc.formInfo.location, []],
-          startDate: [t.doc.formInfo.startDate, Validators.required],
-          endDate: [t.doc.formInfo.endDate, Validators.required],
-          joiningFee: [t.doc.formInfo.joiningFee, [Validators.required, Validators.minLength(3)]],
-          applicationClosing: [t.doc.formInfo.applicationClosing, Validators.required],
-          bio: [t.doc.formInfo.bio, Validators.required],
-          currentdoc:[t.docid]
-        })
-        this.tournamentObj.sponsors = t.doc.sponsors
+            this.newTournForm = this.formBuilder.group({
+              tournamentName: [t.doc.formInfo.tournamentName, [Validators.required, Validators.minLength((4))]],
+              type: [t.doc.formInfo.type, Validators.required],
+              location: [t.doc.formInfo.location, []],
+              startDate: [t.doc.formInfo.startDate, Validators.required],
+              endDate: [t.doc.formInfo.endDate, Validators.required],
+              joiningFee: [t.doc.formInfo.joiningFee, [Validators.required, Validators.minLength(3)]],
+              applicationClosing: [t.doc.formInfo.applicationClosing, Validators.required],
+              bio: [t.doc.formInfo.bio, Validators.required],
+              currentdoc: [t.docid]
+            })
+            this.tournamentObj.sponsors = t.doc.sponsors
 
-    
-        this.toggleTournamentForm('open');
-      }
-    }
-  ]
-});
 
-await alert.present();
+            this.toggleTournamentForm('open');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
 
   }
 
@@ -1728,35 +1722,34 @@ await alert.present();
 
   }
 
-  async deltourn(t)
-  {
-console.log(t)
+  async deltourn(t) {
+    console.log(t)
 
 
 
-const alert = await this.alertController.create({
-  header: 'Confirm!',
-  message: 'Do you want to delete '+t.doc.formInfo.tournamentName+'?',
-  buttons: [
-    {
-      text: 'Cancel',
-      role: 'cancel',
-      cssClass: 'secondary',
-      handler: (blah) => {
-        console.log('Confirm Cancel: blah');
-      }
-    }, {
-      text: 'Okay',
-      handler: () => {
-        console.log('Confirm Okay');
+    const alert = await this.alertController.create({
+      header: 'Confirm!',
+      message: 'Do you want to delete ' + t.doc.formInfo.tournamentName + '?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            console.log('Confirm Okay');
 
-        firebase.firestore().collection('newTournaments').doc(t.docid).delete();
-      }
-    }
-  ]
-});
+            firebase.firestore().collection('newTournaments').doc(t.docid).delete();
+          }
+        }
+      ]
+    });
 
-await alert.present();
+    await alert.present();
   }
 
 

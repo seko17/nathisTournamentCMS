@@ -26,8 +26,8 @@
             </div> -->
             <div class="card"  *ngFor="let item of manager" (click) ="block(item)">
                 <div class="imgBx">
-                    <img *ngIf="item.profileImage"  src="{{item.profileImage}}" alt="images">
-                    <img *ngIf="!item.profileImage"  src="../../../assets/nathi_noImage.png" alt="">
+                    <img *ngIf="item.doc.profileImage"  src="{{item.doc.profileImage}}" alt="images">
+                    <img *ngIf="!item.doc.profileImage"  src="../../../assets/nathi_noImage.png" alt="">
                 </div>
                 <div class="details">
                     <h2>{{item.doc.form.fullName}}<br><span style="text-transform: capitalize;">{{item.doc.form.phoneNumber}}</span></h2>
