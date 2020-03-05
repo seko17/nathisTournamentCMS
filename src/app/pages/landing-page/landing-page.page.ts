@@ -461,7 +461,7 @@ this.btn2=false;
         this.btntxt ="Full Time";
       }
 
-      firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').get().then(async val => {
+      firebase.firestore().collection('Teams').doc(this.currmatch[0].TeamObject.uid).collection('Players').where("status" ,"==","available").get().then(async val => {
         this.team1 = [];
         this.input.data = [];
         let num = 0
@@ -495,7 +495,7 @@ else{
         console.log("Hplayers = ", this.input.data)  
       })
 
-      firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').get().then(val => {
+      firebase.firestore().collection('Teams').doc(this.currmatch[0].aTeamObject.uid).collection('Players').where("status" ,"==","available").get().then(val => {
         this.team2 = [];
         this.ainput.data = [];
         let num = 0
