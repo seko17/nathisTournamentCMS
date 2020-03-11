@@ -1443,9 +1443,9 @@ export class ManageTournamentsPage implements OnInit {
   }
   paidVendor(c) {
     console.log(c)
-    if (this.disablepaid == true) {
-    }
-    else {
+    // if (this.disablepaid == true) {
+    // }
+    // else {
       this.db.collection('newTournaments').doc(c.doc.TournamentID).collection('vendorApplications').doc(c.docid).update({ status: 'paid' }).then(res => {
 
         this.db.collection('newTournaments').doc(c.doc.TournamentID).update({
@@ -1453,7 +1453,7 @@ export class ManageTournamentsPage implements OnInit {
         })
         // })
       })
-    }
+    // }
   }
   async savefixture() {
     let q1 = this.fixture;
