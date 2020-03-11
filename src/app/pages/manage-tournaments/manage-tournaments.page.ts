@@ -1533,7 +1533,7 @@ export class ManageTournamentsPage implements OnInit {
 
 
 
-    this.deldocs();
+    
     console.log(this.participantdocids)
     firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update({ state: 'inprogress' });
 
