@@ -1454,9 +1454,9 @@ export class ManageTournamentsPage implements OnInit {
 
   paidVendor(c) {
     console.log(c)
-    if (this.disablepaid == true) {
-    }
-    else {
+    // if (this.disablepaid == true) {
+    // }
+    // else {
       this.db.collection('newTournaments').doc(c.doc.TournamentID).collection('vendorApplications').doc(c.docid).update({ status: 'paid' }).then(res => {
 
         this.db.collection('newTournaments').doc(c.doc.TournamentID).update({
@@ -1464,7 +1464,7 @@ export class ManageTournamentsPage implements OnInit {
         })
         // })
       })
-    }
+    // }
   }
 
   async savefixture() {
@@ -1545,21 +1545,21 @@ export class ManageTournamentsPage implements OnInit {
 
 
 
-    this.deldocs();
+    
     console.log(this.participantdocids)
     firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update({ state: 'inprogress' });
 
-    let val: any = parseFloat(this.tourney.doc.formInfo.type) / 2;
+     let val: any = parseFloat(this.tourney.doc.formInfo.type) / 2;
     val = val.toString();
 
     console.log("VAL = ", val);
 
-    firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update({ formInfo: { applicationClosing: this.tourney.doc.formInfo.applicationClosing, tournamentName: this.tourney.doc.formInfo.tournamentName, location: this.tourney.doc.formInfo.location, joiningFee: this.tourney.doc.formInfo.joiningFee, endDate: this.tourney.doc.formInfo.endDate, startDate: this.tourney.doc.formInfo.startDate, type: val } });
+    firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update({ formInfo: { applicationClosing: this.tourney.doc.formInfo.applicationClosing, tournamentName: this.tourney.doc.formInfo.tournamentName, joiningFee: this.tourney.doc.formInfo.joiningFee, endDate: this.tourney.doc.formInfo.endDate, startDate: this.tourney.doc.formInfo.startDate, type: val } });
 
 
     for (let r = 0; r < q1.length; r++) {
       let z: any = {};
-      z = { matchdate: new Date(q1[r].matchdate).toLocaleString(), type: val, secs: 0, mins: 0, ascore: 0, score: 0, ...q1[r] };
+      z = { matchdate: new Date(q1[r].matchdate).toLocaleString(), type: '4', secs: 0, mins: 0, ascore: 0, score: 0, ...q1[r] };
       console.log('Tdate =', z);
       if (z.matchdate == undefined || z.matchdate == 'Invalid Date') {
         const toast = await this.toastController.create({
@@ -1570,6 +1570,7 @@ export class ManageTournamentsPage implements OnInit {
       }
       else {
         firebase.firestore().collection('MatchFixtures').add({ ...z, ...{ type: val } }).then(val => {
+          console.log('ADDED')
 
         })
         console.log(this.fixtures)
