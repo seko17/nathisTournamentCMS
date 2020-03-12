@@ -137,7 +137,22 @@
     left: 0;
   }
 }
-
+.emptyTournsloader {
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: whitesmoke;
+  display: flex;
+  align-content: center;
+  pointer-events: none;
+  .l {
+    text-align: center;
+    margin: auto;
+  }
+}
 .setupFixtures {
   position: absolute;
   top: 0;
@@ -572,6 +587,7 @@ transform: translateY(-10px);
           overflow-x: auto;
           align-items: center;
           padding-left: 10px;
+          position: relative;
           .card {
             display: flex;
             height: 280px;
@@ -782,6 +798,7 @@ transform: translateY(-10px);
           overflow-x: auto;
           overflow-y: hidden;
           align-items: center;
+          position: relative;
           /*
           .card {
             position: relative;
@@ -856,15 +873,15 @@ transform: translateY(-10px);
             left: 0px;
             #cr {
               position: absolute;
-              top: 0px;
+              bottom: 10px;
               right: 0px;
               z-index: 10;
             }
 
             #tr {
               position: absolute;
-              top: 0px;
-              left: 0px;
+              bottom: 10px;
+              right: 60px;
               z-index: 10;
             }
           .apTitle {
@@ -1002,7 +1019,7 @@ transform: translateY(-10px);
         margin: 0;
         padding: 0;
         font-size: 2.3em;
-        letter-spacing: 7px;
+        letter-spacing: 1px;
 
       }
 

@@ -206,6 +206,8 @@ export class ManageTournamentsPage implements OnInit {
 
   vedorApplications = false;
   tournToday = null
+
+  tournsLoader = true
   // BEGIN  BACKEND HERE ______________________________
   db = firebase.firestore()
   storage = firebase.storage().ref()
@@ -356,6 +358,7 @@ export class ManageTournamentsPage implements OnInit {
   placeID
   address
   textarea = document.getElementsByClassName("texto");
+  
   constructor(public alertController: AlertController, public serve: AllserveService, public loadingController: LoadingController, public toastController: ToastController, public modalController: ModalController, public dragulaService: DragulaService, public renderer: Renderer2, public alertCtrl: AlertController, public formBuilder: FormBuilder) {
 
     let num = 0;
@@ -391,6 +394,7 @@ export class ManageTournamentsPage implements OnInit {
     }
     // Motus
   }
+
   tournamentDescCounter(key) {
     // console.log(key.target.value, key.target.value.length);
     // this.decriptionCounter = this.decriptionCounter - key.target.value.length;
@@ -448,6 +452,7 @@ export class ManageTournamentsPage implements OnInit {
       document.getElementsByClassName('vendorApplications')[0].addEventListener("onmousewheel", scrollHorizontally);
     }
   };
+
   autoComplete() {
     console.log('loc in', this.autoCompSearch);
     this.autocom = new google.maps.places.Autocomplete(this.autoCompSearch[0], { types: ['geocode'] });
@@ -798,13 +803,13 @@ export class ManageTournamentsPage implements OnInit {
 
 
   }
-
   reading = false;
   complete() {
     console.log('Confirm Okay');
     this.finnishSetup(null, 'close')
     this.promptFixtureConfig('open', this.cparticipants);
   }
+
   toggleTournamentForm(state) {
 
     switch (state) {
@@ -827,7 +832,6 @@ export class ManageTournamentsPage implements OnInit {
         break;
     }
   }
-
   // searches for location
   getLocation(ev: any) {
     // Reset items back to all of the items
@@ -880,11 +884,13 @@ export class ManageTournamentsPage implements OnInit {
     console.log('line 649', this.acceptedSearchResults);
 
   }
+
   selectLocation(location) {
     this.userLocation = location;
     this.searchResults = [];
     console.log(this.userLocation);
   }
+
   saveSponsor() {
     console.log('sponsor name', this.sponsorName);
     let obj = {
@@ -1194,6 +1200,7 @@ export class ManageTournamentsPage implements OnInit {
           }
         }
   }
+
   getApprovedTournaments() {
     let tourn = {
       docid: null,
@@ -1241,6 +1248,7 @@ export class ManageTournamentsPage implements OnInit {
       this.serve.tournaments = this.approvedTournaments;
     })
   }
+
   async getUnapprovedTournaments() {
     this.db.collection('newTournaments').where('approved', '==', false).where('state', '==', 'newTournament').onSnapshot(async res => {
       this.unapprovedTournaments = []
@@ -1276,6 +1284,7 @@ export class ManageTournamentsPage implements OnInit {
 
     })
   }
+
   vendorApplications(state) {
     switch (state) {
       case 'open':
@@ -1286,6 +1295,7 @@ export class ManageTournamentsPage implements OnInit {
         break;
     }
   }
+
   setUpTimeLine(state, x) {
     // timeLineSetup prop
     // setUpTimelineDiv div
@@ -1441,6 +1451,7 @@ export class ManageTournamentsPage implements OnInit {
       }
     }
   }
+
   paidVendor(c) {
     console.log(c)
     if (this.disablepaid == true) {
@@ -1455,6 +1466,7 @@ export class ManageTournamentsPage implements OnInit {
       })
     }
   }
+
   async savefixture() {
     let q1 = this.fixture;
 
@@ -1648,7 +1660,6 @@ export class ManageTournamentsPage implements OnInit {
   test() {
     console.log(this.refnum)
   }
-
   edit = false;
   async editourn(t) {
     console.log(t)
@@ -1694,8 +1705,6 @@ export class ManageTournamentsPage implements OnInit {
     await alert.present();
 
   }
-
-
 
   async presentModal() {
 
@@ -1752,8 +1761,6 @@ export class ManageTournamentsPage implements OnInit {
     await alert.present();
   }
 
-
-
   async moredetails(t) {
 
 
@@ -1807,10 +1814,6 @@ export class ManageTournamentsPage implements OnInit {
     }
   }
 }
-
-
-
-
 
 export interface TOURN {
   doc: {

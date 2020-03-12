@@ -79,12 +79,13 @@
                 <h5>{{adminProfile.formInfo.fullName}}  </h5>
                 <p>{{adminProfile.formInfo.number}}</p>
                 <div class="button">
+                  <ion-button size="small" fill="clear" color="danger" (click)="signout()" >
+                    Sign Out
+                  </ion-button>
                   <ion-button size="small" color="danger" (click)="profile('close')" >
                   Close
                   </ion-button>
-                  <ion-button size="small" color="danger" (click)="signout()" >
-                    Sign Out
-                  </ion-button>
+
                 </div>
               </div>
           </div>

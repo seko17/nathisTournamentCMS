@@ -409,7 +409,7 @@
           </ion-item>
         </div>
         <div class="sButton">
-          <!--  -->
+
           <ion-button type="submit" *ngIf="newTournForm.valid" shape="round">
             Submit Tournament
           </ion-button>
@@ -475,6 +475,12 @@
             <h4>Approved Tournaments</h4>
           </div>
           <div class="approvedList">
+            <!-- <div class="emptyTournsloader animated delay-2s" *ngIf="tournsLoader" >
+              <div class="l">
+                <h1>Loading</h1>
+                <ion-spinner name="bubbles"></ion-spinner>
+              </div>
+            </div> -->
             <div class="card noTourns" *ngIf="approvedTournaments.length==0">
               <h5 style="color: white !important;">No Tournaments</h5>
             </div>
@@ -483,9 +489,8 @@
             [ngClass]="{'bounce infinite ion-activated':tournIndex==i}">
               <div class="apTitle">
                 <h3 >{{t.doc.formInfo.tournamentName}}</h3>
-                <p>Applications Open Until{{t.doc.formInfo.applicationClosing | date}}</p>
+                <p>Applications Open Until  {{t.doc.formInfo.applicationClosing | date}}</p>
               </div>
-          
               <div class="bar">
                 <div class="emptybar"></div>
                 <div class="filledbar"></div>
@@ -514,6 +519,12 @@
             <h4>Created Tournaments</h4>
           </div>
           <div class="unapprovedList">
+            <!-- <div class="emptyTournsloader animated delay-2s fadeOut"  *ngIf="tournsLoader">
+              <div class="l">
+                <h1>Loading</h1>
+                <ion-spinner name="bubbles"></ion-spinner>
+              </div>
+            </div> -->
             <div class="card" style="display: flex; align-items: center; opacity: 1;"
               *ngIf="unapprovedTournaments.length==0">
 
@@ -544,7 +555,7 @@
             </ion-fab-button>
               <div class="apTitle">
                 <h3 >{{t.doc.formInfo.tournamentName}}</h3>
-                <p>Applications Open Until{{t.doc.formInfo.applicationClosing | date}}</p>
+                <p>Applications Open Until  {{t.doc.formInfo.applicationClosing | date}}</p>
               </div>
           
               <div class="bar">
