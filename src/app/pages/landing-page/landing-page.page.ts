@@ -1075,7 +1075,7 @@ else
                         })
 
                       this.db.collection('newTournaments').doc(this.clicked[0].docid).update({ state: 'finished' });
-                      firebase.firestore().collection('newTournaments').doc(this.clicked[0].docid).update({ formInfo: { bio: this.clicked[0].formInfo.bio,applicationClosing: this.clicked[0].formInfo.applicationClosing, tournamentName: this.clicked[0].formInfo.tournamentName, location: this.clicked[0].formInfo.location, joiningFee: this.clicked[0].formInfo.joiningFee, endDate: this.clicked[0].formInfo.endDate, startDate: this.clicked[0].formInfo.startDate, type: "0" } });
+                      firebase.firestore().collection('newTournaments').doc(this.clicked[0].docid).update({ formInfo: { bio: "Tournament was successful.",applicationClosing: this.clicked[0].formInfo.applicationClosing, tournamentName: this.clicked[0].formInfo.tournamentName, joiningFee: this.clicked[0].formInfo.joiningFee, endDate: this.clicked[0].formInfo.endDate, startDate: this.clicked[0].formInfo.startDate, type: "0" } });
 
                       if (rez.data().ascore+this.agv > rez.data().score +this.hgv) {
 
@@ -1393,13 +1393,12 @@ console.log(res,'Done')
 
 
 
-                firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ score: this.score, mins: this.mins, secs: this.secs });
+                firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({ score: this.score });
 
 
                 firebase.firestore().collection('MatchFixtures').doc(this.matchobject.fixtureid).update({
                   goal: firebase.firestore.FieldValue.arrayUnion({
-                    scoretime: this.mins.toString() +
-                      ":" + this.secs.toString(), goalscorer: data
+                   goalscorer: data
                   })
                 })
               })
