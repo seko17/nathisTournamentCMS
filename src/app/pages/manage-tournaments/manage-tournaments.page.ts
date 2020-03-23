@@ -358,7 +358,7 @@ export class ManageTournamentsPage implements OnInit {
   placeID
   address
   textarea = document.getElementsByClassName("texto");
-  
+
   constructor(public alertController: AlertController, public serve: AllserveService, public loadingController: LoadingController, public toastController: ToastController, public modalController: ModalController, public dragulaService: DragulaService, public renderer: Renderer2, public alertCtrl: AlertController, public formBuilder: FormBuilder) {
 
     let num = 0;
@@ -366,7 +366,6 @@ export class ManageTournamentsPage implements OnInit {
   }
 
   ngOnInit() {
-
     this.autoComplete();
     this.scroll()
     let t = new Date().toJSON().split('T')[0];
@@ -1201,7 +1200,7 @@ export class ManageTournamentsPage implements OnInit {
         }
   }
 
-  getApprovedTournaments() {
+getApprovedTournaments() {
     let tourn = {
       docid: null,
       doc: null,
@@ -1249,7 +1248,7 @@ export class ManageTournamentsPage implements OnInit {
     })
   }
 
-  async getUnapprovedTournaments() {
+async getUnapprovedTournaments() {
     this.db.collection('newTournaments').where('approved', '==', false).where('state', '==', 'newTournament').onSnapshot(async res => {
       this.unapprovedTournaments = []
       res.forEach(async doc => {
@@ -1267,8 +1266,6 @@ export class ManageTournamentsPage implements OnInit {
 
           await alert.present();
         }
-
-
 
         let tourn = {
           docid: doc.id,
@@ -1355,13 +1352,7 @@ export class ManageTournamentsPage implements OnInit {
         }, 500);
         //  this.presentModal();
         console.log('will close');
-
-
-
         console.log('fixture here', this.fixture)
-        break;
-
-      default:
         break;
     }
   }
@@ -1421,8 +1412,6 @@ export class ManageTournamentsPage implements OnInit {
     // console.log(Math.ceil(Math.random() * 10))
     console.log(c)
 
-
-
     if (this.disablepaid == true) { }
     else {
       if (pos % 2 == 0) {
@@ -1457,13 +1446,13 @@ export class ManageTournamentsPage implements OnInit {
     // if (this.disablepaid == true) {
     // }
     // else {
-      this.db.collection('newTournaments').doc(c.doc.TournamentID).collection('vendorApplications').doc(c.docid).update({ status: 'paid' }).then(res => {
+    this.db.collection('newTournaments').doc(c.doc.TournamentID).collection('vendorApplications').doc(c.docid).update({ status: 'paid' }).then(res => {
 
-        this.db.collection('newTournaments').doc(c.doc.TournamentID).update({
-          ApprovedVendorApplications: firebase.firestore.FieldValue.increment(1)
-        })
-        // })
+      this.db.collection('newTournaments').doc(c.doc.TournamentID).update({
+        ApprovedVendorApplications: firebase.firestore.FieldValue.increment(1)
       })
+      // })
+    })
     // }
   }
 
@@ -1542,14 +1531,10 @@ export class ManageTournamentsPage implements OnInit {
   async createfixture() {
     let q1 = this.fixtures;
 
-
-
-
-    
     console.log(this.participantdocids)
     firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update({ state: 'inprogress' });
 
-     let val: any = parseFloat(this.tourney.doc.formInfo.type) / 2;
+    let val: any = parseFloat(this.tourney.doc.formInfo.type) / 2;
     val = val.toString();
 
     console.log("VAL = ", val);
@@ -1764,18 +1749,13 @@ export class ManageTournamentsPage implements OnInit {
 
   async moredetails(t) {
 
-
-
-
     let num = 0;
     let num2 = 0;
     let num3 = 0;
     this.hparticipants = [];
     this.aparticipants = [];
 
-
     {
-
       firebase.firestore().collection('newTournaments').doc(t.docid).collection('teamApplications').where('status', '==', 'awaiting').onSnapshot(rez => {
         rez.forEach(val => {
 
@@ -1829,15 +1809,4 @@ export interface TOURN {
       type: string
     }
   }
-
-
-
-
-
-
-
-
-
-
-
 }

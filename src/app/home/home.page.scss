@@ -1,3 +1,41 @@
+.smallScreen {
+  position: absolute;
+  z-index: 100000;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(255, 255, 255, 0.842)),url(../../assets/2427159.jpg), white;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  color: black;
+  display: none;
+  align-items: center;
+  text-align: center;
+  .text {
+    text-align: left;
+    padding: 10px;
+    margin: auto;
+    h1 {
+      margin: 0;
+      font-size: 6vw;
+    }
+    p {
+      font-size: 2vw;
+    }
+  }
+}
+@media only screen and (max-width: 800px) {
+  .smallScreen {
+    display: flex;
+  }
+}
+@media only screen and (max-height: 700px) {
+  .smallScreen {
+    display: flex;
+  }
+}
 .sidebar {
         display: flex;
         flex-direction: column;

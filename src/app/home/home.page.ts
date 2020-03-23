@@ -19,6 +19,8 @@ export class HomePage {
     tournaments: false,
     members: false
   }
+   vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+ vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
   openProfile = false;
   adminProfile = {
     formInfo: {
