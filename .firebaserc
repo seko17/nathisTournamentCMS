@@ -1,6 +1,5 @@
 {
   "projects": {
-    "default": "nathistournamentdb",
-    "staging": "nathistournamentdb1"
+    "default": "nathisdb"
   }
 }

@@ -1,10 +1,12 @@
 export const config = {
-    apiKey: "AIzaSyDmAaA9cu3wT3J9VS9tmdAD4evqMMw6EWM",
-    authDomain: "nathi-stourmentdb.firebaseapp.com",
-    databaseURL: "https://nathi-stourmentdb.firebaseio.com",
-    projectId: "nathi-stourmentdb",
-    storageBucket: "nathi-stourmentdb.appspot.com",
-    messagingSenderId: "564444309839",
-    appId: "1:564444309839:web:e0dd30714011c17a8bbd3a",
-    measurementId: "G-L2DZXGMXKP"
-}
+  apiKey: "AIzaSyBedRHob_bBbnPKpREHoI2NBmcxY6O-HSA",
+  authDomain: "nathisdb.firebaseapp.com",
+  databaseURL: "https://nathisdb.firebaseio.com",
+  projectId: "nathisdb",
+  storageBucket: "nathisdb.appspot.com",
+  messagingSenderId: "856930590537",
+  appId: "1:856930590537:web:6f2348ad8e83081c744498",
+  measurementId: "G-0VRWTHH5Y0"
+  };
+
+  
