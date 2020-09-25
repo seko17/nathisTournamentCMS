@@ -111,7 +111,7 @@ this.db.collection('members').where('status', '==','awaiting').onSnapshot(res =>
   this.vendors = []
   this.manager = []
   res.forEach(doc =>{
-    // console.log('data', doc.data().form.role);
+    console.log('data', doc.data());
     if(doc.data().form.role =='teamManager'){
       obj = {
         docid : doc.id,

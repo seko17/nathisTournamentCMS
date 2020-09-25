@@ -379,11 +379,11 @@ export class ManageTournamentsPage implements OnInit {
       bio: ['', [Validators.required, Validators.minLength(10)]],
       applicationClosing: ['', Validators.required]
     })
-    this.db.collection('newTournaments').onSnapshot(res => {
+    this.db.collection('newTournaments').get().then(res => {
       this.getApprovedTournaments()
-      setTimeout(() => {
-        this.getApprovedTournaments()
-      }, 1000);
+      // setTimeout(() => {
+      //   // this.getApprovedTournaments()
+      // }, 1000);
       this.getUnapprovedTournaments()
     })
     while (this.tempCardGen.length < 20) {
