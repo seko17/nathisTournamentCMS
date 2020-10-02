@@ -300,7 +300,7 @@ export class ManageTournamentsPage implements OnInit {
       },
       formInfo: {
         tournamentName: '',
-        location: '',
+   
         startDate: '',
         endDate: '',
         applicationClosing: '',
@@ -463,6 +463,12 @@ export class ManageTournamentsPage implements OnInit {
       this.tournamentObj.address.placeID = place.place_id;
       this.placeID = place.place_id;
     })
+  }
+
+  subm(x)
+  {
+console.log(x)
+
   }
 
   async finnishSetup(tournament, state) {
@@ -729,6 +735,10 @@ export class ManageTournamentsPage implements OnInit {
               console.log('Confirm Okay');
 
               console.log(tournament)
+              
+              console.log(tournament.doc.formInfo.type)
+             
+             
 
               this.finnishSetup(null, 'close')
               this.toggleTournamentForm('open');
@@ -736,15 +746,13 @@ export class ManageTournamentsPage implements OnInit {
 
               this.newTournForm = this.formBuilder.group({
                 tournamentName: [tournament.doc.formInfo.tournamentName, [Validators.required, Validators.minLength((4))]],
-                type: [tournament.doc.formInfo.type, Validators.required],
-                location: [tournament.doc.formInfo.location, []],
+                type: [null, Validators.required],
                 bio: [tournament.doc.formInfo.bio, []],
                 startDate: [tournament.doc.formInfo.startDate, Validators.required],
                 endDate: [tournament.doc.formInfo.endDate, Validators.required],
                 joiningFee: [tournament.doc.formInfo.joiningFee, [Validators.required, Validators.minLength(3)]],
-                stadiumName: [tournament.doc.stadiumName, [Validators.required, Validators.minLength(3)]],
+             
                 applicationClosing: [tournament.doc.formInfo.applicationClosing, Validators.required],
-
                 parentdoc: [tournament.docid]
               })
 
@@ -1643,6 +1651,10 @@ async getUnapprovedTournaments() {
     this.makechanges = true;
   }
 
+  submit(x)
+  {
+  console.log(x,'here')  
+  }
   test() {
     console.log(this.refnum)
   }
@@ -1670,14 +1682,14 @@ async getUnapprovedTournaments() {
 
             this.newTournForm = this.formBuilder.group({
               tournamentName: [t.doc.formInfo.tournamentName, [Validators.required, Validators.minLength((4))]],
-              type: [t.doc.formInfo.type, Validators.required],
-              location: [t.doc.formInfo.location, []],
+              type: [null, Validators.required],
               startDate: [t.doc.formInfo.startDate, Validators.required],
               endDate: [t.doc.formInfo.endDate, Validators.required],
               joiningFee: [t.doc.formInfo.joiningFee, [Validators.required, Validators.minLength(3)]],
               applicationClosing: [t.doc.formInfo.applicationClosing, Validators.required],
               bio: [t.doc.formInfo.bio, Validators.required],
-              currentdoc: [t.docid]
+              currentdoc: [t.docid],
+          
             })
             this.tournamentObj.sponsors = t.doc.sponsors
 
@@ -1794,6 +1806,7 @@ async getUnapprovedTournaments() {
       })
     }
   }
+
 }
 
 export interface TOURN {
@@ -1801,7 +1814,6 @@ export interface TOURN {
     state: string
     formInfo: {
       tournamentName: string,
-      location: string,
       startDate: string,
       endDate: string,
       applicationClosing: string

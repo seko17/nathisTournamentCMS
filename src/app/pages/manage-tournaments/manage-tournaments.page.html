@@ -411,7 +411,7 @@
         </div>
         <div class="sButton">
 
-          <ion-button type="submit" *ngIf="newTournForm.valid" shape="round">
+          <ion-button type="submit" *ngIf="newTournForm.valid" shape="round" (click)="subm(newTournForm)" >
             Submit Tournament
           </ion-button>
           <ion-button *ngIf="!newTournForm.valid" shape="round" disabled=true>
@@ -569,9 +569,9 @@
                   <ion-fab-button *ngIf="t.state=='trash'" id="tr" size="small" (click)="deltourn(t)" color="danger">
                     <ion-icon name="trash"></ion-icon>
                   </ion-fab-button>
-                  <ion-button size="small" fill="outline" shape="round" color="light" (click)="finnishSetup(t, 'open')">
+                  <!-- <ion-button size="small" fill="outline" shape="round" color="light" (click)="finnishSetup(t, 'open')">
                     Finish Setup
-                  </ion-button>
+                  </ion-button> -->
                   <ion-chip *ngIf="t.doc.message" outline="true" fill="clear" color="light"
                     style="pointer-events: none !important;">
                     <ion-icon name="refresh"></ion-icon>
