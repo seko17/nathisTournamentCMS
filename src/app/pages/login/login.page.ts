@@ -4,7 +4,7 @@ import { AuthFormComponent } from 'src/app/components/auth-form/auth-form.compon
 import { AuthService } from 'src/app/services/user/auth.service';
 import { Router } from '@angular/router';
 import { UserCredential } from 'src/app/model/user';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, LoadingController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {Location} from '@angular/common'
 @Component({
@@ -27,12 +27,14 @@ export class LoginPage implements OnInit {
   profileState = false
   setUpProfileDiv = document.getElementsByClassName('setUpProfile')
   creatingProfile = false
+  loginLoader
   constructor(private authService: AuthService,
      public renderer: Renderer2, 
      private router: Router, 
      public navCtrl: NavController, 
      public formBuilder: FormBuilder, 
      public alertCtrl: AlertController,
+     public loadingCtrl: LoadingController,
      public location : Location) { }
 
   ngOnInit() {
@@ -105,7 +107,13 @@ export class LoginPage implements OnInit {
     alerter.present()
   }
   async loginUser(credentials: UserCredential): Promise<void> {
+    this.loginLoader = await this.loadingCtrl.create({
+      message: 'Please Wait',
+      spinner: 'lines'
+    })
+    this.loginLoader.present()
     try {
+      
       const userCredential: firebase.auth.UserCredential = await this.authService.loginUser(
         credentials.email,
         credentials.password
@@ -116,17 +124,22 @@ export class LoginPage implements OnInit {
         console.log('login res', res);
         
         if (res.exists) {
+          await this.loginLoader.dismiss()
           this.location.back()
-          this.navCtrl.navigateRoot('home')
+          setTimeout(() => {
+            this.navCtrl.navigateRoot('home')
+          }, 500);
           console.log('exists');
           await this.loginForm.hideLoading();
           
         } else {
+          await this.loginLoader.dismiss()
           this.profilePresent('open')
           await this.loginForm.hideLoading();
         }
       })
     } catch (error) {
+      await this.loginLoader.dismiss()
       console.log('auth form error', error);
 
       this.loginForm.handleError(error);

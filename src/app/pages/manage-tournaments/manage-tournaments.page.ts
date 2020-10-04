@@ -25,9 +25,13 @@ export class ManageTournamentsPage implements OnInit {
     types: [],
     componentRestrictions: { country: 'ZA' }
   }
+  // home data: 
   input = { data: [] };
+  // away data: 
   ainput = { data: [] };
+
   blockfixture: boolean = true;
+  
   modal
 
   userLocation = null;

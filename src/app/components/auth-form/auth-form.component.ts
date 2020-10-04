@@ -15,7 +15,6 @@ export class AuthFormComponent implements OnInit {
   @Input() actionButtonText: string;
   @Input() isPasswordResetPage = false;
   @Output() formSubmitted = new EventEmitter<any>();
-
   constructor(
     private formBuilder: FormBuilder,
     private loadingCtrl: LoadingController,

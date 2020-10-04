@@ -35,8 +35,9 @@ ion-label {
   background-size: cover;
 
   form {
-    // backdrop-filter: blur(5px);
-    background: linear-gradient(rgba(255, 255, 255, 0.568)), url(../../../assets/cardSVG/SVG/SVG/background.svg) no-repeat,white;
+    backdrop-filter: blur(15px);
+    background:#fff;
+    // background: linear-gradient(rgba(255, 255, 255, 0.568)), url(../../../assets/cardSVG/SVG/SVG/background.svg) no-repeat,white;
     background-size: 88% 105%;
     background-attachment: fixed;
     background-position: 0px 70px;
@@ -53,6 +54,17 @@ ion-label {
     padding: 30px 12px 12px 12px;
     margin-bottom: 32px;
     z-index: 10;
+    position: relative;
+    .header {
+      top: 0;
+      position: absolute;
+      left: 0;
+      right: 0;
+      text-align: center;
+      h1 {
+        font-size: 2.5em;
+      }
+    }
     .align {
       text-align: center;
       width: 90%;

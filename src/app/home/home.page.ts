@@ -225,12 +225,24 @@ export class HomePage {
       }
     }
   }
-  signout() {
-    firebase.auth().signOut().then(res => {
-      this.navCtrl.navigateRoot('login')
-    }).catch(err => {
-
+  async signout() {
+    let alerter = await this.alertController.create({
+      header: 'Signout',
+      message: 'Are you sure you want to signout?',
+      buttons: [{
+        text: 'No'
+      }, {
+        text: 'Yes',
+        handler: () => {
+          firebase.auth().signOut().then(res => {
+            this.navCtrl.navigateRoot('login')
+          }).catch(err => {
+      
+          })
+        }
+      }]
     })
+    await alerter.present()
   }
   profile(state) {
     switch (state) {

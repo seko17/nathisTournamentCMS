@@ -343,14 +343,14 @@
       <form (ngSubmit)="newTournament(newTournForm.value)" [formGroup]="newTournForm">
         <div class="header">
           <ion-item>
-            <ion-label position="floating">Tournament Name</ion-label>
+            <ion-label position="floating" style="color: white !important;">Tournament Name</ion-label>
             <ion-input type="text" formControlName="tournamentName" [readonly]='reading'></ion-input>
           </ion-item>
         </div>
         <div class="inputs">
           <ion-item>
             <!--  -->
-            <ion-label position="floating">Description</ion-label>
+            <ion-label position="floating" style="color: white !important;">Description</ion-label>
             <ion-textarea maxlength="150" class="texto" formControlName="bio" autoGrow="true" spellcheck="true"
               (keyup)="tournamentDescCounter($event)"></ion-textarea>
             <p style="    margin: 0;
@@ -359,7 +359,7 @@
             top: 8px;right: 10px;">{{decriptionCounter}} Characters Max</p>
           </ion-item>
           <ion-item>
-            <ion-label position="floating">Tournament Type</ion-label>
+            <ion-label position="floating" style="color: white !important;">Tournament Type</ion-label>
             <ion-select color="light" formControlName="type">
               <ion-select-option value="8">Top 8</ion-select-option>
               <ion-select-option value="16">Top 16</ion-select-option>
@@ -391,20 +391,20 @@
           <!-- staduim location -->
 
           <ion-item>
-            <ion-label position="floating">Tournament Starts</ion-label>
+            <ion-label position="floating" style="color: white !important;">Tournament Starts</ion-label>
             <ion-datetime displayFormat="DD MMMM YYYY" min="{{tournToday}}" formControlName="startDate"></ion-datetime>
           </ion-item>
           <ion-item>
-            <ion-label position="floating">Tournament Ends</ion-label>
+            <ion-label position="floating" style="color: white !important;">Tournament Ends</ion-label>
             <ion-datetime displayFormat="DD MMMM YYYY" min="{{tournToday}}" formControlName="endDate"></ion-datetime>
           </ion-item>
           <ion-item>
-            <ion-label position="floating">Joining Fee</ion-label>
+            <ion-label position="floating" style="color: white !important;">Joining Fee</ion-label>
             <ion-input type="number" formControlName="joiningFee"></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-label position="floating">Application Closing Date</ion-label>
+            <ion-label position="floating" style="color: white !important;">Application Closing Date</ion-label>
             <ion-datetime displayFormat="DD MMMM YYYY" min="{{tournToday}}" formControlName="applicationClosing">
             </ion-datetime>
           </ion-item>
@@ -428,7 +428,7 @@
       <div class="sponsors">
         <div class="buttons">
           <ion-item>
-            <ion-label position="stacked">Sponsor Logo</ion-label>
+            <ion-label position="stacked" style="color: white !important;">Sponsor Logo</ion-label>
             <ion-input type="file" accept="image/*" multiple="false" (change)="selectimage($event.target.files)">
             </ion-input>
           </ion-item>
