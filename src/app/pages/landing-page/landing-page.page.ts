@@ -141,7 +141,7 @@ penaltiesDiv = document.getElementsByClassName('penalties')
       hasApplications: false
     }
     this.serve.tournaments = [];
-    this.db.collection('newTournaments').where('approved', '==', true).where("state", "==", "inprogress").where('parent','==','yes').get().then(res => {
+    this.db.collection('newTournaments').where('approved', '==', true).where("state", "==", "inprogress").where('parent','==','yes').onSnapshot(res => {
       this.tournament = [];
       res.forEach(doc => {
         console.log(doc.data())
