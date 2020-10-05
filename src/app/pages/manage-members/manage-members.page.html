@@ -3,6 +3,7 @@
     <div class="teamNewApplications">
         <div class="title">
             <h1>New Manager Applications</h1>
+            <ion-input type="text" (ionChange)="onSearchManagers($event)" placeholder="Search Managers"></ion-input>
         </div>
         <div class="list">
             <div class="nothing" *ngIf="manager.length==0" >
@@ -46,6 +47,7 @@
         <div class="teamExistingApplications">
             <div class="title">
                 <h3>Managers <span style="color: orangered;">{{approvedManagers.length}}</span></h3>
+                
             </div>
             <div class="teamList">
                 <div class="nothing" style="margin: auto;" *ngIf="approvedManagers.length==0" >
@@ -84,6 +86,7 @@
             <div class="vendorNewApplications">
                 <div class="title">
                     <h5 style="margin: 0;">New Vendors</h5>
+                    <ion-input style="flex-basis: 20%;" type="text" (ionChange)="onSearchVendors($event)" placeholder="Search Vendors"></ion-input>
                 </div>
                 <div class="list">
                     <div class="nothing" style="margin: auto;" *ngIf="vendors.length==0" >

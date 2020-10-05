@@ -16,19 +16,19 @@
       </div>
     </div>
     <div class="links">
-<div class="main animated" [ngClass]="{'currentView rubberBand': screen.main}" >
+<div class="main animated" [ngClass]="{'currentView bounce': screen.main}" >
     <ion-button fill="clear" (click)="changeView('main')">
         <ion-icon slot="icon-only" name="home"></ion-icon>
       </ion-button>
 </div>
-<div class="tournaments animated" [ngClass]="{'currentView rubberBand': screen.tournaments}">
+<div class="tournaments animated" [ngClass]="{'currentView bounce': screen.tournaments}">
     <ion-button fill="clear" (click)="changeView('tournaments')">
       <!-- <img  alt=""> -->
         <ion-icon slot="icon-only" src="../../assets/noun_tournament_3131692.svg"></ion-icon>
         <!-- <i class="fas fa-sitemap"></i> -->
       </ion-button>
 </div>
-     <div class="members animated" [ngClass]="{'currentView rubberBand': screen.members}">
+     <div class="members animated" [ngClass]="{'currentView bounce': screen.members}">
         <ion-button fill="clear" (click)="changeView('members')">
             <ion-icon slot="icon-only" name="people"></ion-icon>
           </ion-button>
