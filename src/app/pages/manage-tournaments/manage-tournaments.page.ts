@@ -491,15 +491,10 @@ console.log(x)
       default:
         break;
     }
+
     if (tournament != null) {
       this.serve.tournid = tournament.docid;
     }
-    console.log("Rose", tournament)
-
-
-    console.log(state, tournament)
-
-
     if (tournament == null) {
 
     }
@@ -542,11 +537,7 @@ console.log(x)
         this.vendorssearchArray = this.acceptedvendorsArray
         console.log('vendor application', this.vendorssearchArray)
       })
-
-
       console.log('finish setup')
-
-
       let nums = 0;
       firebase.firestore().collection('participants').where('whr', '==', 'away').where('tournid', '==', tournament.docid).onSnapshot(val => {
         val.forEach(async res => {
@@ -582,16 +573,9 @@ console.log(x)
         if (val.size == parseFloat(this.tourney.doc.formInfo.type)) {
           this.disablepaid = true;
 
-
-
         }
         else {
           this.disablepaid = false;
-
-
-
-
-
 
           firebase.firestore().collection('MatchFixtures').where('tournid', '==', tournament.docid).get().then(res => {
             console.log("Current Fixtures", res.size)
@@ -865,6 +849,7 @@ console.log(x)
     }
 
   }
+
   // searches ref number
   getItems(ev: any) {
     // Reset items back to all of the items
@@ -1008,15 +993,8 @@ console.log(x)
           message: 'The start date and the end date can not be the same',
           buttons: ['OK']
         });
-
         await alert.present();
-
-      }
-
-
-      else
-
-        if (date > startDat) {
+      } else if (date > startDat) {
 
           const alert = await this.alertController.create({
             header: 'Warning!',
@@ -1341,7 +1319,6 @@ async getUnapprovedTournaments() {
   generate() {
     this.promptFixtureConfig('close', null)
     this.fixtureSetUp('open');
-
   }
 
   promptFixtureConfig(state, x) {
@@ -1477,8 +1454,16 @@ async getUnapprovedTournaments() {
     console.log(q1)
     for (let r = 0; r < q1.length; r++) {
       let z: any = {};
-      z = { matchdate: q1[r].matchdate, secs: 0, mins: 0, type: this.torntype, ascore: 0, score: 0, ...q1[r], random1: Math.floor((Math.random() * r) * 2) };
-      console.log('Tdate =', z);
+      z = {
+        matchdate: q1[r].matchdate,
+        secs: 0, mins: 0,
+        type: this.torntype,
+        ascore: 0,
+        score: 0,
+        ...q1[r],
+        random1: Math.floor((Math.random() * r) * 2)
+      };
+
       if (z.matchdate == undefined || z.matchdate == 'Invalid Date') {
         const toast = await this.toastController.create({
           message: 'Enter the time and date for all the matches.',
@@ -1494,9 +1479,6 @@ async getUnapprovedTournaments() {
         return this.makechanges = true;
       }
       else {
-
-        console.log(this.fixture)
-
         this.fixtures = q1;
         this.fixture = [];
         this.db.collection('newTournaments').doc()
@@ -1523,7 +1505,6 @@ async getUnapprovedTournaments() {
       // this.fixture = this.serve.fixture;
       // console.log("Serve Array = ", this.fixture)
 
-      console.log('Loader dismiss fixture array!');
     })
 
   }
@@ -1537,7 +1518,7 @@ async getUnapprovedTournaments() {
     console.log(i)
     this.tournIndex = i
     this.TournSelectedObj = v
-    console.log('click', this.TournSelectedObj);
+
   }
 
   async createfixture() {
@@ -1548,8 +1529,6 @@ async getUnapprovedTournaments() {
 
     let val: any = parseFloat(this.tourney.doc.formInfo.type) / 2;
     val = val.toString();
-
-    console.log("VAL = ", val);
 
     firebase.firestore().collection('newTournaments').doc(this.tourney.docid).update({ formInfo: { applicationClosing: this.tourney.doc.formInfo.applicationClosing, tournamentName: this.tourney.doc.formInfo.tournamentName, joiningFee: this.tourney.doc.formInfo.joiningFee, endDate: this.tourney.doc.formInfo.endDate, startDate: this.tourney.doc.formInfo.startDate, type: val } });
 

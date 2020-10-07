@@ -223,7 +223,8 @@
             <ion-button shape="round" size="small" color="success" (click)="accept(team)" [disabled]="disablepaid">
               Accept
             </ion-button>
-            <ion-button shape="round" size="small" color="danger" (click)="decline(team)" [disabled]="disablepaid">
+            <!-- [disabled]="disablepaid" -->
+            <ion-button shape="round" size="small" color="danger" (click)="decline(team)" >
               Decline
             </ion-button>
           </div>
