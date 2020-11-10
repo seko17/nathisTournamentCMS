@@ -1583,10 +1583,10 @@ async getUnapprovedTournaments() {
   }
 
   deldocs() {
-    // for (let x = 0; x < this.participantdocids.length; x++) {
-    //   console.log('Delete HERE!')
-    //   firebase.firestore().collection('participants').doc(this.participantdocids[x].id).delete();
-    // }
+    for (let x = 0; x < this.participantdocids.length; x++) {
+      console.log('Delete HERE!')
+      firebase.firestore().collection('participants').doc(this.participantdocids[x].id).delete();
+    }
   }
 
   generatefixtures(tournament) {
