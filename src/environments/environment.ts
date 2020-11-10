@@ -8,16 +8,14 @@ export const environment = {
 
 };
 export const a = {
-
-    apiKey: "AIzaSyCqgZTC37DgUXU7MWeIaNXP7TSTP0SkI2o",
-    authDomain: "nathistournamentdb.firebaseapp.com",
-    databaseURL: "https://nathistournamentdb.firebaseio.com",
-    projectId: "nathistournamentdb",
-    storageBucket: "nathistournamentdb.appspot.com",
-    messagingSenderId: "743242408134",
-    appId: "1:743242408134:web:2703a7893797b61390f7c7",
-    measurementId: "G-CZTDVW6TRX"
-  
+  apiKey: "AIzaSyBedRHob_bBbnPKpREHoI2NBmcxY6O-HSA",
+  authDomain: "nathisdb.firebaseapp.com",
+  databaseURL: "https://nathisdb.firebaseio.com",
+  projectId: "nathisdb",
+  storageBucket: "nathisdb.appspot.com",
+  messagingSenderId: "856930590537",
+  appId: "1:856930590537:web:6f2348ad8e83081c744498",
+  measurementId: "G-0VRWTHH5Y0"
 }
 
 /*

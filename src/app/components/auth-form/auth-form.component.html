@@ -1,7 +1,11 @@
 <div class="container">
   
 <form [formGroup]="authForm">
+  
   <div class="align">
+    <div class="header">
+      <h1>Login</h1>
+    </div>
      <ion-item >
     <ion-label position="floating">Email</ion-label>
     <ion-input formControlName="email" type="email"  [class.invalid]="!authForm.controls['email'].valid &&
@@ -10,7 +14,7 @@
   </ion-item>
   <p style="font-size: 21px; text-align: center; padding: 0; margin: 0; color: red" class="error-message" *ngIf="!authForm.controls['email'].valid &&
        authForm.controls['email'].touched">
-    <ion-label>Please enter a valid email address.</ion-label>
+    <ion-label style="background: rgba(255, 0, 0, 0.068);padding: 10px;border-radius: 8px;color: red !important;">Please enter a valid email address.</ion-label>
 </p>
 
   <ion-item *ngIf="!isPasswordResetPage">
@@ -21,16 +25,19 @@
   </ion-item>
   <p style="font-size: 21px; text-align: center; padding: 0; margin: 0; color: red"  class="error-message" *ngIf="!authForm.controls['password'].valid
       && authForm.controls['password'].touched && !isPasswordResetPage">
-    <ion-label>Your password needs more than 6 characters.</ion-label>
+    <ion-label style="background: rgba(255, 0, 0, 0.068);padding: 10px;border-radius: 8px;color: red !important;">Your password needs more than 6 characters.</ion-label>
 </p>
-<div class="greenCirlce"></div>
-<div class="lightGCircle"></div>
+<!-- <div class="greenCirlce"></div> -->
+<!-- <div class="lightGCircle"></div> -->
 <div class="svger">
-<img src="../../../assets/cardSVG/SVG/ball.svg" alt="">
+<!-- <img src="../../../assets/cardSVG/SVG/ball.svg" alt=""> -->
 </div>
 <!-- <div class="stadium">
   <img src="../../../assets/cardSVG/SVG/footallField.svg" alt="">
 </div> -->
+<!-- <ion-button  color="success" disabled="true" *ngIf="!authForm.valid">
+  <ion-spinner name="bubbles"></ion-spinner>
+</ion-button> -->
   <ion-button  color="success" disabled="true" *ngIf="!authForm.valid">
     {{ actionButtonText }}
   </ion-button>

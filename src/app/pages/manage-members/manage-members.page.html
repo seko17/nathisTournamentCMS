@@ -3,9 +3,10 @@
     <div class="teamNewApplications">
         <div class="title">
             <h1>New Manager Applications</h1>
+            <ion-input type="text" (ionChange)="onSearchManagers($event)" placeholder="Search Managers"></ion-input>
         </div>
         <div class="list">
-            <div class="card nothing" *ngIf="manager.length==0" >
+            <div class="nothing" *ngIf="manager.length==0" >
                 <p class="dim" style="margin: auto;
                 text-align: center;">No Information</p>
             </div>
@@ -18,11 +19,8 @@
                 <h4>{{item.doc.form.fullName}}</h4>
                     <p class="dim">{{item.doc.form.phoneNumber}}</p>
                     <div class="buttons">
-                      
-                      
                     </div>
                 </div>
-                
             </div> -->
             <div class="card"  *ngFor="let item of manager" (click) ="block(item)">
                 <div class="imgBx">
@@ -49,9 +47,10 @@
         <div class="teamExistingApplications">
             <div class="title">
                 <h3>Managers <span style="color: orangered;">{{approvedManagers.length}}</span></h3>
+                
             </div>
             <div class="teamList">
-                <div class="card" *ngIf="approvedManagers.length==0" >
+                <div class="nothing" style="margin: auto;" *ngIf="approvedManagers.length==0" >
                     <p class="dim" style="margin: auto;
                     text-align: center;">No Information</p>
                 </div>
@@ -67,12 +66,17 @@
                         </div>
                     </div>
                 </div> -->
-                <div class="card"  *ngFor="let item of approvedManagers" (click) ="block(item)">
+                <div class="card"  *ngFor="let item of approvedManagers" >
                     <div class="imgBx">
                         <img src="{{item.profileImage}}" alt="images">
                     </div>
                     <div class="details">
                         <h2>{{item.form.fullName}}<br><span style="text-transform: capitalize;">{{item.form.role}}</span></h2>
+                    </div>
+                    <div class="blocker">
+                        <ion-fab-button size="small" color="danger" (click) ="block(item)">
+                            <ion-icon name="remove"></ion-icon>
+                        </ion-fab-button>
                     </div>
                   </div>
                 
@@ -82,9 +86,10 @@
             <div class="vendorNewApplications">
                 <div class="title">
                     <h5 style="margin: 0;">New Vendors</h5>
+                    <ion-input style="flex-basis: 20%;" type="text" (ionChange)="onSearchVendors($event)" placeholder="Search Vendors"></ion-input>
                 </div>
                 <div class="list">
-                    <div class="card" *ngIf="vendors.length==0" >
+                    <div class="nothing" style="margin: auto;" *ngIf="vendors.length==0" >
                         <p class="dim" style="margin: auto;
                         text-align: center;">No Information</p>
                     </div>
