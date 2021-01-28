@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './services/user/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full',canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   // , canActivate: [AuthGuard]
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
   {
@@ -73,7 +73,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     // RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, relativeLinkResolution: 'legacy' })
   ],
   exports: [RouterModule]
 })

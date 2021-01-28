@@ -13,7 +13,7 @@ import {Location} from '@angular/common'
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  @ViewChild(AuthFormComponent, { static: false }) loginForm: AuthFormComponent;
+  @ViewChild(AuthFormComponent) loginForm: AuthFormComponent;
   user = firebase.auth().currentUser;
   profileForm: FormGroup;
   db = firebase.firestore()

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { ManageTournamentsPage } from './manage-tournaments.page';
@@ -7,7 +7,7 @@ describe('ManageTournamentsPage', () => {
   let component: ManageTournamentsPage;
   let fixture: ComponentFixture<ManageTournamentsPage>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ManageTournamentsPage ],
       imports: [IonicModule.forRoot()]
